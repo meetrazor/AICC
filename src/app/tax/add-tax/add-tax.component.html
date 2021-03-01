@@ -1,0 +1,237 @@
+<div class="container-fuild">
+  <form [formGroup]="taxForm" (ngSubmit)="onSubmit()">
+    <div class="">
+      <div class="mb-3">
+        <h4 class="header-title">Revenue office *</h4>
+        <input
+          class="form-control"
+          placeholder="Enter Revenue office"
+          formControlName="RevenueOffice"
+          maxlength="25"
+          [ngClass]="{
+            'is-invalid': submitted && f.RevenueOffice.errors
+          }"
+        />
+        <div
+          *ngIf="submitted && f.RevenueOffice.errors"
+          class="invalid-feedback"
+        >
+          <div *ngIf="submitted && f.RevenueOffice.errors.required">
+            Revenue office is Required
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mb-3">
+      <h4 class="header-title">Tax Type*</h4>
+      <ng-select
+        class="form-control"
+        formControlName="PropertyTaxTypeID"
+        placeholder="
+        Select Tax Type"
+        [ngClass]="{
+          'is-invalid': submitted && f.PropertyTaxTypeID.errors
+        }"
+      >
+        <ng-option
+          *ngFor="let item of PropertyTypeData"
+          [value]="item.PropertyTaxTypeID"
+          [id]="item.PropertyTaxTypeID"
+          >{{ item.PropertyTaxName }}</ng-option
+        >
+      </ng-select>
+      <div
+        *ngIf="submitted && f.PropertyTaxTypeID.errors"
+        class="invalid-feedback"
+      >
+        <div *ngIf="f.PropertyTaxTypeID.errors.required">
+          Tax Type is required
+        </div>
+      </div>
+    </div>
+    <div class="">
+      <div class="mb-3">
+        <h4 class="header-title">Amount Due *</h4>
+        <input
+          class="form-control"
+          placeholder="Enter Amount Due"
+          formControlName="AmountDue"
+          type="number"
+          min="1"
+          (keypress)="valid($event)"
+          [ngClass]="{
+            'is-invalid': submitted && f.AmountDue.errors
+          }"
+        />
+        <div *ngIf="submitted && f.AmountDue.errors" class="invalid-feedback">
+          <div *ngIf="submitted && f.AmountDue.errors.required">
+            Amount Due is Required
+          </div>
+          <div *ngIf="submitted && f.AmountDue.errors.min">
+            Amount Due cannot be null or 0
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="">
+      <div class="mb-3">
+        <h4 class="header-title">Financial Tax Year *</h4>
+        <input
+          class="form-control"
+          placeholder="Enter Financial Tax Year"
+          formControlName="FinancialTaxYear"
+          type="month"
+          [ngClass]="{
+            'is-invalid': submitted && f.FinancialTaxYear.errors
+          }"
+        />
+        <div
+          *ngIf="submitted && f.FinancialTaxYear.errors"
+          class="invalid-feedback"
+        >
+          <div *ngIf="submitted && f.FinancialTaxYear.errors.required">
+            Amount Due is Required
+          </div>
+          <div *ngIf="submitted && f.FinancialTaxYear.errors.min">
+            Amount Due cannot be null or 0
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="">
+      <div class="mb-3">
+        <h4 class="header-title">DueDate *</h4>
+        <input
+          class="form-control"
+          placeholder="Enter DueDate"
+          formControlName="DueDate"
+          type="date"
+          min="{{ maxDate | date: 'yyyy-MM-dd' }}"
+          (keypress)="callback()"
+          [ngClass]="{
+            'is-invalid': submitted && f.DueDate.errors
+          }"
+        />
+        <div *ngIf="submitted && f.DueDate.errors" class="invalid-feedback">
+          <div *ngIf="submitted && f.DueDate.errors.required">
+            Due Date is Required
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="">
+      <div class="mb-2">
+        <h4 class="header-title">Upload Current Demand Notice *</h4>
+        <p class="text-muted font-13 m-b-30"></p>
+        <!-- file upload -->
+        <file-upload
+          class="dropzone"
+          multiple="false"
+          isAnimationDisabled="true"
+          listVisible="true"
+          zoomText="zoomOut"
+          (ngModelChange)="onchange($event)"
+          accept="image/gif,image/png,image/jpeg,application/pdf,application/msword,.doc,.docx"
+          type="file"
+          maxsize="20mb"
+          [ngClass]="{
+            'is-invalid': submitted && f.uploadfile.errors
+          }"
+          formControlName="uploadfile"
+        ></file-upload>
+        <div *ngIf="submitted && f.uploadfile.errors" class="invalid-feedback">
+          <div *ngIf="submitted && f.uploadfile.errors.sizeRange">
+            File size is exceed 20 Mb Limit
+          </div>
+          <div *ngIf="submitted && f.uploadfile.errors.required">
+            Current Demand Notice is Required
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="">
+      <div class="mb-3">
+        <h4 class="header-title">File Name *</h4>
+        <input
+          class="form-control"
+          placeholder="Enter File Name"
+          formControlName="FileName"
+          maxlength="25"
+          [ngClass]="{
+            'is-invalid': submitted && f.FileName.errors
+          }"
+        />
+        <div *ngIf="submitted && f.FileName.errors" class="invalid-feedback">
+          <div *ngIf="submitted && f.FileName.errors.required">
+            File Name is Required
+          </div>
+          <div *ngIf="submitted && f.FileName.errors.pattern">
+            Only alphanumeric characters allowed
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="">
+      <div class="mb-3">
+        <h4 class="header-title">File Type *</h4>
+
+        <select
+          class="custom-select"
+          formControlName="FileType"
+          [ngClass]="{
+            'is-invalid': submitted && f.FileType.errors
+          }"
+        >
+          <option selected disabled>Select File Type *</option>
+          <option value="Photo">Photo</option>
+          <option value="Video">Video</option>
+          <option value="Audio">Audio</option>
+          <option value="PDF">PDF</option>
+          <option value="DOC">Document</option>
+        </select>
+        <div *ngIf="submitted && f.FileType.errors" class="invalid-feedback">
+          <div *ngIf="submitted && f.FileType.errors.required">
+            File Type is Required
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="">
+      <div class="mb-3">
+        <h4 class="header-title">File Description *</h4>
+
+        <textarea
+          class="form-control"
+          rows="3"
+          placeholder="Enter File Description"
+          formControlName="Description"
+          maxlength="55"
+          [ngClass]="{
+            'is-invalid': submitted && f.Description.errors
+          }"
+        ></textarea>
+        <div *ngIf="submitted && f.Description.errors" class="invalid-feedback">
+          <div *ngIf="submitted && f.Description.errors.required">
+            File Description is Required
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="">
+      <div class="mb-3">
+        <button
+          class="btn btn-primary waves-effect waves-light btn-block"
+          type="submit"
+        >
+          Save
+        </button>
+      </div>
+    </div>
+  </form>
+  <div class="card-disabled" *ngIf="isLoading">
+    <div class="card-portlets-loader"></div>
+  </div>
+</div>

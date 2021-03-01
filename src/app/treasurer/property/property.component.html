@@ -1,0 +1,27 @@
+<div class="container-fluid pb-5">
+  <!-- breadCrums -->
+  <app-page-title
+    title="AICC Properties Managed"
+    [breadcrumbItems]="breadCrumbItems"
+  ></app-page-title>
+
+  <!-- page start -->
+  <app-portlet
+    *ngFor="let item of stateList"
+    title="{{ item.StateName }}"
+    anotherTitle="{{ item.NoOfProperty }}"
+    Icon="mdi mdi-home"
+    headerClass="h5 header-title"
+    collapsed="{{ item.collapsed }}"
+    loading="{{ item.loading }}"
+    color="white"
+    id="{{ item.StateID }}"
+    (onLoad)="onShow($event)"
+  >
+    <app-datatable
+      *ngIf="item.tableLoad"
+      [item]="item"
+      (isloading)="tableLoading($event)"
+    ></app-datatable>
+  </app-portlet>
+</div>

@@ -1,0 +1,38 @@
+<div class="container-fluid">
+  <app-page-title title="Sweet Alert" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+
+  <!-- Row -->
+  <div class="row">
+    <!-- Col -->
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="header-title">Examples</h4>
+
+          <p class="sub-header">
+            A beautiful, responsive, customizable, accessible (WAI-ARIA) replacement for JavaScript's popup boxes
+          </p>
+          <!-- Table -->
+          <table class="table table-borderless table-centered mb-0">
+            <thead class="thead-light">
+              <tr>
+                <th style="width:50%;">Alert Type</th>
+                <th>Example</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Sweetalert -->
+              <tr *ngFor="let alert of sweetAlert">
+                <td>{{alert.title}}</td>
+                <td>
+                  <button type="button" class="btn btn-info btn-xs" (click)="alert.method()">Click me</button>
+                </td>
+              </tr>
+              <!-- End Sweetalert -->
+          </table>
+          <!-- End table -->
+        </div>
+      </div>
+    </div><!-- End Col -->
+  </div><!-- End row -->
+</div>

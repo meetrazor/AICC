@@ -1,0 +1,164 @@
+<div class="container-fluid">
+  <app-page-title title="Opportunities" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+
+  <div class="row">
+    <div class="col-xl-8 order-xl-1 order-2">
+      <div class="card mb-2">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-lg-8">
+              <form class="form-inline">
+                <div class="form-group">
+                  <label class="sr-only">Search</label>
+                  <input type="search" class="form-control" placeholder="Search..." name="search" [(ngModel)]="term">
+                </div>
+                <div class="form-group mx-sm-3">
+                  <label for="status-select" class="mr-2">Sort By</label>
+                  <select class="custom-select" id="status-select">
+                    <option selected="">All</option>
+                    <option value="1">Hot</option>
+                    <option value="2">Cold</option>
+                    <option value="3">In Progress</option>
+                    <option value="4">Lost</option>
+                    <option value="5">Won</option>
+                  </select>
+                </div>
+              </form>
+            </div>
+            <div class="col-lg-4">
+              <div class="text-lg-right mt-3 mt-lg-0">
+                <button type="button" class="btn btn-success mr-1"><i
+                    class="mdi mdi-settings"></i></button>
+                <a href="javascript: void(0);" class="btn btn-danger"
+                  (click)="openModal(content)"><i class="mdi mdi-plus-circle mr-1"></i> Add
+                  New</a>
+              </div>
+            </div><!-- end col-->
+          </div> <!-- end row -->
+        </div> <!-- end card-body-->
+      </div> <!-- end card-->
+
+      <div class="card-box mb-2" *ngFor="let opportunity of opportunityData | filter:term">
+        <div class="row align-items-center">
+          <div class="col-sm-4">
+            <div class="media">
+              <img class="d-flex align-self-center mr-3 rounded-circle" src="{{ opportunity.company }}"
+                alt="Generic placeholder image" height="64">
+              <div class="media-body">
+                <h4 class="mt-0 mb-2 font-16">{{ opportunity.name }}</h4>
+                <p class="mb-1"><b>Location:</b> {{ opportunity.location}}</p>
+                <p class="mb-0"><b>Category:</b> {{ opportunity.category }}</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <p class="mb-1 mt-3 mt-sm-0"><i class="mdi mdi-email mr-1"></i> {{ opportunity.email }}</p>
+            <p class="mb-0"><i class="mdi mdi-phone-classic mr-1"></i> {{ opportunity.phone }}</p>
+          </div>
+          <div class="col-sm-2">
+            <div class="text-center mt-3 mt-sm-0">
+              <div class="badge font-14 p-1" [ngClass]="{
+                'bg-soft-info text-info': opportunity.status === 'Hot', 
+                'bg-soft-primary text-primary': opportunity.status === 'Cold',
+                'bg-soft-warning text-warning': opportunity.status === 'In-progress',
+                'bg-soft-danger text-danger': opportunity.status === 'Lost',
+                'bg-soft-success text-success': opportunity.status === 'Won'
+              }">{{ opportunity.status }}</div>
+            </div>
+          </div>
+          <div class="col-sm-2">
+            <div class="text-sm-right">
+              <a href="javascript:void(0);" class="action-icon"> <i class="mdi mdi-square-edit-outline"></i></a>
+              <a href="javascript:void(0);" class="action-icon"> <i class="mdi mdi-delete"></i></a>
+            </div>
+          </div> <!-- end col-->
+        </div> <!-- end row -->
+      </div> <!-- end card-box-->
+      <div class="text-center my-4">
+        <a href="javascript:void(0);" class="text-danger"><i class="mdi mdi-spin mdi-loading mr-1"></i> Load more </a>
+      </div>
+    </div>
+    <div class="col-xl-4 order-xl-2 order-1">
+      <div class="card-box" dir="ltr">
+        <h4 class="header-title mb-3">Status Charts</h4>
+
+        <div class="text-center">
+          <!-- Pie chart -->
+          <apx-chart [series]="simplePieChart.series" [chart]="simplePieChart.chart" [labels]="simplePieChart.labels"
+            [dataLabels]="simplePieChart.dataLabels" [legend]="simplePieChart.legend" [colors]="simplePieChart.colors"
+            [responsive]="simplePieChart.responsive">
+          </apx-chart>
+          <!-- End chart -->
+          <p class="text-muted font-15 font-family-secondary mb-0 mt-3">
+            <span class="mx-2"><i class="mdi mdi-checkbox-blank-circle text-success"></i> Won</span>
+            <span class="mx-2"><i class="mdi mdi-checkbox-blank-circle text-info"></i> Hot</span>
+            <span class="mx-2"><i class="mdi mdi-checkbox-blank-circle text-primary"></i> Cold</span>
+            <span class="mx-2"><i class="mdi mdi-checkbox-blank-circle text-warning"></i> In-progress</span>
+            <span class="mx-2"><i class="mdi mdi-checkbox-blank-circle text-danger"></i> Lost</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Opportunities model -->
+<ng-template #content role="document" let-modal="close">
+  <div class="modal-header bg-dark">
+    <h4 class="modal-title text-white">Add New Opportunities</h4>
+    <button type="button" class="close text-white" aria-label="Close" (click)="modal('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body p-3">
+    <div class="text-left">
+      <form (ngSubmit)="saveData()" [formGroup]="validationform">
+
+        <div class="form-group">
+          <label for="name">Company Name</label>
+          <input type="text" class="form-control" id="name" placeholder="Enter company name" formControlName="name"
+            [ngClass]="{'is-invalid': submitted && form.name.errors}">
+          <div *ngIf="submitted && form.name.errors" class="invalid-feedback">
+            <span *ngIf="form.name.errors.required">This value is required.</span>
+            <span *ngIf="form.name.errors.pattern">This value should be a valid name.</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email address</label>
+          <input class="form-control" id="email" placeholder="Enter email" formControlName="email"
+            [ngClass]="{'is-invalid': submitted && form.email.errors}">
+          <div *ngIf="submitted && form.email.errors" class="invalid-feedback">
+            <span *ngIf="form.email.errors.required">This value is required.</span>
+            <span *ngIf="form.email.errors.pattern">Please enter valid email.</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Phone </label>
+          <input type="text" class="form-control" placeholder="Enter phone number" formControlName="phone"
+            [ngClass]="{'is-invalid': submitted && form.phone.errors}" minlength="10">
+          <div *ngIf="submitted && form.phone.errors" class="invalid-feedback">
+            <span *ngIf="form.phone.errors.required">This value is required.</span>
+            <span *ngIf="form.phone.errors.minlength">Phone number must be 10 characters.</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Category </label>
+          <input class="form-control" placeholder="Enter category" formControlName="category"
+            [ngClass]="{'is-invalid': submitted && form.category.errors}">
+          <div *ngIf="submitted && form.category.errors" class="invalid-feedback">
+            <span *ngIf="form.category.errors.required">This value is required.</span>
+          </div>
+        </div>
+
+        <div class="text-right">
+          <button type="submit" class="btn btn-success">Save</button>
+          <button type="button" class="btn btn-danger ml-1"
+            (click)="modal('close click')">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-template>

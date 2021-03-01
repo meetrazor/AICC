@@ -1,0 +1,71 @@
+<div class="container-fluid" *ngIf="!isLoading">
+  <!-- start page title -->
+  <app-page-title
+    *ngIf="!isLoading"
+    title="Assign a Lawyer"
+    [breadcrumbItems]="breadCrumbItems"
+  ></app-page-title>
+  <div class="card">
+    <div class="container py-5">
+      <div class="col-md-12">
+        <h2 class="p-1 pb-2">All Empaneled Lawyers</h2>
+        <hr />
+        <div class="loop my-2" *ngFor="let lawyer of LawyeList">
+          <div class="row">
+            <div class="col-sm-3 ml-5">
+              <img
+                class="img-fluid rounded-circle"
+                src="assets/images/users/user.png"
+                alt=""
+                height="150"
+                width="150"
+              />
+            </div>
+            <div class="col-sm-6">
+              <h3>{{ lawyer.LawyerName | uppercase }}</h3>
+              <!-- <h4>
+                <span class="text-muted">Total Title Searches till date: </span
+                >191
+              </h4>
+              <h4>
+                <span class="text-muted">Title Search in Progress: </span>3
+              </h4> -->
+              <a class="h4 text-primary">
+                <i class="mdi mdi-cellphone"> </i> {{ lawyer.MobileNo }}
+              </a>
+              <br />
+              <a class="h4 text-primary">
+                <i class="mdi mdi-email"> </i> {{ lawyer.EmailId }}
+              </a>
+              <br />
+              <a class="h4 text-primary"
+                ><i class="mdi mdi-fax"> </i> {{ lawyer.Fax }}</a
+              >
+              <br />
+              <a class="h4 text-primary"
+                ><i class="far fa-address-card"> </i> {{ lawyer.Address }}</a
+              >
+              <br />
+              <a class="h4 text-primary"
+                ><i class="mdi mdi-briefcase-account"> </i> {{ lawyer.Firm }}</a
+              ><br />
+            </div>
+          </div>
+          <div class="text-right">
+            <button
+              class="btn btn-outline-primary btn-rounded"
+              title="Assign This Lawyer"
+              (click)="onSelect(lawyer.LawyerId)"
+            >
+              Select
+            </button>
+          </div>
+          <hr />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="card-disabled" *ngIf="isLoading">
+  <div class="card-portlets-loader"></div>
+</div>

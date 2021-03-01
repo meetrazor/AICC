@@ -1,0 +1,976 @@
+<form
+  [formGroup]="myForm"
+  novalidate
+  (ngSubmit)="save()"
+  (keydown.enter)="$event.preventDefault()"
+>
+  <div class="content pb-4">
+    <!-- Start Content-->
+    <div class="container-fluid">
+      <!-- start page title -->
+      <app-page-title
+        *ngIf="!isUpdate"
+        title="Add New Property"
+        [breadcrumbItems]="breadCrumbItems"
+      ></app-page-title>
+      <app-page-title
+        *ngIf="isUpdate"
+        title="Edit Property"
+        [breadcrumbItems]="breadCrumbItems"
+      ></app-page-title>
+      <!-- end page title -->
+
+      <div class="row">
+        <div class="col-md-12 col-xl-12">
+          <div class="card">
+            <div class="card-body">
+              <div class="card-widgets"></div>
+              <h5
+                class="header-title mb-0"
+                style="color: darkgrey; font-size: 18px"
+              >
+                Property Information
+              </h5>
+              <hr />
+              <div id="cardCollpase4" class="collapse pt-3 show">
+                <div class="pn-main">
+                  <div class="form-row">
+                    <div class="form-group col-md-6">
+                      <label for="">States*</label>
+                      <ng-select
+                        class="form-control"
+                        formControlName="StateID"
+                        (change)="ChangeState($event)"
+                        placeholder="
+                        Select State"
+                        [ngClass]="{
+                          'is-invalid': submitted && f.StateID.errors
+                        }"
+                      >
+                        <ng-option
+                          *ngFor="let item of StateList"
+                          [value]="item.StateID"
+                          [id]="item.StateID"
+                          >{{ item.StateName }}</ng-option
+                        >
+                      </ng-select>
+                      <!-- <select
+                        class="custom-select"
+                        formControlName="StateID"
+                        (change)="ChangeState($event)"
+                        [ngClass]="{
+                          'is-invalid': submitted && f.StateID.errors
+                        }"
+                      >
+                        <option
+                          *ngFor="let state of StateList"
+                          [value]="state.StateID"
+                          [id]="state.StateID"
+                        >
+                          {{ state.StateName }}
+                        </option>
+                      </select> -->
+                      <div
+                        *ngIf="submitted && f.StateID.errors"
+                        class="invalid-feedback"
+                      >
+                        <div *ngIf="f.StateID.errors.required">
+                          State is required
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                      <label for="">Districts*</label>
+                      <ng-select
+                        class="form-control"
+                        formControlName="DistrictID"
+                        [ngClass]="{
+                          'is-invalid': submitted && f.DistrictID.errors
+                        }"
+                        placeholder="Select District"
+                        (change)="ChangeDistrict()"
+                      >
+                        <ng-option
+                          *ngFor="let item of DistrictList"
+                          [value]="item.DistrictID"
+                          [id]="item.DistrictID"
+                          >{{ item.DistrictName }}</ng-option
+                        >
+                      </ng-select>
+                      <!-- <select
+                        class="custom-select"
+                        formControlName="DistrictID"
+                        [ngClass]="{
+                          'is-invalid': submitted && f.DistrictID.errors
+                        }"
+                      >
+                        <option
+                          *ngFor="let district of DistrictList"
+                          [value]="district.DistrictID"
+                          [id]="district.DistrictID"
+                        >
+                          {{ district.DistrictName }}
+                        </option>
+                      </select> -->
+                      <div
+                        *ngIf="submitted && f.DistrictID.errors"
+                        class="invalid-feedback"
+                      >
+                        <div *ngIf="f.DistrictID.errors.required">
+                          District is required
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <label for="">Village/Pincode*</label>
+                      <!-- <div class="form-group"> -->
+                      <ng-autocomplete
+                        style="width: 100%; margin: 0; padding: 0"
+                        [data]="areas"
+                        [initialValue]="initialValue"
+                        [searchKeyword]="keyword"
+                        placeHolder="Enter Village or Pincode"
+                        (selected)="selectEvent($event)"
+                        (inputChanged)="onChangeSearch($event)"
+                        formControlName="taluka"
+                        class="form-group form-control"
+                        [ngClass]="{
+                          'is-invalid': submitted && f.TalukaID.errors
+                        }"
+                        (inputCleared)="onclear()"
+                        (inputFocused)="onFocused($event)"
+                        [itemTemplate]="itemTemplate"
+                        [notFoundTemplate]="notFoundTemplate"
+                      >
+                      </ng-autocomplete>
+
+                      <ng-template #itemTemplate let-item>
+                        <a [innerHTML]="item.Area"></a>
+                      </ng-template>
+
+                      <ng-template #notFoundTemplate let-notFound>
+                        <div [innerHTML]="notFound"></div>
+                      </ng-template>
+
+                      <div
+                        *ngIf="submitted && f.TalukaID.errors"
+                        class="invalid-feedback"
+                      >
+                        <div *ngIf="f.TalukaID.errors.required">
+                          Village is required
+                        </div>
+                      </div>
+                      <!-- </div> -->
+                    </div>
+
+                    <div class="form-group col-md-6">
+                      <label for="">PropertyType*</label>
+                      <select
+                        class="custom-select"
+                        formControlName="PropertyTypeID"
+                        [ngClass]="{
+                          'is-invalid': submitted && f.PropertyTypeID.errors
+                        }"
+                        (change)="ChangePropertyType($event)"
+                      >
+                        <option
+                          *ngFor="let type of Array5"
+                          [value]="type.PropertyTypeID"
+                        >
+                          {{ type.PropertyType }}
+                        </option>
+                      </select>
+                      <div
+                        *ngIf="submitted && f.PropertyTypeID.errors"
+                        class="invalid-feedback"
+                      >
+                        <div *ngIf="f.PropertyTypeID.errors.required">
+                          PropertyType is required
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                      <label for="">Property Name*</label>
+                      <input
+                        class="form-control"
+                        placeholder="Enter Property Name"
+                        formControlName="PropertyName"
+                        maxlength="55"
+                        [ngClass]="{
+                          'is-invalid': submitted && f.PropertyName.errors
+                        }"
+                      />
+                      <div
+                        *ngIf="submitted && f.PropertyName.errors"
+                        class="invalid-feedback"
+                      >
+                        <div *ngIf="f.PropertyName.errors.required">
+                          Property Name is required
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group col-md-6" *ngIf="!IsOpenLand">
+                      <label for="">Type</label><br />
+                      <span>
+                        <input
+                          type="radio"
+                          formControlName="types"
+                          value="surveyno"
+                          (change)="ChangeSurveyType($event)"
+                        />
+                        Survey No</span
+                      >
+                      <span
+                        ><input
+                          type="radio"
+                          formControlName="types"
+                          value="citysurveyno"
+                          (change)="ChangeSurveyType($event)"
+                        />
+                        City Survey No</span
+                      >
+                    </div>
+
+                    <div
+                      class="form-group col-md-6"
+                      *ngIf="!IsOpenLand && !IsCitySurvey"
+                    >
+                      <label for="">Building No*</label>
+                      <input
+                        class="form-control"
+                        placeholder="Enter Building No"
+                        [ngClass]="{
+                          'is-invalid': submitted && f.BuildingNo.errors
+                        }"
+                        maxlength="25"
+                        formControlName="BuildingNo"
+                      />
+                      <div
+                        *ngIf="submitted && f.BuildingNo.errors"
+                        class="invalid-feedback"
+                      >
+                        <div *ngIf="f.BuildingNo.errors.required">
+                          Building No is required
+                        </div>
+                      </div>
+                    </div>
+
+                    <div
+                      class="form-group col-md-6"
+                      *ngIf="!IsOpenLand && !IsCitySurvey"
+                    >
+                      <label for="">Building Name*</label>
+                      <input
+                        class="form-control"
+                        placeholder="Enter Building Name"
+                        formControlName="BuildingName"
+                        [ngClass]="{
+                          'is-invalid': submitted && f.BuildingName.errors
+                        }"
+                        maxlength="25"
+                      />
+                      <div
+                        *ngIf="submitted && f.BuildingName.errors"
+                        class="invalid-feedback"
+                      >
+                        <div *ngIf="f.BuildingName.errors.required">
+                          Building Name is required
+                        </div>
+                      </div>
+                    </div>
+
+                    <div
+                      class="form-group col-md-6"
+                      *ngIf="!IsOpenLand && IsCitySurvey"
+                    >
+                      <label for="">Sheet No*</label>
+                      <input
+                        class="form-control"
+                        placeholder="Enter Sheet No"
+                        formControlName="SheetNumber"
+                        [ngClass]="{
+                          'is-invalid': submitted && f.SheetNumber.errors
+                        }"
+                        maxlength="25"
+                      />
+                      <div
+                        *ngIf="submitted && f.SheetNumber.errors"
+                        class="invalid-feedback"
+                      >
+                        <div *ngIf="f.SheetNumber.errors.required">
+                          Sheet Number is required
+                        </div>
+                      </div>
+                    </div>
+
+                    <div
+                      class="form-group col-md-6"
+                      *ngIf="!IsOpenLand && IsCitySurvey"
+                    >
+                      <label for="">City Survey No*</label>
+                      <input
+                        class="form-control"
+                        placeholder="Enter City Survey No"
+                        formControlName="CitySurveyNo"
+                        (keypress)="isValid($event, 5)"
+                        (paste)="(false)"
+                        [ngClass]="{
+                          'is-invalid': submitted && f.CitySurveyNo.errors
+                        }"
+                        maxlength="25"
+                      />
+                      <div
+                        *ngIf="submitted && f.CitySurveyNo.errors"
+                        class="invalid-feedback"
+                      >
+                        <div *ngIf="f.CitySurveyNo.errors.required">
+                          City SurveyNo is required
+                        </div>
+                      </div>
+                    </div>
+
+                    <div
+                      class="form-group col-md-6"
+                      *ngIf="!IsOpenLand && IsCitySurvey"
+                    >
+                      <label for="">City Survey Office*</label>
+                      <input
+                        class="form-control"
+                        placeholder="Enter City Survey Office"
+                        formControlName="CitySurveyOffice"
+                        [ngClass]="{
+                          'is-invalid': submitted && f.CitySurveyOffice.errors
+                        }"
+                        maxlength="25"
+                      />
+                      <div
+                        *ngIf="submitted && f.CitySurveyOffice.errors"
+                        class="invalid-feedback"
+                      >
+                        <div *ngIf="f.CitySurveyOffice.errors.required">
+                          City Survey Office is required
+                        </div>
+                      </div>
+                    </div>
+
+                    <div
+                      class="form-group col-md-6"
+                      *ngIf="!IsOpenLand && IsCitySurvey"
+                    >
+                      <label for="">City Ward No*</label>
+                      <input
+                        class="form-control"
+                        placeholder="Enter City Ward No"
+                        formControlName="CityWardNo"
+                        [ngClass]="{
+                          'is-invalid': submitted && f.CityWardNo.errors
+                        }"
+                        maxlength="25"
+                      />
+                      <div
+                        *ngIf="submitted && f.CityWardNo.errors"
+                        class="invalid-feedback"
+                      >
+                        <div *ngIf="f.CityWardNo.errors.required">
+                          City WardNo is required
+                        </div>
+                      </div>
+                    </div>
+
+                    <div
+                      class="form-group col-md-6"
+                      *ngIf="!IsOpenLand && IsCitySurvey"
+                    >
+                      <label for="">City Ward Name*</label>
+                      <input
+                        class="form-control"
+                        placeholder="Enter City Ward Name"
+                        [ngClass]="{
+                          'is-invalid': submitted && f.CityWardName.errors
+                        }"
+                        maxlength="25"
+                        formControlName="CityWardName"
+                      />
+                      <div
+                        *ngIf="submitted && f.CityWardName.errors"
+                        class="invalid-feedback"
+                      >
+                        <div *ngIf="f.CityWardName.errors.required">
+                          City WardName is required
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                      <label for="">Revenue Office Type*</label>
+                      <select
+                        class="custom-select"
+                        [ngClass]="{
+                          'is-invalid': submitted && f.RevenewOfficeType.errors
+                        }"
+                        formControlName="RevenewOfficeType"
+                      >
+                        <option value="Talati" selected id="4">Talati</option>
+                        <option value="Gram Panchayat" id="5">
+                          Gram Panchayat
+                        </option>
+                        <option value="Municipal Corporation" id="6">
+                          Municipal Corporation
+                        </option>
+                        <option value="Nagarpalika Office" id="7">
+                          Nagarpalika Office
+                        </option>
+                      </select>
+                      <div
+                        *ngIf="submitted && f.RevenewOfficeType.errors"
+                        class="invalid-feedback"
+                      >
+                        <div *ngIf="f.RevenewOfficeType.errors.required">
+                          Revenue Office is required
+                        </div>
+                      </div>
+                    </div>
+
+                    <div
+                      class="form-group col-md-6"
+                      *ngIf="IsOpenLand || !IsCitySurvey"
+                    >
+                      <label for="">TP No</label>
+                      <input
+                        class="form-control"
+                        placeholder="Enter TP No"
+                        formControlName="TPNo"
+                        [ngClass]="{
+                          'is-invalid':
+                            submitted &&
+                            !f.TPNo.value &&
+                            (myForm.hasError('TPFPrequired') ||
+                              myForm.hasError('SurveyOrTPFPrequired'))
+                        }"
+                        (keypress)="isValid($event, 5)"
+                        (paste)="(false)"
+                      />
+                      <div
+                        *ngIf="
+                          submitted &&
+                          !f.TPNo.value &&
+                          (myForm.hasError('TPFPrequired') ||
+                            myForm.hasError('SurveyOrTPFPrequired'))
+                        "
+                        class="invalid-feedback"
+                      >
+                        <div *ngIf="myForm.hasError('TPFPrequired')">
+                          TPNo is required When FPNo is Added
+                        </div>
+                        <div *ngIf="myForm.hasError('SurveyOrTPFPrequired')">
+                          Either Survey Number or FP Number and TP Number
+                          Required
+                        </div>
+                      </div>
+                    </div>
+
+                    <div
+                      class="form-group col-md-6"
+                      *ngIf="IsOpenLand || !IsCitySurvey"
+                    >
+                      <label for="">FP No</label>
+                      <input
+                        class="form-control"
+                        placeholder="Enter FP No"
+                        formControlName="FPNo"
+                        (keypress)="isValid($event, 5)"
+                        (paste)="(false)"
+                        [ngClass]="{
+                          'is-invalid':
+                            submitted &&
+                            !f.FPNo.value &&
+                            (myForm.hasError('TPFPrequired') ||
+                              myForm.hasError('SurveyOrTPFPrequired'))
+                        }"
+                      />
+                      <div
+                        *ngIf="
+                          submitted &&
+                          !f.FPNo.value &&
+                          (myForm.hasError('TPFPrequired') ||
+                            myForm.hasError('SurveyOrTPFPrequired'))
+                        "
+                        class="invalid-feedback"
+                      >
+                        <div *ngIf="myForm.hasError('TPFPrequired')">
+                          FPNo is required When TPNo Added
+                        </div>
+                        <div *ngIf="myForm.hasError('SurveyOrTPFPrequired')">
+                          Either Survey Number or FP Number and TP Number
+                          Required
+                        </div>
+                      </div>
+                    </div>
+
+                    <div
+                      class="form-group col-md-6"
+                      *ngIf="IsOpenLand || !IsCitySurvey"
+                    >
+                      <label for="">SurveyNo </label>
+                      <input
+                        class="form-control"
+                        placeholder="Enter Survey No"
+                        formControlName="SurveyNo"
+                        [ngClass]="{
+                          'is-invalid':
+                            submitted && myForm.hasError('SurveyOrTPFPrequired')
+                        }"
+                        (keypress)="isValid($event, 30)"
+                        (paste)="(false)"
+                      />
+                      <div
+                        *ngIf="
+                          submitted && myForm.hasError('SurveyOrTPFPrequired')
+                        "
+                        class="invalid-feedback"
+                      >
+                        <div *ngIf="myForm.hasError('SurveyOrTPFPrequired')">
+                          Either Survey Number or FP Number and TP Number
+                          Required
+                        </div>
+                      </div>
+                    </div>
+
+                    <div
+                      *ngIf="IsOpenLand || !IsCitySurvey"
+                      class="form-group col-md-6"
+                    >
+                      <label for="">Milkat No(Property Id)</label>
+                      <input
+                        class="form-control"
+                        placeholder="Enter Milkat No (Property Id)"
+                        type="number"
+                        formControlName="milkatno_propId"
+                        [ngClass]="{
+                          'is-invalid': submitted && f.milkatno_propId.errors
+                        }"
+                        (keydown)="ageOfProperty($event)"
+                        min="0"
+                        maxlength="10"
+                      />
+                      <div
+                        *ngIf="submitted && f.milkatno_propId.errors"
+                        class="invalid-feedback"
+                      >
+                        <div *ngIf="f.milkatno_propId.errors.required">
+                          Milkatno_PropId is required
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <h5
+                    class="header-title mb-0"
+                    style="color: darkgrey; padding-top: 2%; font-size: 18px"
+                  >
+                    Other Information
+                  </h5>
+                  <hr />
+
+                  <div class="form-row">
+                    <div class="form-group col-md-6">
+                      <label for="">Land Size(In Sq.Mtrs)</label>
+                      <input
+                        class="form-control"
+                        placeholder="Enter Landsize"
+                        formControlName="LandSize"
+                        maxlength="10"
+                      />
+                    </div>
+
+                    <div class="form-group col-md-6">
+                      <label for="">Water Availability</label>
+                      <input
+                        class="form-control"
+                        placeholder="Water Availability"
+                        formControlName="WaterAvailability"
+                        maxlength="10"
+                      />
+                    </div>
+
+                    <div class="form-group col-md-6">
+                      <label for="">Furnish Type </label>
+                      <select
+                        class="custom-select"
+                        formControlName="FurnishType"
+                      >
+                        <option value="Full Furnished" id="4" selected>
+                          Full Furnished
+                        </option>
+                        <option value="Semi Furnished" id="9">
+                          Semi Furnished
+                        </option>
+                        <option value="UnFurnished" id="3">UnFurnished</option>
+                      </select>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                      <label for="">Status Of Electricity </label>
+                      <select
+                        class="custom-select"
+                        formControlName="StatusOfElectricity"
+                      >
+                        <option value="No PowerCut" id="3" selected>
+                          No PowerCut
+                        </option>
+                        <option value="Rare PoweCut" id="5">
+                          Rare PoweCut
+                        </option>
+                        <option value="Every Sunday Power Cut" id="1">
+                          Every Sunday Power Cut
+                        </option>
+                      </select>
+                    </div>
+
+                    <div class="form-group mb-2 col-md-6 col-xl-6">
+                      <label for="example-textarea">Description</label>
+                      <textarea
+                        class="form-control"
+                        rows="2"
+                        formControlName="Description"
+                        maxlength="250"
+                      ></textarea>
+                    </div>
+
+                    <div class="form-group mb-2 col-md-6 col-xl-6">
+                      <label for="example-textarea">Postal Address</label>
+                      <textarea
+                        class="form-control"
+                        rows="2"
+                        formControlName="PostalAddress"
+                        maxlength="250"
+                      ></textarea>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                      <label for=""
+                        >Age Of Property <small>(In Years)</small></label
+                      >
+                      <input
+                        class="form-control"
+                        placeholder="Enter Age of property"
+                        type="number"
+                        formControlName="AgeOfProperty"
+                        min="0"
+                        maxlength="3"
+                        (keydown)="ageOfProperty($event)"
+                      />
+                    </div>
+
+                    <div
+                      class="form-group col-md-6"
+                      *ngIf="f.types.value !== 'surveyno'"
+                    >
+                      <label for="">No. of BHK</label>
+                      <select class="custom-select" formControlName="NoOfBHK">
+                        <option value="1" id="4" selected>1</option>
+                        <option value="2" id="1">2</option>
+                        <option value="3" id="3">3</option>
+                        <option value="4" id="4">4</option>
+                        <option value="5" id="8">5</option>
+                        <option value="6" id="5">More than 5</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <h5
+                    *ngIf="myForm.controls.OwnerShip['controls'].length > 0"
+                    class="header-title mb-0"
+                    style="color: darkgrey; padding-top: 2%; font-size: 18px"
+                  >
+                    Owner Information
+                  </h5>
+                  <hr />
+
+                  <div>
+                    <div formArrayName="OwnerShip">
+                      <div
+                        *ngFor="
+                          let owner of myForm.controls.OwnerShip['controls'];
+                          let i = index
+                        "
+                      >
+                        <div class="form-row" [formGroupName]="i">
+                          <div class="form-group col-md-6">
+                            <label>Owner Name</label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              formControlName="OwnerName"
+                              maxlength="500"
+                              [ngClass]="{
+                                'is-invalid':
+                                  submitted &&
+                                  f.OwnerShip['controls'][i]['controls']
+                                    .OwnerName.errors
+                              }"
+                              pattern="[a-zA-Z][a-zA-Z-, ]+"
+                            />
+                            <div
+                              *ngIf="
+                                submitted &&
+                                f.OwnerShip['controls'][i]['controls'].OwnerName
+                                  .errors
+                              "
+                              class="invalid-feedback"
+                            >
+                              <div
+                                *ngIf="
+                                  f.OwnerShip['controls'][i]['controls']
+                                    .OwnerName.errors.pattern
+                                "
+                              >
+                                Only Alpha letters Allowed
+                              </div>
+                            </div>
+                          </div>
+                          <div class="form-group col-md-6">
+                            <label>Since From</label>
+                            <input
+                              type="date"
+                              class="form-control"
+                              formControlName="SinceFrom"
+                            />
+                          </div>
+                          <div class="form-group col-md-12">
+                            <span
+                              class="glyphicon glyphicon-remove pull-right"
+                              style="cursor: pointer; color: red"
+                              *ngIf="
+                                myForm.controls.OwnerShip['controls'].length > 1
+                              "
+                              (click)="removeOwner(i)"
+                            >
+                              (Remove -)
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="margin-20">
+                    <a (click)="addOwner()" style="cursor: pointer">
+                      Add owner +
+                    </a>
+                  </div>
+                  <h5
+                    class="header-title mb-0"
+                    style="color: darkgrey; padding-top: 2%; font-size: 18px"
+                    *ngIf="myForm.controls.InCharge['controls'].length > 0"
+                  >
+                    InCharge Information
+                  </h5>
+                  <hr />
+                  <div class="">
+                    <div formArrayName="InCharge">
+                      <div
+                        class=""
+                        *ngFor="
+                          let in_charge of myForm.controls.InCharge['controls'];
+                          let i = index
+                        "
+                        class="panel panel-default"
+                      >
+                        <div class="panel-heading">
+                          <span
+                            class="glyphicon glyphicon-remove pull-right"
+                            style="cursor: pointer; color: red"
+                            *ngIf="
+                              myForm.controls.InCharge['controls'].length > 1
+                            "
+                            (click)="removeIncharge(i)"
+                          >
+                            (Remove -)
+                          </span>
+                        </div>
+                        <div class="form-row" [formGroupName]="i">
+                          <div class="form-group col-md-6">
+                            <label>InChargeName</label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              formControlName="InChargeName"
+                              [ngClass]="{
+                                'is-invalid':
+                                  submitted &&
+                                  f.InCharge['controls'][i]['controls']
+                                    .InChargeName.errors
+                              }"
+                              maxlength="25"
+                              pattern="[a-zA-Z][a-zA-Z ]+"
+                            />
+                            <div
+                              *ngIf="
+                                submitted &&
+                                f.InCharge['controls'][i]['controls']
+                                  .InChargeName.errors
+                              "
+                              class="invalid-feedback"
+                            >
+                              <div
+                                *ngIf="
+                                  f.InCharge['controls'][i]['controls']
+                                    .InChargeName.errors.pattern
+                                "
+                              >
+                                Only Alpha letters Allowed
+                              </div>
+                            </div>
+                          </div>
+                          <div class="form-group col-md-6">
+                            <label>Designation</label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              formControlName="Designation"
+                              maxlength="25"
+                            />
+                          </div>
+
+                          <div class="form-group col-md-6">
+                            <label>MobileNo</label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              formControlName="MobileNo"
+                              (keypress)="isValidMobileNo($event)"
+                              (paste)="(false)"
+                            />
+
+                            <span
+                              *ngIf="
+                                submitted &&
+                                myForm.controls.InCharge['controls'][i].controls
+                                  .MobileNo.invalid &&
+                                myForm.controls.InCharge['controls'][i].controls
+                                  .MobileNo.errors &&
+                                myForm.controls.InCharge['controls'][i].controls
+                                  .MobileNo.errors.minlength
+                              "
+                              style="color: red; font-size: smaller"
+                              >Mobile no must be 10 digits only.</span
+                            >
+                          </div>
+
+                          <div class="form-group col-md-6">
+                            <label>Email</label>
+                            <input
+                              type="email"
+                              class="form-control"
+                              formControlName="Email"
+                            />
+
+                            <span
+                              *ngIf="
+                                submitted &&
+                                myForm.controls.InCharge['controls'][i].controls
+                                  .Email.invalid &&
+                                myForm.controls.InCharge['controls'][i].controls
+                                  .Email.errors &&
+                                myForm.controls.InCharge['controls'][i].controls
+                                  .Email.errors.pattern
+                              "
+                              style="color: red; font-size: smaller"
+                              >Email must be a valid email address</span
+                            >
+                          </div>
+                          <div class="form-group col-md-6">
+                            <label>Address</label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              formControlName="Address"
+                              maxlength="255"
+                            />
+                          </div>
+                          <div class="form-group col-md-6">
+                            <label>InChargeFromDate</label>
+                            <input
+                              type="date"
+                              class="form-control"
+                              formControlName="InChargeFromDate"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="">
+                    <a (click)="addIncharge()" style="cursor: pointer">
+                      Add InCharge +
+                    </a>
+                  </div>
+                  <hr
+                    style="height: 1px; background-color: #ccc; border: none"
+                  />
+
+                  <div class="text-center button-list mt-3">
+                    <!-- <a class="btn btn-outline-primary" href="javascriptvoid:();">Edit</a> -->
+                  </div>
+
+                  <div class="text-center button-list mt-3">
+                    <button
+                      class="btn btn-primary waves-effect waves-light btn-sm"
+                      type="button"
+                      data-toggle="collapse"
+                      data-target="#collapseExample"
+                      aria-expanded="true"
+                      aria-controls="collapseExample"
+                      type="submit"
+                      *ngIf="!isUpdate"
+                    >
+                      + Add Property
+                    </button>
+                    <button
+                      class="btn btn-primary waves-effect waves-light btn-sm"
+                      type="button"
+                      data-toggle="collapse"
+                      data-target="#collapseExample"
+                      aria-expanded="true"
+                      aria-controls="collapseExample"
+                      type="submit"
+                      *ngIf="isUpdate"
+                    >
+                      Edit Property
+                    </button>
+                  </div>
+                  <div class="card-disabled" *ngIf="isLoading">
+                    <div class="card-portlets-loader"></div>
+                  </div>
+
+                  <!-- <div class="text-center button-list mt-3">
+                    <button
+                      class="btn btn-warning waves-effect waves-light btn-sm"
+                      outline
+                      type="button"
+                      (click)="GoBack()"
+                    >
+                     Go Back
+                    </button>
+                  </div> -->
+
+                  <!-- Real-time data: {{ myForm.value | json }}
+
+                  Your form status is : {{ myForm.status }} -->
+                </div>
+              </div>
+              <!-- end collapse-->
+            </div>
+            <!-- end card-body-->
+          </div>
+          <!-- end card-->
+        </div>
+      </div>
+    </div>
+    <!-- container -->
+  </div>
+</form>

@@ -1,0 +1,12 @@
+<div class="container-fluid table-responsive">
+  <table
+    datatable
+    [dtOptions]="dtOptions"
+    [dtTrigger]="dtTrigger"
+    class="table row-border hover thead-dark"
+  ></table>
+  <!-- <input id="input" (change)="upload($event)" type="file" hidden /> -->
+  <div class="card-disabled" *ngIf="isLoading">
+    <div class="card-portlets-loader"></div>
+  </div>
+</div>

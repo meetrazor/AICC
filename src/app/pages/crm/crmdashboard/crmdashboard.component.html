@@ -1,0 +1,129 @@
+<div class="container-fluid">
+    <app-page-title title="Dashboard" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+
+    <div class="row">
+        <ng-template [ngTemplateOutlet]="WidgetData" [ngTemplateOutletContext]="{widget: widget}"
+            *ngFor="let widget of widgetsData"></ng-template>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6">
+            <app-portlet title="Deals Analytics" headerClass="h5 header-title" color="white">
+                <div class="card-body pt-0" style="height: 350px;">
+                    <apx-chart [series]="analyticsLineChart.series" [chart]="analyticsLineChart.chart"
+                        [colors]="analyticsLineChart.colors" [stroke]="analyticsLineChart.stroke"
+                        [dataLabels]="analyticsLineChart.dataLabels" [responsive]="analyticsLineChart.responsive"
+                        [legend]="analyticsLineChart.legend" [xaxis]="analyticsLineChart.xaxis"
+                        [stroke]="analyticsLineChart.stroke" [grid]="analyticsLineChart.grid"
+                        [labels]="analyticsLineChart.labels">
+                    </apx-chart>
+                </div>
+            </app-portlet>
+        </div>
+        <div class="col-lg-6">
+            <app-portlet title="Average Time for Deal" headerClass="h5 header-title" color="white">
+                <div class="card-body pt-0" style="height: 350px;">
+                    <apx-chart [series]="averagetimeBarChart.series" [chart]="averagetimeBarChart.chart"
+                        [plotOptions]="averagetimeBarChart.plotOptions" [grid]="averagetimeBarChart.grid"
+                        [stroke]="averagetimeBarChart.stroke" [dataLabels]="averagetimeBarChart.dataLabels"
+                        [xaxis]="averagetimeBarChart.xaxis" [legend]="averagetimeBarChart.legend"
+                        [colors]="averagetimeBarChart.colors" [fill]="averagetimeBarChart.fill">
+                    </apx-chart>
+                </div>
+            </app-portlet>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-8">
+            <app-portlet title="Recent Contacts" headerClass="h5 header-title" color="white">
+                <div class="card-body pt-0">
+                    <div class="table-responsive">
+                        <table class="table table-centered table-hover mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Basic Info</th>
+                                    <th>Phone</th>
+                                    <th>Email</th>
+                                    <th>Company</th>
+                                    <th>Created Date</th>
+                                    <th style="width: 82px;">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let contact of contactsData">
+                                    <td class="table-user">
+                                        <img src="{{ contact.image }}" alt="table-user" class="mr-2 rounded-circle">
+                                        <a href="javascript:void(0);"
+                                            class="text-body font-weight-semibold">{{ contact.name }}</a>
+                                    </td>
+                                    <td>
+                                        {{ contact.phone }}
+                                    </td>
+                                    <td>
+                                        {{ contact.email }}
+                                    </td>
+                                    <td>
+                                        {{ contact.location }}
+                                    </td>
+                                    <td>
+                                        {{ contact.date }}
+                                    </td>
+                                    <td>
+                                        <a href="javascript:void(0);" class="action-icon"> <i
+                                                class="mdi mdi-square-edit-outline"></i></a>
+                                        <a href="javascript:void(0);" class="action-icon"> <i
+                                                class="mdi mdi-delete"></i></a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </app-portlet>
+        </div>
+        <div class="col-lg-4">
+            <app-portlet title="Sales by Product Group" headerClass="h5 header-title" color="white">
+                <div class="card-body pt-2 pb-4">
+                    <div style="height: 310px;">
+                        <apx-chart [chart]="salesDonutChart" [series]="salesDonutChart.series"
+                            [colors]="salesDonutChart.colors" [labels]="salesDonutChart.labels"
+                            [dataLabels]="salesDonutChart.dataLabels" [legend]="salesDonutChart.legend"></apx-chart>
+
+                        <div class="text-center">
+                            <p class="text-muted font-15 font-family-secondary mb-0">
+                                <span class="mx-2"><i class="mdi mdi-checkbox-blank-circle text-info"></i> Group
+                                    1</span>
+                                <span class="mx-2"><i class="mdi mdi-checkbox-blank-circle text-primary"></i> Group
+                                    2</span>
+                                <span class="mx-2"><i class="mdi mdi-checkbox-blank-circle text-light"></i> Group
+                                    3</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </app-portlet>
+        </div>
+    </div>
+</div>
+
+<ng-template #WidgetData let-widget='widget'>
+    <div class="col-md-4">
+        <div class="card-box bg-pattern">
+            <div class="row">
+                <div class="col-6">
+                    <div class="avatar-md bg-{{widget.color}} rounded">
+                        <i class="{{widget.icon}} avatar-title font-22 text-white"></i>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="text-right">
+                        <h3 class="text-dark my-1"><span [CountTo]="widget.value" [from]="0"
+                                [duration]="1">{{widget.value}}</span></h3>
+                        <p class="text-muted mb-0 text-truncate">{{widget.title}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>

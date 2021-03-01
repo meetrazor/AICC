@@ -1,0 +1,47 @@
+<div class="content">
+  <!-- Start Content-->
+  <div class="container-fluid">
+    <!-- start page title -->
+
+    <!-- end page title -->
+
+    <div class="row">
+      <div class="col-md-12 col-xl-12">
+        <div class="">
+          <div class="card-body">
+            <div class="card-widgets"></div>
+            <!-- <h4 class="header-title mb-0"></h4> -->
+            <div id="cardCollpase4" class="collapse pt-3 show">
+              <div class="pn-main">
+                <div class="row">
+                  <div class="col-lg-8">
+                    <app-details-photograph
+                      propertyId="{{ propertyID }}"
+                    ></app-details-photograph>
+                  </div>
+
+                  <div class="col-lg-4">
+                    <div class="">
+                      <div class="card-body">
+                        <app-add-photograph
+                          propertyId="{{ propertyID }}"
+                        ></app-add-photograph>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- end collapse-->
+          </div>
+          <!-- end card-body-->
+        </div>
+        <!-- end card-->
+      </div>
+    </div>
+  </div>
+  <div class="card-disabled" *ngIf="isLoading">
+    <div class="card-portlets-loader"></div>
+  </div>
+  <!-- container -->
+</div>

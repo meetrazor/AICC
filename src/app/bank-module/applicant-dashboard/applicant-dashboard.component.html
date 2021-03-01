@@ -1,0 +1,338 @@
+<app-page-title
+  *ngIf="loaded"
+  title="{{ applicationData.FirstName }} {{
+    applicationData.LastName
+  }}'s Dashboard"
+  [breadcrumbItems]="breadCrumbItems"
+></app-page-title>
+<div class="row" *ngIf="loaded">
+  <div class="col-xl-4">
+    <div class="card-box">
+      <div class="widget-chart text-center" dir="ltr" *ngIf="loaded">
+        <h2 class="h2">Document Status</h2>
+        <apx-chart
+          [chart]="revenueRadialChart.chart"
+          [series]="revenueRadialChart.series"
+          [plotOptions]="revenueRadialChart.plotOptions"
+          [colors]="revenueRadialChart.colors"
+          [stroke]="revenueRadialChart.stroke"
+        >
+        </apx-chart>
+        <h5 class="text-muted">DOCUMENTS RECEIVED</h5>
+        <div class="table-responsive">
+          <table class="table table-borderless mb-0">
+            <tbody>
+              <tr>
+                <td class="h4">
+                  Received
+                  <span class="text-success">{{ received }}</span>
+                </td>
+                <td>
+                  <a
+                    [routerLink]="'/loan/View-Documents/' + AppID"
+                    [queryParams]="{ type: 'Received' }"
+                    class="text-success h4"
+                    >VIEW</a
+                  >
+                </td>
+              </tr>
+              <!-- <tr>
+                <td class="h4">
+                  Reviewed
+                  <span class="text-success">{{ reviewd }}</span>
+                </td>
+                <td>
+                  <a
+                    [routerLink]="'/loan/View-Documents/' + AppID"
+                    [queryParams]="{ type: 'reviewed' }"
+                    class="text-success h4"
+                    >VIEW</a
+                  >
+                </td>
+              </tr> -->
+              <tr>
+                <td class="h4">
+                  Pending
+                  <span class="text-primary">{{ pending }}</span>
+                </td>
+                <td>
+                  <!-- <a
+                    [routerLink]="'/loan/View-Documents/' + AppID"
+                    [queryParams]="{ type: 'pending' }"
+                    class="text-success h4"
+                    >Request </a
+                  >| -->
+                  <a
+                    [routerLink]="'/loan/View-Documents/' + AppID"
+                    [queryParams]="{ type: 'pending' }"
+                    class="text-success h4"
+                  >
+                    Upload
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- <h4><a href="" class="">VIEW COMMENTS</a></h4> -->
+        <!-- <h2>Ownership Verification</h2> -->
+        <!-- <div class="row mt-3">
+          <div class="col-4">
+            <p class="text-muted font-15 mb-1 text-truncate"></p>
+            <h4><a href="">VIEW</a></h4>
+          </div>
+          <div class="col-4">
+            <p class="text-muted font-15 mb-1 text-truncate"></p>
+            <h4><a href="">UPLOAD</a></h4>
+          </div>
+          <div class="col-4">
+            <p class="text-muted font-15 mb-1 text-truncate"></p>
+            <h4><a href="">REQUEST</a></h4>
+          </div>
+        </div> -->
+      </div>
+    </div>
+    <!-- end card-box -->
+  </div>
+  <div class="col-xl-4">
+    <div class="card-box">
+      <h2 class="text-center pb-2">
+        <span class="text-danger m-0">i</span>PVR
+      </h2>
+      <!-- <h2 class="text-center pb-2">Ownership Verification</h2> -->
+      <app-portlet
+        *ngIf="applicationData.PVRDocumentID"
+        loading="0"
+        title="PropLegit PVR Summary"
+        color="light"
+        collapsed="1"
+        headerClass="title header-title "
+      >
+        <ngb-accordion
+          #acc="ngbAccordion"
+          activeIds="static-1"
+          [closeOthers]="true"
+          *ngIf="PVRDetailsLoaded"
+        >
+          <ngb-panel id="static-1" class="my-1">
+            <ng-template ngbPanelTitle>
+              Property Verification
+              <!-- <i class="mdi mdi-chevron-down accordion-arrow"></i> -->
+            </ng-template>
+            <ng-template ngbPanelContent>
+              {{ PVRData.PropertyRemarks }}
+              <!-- <ng-template [ngTemplateOutlet]="TabContent"></ng-template> -->
+            </ng-template>
+          </ngb-panel>
+          <ngb-panel id="static-2" class="my-1">
+            <ng-template ngbPanelTitle>Ownership Verification</ng-template>
+            <ng-template ngbPanelContent>
+              {{ PVRData.OwnerRemarks }}
+              <!-- <ng-template [ngTemplateOutlet]="TabContent"></ng-template> -->
+            </ng-template>
+          </ngb-panel>
+          <ngb-panel id="static-3" class="my-1">
+            <ng-template ngbPanelTitle>Encumbrance Verification</ng-template>
+            <ng-template ngbPanelContent>
+              {{ PVRData.EncumbranceRemarks }}</ng-template
+            >
+          </ngb-panel>
+        </ngb-accordion>
+        <div class="text-center mt-3">
+          <button
+            class="btn bg-light text-dark"
+            [routerLink]="
+              '/loan/viewdocument/' +
+              applicationData.PropertyID +
+              '/' +
+              applicationData.PVRDocumentID
+            "
+          >
+            See Full Report
+          </button>
+        </div>
+      </app-portlet>
+      <div class="text-center" *ngIf="!applicationData.PVRDocumentID">
+        <h4
+          id="status"
+          class="mt-4 text-info"
+          *ngIf="!applicationData.PVRDocumentID"
+        >
+          {{ statusList[index] }}
+        </h4>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-4">
+    <div class="card-box">
+      <div class="widget-chart text-center" dir="ltr">
+        <h2>Property Information</h2>
+        <div class="row mt-3">
+          <div class="col-12">
+            <table class="table table-borderless mb-0" *ngIf="loaded">
+              <tbody>
+                <tr>
+                  <th class="h4">Village</th>
+                  <td>
+                    {{
+                      applicationData.VillageName
+                        ? applicationData.VillageName
+                        : "-"
+                    }}
+                  </td>
+                </tr>
+                <tr>
+                  <th class="h4">Address</th>
+                  <td>
+                    {{
+                      applicationData.PostalAddress
+                        ? applicationData.PostalAddress
+                        : "-"
+                    }}
+                  </td>
+                </tr>
+                <tr>
+                  <th class="h4">SurveyNo</th>
+                  <td>
+                    {{
+                      applicationData.SurveyNo ? applicationData.SurveyNo : "-"
+                    }}
+                  </td>
+                </tr>
+                <tr>
+                  <th class="h4">TP NO</th>
+                  <td>
+                    {{ applicationData.TPNo ? applicationData.TPNo : "-" }}
+                  </td>
+                </tr>
+                <tr>
+                  <th class="h4">FP NO</th>
+                  <td>
+                    {{ applicationData.FPNo ? applicationData.FPNo : "-" }}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="card-box" *ngIf="applicationData.PVRDocumentID">
+      <div class="widget-chart text-center" dir="ltr">
+        <h2>Title Certificate</h2>
+        <h4 *ngIf="!applicationData.LawyerID">
+          <a [routerLink]="'/loan/Lawyers/' + applicationData.AppID"
+            >Assign a Lawyer</a
+          >
+        </h4>
+        <div class="row" *ngIf="applicationData.LawyerID && IsLawyerLoaded">
+          <div class="col-md-6">
+            <img
+              class="img-fluid rounded-circle"
+              src="assets/images/users/user.png"
+              alt=""
+              height="150"
+              width="150"
+            />
+            <h4>{{ lawyerInfo.LawyerName }}</h4>
+          </div>
+          <div class="col-md-6">
+            <div class="mt-4">
+              <p><i class="fas fa-mail-bulk"> </i> Send e-Mail</p>
+              <p>
+                <i class="fas fa-phone"> </i>
+                <a href="tel:{{ lawyerInfo.MobileNo }}">
+                  {{ lawyerInfo.MobileNo }}</a
+                >
+              </p>
+              <p>
+                <i class="mdi mdi-email"> </i>
+                <a class="text-primary">
+                  {{ lawyerInfo.EmailId }}
+                </a>
+              </p>
+            </div>
+          </div>
+        </div>
+        <h4>
+          <a class="text-success">{{ applicationData.ApplicationStatus }}</a>
+        </h4>
+      </div>
+    </div> -->
+    <div class="card-box" *ngIf="applicationData.PVRDocumentID">
+      <div class="widget-chart text-center" dir="ltr">
+        <h2>EC Request <span class="font-15">(12 years or above)</span></h2>
+        <!-- <h4 class="text-danger">Lawyer Assignment Pending</h4> -->
+        <h4 *ngIf="!applicationData.EC_Request">
+          <a class="btn font-16 text-primary" (click)="EcChange()"
+            >Request Now</a
+          >
+        </h4>
+        <h4 *ngIf="applicationData.EC_Request">
+          <a class="text-primary">EC Requested</a>
+        </h4>
+        <h4>
+          <a class="text-success">{{ applicationData.ApplicationStatus }}</a>
+        </h4>
+      </div>
+    </div>
+    <!-- end card-box -->
+    <!-- <div class="card-box">
+      <div class="widget-chart text-center" dir="ltr">
+        <h2>Physical Verification</h2>
+        <div class="row mt-3">
+          <div class="col-12">
+            <p class="text-muted font-15 mb-1 text-truncate"></p>
+            <h4><a href="" class="text-warning">Pending</a></h4>
+          </div>
+        </div>
+      </div>
+    </div> -->
+    <!-- end card-box -->
+  </div>
+</div>
+<div class="row" *ngIf="loaded">
+  <div class="col-xl-4 mb-3">
+    <div class="card-box" style="height: 100%" *ngIf="loaded">
+      <h4>Primary Contact</h4>
+      <div class="user-info text-center mt-3">
+        <img
+          class="img-fluid rounded-circle"
+          src="assets/images/users/user.png"
+          alt=""
+          height="150"
+          width="150"
+        />
+        <h4>{{ applicationData.FirstName }} {{ applicationData.LastName }}</h4>
+        <p>
+          <i class="fas fa-mail-bulk"> {{ applicationData.EmailAddress }}</i>
+        </p>
+        <p>
+          <i class="fas fa-phone"> </i>
+          <a href="tel:{{ applicationData.MobileNumber }}">
+            {{ applicationData.MobileNumber }}</a
+          >
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-8">
+    <div class="card-box">
+      <h3 class="header-title" style="font-size: x-large">
+        Government Certified Land Revenue Records
+      </h3>
+      <div class="table-responsive" appSlimScroll style="height: 360px">
+        <table
+          datatable
+          width="100%"
+          [dtOptions]="dtOptions"
+          class="table table-borderless hover mb-0"
+        ></table>
+      </div>
+      <!-- end table-responsive-->
+    </div>
+  </div>
+</div>
+<div class="card-disabled" *ngIf="!loaded">
+  <div class="card-portlets-loader"></div>
+</div>

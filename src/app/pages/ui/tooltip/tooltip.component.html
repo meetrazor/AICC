@@ -1,0 +1,57 @@
+<div class="container-fluid">
+  <app-page-title title="Tooltip & Popovers" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+
+  <div class="row">
+    <div class="col-12">
+      <div class="card-box">
+        <!-- Popover -->
+        <h4 class="header-title">Popovers</h4>
+        <p class="sub-header">Add small overlays of content, like those on
+          the iPad, to any element for housing secondary information.</p>
+        <button type="button" class="btn btn-light" placement="top"
+          ngbPopover="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">
+          Popover on top
+        </button>
+        <button type="button" class="btn btn-light ml-1" placement="right"
+          ngbPopover="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">
+          Popover on right
+        </button>
+        <button type="button" class="btn btn-light ml-1" placement="bottom"
+          ngbPopover="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">
+          Popover on bottom
+        </button>
+        <button type="button" class="btn btn-light ml-1" placement="left"
+          ngbPopover="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">
+          Popover on left
+        </button>
+      </div> <!-- end card-box -->
+    </div><!-- end col-->
+  </div>
+  <!-- end row -->
+
+  <div class="row">
+    <div class="col-12">
+      <div class="card-box">
+        <!-- Tooltips -->
+        <h4 class="header-title m-t-0">Tooltips</h4>
+        <p class="sub-header">Four options are available: top, right, bottom,
+          and left aligned.</p>
+        <div class="button-list">
+          <button type="button" class="btn btn-light" placement="top" ngbTooltip="Tooltip on top">
+            Tooltip on top
+          </button>
+          <button type="button" class="btn btn-light" placement="right" ngbTooltip="Tooltip on right">
+            Tooltip on right
+          </button>
+          <button type="button" class="btn btn-light" placement="bottom" ngbTooltip="Tooltip on bottom">
+            Tooltip on bottom
+          </button>
+          <button type="button" class="btn btn-light" placement="left" ngbTooltip="Tooltip on left">
+            Tooltip on left
+          </button>
+        </div>
+      </div> <!-- end card-box -->
+    </div> <!-- end col -->
+  </div>
+  <!-- end row -->
+</div>

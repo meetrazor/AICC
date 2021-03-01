@@ -1,0 +1,757 @@
+<div class="container-fluid">
+  <!-- start page title -->
+  <app-page-title
+    title="Add New Application"
+    [breadcrumbItems]="breadCrumbItems"
+  ></app-page-title>
+  <div class="card">
+    <div class="card-body">
+      <form
+        [formGroup]="loan"
+        novalidate
+        (ngSubmit)="save()"
+        (keydown.enter)="$event.preventDefault()"
+      >
+        <!-- <h5 class="header-title mb-0" style="color: darkgrey; font-size: 18px">
+          Application Information
+        </h5>
+        <hr /> -->
+
+        <div id="cardCollpase4" class="collapse pt-3 show">
+          <div class="pn-main">
+            <h5
+              class="header-title mb-0"
+              style="color: darkgrey; font-size: 18px"
+            >
+              Applicant Information
+            </h5>
+            <hr />
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="">Applicant First Name *</label>
+                <input
+                  class="form-control"
+                  placeholder="Enter First Name"
+                  formControlName="ApplicantFirstName"
+                  maxlength="55"
+                  autocomplete="off"
+                  [ngClass]="{
+                    'is-invalid': submitted && f.ApplicantFirstName.errors
+                  }"
+                />
+                <div
+                  *ngIf="submitted && f.ApplicantFirstName.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="f.ApplicantFirstName.errors.required">
+                    Applicant First Name is required
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group col-md-6">
+                <label for="">Applicant Last Name *</label>
+                <input
+                  class="form-control"
+                  autocomplete="off"
+                  placeholder="Enter Last Name"
+                  formControlName="ApplicantLastName"
+                  maxlength="55"
+                  [ngClass]="{
+                    'is-invalid': submitted && f.ApplicantLastName.errors
+                  }"
+                />
+                <div
+                  *ngIf="submitted && f.ApplicantLastName.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="f.ApplicantLastName.errors.required">
+                    Applicant Last Name is required
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group col-md-6">
+                <label for="">Application No *</label>
+                <input
+                  class="form-control"
+                  placeholder="Enter Application No"
+                  formControlName="ApplicationNo"
+                  maxlength="55"
+                  autocomplete="off"
+                  [ngClass]="{
+                    'is-invalid': submitted && f.ApplicationNo.errors
+                  }"
+                />
+                <div
+                  *ngIf="submitted && f.ApplicationNo.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="f.ApplicationNo.errors.required">
+                    Application No is required
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group col-md-6">
+                <label for="">Applicant Mobile No *</label>
+                <input
+                  class="form-control"
+                  placeholder="Enter MobileNo"
+                  autocomplete="off"
+                  formControlName="MobileNo"
+                  maxlength="55"
+                  [ngClass]="{
+                    'is-invalid': submitted && f.MobileNo.errors
+                  }"
+                />
+                <div
+                  *ngIf="submitted && f.MobileNo.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="f.MobileNo.errors.required">
+                    MobileNo is required
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group col-md-6">
+                <label for="">Applicant Email *</label>
+                <input
+                  class="form-control"
+                  placeholder="Enter Email"
+                  formControlName="Email"
+                  autocomplete="off"
+                  maxlength="55"
+                  [ngClass]="{
+                    'is-invalid': submitted && f.Email.errors
+                  }"
+                />
+                <div
+                  *ngIf="submitted && f.Email.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="f.Email.errors.required">Email is required</div>
+                </div>
+              </div>
+
+              <div class="form-group col-md-6">
+                <label for="">Is Applicant/Owner Same ?</label><br />
+                <span>
+                  <input
+                    type="radio"
+                    formControlName="IsOwnerSame"
+                    value="True"
+                  />
+                  Yes</span
+                >
+                <span
+                  ><input
+                    type="radio"
+                    formControlName="IsOwnerSame"
+                    value="False"
+                  />
+                  No</span
+                >
+              </div>
+            </div>
+            <h5
+              class="header-title mb-0 mt-3"
+              *ngIf="f.IsOwnerSame.value === 'False'"
+              style="color: darkgrey; font-size: 18px"
+            >
+              Owner Information
+            </h5>
+            <hr />
+            <div
+              *ngIf="f.IsOwnerSame.value === 'False'"
+              class=""
+              formArrayName="PropertyOwners"
+            >
+              <div
+                *ngFor="
+                  let owner of loan.controls.PropertyOwners['controls'];
+                  let i = index
+                "
+              >
+                <div class="form-group col-md-6" [formGroupName]="i">
+                  <label>Owner Name</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    autocomplete="off"
+                    formControlName="OwnerName"
+                    maxlength="500"
+                    [ngClass]="{
+                      'is-invalid':
+                        submitted &&
+                        f.PropertyOwners['controls'][i]['controls'].OwnerName
+                          .errors
+                    }"
+                  />
+                  <div
+                    *ngIf="
+                      submitted &&
+                      f.PropertyOwners['controls'][i]['controls'].OwnerName
+                        .errors
+                    "
+                    class="invalid-feedback"
+                  >
+                    <div
+                      *ngIf="
+                        f.PropertyOwners['controls'][i]['controls'].OwnerName
+                          .errors.pattern
+                      "
+                    >
+                      Only Alpha letters Allowed
+                    </div>
+                  </div>
+                  <span
+                    class="mdi mdi-account-remove"
+                    style="cursor: pointer; color: red"
+                    *ngIf="f.PropertyOwners['controls'].length > 1"
+                    (click)="removeOwner(i)"
+                  >
+                  </span>
+                </div>
+              </div>
+              <a (click)="addOwner()" style="cursor: pointer">
+                Add owner <i class="mdi mdi-account-multiple-plus"></i>
+              </a>
+            </div>
+            <h5
+              class="header-title mb-0 mt-3"
+              style="color: darkgrey; font-size: 18px"
+            >
+              Property Information
+            </h5>
+            <hr />
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="">States *</label>
+                <ng-select
+                  class="form-control"
+                  formControlName="StateID"
+                  autocomplete="off"
+                  (change)="ChangeState($event)"
+                  placeholder="
+                Select State"
+                  [ngClass]="{
+                    'is-invalid': submitted && f.StateID.errors
+                  }"
+                >
+                  <ng-option
+                    *ngFor="let item of StateList"
+                    [value]="item.StateID"
+                    [id]="item.StateID"
+                    >{{ item.StateName }}</ng-option
+                  >
+                </ng-select>
+                <!-- <select
+                class="custom-select"
+                formControlName="StateID"
+                (change)="ChangeState($event)"
+                [ngClass]="{
+                  'is-invalid': submitted && f.StateID.errors
+                }"
+              >
+                <option
+                  *ngFor="let state of StateList"
+                  [value]="state.StateID"
+                  [id]="state.StateID"
+                >
+                  {{ state.StateName }}
+                </option>
+              </select> -->
+                <div
+                  *ngIf="submitted && f.StateID.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="f.StateID.errors.required">State is required</div>
+                </div>
+              </div>
+
+              <!-- <div class="form-group col-md-6">
+                <label for="">Districts *</label>
+                <ng-select
+                  class="form-control"
+                  autocomplete="off"
+                  formControlName="DistrictID"
+                  [ngClass]="{
+                    'is-invalid': submitted && f.DistrictID.errors
+                  }"
+                  placeholder="Select District"
+                  (change)="ChangeDistrict()"
+                >
+                  <ng-option
+                    *ngFor="let item of DistrictList"
+                    [value]="item.DistrictID"
+                    [id]="item.DistrictID"
+                    >{{ item.DistrictName }}</ng-option
+                  >
+                </ng-select>
+                <div
+                  *ngIf="submitted && f.DistrictID.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="f.DistrictID.errors.required">
+                    District is required
+                  </div>
+                </div>
+              </div> -->
+
+              <div class="col-md-6">
+                <label for="">Village/Pincode *</label>
+                <!-- <div class="form-group"> -->
+                <ng-autocomplete
+                  style="width: 100%; margin: 0; padding: 0"
+                  [data]="areas"
+                  [initialValue]="initialValue"
+                  autocomplete="off"
+                  [searchKeyword]="keyword"
+                  placeHolder="Enter Village or Pincode"
+                  (selected)="selectEvent($event)"
+                  (inputChanged)="onChangeSearch($event)"
+                  formControlName="taluka"
+                  class="form-group form-control"
+                  [ngClass]="{
+                    'is-invalid': submitted && f.TalukaID.errors
+                  }"
+                  (inputCleared)="onclear()"
+                  [itemTemplate]="itemTemplate"
+                  [notFoundTemplate]="notFoundTemplate"
+                >
+                </ng-autocomplete>
+
+                <ng-template #itemTemplate let-item>
+                  <a [innerHTML]="item.Area"></a>
+                </ng-template>
+
+                <ng-template
+                  *ngIf="!notfoundshow"
+                  #notFoundTemplate
+                  let-notFound
+                >
+                  <div [innerHTML]="notFound"></div>
+                </ng-template>
+
+                <div
+                  *ngIf="submitted && f.TalukaID.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="f.TalukaID.errors.required">
+                    Village is required
+                  </div>
+                </div>
+                <!-- </div> -->
+              </div>
+
+              <div class="form-group col-md-6">
+                <label for="">PropertyType *</label>
+                <select
+                  class="custom-select"
+                  autocomplete="off"
+                  formControlName="LoanPropertyTypeID"
+                  [ngClass]="{
+                    'is-invalid': submitted && f.LoanPropertyTypeID.errors
+                  }"
+                >
+                  <option
+                    *ngFor="let type of propertyType"
+                    [value]="type.DropDownItemID"
+                  >
+                    {{ type.DropDownValue }}
+                  </option>
+                </select>
+                <div
+                  *ngIf="submitted && f.LoanPropertyTypeID.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="f.LoanPropertyTypeID.errors.required">
+                    PropertyType is required
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group col-md-6">
+                <label for="">PropertyAddress *</label>
+                <input
+                  class="form-control"
+                  placeholder="Enter Property Address"
+                  formControlName="PropertyAddress"
+                  autocomplete="off"
+                  maxlength="55"
+                  [ngClass]="{
+                    'is-invalid': submitted && f.PropertyAddress.errors
+                  }"
+                />
+                <div
+                  *ngIf="submitted && f.PropertyAddress.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="f.PropertyAddress.errors.required">
+                    PropertyAddress is required
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group col-md-6">
+                <label for="">Survey No </label>
+                <input
+                  class="form-control"
+                  placeholder="Enter Survey No"
+                  formControlName="SurveyNo"
+                  autocomplete="off"
+                  [ngClass]="{
+                    'is-invalid': submitted && f.SurveyNo.errors
+                  }"
+                  (paste)="(false)"
+                />
+                <div
+                  *ngIf="submitted && f.SurveyNo.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="f.SurveyNo.errors.required">
+                    Survey No is required
+                  </div>
+                </div>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="">City Survey No </label>
+                <input
+                  class="form-control"
+                  placeholder="Enter City Survey No"
+                  formControlName="CitySurveyNumber"
+                  autocomplete="off"
+                  [ngClass]="{
+                    'is-invalid': submitted && f.CitySurveyNumber.errors
+                  }"
+                  (paste)="(false)"
+                />
+                <div
+                  *ngIf="submitted && f.CitySurveyNumber.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="f.CitySurveyNumber.errors.required">
+                    City Survey No is required
+                  </div>
+                </div>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="">TP No</label>
+                <input
+                  class="form-control"
+                  placeholder="Enter TP No"
+                  formControlName="TpNo"
+                  autocomplete="off"
+                  [ngClass]="{}"
+                  (paste)="(false)"
+                />
+              </div>
+
+              <div class="form-group col-md-6">
+                <label for="">FP No</label>
+                <input
+                  class="form-control"
+                  placeholder="Enter FP No"
+                  formControlName="FpNo"
+                  (paste)="(false)"
+                  autocomplete="off"
+                  [ngClass]="{}"
+                />
+              </div>
+            </div>
+            <h5
+              class="header-title mb-0 mt-3"
+              style="color: darkgrey; font-size: 18px"
+            >
+              Bank Information
+            </h5>
+            <hr />
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="">Bank Name *</label>
+                <ng-select
+                  class="form-control"
+                  autocomplete="off"
+                  formControlName="BankID"
+                  [ngClass]="{
+                    'is-invalid': submitted && f.BankID.errors
+                  }"
+                  placeholder="Select Bank"
+                >
+                  <ng-option
+                    *ngFor="let item of bankList"
+                    [value]="item.BankID"
+                    [id]="item.BankID"
+                    >{{ item.BankName }}</ng-option
+                  >
+                </ng-select>
+                <div
+                  *ngIf="submitted && f.BankID.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="f.BankID.errors.required">
+                    Bank Name is required
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group col-md-6">
+                <label for="">Branch Name *</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Enter branch"
+                  autocomplete="off"
+                  formControlName="BranchCode"
+                  maxlength="55"
+                  [ngClass]="{
+                    'is-invalid': submitted && f.BranchCode.errors
+                  }"
+                />
+                <div
+                  *ngIf="submitted && f.BranchCode.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="f.BranchCode.errors.required">
+                    Branch Code is required
+                  </div>
+                </div>
+              </div>
+            </div>
+            <h5
+              class="header-title mb-0 mt-3"
+              style="color: darkgrey; font-size: 18px"
+            >
+              Loan Information
+            </h5>
+            <hr />
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="">Type Of Loan *</label>
+                <select
+                  class="custom-select"
+                  formControlName="TypeOfLoan"
+                  autocomplete="off"
+                  [ngClass]="{
+                    'is-invalid': submitted && f.TypeOfLoan.errors
+                  }"
+                >
+                  <option
+                    *ngFor="let type of loanTypes"
+                    [value]="type.DropDownItemID"
+                  >
+                    {{ type.DropDownValue }}
+                  </option>
+                </select>
+                <div
+                  *ngIf="submitted && f.TypeOfLoan.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="f.TypeOfLoan.errors.required">
+                    TypeOfLoan is required
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group col-md-6">
+                <label for="">Loan Amount *</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  placeholder="Enter Loan Amount"
+                  autocomplete="off"
+                  formControlName="LoanAmount"
+                  maxlength="55"
+                  [ngClass]="{
+                    'is-invalid': submitted && f.LoanAmount.errors
+                  }"
+                />
+                <div
+                  *ngIf="submitted && f.LoanAmount.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="f.LoanAmount.errors.required">
+                    Loan Amount is required
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <h5
+              class="header-title mb-0 mt-3"
+              style="color: darkgrey; font-size: 18px"
+            >
+              Lien Information
+            </h5>
+            <hr />
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="">Is There Known Lien on Property?</label><br />
+                <span>
+                  <input
+                    type="radio"
+                    formControlName="IsLien"
+                    value="True"
+                    (change)="onChangeLien($event.target.value)"
+                  />
+                  Yes</span
+                >
+                <span
+                  ><input
+                    type="radio"
+                    formControlName="IsLien"
+                    value="False"
+                    (change)="onChangeLien($event.target.value)"
+                  />
+                  No</span
+                >
+              </div>
+
+              <div
+                *ngIf="f.IsLien.value === 'True'"
+                class="form-group col-md-6"
+              >
+                <label for="">Lien Person Name *</label>
+                <input
+                  class="form-control"
+                  placeholder="Enter Lien Person Name"
+                  formControlName="LienPersonName"
+                  autocomplete="off"
+                  maxlength="55"
+                  [ngClass]="{
+                    'is-invalid': submitted && f.LienPersonName.errors
+                  }"
+                />
+                <div
+                  *ngIf="submitted && f.LienPersonName.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="f.LienPersonName.errors.required">
+                    Lien Person Name is required
+                  </div>
+                </div>
+              </div>
+
+              <div
+                *ngIf="f.IsLien.value === 'True'"
+                class="form-group col-md-6"
+              >
+                <label for="">Lien From *</label>
+                <input
+                  class="form-control"
+                  placeholder="Enter Lien From Name"
+                  autocomplete="off"
+                  formControlName="LienFrom"
+                  maxlength="55"
+                  [ngClass]="{
+                    'is-invalid': submitted && f.LienFrom.errors
+                  }"
+                />
+                <div
+                  *ngIf="submitted && f.LienFrom.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="f.LienFrom.errors.required">
+                    Lien Person Name is required
+                  </div>
+                </div>
+              </div>
+
+              <div
+                *ngIf="f.IsLien.value === 'True'"
+                class="form-group col-md-6"
+              >
+                <label for="">Lien Amount *</label>
+                <input
+                  class="form-control"
+                  placeholder="Enter Lien Amount"
+                  formControlName="LienAmount"
+                  autocomplete="off"
+                  maxlength="55"
+                  [ngClass]="{
+                    'is-invalid': submitted && f.LienAmount.errors
+                  }"
+                />
+                <div
+                  *ngIf="submitted && f.LienAmount.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="f.LienAmount.errors.required">
+                    LienAmount is required
+                  </div>
+                </div>
+              </div>
+
+              <div
+                *ngIf="f.IsLien.value === 'True'"
+                class="form-group col-md-6"
+              >
+                <label for="">Lien Date *</label>
+                <input
+                  class="form-control"
+                  type="date"
+                  placeholder="Enter Lien Date"
+                  autocomplete="off"
+                  formControlName="LienDate"
+                  maxlength="55"
+                  [ngClass]="{
+                    'is-invalid': submitted && f.LienDate.errors
+                  }"
+                />
+                <div
+                  *ngIf="submitted && f.LienDate.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="f.LienDate.errors.required">
+                    Lien Date is required
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <hr style="height: 1px; background-color: #ccc; border: none" />
+
+            <div class="text-center button-list mt-3">
+              <!-- <a class="btn btn-outline-primary" href="javascriptvoid:();">Edit</a> -->
+            </div>
+
+            <div class="text-center button-list mt-3">
+              <button
+                class="btn btn-primary waves-effect waves-light btn-sm"
+                type="button"
+                data-toggle="collapse"
+                data-target="#collapseExample"
+                aria-expanded="true"
+                aria-controls="collapseExample"
+                type="submit"
+              >
+                + Add application
+              </button>
+            </div>
+            <div class="card-disabled" *ngIf="isLoading">
+              <div class="card-portlets-loader"></div>
+            </div>
+
+            <!-- <div class="text-center button-list mt-3">
+            <button
+              class="btn btn-warning waves-effect waves-light btn-sm"
+              outline
+              type="button"
+              (click)="GoBack()"
+            >
+             Go Back
+            </button>
+          </div> -->
+
+            <!-- Real-time data: {{ myForm.value | json }}
+
+          Your form status is : {{ myForm.status }} -->
+          </div>
+        </div>
+      </form>
+      <!-- end collapse-->
+    </div>
+  </div>
+</div>

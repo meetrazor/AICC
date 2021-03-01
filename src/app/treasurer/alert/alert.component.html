@@ -1,0 +1,146 @@
+<div class="container-fluid">
+  <div class="col-md-12 table-responsive py-3" *ngIf="!isLoading">
+    <app-portlet
+      title="Tax Remainder"
+      headerClass="h5 header-title"
+      collapsed="0"
+      loading="0"
+      color=""
+    >
+      <app-portlet
+        title="7 Days Before Due Date"
+        Icon="mdi mdi-bell-alert"
+        headerClass="h5 header-title"
+        collapsed="0"
+        loading="0"
+        color="white"
+      >
+        <app-alert-data-table
+          [TaxData]="taxAlertData.DueDateAfter7Days"
+        ></app-alert-data-table>
+      </app-portlet>
+
+      <app-portlet
+        title="15 Days Before Due Date"
+        Icon="mdi mdi-bell-alert"
+        headerClass="h5 header-title"
+        collapsed="0"
+        loading="0"
+        color="white"
+      >
+        <app-alert-data-table
+          [TaxData]="taxAlertData.DueDateAfter15Days"
+        ></app-alert-data-table>
+      </app-portlet>
+      <app-portlet
+        title="30 Days Before Due Date"
+        Icon="mdi mdi-bell-alert"
+        headerClass="h5 header-title"
+        collapsed="0"
+        loading="0"
+        color="white"
+      >
+        <app-alert-data-table
+          [TaxData]="taxAlertData.DueDateAfter30Days"
+        ></app-alert-data-table>
+      </app-portlet>
+      <app-portlet
+        title="Past Due Date"
+        Icon="mdi mdi-bell-alert"
+        headerClass="h5 header-title"
+        collapsed="0"
+        loading="0"
+        color="white"
+      >
+        <app-alert-data-table
+          [TaxData]="taxAlertData.DueDatePast"
+        ></app-alert-data-table>
+      </app-portlet>
+      <app-portlet
+        title="Today's Due"
+        Icon="mdi mdi-bell-alert"
+        headerClass="h5 header-title"
+        collapsed="0"
+        loading="0"
+        color="white"
+      >
+        <app-alert-data-table
+          [TaxData]="taxAlertData.DueDateToday"
+        ></app-alert-data-table>
+      </app-portlet>
+    </app-portlet>
+    <!-- rent start -->
+    <app-portlet
+      title="Rent Remainder"
+      headerClass="h5 header-title"
+      collapsed="0"
+      loading="0"
+      color=""
+    >
+      <app-portlet
+        title="7 Days Before Due Date"
+        Icon="mdi mdi-bell-alert"
+        headerClass="h5 header-title"
+        collapsed="0"
+        loading="0"
+        color="white"
+      >
+        <app-alert-data-table
+          [RentData]="rentAlertData.DueDateAfter7Days"
+        ></app-alert-data-table>
+      </app-portlet>
+
+      <app-portlet
+        title="15 Days Before Due Date"
+        Icon="mdi mdi-bell-alert"
+        headerClass="h5 header-title"
+        collapsed="0"
+        loading="0"
+        color="white"
+      >
+        <app-alert-data-table
+          [RentData]="rentAlertData.DueDateAfter15Days"
+        ></app-alert-data-table>
+      </app-portlet>
+      <app-portlet
+        title="30 Days Before Due Date"
+        Icon="mdi mdi-bell-alert"
+        headerClass="h5 header-title"
+        collapsed="0"
+        loading="0"
+        color="white"
+      >
+        <app-alert-data-table
+          [RentData]="rentAlertData.DueDateAfter30Days"
+        ></app-alert-data-table>
+      </app-portlet>
+      <app-portlet
+        title="Past Due Date"
+        Icon="mdi mdi-bell-alert"
+        headerClass="h5 header-title"
+        collapsed="0"
+        loading="0"
+        color="white"
+      >
+        <app-alert-data-table
+          [RentData]="rentAlertData.DueDatePast"
+        ></app-alert-data-table>
+      </app-portlet>
+      <app-portlet
+        title="Today's Due"
+        Icon="mdi mdi-bell-alert"
+        headerClass="h5 header-title"
+        collapsed="0"
+        loading="0"
+        color="white"
+      >
+        <app-alert-data-table
+          [RentData]="rentAlertData.DueDateToday"
+        ></app-alert-data-table>
+      </app-portlet>
+    </app-portlet>
+  </div>
+</div>
+<div class="card-disabled" *ngIf="isLoading">
+  <div class="card-portlets-loader"></div>
+</div>

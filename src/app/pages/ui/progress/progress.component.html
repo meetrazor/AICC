@@ -1,0 +1,125 @@
+<div class="container-fluid">
+  <app-page-title title="Progress" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card-box">
+        <h4 class="header-title">Basic Example</h4>
+
+        <p class="sub-header">
+          Default progress bar.
+        </p>
+        <div class="mt-2">
+          <p>
+            <ngb-progressbar class="bg-primary"></ngb-progressbar>
+          </p>
+          <p>
+            <ngb-progressbar class="bg-primary" [value]="33"></ngb-progressbar>
+          </p>
+          <p>
+            <ngb-progressbar class="bg-primary" [value]="66"></ngb-progressbar>
+          </p>
+          <p>
+            <ngb-progressbar class="bg-primary" [value]="100"></ngb-progressbar>
+          </p>
+          <p>
+            <ngb-progressbar class="bg-primary" [value]="25">25%</ngb-progressbar>
+          </p>
+        </div>
+      </div>
+    </div><!-- End Default Progressbar -->
+
+    <div class="col-md-6">
+      <div class="card-box">
+        <h4 class="header-title">Contextual alternatives</h4>
+
+        <p class="sub-header">
+          Progress bars use some of the same button and alert classes for consistent styles.
+        </p>
+        <div class="mt-2">
+          <p>
+            <ngb-progressbar type="secondary" [value]="0"></ngb-progressbar>
+          </p>
+          <p>
+            <ngb-progressbar type="success" [value]="25"></ngb-progressbar>
+          </p>
+          <p>
+            <ngb-progressbar type="info" [value]="50"></ngb-progressbar>
+          </p>
+          <p>
+            <ngb-progressbar type="warning" [value]="75"></ngb-progressbar>
+          </p>
+          <p>
+            <ngb-progressbar type="danger" [value]="100"></ngb-progressbar>
+          </p>
+        </div>
+      </div>
+    </div><!-- End Contextual alternatives -->
+
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card-box">
+        <h4 class="header-title">Striped example</h4>
+
+        <p class="sub-header">
+          Uses a gradient to create a striped effect.
+        </p>
+        <div class="mt-2">
+          <p>
+            <ngb-progressbar class="primary" [value]="10" [striped]="true" [animated]="true"></ngb-progressbar>
+          </p>
+          <p>
+            <ngb-progressbar type="success" [value]="25" [striped]="true" [animated]="true"></ngb-progressbar>
+          </p>
+          <p>
+            <ngb-progressbar type="info" [value]="50" [striped]="true" [animated]="true"></ngb-progressbar>
+          </p>
+          <p>
+            <ngb-progressbar type="warning" [value]="75" [striped]="true" [animated]="true"></ngb-progressbar>
+          </p>
+          <p>
+            <ngb-progressbar type="danger" [value]="100" [striped]="true" [animated]="true"></ngb-progressbar>
+          </p>
+          <p>
+            <ngb-progressbar type="primary" [value]="75" [striped]="true" [animated]="true"></ngb-progressbar>
+          </p>
+
+        </div>
+      </div>
+    </div><!-- End Striped progressbar -->
+    
+    <div class="col-md-6">
+      <div class="card-box">
+        <h4 class="header-title">Size example</h4>
+
+        <p class="sub-header">
+          We only set a <code>height</code> value on the <code>.progress</code>, so if you change that value the inner
+          <code>.progress-bar</code> will automatically resize accordingly.
+        </p>
+
+        <div class="mt-2">
+          <p>
+            <ngb-progressbar class="color" [value]="70" height="1px"></ngb-progressbar>
+          </p>
+          <p>
+            <ngb-progressbar class="color" [value]="30" height="5px"></ngb-progressbar>
+          </p>
+          <p>
+            <ngb-progressbar type="success" [value]="25" height="8px"></ngb-progressbar>
+          </p>
+          <p>
+            <ngb-progressbar type="info" [value]="50" height="12px"></ngb-progressbar>
+          </p>
+          <p>
+            <ngb-progressbar type="warning" [value]="75" height="15px"></ngb-progressbar>
+          </p>
+          <p>
+            <ngb-progressbar type="danger" [value]="25"></ngb-progressbar>
+          </p>
+        </div>
+      </div>
+    </div><!-- End Size Progressbar -->
+  </div>
+</div>

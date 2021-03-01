@@ -1,0 +1,99 @@
+<div class="container-fluid">
+  <!-- breadCrums -->
+  <app-page-title
+    *ngIf="!isloading"
+    title="{{ data.PropertyName }}"
+    [breadcrumbItems]="breadCrumbItems"
+  ></app-page-title>
+
+  <div class="card-box" *ngIf="!isloading">
+    <ngb-tabset #tabs justify="justified" type="pills">
+      <ngb-tab title="Property" class="nav-item" id="property">
+        <ng-template ngbTabContent class="nav-item">
+          <app-view-property
+            propertyId="{{ propertyID }} "
+            [data]="data"
+          ></app-view-property>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab title="Alert / Remainder" class="nav-item" id="alert">
+        <ng-template ngbTabContent
+          ><app-alert PropertyId="{{ propertyID }}"></app-alert>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab title="Documents / Photographs" class="nav-item">
+        <ng-template ngbTabContent
+          ><app-view-photograph propertyId="{{ propertyID }}">
+          </app-view-photograph
+        ></ng-template>
+      </ngb-tab>
+      <ngb-tab title="Tax" class="nav-item">
+        <ng-template ngbTabContent class="nav-item">
+          <div class="row">
+            <div class="col-md-8">
+              <app-view-tax
+                propertyID="{{ propertyID }}"
+                [refresh]="count"
+              ></app-view-tax>
+            </div>
+            <div class="col-md-4">
+              <app-add-tax
+                (refresh)="refresh()"
+                propertyID="{{ propertyID }}"
+                propertyTypeID="{{ data.PropertyTypeID }}"
+                revenueOffice="{{ data.RevenewOfficeType }}"
+              >
+              </app-add-tax>
+            </div>
+          </div>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab title="Rent" class="nav-item">
+        <ng-template ngbTabContent class="nav-item">
+          <div class="row">
+            <div class="col-md-8">
+              <app-rent
+                [refresh]="count"
+                propertyID="{{ propertyID }}"
+              ></app-rent>
+            </div>
+            <div class="col-md-4">
+              <app-add-rent
+                (refreshrent)="refresh()"
+                propertyId="{{ propertyID }}"
+                [PropertyData]="data"
+              ></app-add-rent>
+            </div>
+          </div>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab title="Maintenance" class="nav-item">
+        <ng-template ngbTabContent
+          ><app-coming-soon></app-coming-soon>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab title="Legal Case" class="nav-item">
+        <ng-template ngbTabContent>
+          <div class="row">
+            <div class="col-md-8">
+              <app-view-legal-case [PropertyID]="propertyID">
+              </app-view-legal-case>
+            </div>
+            <div class="col-md-4">
+              <app-add-legal-case PropertyID="{{ propertyID }}">
+              </app-add-legal-case>
+            </div>
+          </div>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab title="Trust" class="nav-item">
+        <ng-template ngbTabContent
+          ><app-coming-soon></app-coming-soon>
+        </ng-template>
+      </ngb-tab>
+    </ngb-tabset>
+  </div>
+  <div class="card-disabled" *ngIf="isloading">
+    <div class="card-portlets-loader"></div>
+  </div>
+</div>

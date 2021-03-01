@@ -1,0 +1,425 @@
+<div class="content">
+  <!-- Start Content-->
+  <div class="container-fluid">
+    <!-- start page title -->
+    <div class="row">
+      <div class="col-12">
+        <div class="page-title-box">
+          <div class="page-title-right">
+            <ol class="breadcrumb m-0">
+              <!--<li class="breadcrumb-item"><a href="javascript: void(0);">UBold</a></li>-->
+              <!-- <li class="breadcrumb-item"><a href="ts-l-index.html"> Title Search</a></li> -->
+              <li class="breadcrumb-item"><a>Rahul Sharma SBI110</a></li>
+              <li class="breadcrumb-item active">Document Request</li>
+            </ol>
+          </div>
+
+          <h4 class="page-title">Rahul Sharma <small>Add Lawyer</small> </h4>
+        </div>
+      </div>
+    </div>
+    <!-- end page title -->
+    <div class="row">
+      <div class="col-md-7 col-xl-7">
+        <div class="card">
+          <div class="card-body">
+            <div id="cardCollpase4" class="collapse pt-3 show">
+
+              <form [formGroup]="lawyerForm" (ngSubmit)="onSubmit()">
+                <div class="form-group col-md-6">
+                  <label for="">State</label>
+                  <select class="custom-select " formControlName="StateId" (change)="fetchdist()" 
+                  [ngClass]="{
+                    'is-invalid': submitted && f.StateId.errors
+                  }"
+                  >
+                    <option *ngFor="let State of StateArray" [value]="State.StateID"> {{ State.StateName }}</option>
+                  </select>
+              
+                  <div
+                  *ngIf="submitted && f.StateId.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="f.StateId.errors.required">
+                    State is required
+                  </div>
+                 
+                </div>
+                </div>
+
+                <div class="form-group col-md-6">
+                  <label for="">District</label>
+                  <select class="custom-select " formControlName="DistrictId" (change)="fetchtaluka()"
+                  [ngClass]="{
+                    'is-invalid': submitted && f.DistrictId.errors
+                  }">
+                    <option *ngFor="let Ary of Array2" [value]="Ary.DistrictID"> {{ Ary.DistrictName }}</option>
+                  </select>
+                  <div
+                  *ngIf="submitted && f.DistrictId.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="f.DistrictId.errors.required">
+                    District is required
+                  </div>
+                 
+                </div>
+                </div>
+
+                <div class="form-group col-md-6">
+                  <label for="">Taluka</label>
+                  <select class="custom-select" formControlName="TalukaId" (change)="fetchtvillage()"
+                  [ngClass]="{
+                    'is-invalid': submitted && f.TalukaId.errors
+                  }"
+                  >
+                    <option *ngFor="let Ary of Array3" [value]="Ary.TalukaID"> {{ Ary.TalukaName }}</option>
+                  </select>
+                  <div
+                  *ngIf="submitted && f.TalukaId.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="f.TalukaId.errors.required">
+                    Taluka is required
+                  </div>
+                 
+                </div>
+                </div>
+
+                <div class="form-group col-md-6">
+                  <label for="">Village</label>
+                  <select class="custom-select" formControlName="VillageId"   [ngClass]="{
+                    'is-invalid': submitted && f.VillageId.errors
+                  }">
+                    <option *ngFor="let Ary of Array4" [value]="Ary.VillageID"> {{ Ary.VillageName }}</option>
+                  </select>
+                  <div
+                  *ngIf="submitted && f.VillageId.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="f.VillageId.errors.required">
+                    Village is required
+                  </div>
+                 
+                </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <h4 class="header-title">Lawyer Name</h4>
+                    <input
+                      class="form-control"
+                      placeholder="Enter LawyerName"
+                      formControlName="LawyerName"
+                      type="text"
+                      [ngClass]="{ 'is-invalid': submitted && f.LawyerName.errors }"
+                    />
+
+                    <div
+                    *ngIf="submitted && f.LawyerName.errors"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="f.LawyerName.errors.required">
+                      First Name is required
+                    </div>
+                    <div *ngIf="f.LawyerName.errors.maxlength">
+                      First Name cannot exceed 25 characters.
+                    </div>
+                  </div>
+                  </div>
+                </div>
+
+              
+
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <h4 class="header-title">Firm</h4>
+                    <input
+                      class="form-control"
+                      placeholder="Enter Firm"
+                      formControlName="Firm"
+                      [ngClass]="{ 'is-invalid': submitted && f.Firm.errors }"
+                    />
+
+                    <div
+                    *ngIf="submitted && f.Firm.errors"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="f.Firm.errors.required">
+                      Firm is required
+                    </div>
+                    <div *ngIf="f.Firm.errors.maxlength">
+                      Firm cannot exceed 50 characters.
+                    </div>
+                  </div>
+                  </div>
+                </div>
+               
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <h4 class="header-title">Mobile No</h4>
+                    <input
+                      class="form-control"
+                      placeholder="Enter Mobile No"
+                      formControlName="MobileNo"
+                      (keypress)="isValid($event)"
+                      [ngClass]="{
+                        'is-invalid': submitted && f.MobileNo.errors
+                      }"
+                    />
+                    <div
+                    *ngIf="submitted && f.MobileNo.errors"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="f.MobileNo.errors.required">
+                      Mobile Number is required
+                    </div>
+                    <div   *ngIf="f.MobileNo.errors.minlength || f.MobileNo.errors.maxlength">
+                      Mobile Number must be 10 Digit Only
+                    </div>
+                  </div>
+                  </div>
+                </div>
+               
+              
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <h4 class="header-title">Landline No</h4>
+                    <input
+                      class="form-control"
+                      placeholder="Enter Landline No"
+                      formControlName="LandlineNo"
+                      (keypress)="isValid($event)"
+                      [ngClass]="{
+                        'is-invalid': submitted && f.LandlineNo.errors
+                      }"
+                    />
+
+                    <div
+                    *ngIf="submitted && f.LandlineNo.errors"
+                    class="invalid-feedback"
+                      >
+                    <div *ngIf="f.LandlineNo.errors.required">
+                      Landline Number is required
+                    </div>
+
+                    <div
+                      *ngIf="
+                        f.LandlineNo.errors.maxlength ||
+                        f.LandlineNo.errors.minlength
+                      "
+                    >
+                    LandlineNo must be 10 Digits Only
+                    </div>
+                    </div>
+                  </div>
+                </div>
+              
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <h4 class="header-title">Fax</h4>
+                    <input
+                      class="form-control"
+                      placeholder="Enter Fax"
+                      formControlName="Fax"
+                      (keypress)="isValid($event)"
+                      [ngClass]="{
+                        'is-invalid': submitted && f.Fax.errors
+                      }"
+                    />
+                    <div
+                    *ngIf="submitted && f.Fax.errors"
+                    class="invalid-feedback"
+                      >
+                    <div *ngIf="f.Fax.errors.required">
+                      Fax is required
+                    </div>
+                    </div>
+                  </div>
+                </div>
+               
+              
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <h4 class="header-title">EmailId</h4>
+                    <input
+                      class="form-control"
+                      placeholder="Enter EmailId"
+                      formControlName="EmailId"
+                      type="email"
+                      [ngClass]="{
+                        'is-invalid': submitted && f.EmailId.errors
+                      }"
+                    />
+                    <div
+                    *ngIf="submitted && f.EmailId.errors"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="f.EmailId.errors.required">
+                      Email is required
+                    </div>
+                    <div *ngIf="f.EmailId.errors.pattern">
+                      Email must be a valid email address
+                    </div>
+                  </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <h4 class="header-title">Website</h4>
+                    <input
+                      class="form-control"
+                      placeholder="Enter Website"
+                      formControlName="Website"
+                      [ngClass]="{
+                        'is-invalid': submitted && f.Website.errors
+                      }"
+                    />
+                    <div
+                    *ngIf="submitted && f.Website.errors"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="f.Website.errors.required">
+                      Website is required
+                    </div>
+                    <div *ngIf="f.Website.errors.pattern">
+                      Website must be a valid URL.
+                    </div>
+                  </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <h4 class="header-title">Address</h4>
+                    <textarea
+                    class="form-control"
+                    placeholder="Enter Address"
+                    formControlName="Address"
+                    rows="3"
+                    [ngClass]="{
+                      'is-invalid': submitted && f.Address.errors
+                    }"
+                  ></textarea>
+                  <div
+                  *ngIf="submitted && f.Address.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="f.Address.errors.required">
+                    Address is required
+                  </div>
+                  <div *ngIf="f.Address.errors.maxlength">
+                    Address cannot exceed 255 characters.
+                  </div>
+                </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <h4 class="header-title">City</h4>
+                    <input
+                      class="form-control"
+                      placeholder="Enter City"
+                      formControlName="City"
+                      [ngClass]="{
+                        'is-invalid': submitted && f.City.errors
+                      }"
+                    />
+                    <div
+                    *ngIf="submitted && f.City.errors"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="f.City.errors.required">
+                      City is required
+                    </div>
+                   
+                  </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <h4 class="header-title">PinCode</h4>
+                    <input
+                      class="form-control"
+                      placeholder="Enter PinCode"
+                      formControlName="PinCode"
+                      (keypress)="isValid($event)"
+                      [ngClass]="{
+                        'is-invalid': submitted && f.PinCode.errors
+                      }"
+                    />
+                    <div
+                    *ngIf="submitted && f.PinCode.errors"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="f.PinCode.errors.required">
+                      PinCode is required
+                    </div>
+                    <div
+                    *ngIf="
+                      f.PinCode.errors.maxlength ||
+                      f.PinCode.errors.minlength
+                    "
+                  >
+                    Pin Code must be 6 Digits Only
+                  </div>
+                  </div>
+                  </div>
+                </div>
+                <div class="row" *ngIf="!isEdit">
+                  <div class="col-md-3 mb-3">
+                    <button
+                      class="btn btn-primary waves-effect waves-light btn-block"
+                      type="submit"
+                    >
+                      Add Lawyer
+                    </button>
+                  </div>
+                  <div class="col-sm-3 mb-3">
+                    <button
+                      class="btn btn-primary waves-effect waves-light btn-block"
+                      outline
+                      type="button"
+                      (click)="GoBack()"
+                    >
+                     Go Back
+                    </button>
+                  </div>
+                </div>
+
+                <div class="row" *ngIf="isEdit">
+                  <div class="col-md-3 mb-3">
+                    <button
+                   class="btn btn-primary waves-effect waves-light btn-block"
+                      type="submit"
+                      
+                    >
+                      Update Lawyer
+                    </button>
+                  </div>
+
+                  <div class="col-sm-3 mb-3">
+                    <button
+                     class="btn btn-primary waves-effect waves-light btn-block"
+                      type="button"
+                      (click)="GoBack()"
+                    >
+                     Go Back
+                    </button>
+                  </div>
+                </div>
+               <div>
+             
+               </div>
+              </form>
+            </div>
+
+          </div> <!-- end collapse-->
+        </div> <!-- end card-body-->
+      </div> <!-- end card-->
+    </div>
+  </div>
+</div> <!-- container -->

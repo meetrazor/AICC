@@ -1,0 +1,108 @@
+<form [formGroup]="photographForm" (ngSubmit)="onSubmit()">
+  <div class="container-fuild">
+    <div class="row">
+      <div class="col-lg-12 mb-2">
+        <h4 class="header-title">File Upload *</h4>
+        <p class="text-muted font-13 m-b-30"></p>
+        <!-- file upload -->
+        <file-upload
+          class="dropzone"
+          multiple="false"
+          isAnimationDisabled="true"
+          listVisible="true"
+          zoomText="zoomOut"
+          #Files
+          accept="audio/vnd.dlna.adts,audio/mpeg,video/mp4,image/gif,image/png,image/jpeg,application/pdf,application/msword,.doc,.docx"
+          type="file"
+          maxsize="20mb"
+          (ngModelChange)="onchange($event)"
+          [ngClass]="{
+            'is-invalid': submited && f.uploadfile.errors
+          }"
+          formControlName="uploadfile"
+        ></file-upload>
+        <div *ngIf="submited && f.uploadfile.errors" class="invalid-feedback">
+          <div *ngIf="f.uploadfile.errors.sizeRange">
+            File size is exceed 20 Mb Limit
+          </div>
+          <div *ngIf="f.uploadfile.errors.required">Please Add file</div>
+        </div>
+      </div>
+
+      <div class="col-md-12 mb-3">
+        <h4 class="header-title">File Name *</h4>
+        <input
+          class="form-control"
+          id="example-input"
+          placeholder="Enter File Name"
+          formControlName="FileName"
+          maxlength="25"
+          [ngClass]="{
+            'is-invalid': submited && f.FileName.errors
+          }"
+        />
+        <div *ngIf="submited && f.FileName.errors" class="invalid-feedback">
+          <div *ngIf="f.FileName.errors.required">File Name is Required</div>
+          <div *ngIf="f.FileName.errors.pattern">
+            Only alphanumeric characters allowed
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-12 mb-3">
+        <h4 class="header-title">File Type *</h4>
+
+        <select
+          class="custom-select"
+          formControlName="FileType"
+          [ngClass]="{
+            'is-invalid': submited && f.FileType.errors
+          }"
+        >
+          <option selected disabled>Select File Type *</option>
+          <option value="Photo">Photo</option>
+          <option value="Video">Video</option>
+          <option value="Audio">Audio</option>
+          <option value="PDF">PDF</option>
+          <option value="DOC">Document</option>
+        </select>
+        <div *ngIf="submited && f.FileType.errors" class="invalid-feedback">
+          <div *ngIf="f.FileType.errors.required">File Type is Required</div>
+        </div>
+      </div>
+
+      <div class="col-md-12 mb-3">
+        <h4 class="header-title">File Description *</h4>
+
+        <textarea
+          class="form-control"
+          id="example-textarea"
+          rows="3"
+          placeholder="Enter File Description"
+          formControlName="Description"
+          maxlength="55"
+          [ngClass]="{
+            'is-invalid': submited && f.Description.errors
+          }"
+        ></textarea>
+        <div *ngIf="submited && f.Description.errors" class="invalid-feedback">
+          <div *ngIf="f.Description.errors.required">
+            File Description is Required
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-12 mb-3">
+        <button
+          class="btn btn-primary waves-effect waves-light btn-block"
+          type="submit"
+        >
+          Save
+        </button>
+      </div>
+    </div>
+    <div class="card-disabled" *ngIf="isLoading">
+      <div class="card-portlets-loader"></div>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,258 @@
+<div class="container-fluid">
+  <app-page-title title="Apexcharts" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+
+  <div class="row">
+    <div class="col-12">
+
+      <app-portlet title="Sparkline Charts" (onContentRefresh)="refreshContent()" color="white" headerClass="header-title title my-1">
+        <div class="card-body pt-0">
+          <div class="row">
+            <div class="col-md-4">
+              <!-- sparkline total sales chart -->
+              <apx-chart class="apex-charts" [series]="sparklineSalesChart.series" [chart]="sparklineChart.chart"
+                [colors]="sparklineSalesChart.colors" [tooltip]="sparklineChart.tooltip"
+                [stroke]="sparklineChart.stroke" [title]="sparklineSalesChart.title"
+                [subtitle]="sparklineSalesChart.subtitle" [dataLabels]="sparklineChart.dataLabels">
+              </apx-chart>
+            </div>
+
+            <div class="col-md-4">
+              <!-- sparkline expenses chart -->
+              <apx-chart class="apex-charts" [series]="sparklineExpensesChart.series" [chart]="sparklineChart.chart"
+                [colors]="sparklineExpensesChart.colors" [tooltip]="sparklineChart.tooltip"
+                [stroke]="sparklineChart.stroke" [title]="sparklineExpensesChart.title"
+                [subtitle]="sparklineExpensesChart.subtitle" [dataLabels]="sparklineChart.dataLabels">
+              </apx-chart>
+            </div>
+
+            <div class="col-md-4">
+              <!-- sparkline profits chart -->
+              <apx-chart class="apex-charts" [series]="sparklineProfitsChart.series" [chart]="sparklineChart.chart"
+                [colors]="sparklineProfitsChart.colors" [tooltip]="sparklineChart.tooltip"
+                [stroke]="sparklineChart.stroke" [title]="sparklineProfitsChart.title"
+                [subtitle]="sparklineProfitsChart.subtitle" [dataLabels]="sparklineChart.dataLabels">
+              </apx-chart>
+            </div>
+
+          </div>
+        </div>
+      </app-portlet>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xl-6">
+      <app-portlet title="Line with Data Labels" (onContentRefresh)="refreshContent()" color="white" headerClass="header-title title my-1">
+        <div class="card-body pt-0">
+          <!-- line with data labels chart -->
+          <apx-chart class="apex-charts" [series]="linewithDataChart.series" [chart]="linewithDataChart.chart"
+            [colors]="linewithDataChart.colors" [stroke]="linewithDataChart.stroke" [title]="linewithDataChart.title"
+            [dataLabels]="linewithDataChart.dataLabels" [responsive]="linewithDataChart.responsive"
+            [legend]="linewithDataChart.legend" [xaxis]="linewithDataChart.xaxis" [yaxis]="linewithDataChart.yaxis"
+            [stroke]="linewithDataChart.stroke" [markers]="linewithDataChart.markers">
+          </apx-chart>
+        </div>
+      </app-portlet>
+    </div>
+
+    <div class="col-xl-6">
+      <app-portlet title="Gradient Line Chart" (onContentRefresh)="refreshContent()" color="white" headerClass="header-title title my-1">
+        <div class="card-body pt-0">
+          <!-- Gradient Line Chart -->
+          <apx-chart class="apex-charts" [series]="gradientLineChart.series" [chart]="gradientLineChart.chart"
+            [stroke]="gradientLineChart.stroke" [title]="gradientLineChart.title" [grid]="gradientLineChart.grid"
+            [responsive]="gradientLineChart.responsive" [xaxis]="gradientLineChart.xaxis"
+            [yaxis]="gradientLineChart.yaxis" [markers]="gradientLineChart.markers" [fill]="gradientLineChart.fill">
+          </apx-chart>
+        </div>
+      </app-portlet>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xl-6">
+      <!-- Stacked Area chart -->
+      <app-portlet title="Stacked Area" (onContentRefresh)="refreshContent()" color="white" headerClass="header-title title my-1">
+        <div class="card-body pt-0">
+          <apx-chart class="apex-charts" [series]="stackedAreaChart.series" [chart]="stackedAreaChart.chart"
+            [stroke]="stackedAreaChart.stroke" [dataLabels]="stackedAreaChart.dataLabels"
+            [xaxis]="stackedAreaChart.xaxis" [legend]="stackedAreaChart.legend" [colors]="stackedAreaChart.colors"
+            [fill]="stackedAreaChart.fill">
+          </apx-chart>
+        </div>
+      </app-portlet>
+    </div>
+
+    <div class="col-xl-6">
+      <app-portlet title="Basic Column Chart" (onContentRefresh)="refreshContent()" color="white" headerClass="header-title title my-1">
+        <div class="card-body pt-0">
+          <!-- basic column chart -->
+          <apx-chart class="apex-charts" [series]="basicColumChart.series" [chart]="basicColumChart.chart"
+            [plotOptions]="basicColumChart.plotOptions" [yaxis]="basicColumChart.yaxis" [grid]="basicColumChart.grid"
+            [tooltip]="basicColumChart.tooltip" [stroke]="basicColumChart.stroke"
+            [dataLabels]="basicColumChart.dataLabels" [xaxis]="basicColumChart.xaxis" [legend]="basicColumChart.legend"
+            [colors]="basicColumChart.colors" [fill]="basicColumChart.fill">
+          </apx-chart>
+        </div>
+      </app-portlet>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xl-6">
+      <!-- Basic Bar Chart -->
+      <app-portlet title="Basic Bar Chart" (onContentRefresh)="refreshContent()" color="white" headerClass="header-title title my-1">
+        <div class="card-body pt-0">
+          <apx-chart class="apex-charts" [series]="basicBarChart.series" [chart]="basicBarChart.chart"
+            [plotOptions]="basicBarChart.plotOptions" [grid]="basicBarChart.grid" [states]="basicBarChart.states"
+            [dataLabels]="basicBarChart.dataLabels" [xaxis]="basicBarChart.xaxis" [colors]="basicBarChart.colors">
+          </apx-chart>
+        </div>
+      </app-portlet>
+    </div>
+    <div class="col-xl-6">
+      <!-- Bar with Negative Values chart -->
+      <app-portlet title="Bar with Negative Values" (onContentRefresh)="refreshContent()" color="white"
+        headerClass="header-title title my-1">
+        <div class="card-body pt-0">
+          <apx-chart class="apex-charts" [series]="nagativeValueBarChart.series" [chart]="nagativeValueBarChart.chart"
+            [tooltip]="nagativeValueBarChart.tooltip" [xaxis]="nagativeValueBarChart.xaxis"
+            [legend]="nagativeValueBarChart.legend" [plotOptions]="nagativeValueBarChart.plotOptions"
+            [grid]="nagativeValueBarChart.grid" [stroke]="nagativeValueBarChart.stroke"
+            [dataLabels]="nagativeValueBarChart.dataLabels" [yaxis]="nagativeValueBarChart.yaxis"
+            [colors]="nagativeValueBarChart.colors">
+          </apx-chart>
+        </div>
+      </app-portlet>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xl-6">
+      <app-portlet title="Line, Column & Area Chart" (onContentRefresh)="refreshContent()" color="white"
+        headerClass="header-title title my-1">
+        <div class="card-body pt-0">
+          <!-- Line, Column & Area Chart -->
+          <apx-chart class="apex-charts" [series]="lineColumAreaChart.series" [chart]="lineColumAreaChart.chart"
+            [tooltip]="lineColumAreaChart.tooltip" [yaxis]="lineColumAreaChart.yaxis"
+            [legend]="lineColumAreaChart.legend" [plotOptions]="lineColumAreaChart.plotOptions"
+            [grid]="lineColumAreaChart.grid" [stroke]="lineColumAreaChart.stroke" [xaxis]="lineColumAreaChart.xaxis"
+            [colors]="lineColumAreaChart.colors" [fill]="lineColumAreaChart.fill" [labels]="lineColumAreaChart.labels"
+            [markers]="lineColumAreaChart.markers">
+          </apx-chart>
+        </div>
+      </app-portlet>
+    </div>
+    <div class="col-xl-6">
+      <app-portlet title="Multiple Y-Axis Chart" (onContentRefresh)="refreshContent()" color="white" headerClass="header-title title my-1">
+        <div class="card-body pt-0">
+          <!-- Multiple Y-Axis Chart -->
+          <apx-chart class="apex-charts" [series]="multipleYAxisChart.series" [chart]="multipleYAxisChart.chart"
+            [tooltip]="multipleYAxisChart.tooltip" [yaxis]="multipleYAxisChart.yaxis"
+            [legend]="multipleYAxisChart.legend" [grid]="multipleYAxisChart.grid"
+            [dataLabels]="multipleYAxisChart.dataLabels" [stroke]="multipleYAxisChart.stroke"
+            [xaxis]="multipleYAxisChart.xaxis" [colors]="multipleYAxisChart.colors"
+            [responsive]="multipleYAxisChart.responsive">
+          </apx-chart>
+        </div>
+      </app-portlet>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xl-6">
+      <!-- Simple Bubble Chart -->
+      <app-portlet title="Simple Bubble Chart" (onContentRefresh)="refreshContent()" color="white" headerClass="header-title title my-1">
+        <div class="card-body pt-0">
+          <apx-chart class="apex-charts" [series]="simpleBubbleChart.series" [chart]="simpleBubbleChart.chart"
+            [yaxis]="simpleBubbleChart.yaxis" [legend]="simpleBubbleChart.legend" [grid]="simpleBubbleChart.grid"
+            [dataLabels]="simpleBubbleChart.dataLabels" [xaxis]="simpleBubbleChart.xaxis"
+            [colors]="simpleBubbleChart.colors" [fill]="simpleBubbleChart.fill">
+          </apx-chart>
+        </div>
+      </app-portlet>
+    </div>
+    <div class="col-xl-6">
+      <!-- Scatter Chart - Datetime -->
+      <app-portlet title="Scatter Chart - Datetime" (onContentRefresh)="refreshContent()" color="white"
+        headerClass="header-title title my-1">
+        <div class="card-body pt-0">
+          <apx-chart class="apex-charts" [series]="scatterChart.series" [chart]="scatterChart.chart" [yaxis]="scatterChart.yaxis"
+            [legend]="scatterChart.legend" [grid]="scatterChart.grid" [dataLabels]="scatterChart.dataLabels"
+            [xaxis]="scatterChart.xaxis" [colors]="scatterChart.colors" [responsive]="scatterChart.responsive">
+          </apx-chart>
+        </div>
+      </app-portlet>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xl-4">
+      <!-- Simple Pie Chart -->
+      <app-portlet title="Simple Pie Chart" (onContentRefresh)="refreshContent()" color="white" headerClass="header-title title my-1">
+        <div class="card-body pt-0">
+          <apx-chart class="apex-charts" [series]="simplePieChart.series" [chart]="simplePieChart.chart" [labels]="simplePieChart.labels"
+            [dataLabels]="simplePieChart.dataLabels" [legend]="simplePieChart.legend" [colors]="simplePieChart.colors"
+            [responsive]="simplePieChart.responsive">
+          </apx-chart>
+        </div>
+      </app-portlet>
+    </div>
+    <div class="col-xl-4">
+      <!-- Gradient Donut Chart -->
+      <app-portlet title="Gradient Donut Chart" (onContentRefresh)="refreshContent()" color="white" headerClass="header-title title my-1">
+        <div class="card-body pt-0">
+          <apx-chart class="apex-charts" [series]="gradientDonutChart.series" [chart]="gradientDonutChart.chart"
+            [dataLabels]="gradientDonutChart.dataLabels" [labels]="gradientDonutChart.labels"
+            [legend]="gradientDonutChart.legend" [colors]="gradientDonutChart.colors"
+            [responsive]="gradientDonutChart.responsive" [fill]="gradientDonutChart.fill">
+          </apx-chart>
+        </div>
+      </app-portlet>
+    </div>
+    <div class="col-xl-4">
+      <!-- Patterned Donut Chart -->
+      <app-portlet title="Patterned Donut Chart" (onContentRefresh)="refreshContent()" color="white" headerClass="header-title title my-1">
+        <div class="card-body pt-0">
+          <apx-chart class="apex-charts" [series]="patternedDonutChart.series" [chart]="patternedDonutChart.chart"
+            [stroke]="patternedDonutChart.stroke" [dataLabels]="patternedDonutChart.dataLabels"
+            [labels]="patternedDonutChart.labels" [states]="patternedDonutChart.states"
+            [legend]="patternedDonutChart.legend" [colors]="patternedDonutChart.colors"
+            [responsive]="patternedDonutChart.responsive" [fill]="patternedDonutChart.fill">
+          </apx-chart>
+        </div>
+      </app-portlet>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xl-4">
+      <!-- Basic RadialBar Chart -->
+      <app-portlet title="Basic RadialBar Chart" (onContentRefresh)="refreshContent()" color="white" headerClass="header-title title my-1">
+          <apx-chart class="apex-charts" [series]="basicRadialBarChart.series" [chart]="basicRadialBarChart.chart"
+            [plotOptions]="basicRadialBarChart.plotOptions" [labels]="basicRadialBarChart.labels"
+            [legend]="basicRadialBarChart.legend" [colors]="basicRadialBarChart.colors">
+          </apx-chart>
+      </app-portlet>
+    </div>
+    <div class="col-xl-4">
+      <!-- Multiple RadialBars -->
+      <app-portlet title="Multiple RadialBars" (onContentRefresh)="refreshContent()" color="white" headerClass="header-title title my-1">
+        <apx-chart class="apex-charts" [series]="multipleRadialBars.series" [chart]="multipleRadialBars.chart"
+          [plotOptions]="multipleRadialBars.plotOptions" [labels]="multipleRadialBars.labels"
+          [legend]="multipleRadialBars.legend" [colors]="multipleRadialBars.colors">
+        </apx-chart>
+      </app-portlet>
+    </div>
+    <div class="col-xl-4">
+      <!-- Stroked Circular Guage -->
+      <app-portlet title="Stroked Circular Guage" (onContentRefresh)="refreshContent()" color="white" headerClass="header-title title my-1">
+        <apx-chart class="apex-charts" [series]="strokedCircularGuage.series" [chart]="strokedCircularGuage.chart"
+          [fill]="strokedCircularGuage.fill" [plotOptions]="strokedCircularGuage.plotOptions"
+          [labels]="strokedCircularGuage.labels" [stroke]="strokedCircularGuage.stroke"
+          [colors]="strokedCircularGuage.colors" [responsive]="strokedCircularGuage.responsive">
+        </apx-chart>
+      </app-portlet>
+    </div>
+  </div>
+</div>

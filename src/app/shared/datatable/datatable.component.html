@@ -1,0 +1,14 @@
+<div class="container-fluid pb-4">
+  <div class="card-disabled" *ngIf="isLoading">
+    <div class="card-portlets-loader"></div>
+  </div>
+  <div class="table-responsive">
+    <table
+      datatable
+      [dtOptions]="dtOptions"
+      [dtTrigger]="dtTrigger"
+      class="table row-border hover"
+      style="width: 100%"
+    ></table>
+  </div>
+</div>

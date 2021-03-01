@@ -1,0 +1,223 @@
+<form [formGroup]="legalcaseForm" (ngSubmit)="onSubmit()">
+  <div class="row">
+    <div class="col-md-12 mb-3">
+      <h4 class="header-title">Case Number</h4>
+      <input
+        class="form-control"
+        placeholder="Enter Case Number"
+        formControlName="CaseNumber"
+        type="text"
+        (keypress)="isValid($event)"
+        [ngClass]="{ 'is-invalid': submitted && f.CaseNumber.errors }"
+      />
+
+      <div *ngIf="submitted && f.CaseNumber.errors" class="invalid-feedback">
+        <div *ngIf="f.CaseNumber.errors.required">CaseNumber is required</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12 mb-3">
+      <h4 class="header-title">Case Type</h4>
+      <ng-select
+        class="form-control"
+        formControlName="CaseType"
+        [ngClass]="{
+          'is-invalid': submitted && f.CaseType.errors
+        }"
+        placeholder="Select Case Type"
+      >
+        <ng-option
+          *ngFor="let item of caseTypes"
+          [value]="item.LegalCaseTypeID"
+          [id]="item.LegalCaseTypeID"
+          >{{ item.LegalCaseTypeName }}</ng-option
+        >
+      </ng-select>
+      <!-- <input
+        class="form-control"
+        placeholder="Enter Case Type"
+        formControlName="CaseType"
+        [ngClass]="{ 'is-invalid': submitted && f.CaseType.errors }"
+      /> -->
+      <div *ngIf="submitted && f.CaseType.errors" class="invalid-feedback">
+        <div *ngIf="f.CaseType.errors.required">Case Type is required</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12 mb-3">
+      <h4 class="header-title">Case Description</h4>
+      <textarea
+        name=""
+        id=""
+        rows="3"
+        class="form-control"
+        placeholder="Enter Case Description"
+        formControlName="CaseDescription"
+        [ngClass]="{
+          'is-invalid': submitted && f.CaseDescription.errors
+        }"
+      ></textarea>
+
+      <div
+        *ngIf="submitted && f.CaseDescription.errors"
+        class="invalid-feedback"
+      >
+        <div *ngIf="f.CaseDescription.errors.required">
+          Case Description is required.
+        </div>
+        <div *ngIf="f.CaseDescription.errors.maxlength">
+          Case Description cannot exceed 255 characters.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12 mb-3">
+      <h4 class="header-title">I am ? *</h4>
+      <span
+        ><input class="mx-1" type="radio" formControlName="Iam" value="R" />
+        Respondent</span
+      >
+      <span
+        ><input class="mx-1" type="radio" formControlName="Iam" value="P" />
+        Petitioner</span
+      >
+      <div *ngIf="submitted && f.Iam.errors" class="invalid-feedback">
+        <div *ngIf="f.Iam.errors.required">
+          Please Select You are Respondent Or Petitioner
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12 mb-3">
+      <h4 class="header-title">Filing Number</h4>
+      <input
+        class="form-control"
+        placeholder="Enter Filing Number"
+        formControlName="FilingNumber"
+        (keypress)="isValid($event)"
+        [ngClass]="{
+          'is-invalid': submitted && f.FilingNumber.errors
+        }"
+      />
+
+      <div *ngIf="submitted && f.FilingNumber.errors" class="invalid-feedback">
+        <div *ngIf="f.FilingNumber.errors.required">
+          Filing Number is required.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12 mb-3">
+      <h4 class="header-title">Filing Date</h4>
+      <input
+        class="form-control"
+        placeholder="Enter Filing Date"
+        formControlName="FilingDate"
+        [ngClass]="{
+          'is-invalid': submitted && f.FilingDate.errors
+        }"
+        type="date"
+      />
+
+      <div *ngIf="submitted && f.FilingDate.errors" class="invalid-feedback">
+        <div *ngIf="f.FilingDate.errors.required">Filing Date is required.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12 mb-3">
+      <h4 class="header-title">Registration Number</h4>
+      <input
+        class="form-control"
+        placeholder="Enter Registration Number"
+        formControlName="RegistrationNumber"
+        (keypress)="isValid($event)"
+        [ngClass]="{
+          'is-invalid': submitted && f.RegistrationNumber.errors
+        }"
+      />
+      <div
+        *ngIf="submitted && f.RegistrationNumber.errors"
+        class="invalid-feedback"
+      >
+        <div *ngIf="f.RegistrationNumber.errors.required">
+          Registration Number is required
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12 mb-3">
+      <h4 class="header-title">Registration Date</h4>
+      <input
+        class="form-control"
+        placeholder="Enter Registration Date"
+        formControlName="RegistrationDate"
+        [ngClass]="{
+          'is-invalid': submitted && f.RegistrationDate.errors
+        }"
+        type="date"
+      />
+
+      <div
+        *ngIf="submitted && f.RegistrationDate.errors"
+        class="invalid-feedback"
+      >
+        <div *ngIf="f.RegistrationDate.errors.required">
+          Registration Date is required.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12 mb-3">
+      <h4 class="header-title">CNR Number</h4>
+      <input
+        class="form-control"
+        placeholder="Enter CNR Number"
+        formControlName="CNRNumber"
+        type="text"
+        (keypress)="isValid($event)"
+        [ngClass]="{
+          'is-invalid': submitted && f.CNRNumber.errors
+        }"
+      />
+      <div *ngIf="submitted && f.CNRNumber.errors" class="invalid-feedback">
+        <div *ngIf="f.CNRNumber.errors.required">CNR Number is required</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12 mb-3">
+      <button
+        class="btn btn-primary waves-effect waves-light btn-block"
+        type="submit"
+      >
+        Add LegalCase
+      </button>
+    </div>
+    <!-- <div class="col-sm-12 mb-3">
+      <button class="btn btn-primary waves-effect waves-light btn-block" outline type="button" (click)="GoBack()">
+        Go Back
+      </button>
+    </div> -->
+  </div>
+
+  <div class="card-disabled" *ngIf="isloading">
+    <div class="card-portlets-loader"></div>
+  </div>
+</form>

@@ -1,0 +1,1040 @@
+<div class="card-box">
+  <div class="row">
+    <div class="col-xs-12 col-sm-11">
+      <ngb-tabset justify="justified" type="pills">
+        <ngb-tab title="Details & Acts" class="nav-item">
+          <ng-template ngbTabContent class="nav-item"
+            ><app-case-details [CaseID]="CaseID"></app-case-details>
+          </ng-template>
+        </ngb-tab>
+        <ngb-tab title="Status" class="nav-item">
+          <ng-template ngbTabContent>
+            <app-case-status [CaseID]="CaseID"></app-case-status>
+          </ng-template>
+        </ngb-tab>
+        <ngb-tab title="Petitioner & Advocate" class="nav-item">
+          <ng-template ngbTabContent>
+            <app-case-petitioner [CaseID]="CaseID"></app-case-petitioner>
+          </ng-template>
+        </ngb-tab>
+        <ngb-tab title="Respondent & Advocate" class="nav-item">
+          <ng-template ngbTabContent class="nav-item">
+            <app-case-respondent [CaseID]="CaseID"></app-case-respondent>
+          </ng-template>
+        </ngb-tab>
+        <ngb-tab title="Documents" class="nav-item">
+          <ng-template ngbTabContent class="nav-item"> </ng-template>
+        </ngb-tab>
+      </ngb-tabset>
+    </div>
+    <div class="col-xs-12 col-sm-1">
+      <div class="float-right dropdown mt-2" id="dots" ngbDropdown>
+        <a
+          href="javascript: void(0);"
+          class="dropdown-toggle arrow-none"
+          data-toggle="dropdown"
+          aria-expanded="false"
+          ngbDropdownToggle
+        >
+          <i class="mdi mdi-dots-vertical m-0 text-muted h3"></i>
+        </a>
+        <div class="dropdown-menu dropdown-menu-right" ngbDropdownMenu>
+          <a
+            class="dropdown-item"
+            [ngClass]="{
+              disabled: status == 2
+            }"
+            href="javascript:void(0);"
+            (click)="AddHearing()"
+            >Add Or Change Hearing Date</a
+          >
+          <a
+            class="dropdown-item"
+            [ngClass]="{
+              disabled: status == 2
+            }"
+            href="javascript:void(0);"
+            (click)="AddAct()"
+            >Add Act</a
+          >
+
+          <a
+            class="dropdown-item"
+            href="javascript:void(0);"
+            (click)="AddPetitioner()"
+            >Add Petitioner</a
+          >
+          <a
+            class="dropdown-item"
+            href="javascript:void(0);"
+            (click)="AddRespondent()"
+            >Add Respondent</a
+          >
+          <a
+            class="dropdown-item"
+            [ngClass]="{
+              disabled: status == 2
+            }"
+            href="javascript:void(0);"
+            (click)="AddLawyer()"
+            >Add Lawyer</a
+          >
+          <a
+            class="dropdown-item"
+            [ngClass]="{
+              disabled: status == 2
+            }"
+            href="javascript:void(0);"
+            >Case Dispose</a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- end dropdown -->
+</div>
+<!-- <div class="card-disabled" >
+  <div class="card-portlets-loader"></div>
+</div> -->
+<ng-template #ActForm let-modal="close">
+  <div class="modal-header">
+    <h4 class="modal-title">Add Act</h4>
+    <button
+      type="button"
+      class="close"
+      (click)="modal('Cross click')"
+      aria-hidden="true"
+    >
+      <i class="mdi mdi-close"></i>
+    </button>
+  </div>
+  <div class="modal-body p-4">
+    <div class="container-fuild">
+      <form [formGroup]="actForm" (ngSubmit)="onSaveAct()">
+        <div class="row">
+          <div class="col-md-12 mb-3">
+            <h4 class="header-title">Under Act*</h4>
+            <input
+              class="form-control"
+              id="example-input"
+              placeholder="Enter Under Act"
+              formControlName="UnderAct"
+              maxlength="55"
+              [ngClass]="{
+                'is-invalid': submited && e.UnderAct.errors
+              }"
+            />
+            <div *ngIf="submited && e.UnderAct.errors" class="invalid-feedback">
+              <div *ngIf="e.UnderAct.errors.required">
+                Under Act is Required
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12 mb-3">
+            <h4 class="header-title">Under Section *</h4>
+            <input
+              class="form-control"
+              id="example-input"
+              placeholder="Enter Under Section"
+              formControlName="UnderSection"
+              maxlength="55"
+              [ngClass]="{
+                'is-invalid': submited && e.UnderSection.errors
+              }"
+            />
+            <div
+              *ngIf="submited && e.UnderSection.errors"
+              class="invalid-feedback"
+            >
+              <div *ngIf="e.UnderSection.errors.required">
+                Under Section is Required
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-disabled" *ngIf="Loading">
+          <div class="card-portlets-loader"></div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-secondary waves-effect"
+      (click)="modal('Cross click')"
+    >
+      Close
+    </button>
+    <button
+      type="button"
+      class="btn btn-primary waves-effect waves-light"
+      (click)="onSaveAct()"
+    >
+      Add
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #HearingForm let-modal="close">
+  <div class="modal-header">
+    <h4 class="modal-title">Add Hearing</h4>
+    <button
+      type="button"
+      class="close"
+      (click)="modal('Cross click')"
+      aria-hidden="true"
+    >
+      <i class="mdi mdi-close"></i>
+    </button>
+  </div>
+  <div class="modal-body p-4">
+    <div class="container-fuild">
+      <form
+        [formGroup]="hearingForm"
+        (ngSubmit)="onSaveHearing()"
+        *ngIf="!isFormLoading"
+      >
+        <div class="row">
+          <div class="col-md-12 mb-3">
+            <h4 class="header-title">Hearing Date *</h4>
+            <input
+              type="date"
+              class="form-control"
+              id="example-input"
+              placeholder="Enter Hearing Date"
+              formControlName="HearingDate"
+              (keypress)="callback()"
+              (keydown)="callback()"
+              min="{{ today | date: 'yyyy-MM-dd' }}"
+              [ngClass]="{
+                'is-invalid': submited && f.HearingDate.errors
+              }"
+            />
+            <div
+              *ngIf="submited && f.HearingDate.errors"
+              class="invalid-feedback"
+            >
+              <div *ngIf="f.HearingDate.errors.required">
+                Hearing Date is Required
+              </div>
+              <div *ngIf="f.HearingDate.errors.min">
+                Hearing Date cannot be in Past
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12 mb-3">
+            <h4 class="header-title">Is Judge and Court Details Change ? *</h4>
+            <span
+              ><input
+                (change)="isDetailsChange($event.target.value)"
+                class="mx-1"
+                type="radio"
+                formControlName="IsDetailsChange"
+                value="0"
+              />
+              No</span
+            >
+            <span
+              ><input
+                (change)="isDetailsChange($event.target.value)"
+                class="mx-1"
+                type="radio"
+                formControlName="IsDetailsChange"
+                value="1"
+              />
+              Yes</span
+            >
+            <div
+              *ngIf="submited && f.IsDetailsChange.errors"
+              class="invalid-feedback"
+            >
+              <div *ngIf="f.IsDetailsChange.errors.required">
+                RentedSpace is required
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12 mb-3">
+            <h4 class="header-title">Judge *</h4>
+            <input
+              class="form-control"
+              id="example-input"
+              placeholder="Enter Judge Name"
+              formControlName="Judge"
+              maxlength="55"
+              [ngClass]="{
+                'is-invalid': submited && f.Judge.errors
+              }"
+            />
+            <div *ngIf="submited && f.Judge.errors" class="invalid-feedback">
+              <div *ngIf="f.Judge.errors.required">Judge Name is Required</div>
+            </div>
+          </div>
+          <div class="col-md-12 mb-3">
+            <h4 class="header-title">Court Name *</h4>
+            <input
+              class="form-control"
+              id="example-input"
+              placeholder="Enter Court Name"
+              formControlName="CourtName"
+              maxlength="55"
+              [ngClass]="{
+                'is-invalid': submited && f.CourtName.errors
+              }"
+            />
+            <div
+              *ngIf="submited && f.CourtName.errors"
+              class="invalid-feedback"
+            >
+              <div *ngIf="f.CourtName.errors.required">
+                Court Name is Required
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12 mb-3">
+            <h4 class="header-title">Court Number *</h4>
+            <input
+              class="form-control"
+              id="example-input"
+              placeholder="Enter Court Number"
+              formControlName="CourtNumber"
+              maxlength="55"
+              [ngClass]="{
+                'is-invalid': submited && f.CourtNumber.errors
+              }"
+            />
+            <div
+              *ngIf="submited && f.CourtNumber.errors"
+              class="invalid-feedback"
+            >
+              <div *ngIf="f.CourtNumber.errors.required">
+                Court Number is Required
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12 mb-3">
+            <h4 class="header-title">Court Address *</h4>
+            <textarea
+              class="form-control"
+              id="example-input"
+              placeholder="Enter Court Address"
+              formControlName="CourtAddress"
+              rows="3"
+              [ngClass]="{
+                'is-invalid': submited && f.CourtAddress.errors
+              }"
+            ></textarea>
+            <div
+              *ngIf="submited && f.CourtAddress.errors"
+              class="invalid-feedback"
+            >
+              <div *ngIf="f.CourtAddress.errors.required">
+                Court Address is Required
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+      <div class="card-disabled" *ngIf="Loading || isFormLoading">
+        <div class="card-portlets-loader"></div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-secondary waves-effect"
+      (click)="modal('Cross click')"
+    >
+      Close
+    </button>
+    <button
+      type="button"
+      class="btn btn-primary waves-effect waves-light"
+      (click)="onSaveHearing()"
+    >
+      Add
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #PetitionerFormModal let-modal="close">
+  <div class="modal-header">
+    <h4 class="modal-title">Add Petitioner</h4>
+    <button
+      type="button"
+      class="close"
+      (click)="modal('Cross click')"
+      aria-hidden="true"
+    >
+      <i class="mdi mdi-close"></i>
+    </button>
+  </div>
+  <div class="modal-body p-4">
+    <div class="container-fuild">
+      <form [formGroup]="PetitionerForm" (ngSubmit)="onSavePetitioner()">
+        <div class="row">
+          <div class="col-12" formArrayName="Petitioners">
+            <div
+              *ngFor="
+                let Petitioner of g.Petitioners['controls'];
+                let i = index
+              "
+            >
+              <div class="form-row" [formGroupName]="i">
+                <div class="form-group col-12">
+                  <label>Name *</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="Name"
+                    maxlength="255"
+                    [ngClass]="{
+                      'is-invalid':
+                        submited &&
+                        g.Petitioners['controls'][i]['controls'].Name.errors
+                    }"
+                  />
+                  <div
+                    *ngIf="
+                      submited &&
+                      g.Petitioners['controls'][i]['controls'].Name.errors
+                    "
+                    class="invalid-feedback"
+                  >
+                    <div
+                      *ngIf="
+                        g.Petitioners['controls'][i]['controls'].Name.errors
+                          .required
+                      "
+                    >
+                      Name is Required
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group col-12">
+                  <label>Email *</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="Email"
+                    [ngClass]="{
+                      'is-invalid':
+                        submited &&
+                        g.Petitioners['controls'][i]['controls'].Email.errors
+                    }"
+                  />
+                  <div
+                    *ngIf="
+                      submited &&
+                      g.Petitioners['controls'][i]['controls'].Email.errors
+                    "
+                    class="invalid-feedback"
+                  >
+                    <div
+                      *ngIf="
+                        g.Petitioners['controls'][i]['controls'].Email.errors
+                          .required
+                      "
+                    >
+                      Email is Required
+                    </div>
+                    <div
+                      *ngIf="
+                        g.Petitioners['controls'][i]['controls'].Email.errors
+                          .pattern
+                      "
+                    >
+                      Email must be Valid
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group col-12">
+                  <label>Mobile Number *</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="Mobile"
+                    maxlength="10"
+                    [ngClass]="{
+                      'is-invalid':
+                        submited &&
+                        g.Petitioners['controls'][i]['controls'].Mobile.errors
+                    }"
+                  />
+                  <div
+                    *ngIf="
+                      submited &&
+                      g.Petitioners['controls'][i]['controls'].Mobile.errors
+                    "
+                    class="invalid-feedback"
+                  >
+                    <div
+                      *ngIf="
+                        g.Petitioners['controls'][i]['controls'].Mobile.errors
+                          .required
+                      "
+                    >
+                      Mobile Number is Required
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group col-12">
+                  <span
+                    class="mdi mdi-cancel pull-right"
+                    style="cursor: pointer; color: red"
+                    *ngIf="g.Petitioners['controls'].length > 1"
+                    (click)="removePetitionerDetails(i)"
+                  >
+                  </span>
+                </div>
+              </div>
+              <hr *ngIf="g.Petitioners['controls'].length > 1" />
+            </div>
+            <div class="margin-20">
+              <a
+                (click)="addPetitionerDetails()"
+                style="cursor: pointer"
+                class="mdi mdi-account-multiple-plus"
+              >
+              </a>
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="form-group">
+              <label for="">Lawyer *</label>
+              <ng-select
+                class="form-control"
+                formControlName="LawyerID"
+                placeholder="
+              Select State"
+                [ngClass]="{
+                  'is-invalid': submited && g.LawyerID.errors
+                }"
+              >
+                <ng-option
+                  *ngFor="let item of LawyerData"
+                  [value]="item.LawyerId"
+                  [id]="item.LawyerId"
+                  >{{ item.LawyerName }}</ng-option
+                >
+              </ng-select>
+              <div
+                *ngIf="submited && g.LawyerID.errors"
+                class="invalid-feedback"
+              >
+                <div *ngIf="g.LawyerID.errors.required">Lawyer is required</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-disabled" *ngIf="Loading">
+          <div class="card-portlets-loader"></div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-secondary waves-effect"
+      (click)="modal('Cross click')"
+    >
+      Close
+    </button>
+    <button
+      type="button"
+      class="btn btn-primary waves-effect waves-light"
+      (click)="onSavePetitioner()"
+    >
+      Add
+    </button>
+  </div>
+</ng-template>
+<ng-template #RespondentFormModal let-modal="close">
+  <div class="modal-header">
+    <h4 class="modal-title">Add Respondent</h4>
+    <button
+      type="button"
+      class="close"
+      (click)="modal('Cross click')"
+      aria-hidden="true"
+    >
+      <i class="mdi mdi-close"></i>
+    </button>
+  </div>
+  <div class="modal-body p-4">
+    <div class="container-fuild">
+      <form [formGroup]="RespondentForm" (ngSubmit)="onSaveRespondent()">
+        <div class="row">
+          <div class="col-12" formArrayName="Respondents">
+            <div
+              *ngFor="
+                let Respondent of h.Respondents['controls'];
+                let i = index
+              "
+            >
+              <div class="form-row" [formGroupName]="i">
+                <div class="form-group col-12">
+                  <label>Name *</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="Name"
+                    maxlength="255"
+                    [ngClass]="{
+                      'is-invalid':
+                        submited &&
+                        h.Respondents['controls'][i]['controls'].Name.errors
+                    }"
+                  />
+                  <div
+                    *ngIf="
+                      submited &&
+                      h.Respondents['controls'][i]['controls'].Name.errors
+                    "
+                    class="invalid-feedback"
+                  >
+                    <div
+                      *ngIf="
+                        h.Respondents['controls'][i]['controls'].Name.errors
+                          .required
+                      "
+                    >
+                      Name is Required
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group col-12">
+                  <label>Email *</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="Email"
+                    [ngClass]="{
+                      'is-invalid':
+                        submited &&
+                        h.Respondents['controls'][i]['controls'].Email.errors
+                    }"
+                  />
+                  <div
+                    *ngIf="
+                      submited &&
+                      h.Respondents['controls'][i]['controls'].Email.errors
+                    "
+                    class="invalid-feedback"
+                  >
+                    <div
+                      *ngIf="
+                        h.Respondents['controls'][i]['controls'].Email.errors
+                          .required
+                      "
+                    >
+                      Email is Required
+                    </div>
+                    <div
+                      *ngIf="
+                        h.Respondents['controls'][i]['controls'].Email.errors
+                          .pattern
+                      "
+                    >
+                      Email must be Valid
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group col-12">
+                  <label>Mobile Number *</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="Mobile"
+                    maxlength="10"
+                    [ngClass]="{
+                      'is-invalid':
+                        submited &&
+                        h.Respondents['controls'][i]['controls'].Mobile.errors
+                    }"
+                  />
+                  <div
+                    *ngIf="
+                      submited &&
+                      h.Respondents['controls'][i]['controls'].Mobile.errors
+                    "
+                    class="invalid-feedback"
+                  >
+                    <div
+                      *ngIf="
+                        h.Respondents['controls'][i]['controls'].Mobile.errors
+                          .required
+                      "
+                    >
+                      Mobile Number is Required
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group col-12">
+                  <span
+                    class="mdi mdi-cancel pull-right"
+                    style="cursor: pointer; color: red"
+                    *ngIf="h.Respondents['controls'].length > 1"
+                    (click)="removePetitionerDetails(i)"
+                  >
+                  </span>
+                </div>
+              </div>
+              <hr *ngIf="h.Respondents['controls'].length > 1" />
+            </div>
+            <div class="margin-20">
+              <a
+                (click)="addRespondentDetails()"
+                style="cursor: pointer"
+                class="mdi mdi-account-multiple-plus"
+              >
+              </a>
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="form-group">
+              <label for="">Lawyer *</label>
+              <ng-select
+                class="form-control"
+                formControlName="LawyerID"
+                placeholder="
+              Select State"
+                [ngClass]="{
+                  'is-invalid': submited && h.LawyerID.errors
+                }"
+              >
+                <ng-option
+                  *ngFor="let item of LawyerData"
+                  [value]="item.LawyerId"
+                  [id]="item.LawyerId"
+                  >{{ item.LawyerName }}</ng-option
+                >
+              </ng-select>
+              <div
+                *ngIf="submited && h.LawyerID.errors"
+                class="invalid-feedback"
+              >
+                <div *ngIf="h.LawyerID.errors.required">Lawyer is required</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-disabled" *ngIf="Loading">
+          <div class="card-portlets-loader"></div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-secondary waves-effect"
+      (click)="modal('Cross click')"
+    >
+      Close
+    </button>
+    <button
+      type="button"
+      class="btn btn-primary waves-effect waves-light"
+      (click)="onSaveRespondent()"
+    >
+      Add
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #LawyerForm let-modal="close">
+  <div class="modal-header">
+    <h4 class="modal-title">Add Lawyer</h4>
+    <button
+      type="button"
+      class="close"
+      (click)="modal('Cross click')"
+      aria-hidden="true"
+    >
+      <i class="mdi mdi-close"></i>
+    </button>
+  </div>
+  <div class="modal-body p-4">
+    <div class="container-fuild">
+      <form [formGroup]="lawyerForm" (ngSubmit)="onSaveLawyer()">
+        <div class="form-group">
+          <h4 class="header-title" for="">State</h4>
+          <ng-select
+            class="form-control"
+            formControlName="StateId"
+            (change)="fetchdist($event)"
+            [ngClass]="{
+              'is-invalid': submited && l.StateId.errors
+            }"
+          >
+            <ng-option *ngFor="let State of StateArray" [value]="State.StateID">
+              {{ State.StateName }}
+            </ng-option>
+          </ng-select>
+
+          <div *ngIf="submited && l.StateId.errors" class="invalid-feedback">
+            <div *ngIf="l.StateId.errors.required">State is required</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <h4 class="header-title" for="">District</h4>
+          <ng-select
+            class="form-control"
+            formControlName="DistrictId"
+            (change)="fetchtaluka($event)"
+            [ngClass]="{
+              'is-invalid': submited && l.DistrictId.errors
+            }"
+          >
+            <ng-option *ngFor="let Ary of Array2" [value]="Ary.DistrictID">
+              {{ Ary.DistrictName }}
+            </ng-option>
+          </ng-select>
+          <div *ngIf="submited && l.DistrictId.errors" class="invalid-feedback">
+            <div *ngIf="l.DistrictId.errors.required">District is required</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <h4 for="" class="header-title">Taluka</h4>
+          <ng-select
+            class="form-control"
+            formControlName="TalukaId"
+            (change)="fetchtvillage($event)"
+            [ngClass]="{
+              'is-invalid': submited && l.TalukaId.errors
+            }"
+          >
+            <ng-option *ngFor="let Ary of Array3" [value]="Ary.TalukaID">
+              {{ Ary.TalukaName }}
+            </ng-option>
+          </ng-select>
+          <div *ngIf="submited && l.TalukaId.errors" class="invalid-feedback">
+            <div *ngIf="l.TalukaId.errors.required">Taluka is required</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <h4 for="" class="header-title">Village</h4>
+          <ng-select
+            class="form-control"
+            formControlName="VillageId"
+            [ngClass]="{
+              'is-invalid': submited && l.VillageId.errors
+            }"
+          >
+            <ng-option *ngFor="let Ary of Array4" [value]="Ary.VillageID">
+              {{ Ary.VillageName }}
+            </ng-option>
+          </ng-select>
+          <div *ngIf="submited && l.VillageId.errors" class="invalid-feedback">
+            <div *ngIf="l.VillageId.errors.required">Village is required</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <h4 class="header-title">Lawyer Name</h4>
+          <input
+            class="form-control"
+            placeholder="Enter LawyerName"
+            formControlName="LawyerName"
+            type="text"
+            [ngClass]="{ 'is-invalid': submited && l.LawyerName.errors }"
+          />
+
+          <div *ngIf="submited && l.LawyerName.errors" class="invalid-feedback">
+            <div *ngIf="l.LawyerName.errors.required">
+              First Name is required
+            </div>
+            <div *ngIf="l.LawyerName.errors.maxlength">
+              First Name cannot exceed 25 characters.
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <h4 class="header-title">Firm</h4>
+          <input
+            class="form-control"
+            placeholder="Enter Firm"
+            formControlName="Firm"
+            [ngClass]="{ 'is-invalid': submited && l.Firm.errors }"
+          />
+
+          <div *ngIf="submited && l.Firm.errors" class="invalid-feedback">
+            <div *ngIf="l.Firm.errors.required">Firm is required</div>
+            <div *ngIf="l.Firm.errors.maxlength">
+              Firm cannot exceed 50 characters.
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <h4 class="header-title">Mobile No</h4>
+          <input
+            class="form-control"
+            placeholder="Enter Mobile No"
+            formControlName="MobileNo"
+            (keypress)="isValid($event)"
+            [ngClass]="{
+              'is-invalid': submited && l.MobileNo.errors
+            }"
+          />
+          <div *ngIf="submited && l.MobileNo.errors" class="invalid-feedback">
+            <div *ngIf="l.MobileNo.errors.required">
+              Mobile Number is required
+            </div>
+            <div
+              *ngIf="l.MobileNo.errors.minlength || l.MobileNo.errors.maxlength"
+            >
+              Mobile Number must be 10 Digit Only
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <h4 class="header-title">Landline No</h4>
+          <input
+            class="form-control"
+            placeholder="Enter Landline No"
+            formControlName="LandlineNo"
+            (keypress)="isValid($event)"
+            [ngClass]="{
+              'is-invalid': submited && l.LandlineNo.errors
+            }"
+          />
+
+          <div *ngIf="submited && l.LandlineNo.errors" class="invalid-feedback">
+            <div *ngIf="l.LandlineNo.errors.required">
+              Landline Number is required
+            </div>
+
+            <div
+              *ngIf="
+                l.LandlineNo.errors.maxlength || l.LandlineNo.errors.minlength
+              "
+            >
+              LandlineNo must be 10 Digits Only
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <h4 class="header-title">Fax</h4>
+          <input
+            class="form-control"
+            placeholder="Enter Fax"
+            formControlName="Fax"
+            (keypress)="isValid($event)"
+            [ngClass]="{
+              'is-invalid': submited && l.Fax.errors
+            }"
+          />
+          <div *ngIf="submited && l.Fax.errors" class="invalid-feedback">
+            <div *ngIf="l.Fax.errors.required">Fax is required</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <h4 class="header-title">EmailId</h4>
+          <input
+            class="form-control"
+            placeholder="Enter EmailId"
+            formControlName="EmailId"
+            type="email"
+            [ngClass]="{
+              'is-invalid': submited && l.EmailId.errors
+            }"
+          />
+          <div *ngIf="submited && l.EmailId.errors" class="invalid-feedback">
+            <div *ngIf="l.EmailId.errors.required">Email is required</div>
+            <div *ngIf="l.EmailId.errors.pattern">
+              Email must be a valid email address
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <h4 class="header-title">Website</h4>
+          <input
+            class="form-control"
+            placeholder="Enter Website"
+            formControlName="Website"
+            [ngClass]="{
+              'is-invalid': submited && l.Website.errors
+            }"
+          />
+          <div *ngIf="submited && l.Website.errors" class="invalid-feedback">
+            <div *ngIf="l.Website.errors.required">Website is required</div>
+            <div *ngIf="l.Website.errors.pattern">
+              Website must be a valid URL.
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <h4 class="header-title">Address</h4>
+          <textarea
+            class="form-control"
+            placeholder="Enter Address"
+            formControlName="Address"
+            rows="3"
+            [ngClass]="{
+              'is-invalid': submited && l.Address.errors
+            }"
+          ></textarea>
+          <div *ngIf="submited && l.Address.errors" class="invalid-feedback">
+            <div *ngIf="l.Address.errors.required">Address is required</div>
+            <div *ngIf="l.Address.errors.maxlength">
+              Address cannot exceed 255 characters.
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <h4 class="header-title">PinCode</h4>
+          <input
+            class="form-control"
+            placeholder="Enter PinCode"
+            formControlName="PinCode"
+            (keypress)="isValid($event)"
+            [ngClass]="{
+              'is-invalid': submited && l.PinCode.errors
+            }"
+          />
+          <div *ngIf="submited && l.PinCode.errors" class="invalid-feedback">
+            <div *ngIf="l.PinCode.errors.required">PinCode is required</div>
+            <div
+              *ngIf="l.PinCode.errors.maxlength || l.PinCode.errors.minlength"
+            >
+              Pin Code must be 6 Digits Only
+            </div>
+          </div>
+        </div>
+        <div class="card-disabled" *ngIf="Loading">
+          <div class="card-portlets-loader"></div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-secondary waves-effect"
+      (click)="modal('Cross click')"
+    >
+      Close
+    </button>
+    <button
+      type="button"
+      class="btn btn-primary waves-effect waves-light"
+      (click)="onSaveLawyer()"
+    >
+      Add
+    </button>
+  </div>
+</ng-template>

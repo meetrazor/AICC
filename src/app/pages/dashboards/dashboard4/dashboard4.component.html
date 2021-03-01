@@ -1,0 +1,169 @@
+<div class="container-fluid">
+  <app-page-title title="Dashboard 4" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+
+  <div class="row">
+    <div class="col-xl-4">
+      <!-- Portlet card -->
+      <app-portlet title="Lifetime Sales" color="white" headerClass="title header-title border-0 mt-1"
+        (onContentRefresh)="contentRefresh()">
+        <div class="card-body pt-1 pb-0">
+          <div class="text-center">
+            <div class="row pb-2">
+              <div class="col-4">
+                <h3>3,487</h3>
+                <p class="text-muted font-13 mb-0 text-truncate">Total Sales</p>
+              </div>
+              <div class="col-4">
+                <h3>814</h3>
+                <p class="text-muted font-13 mb-0 text-truncate">Open Campaign</p>
+              </div>
+              <div class="col-4">
+                <h3>5,324</h3>
+                <p class="text-muted font-13 mb-0 text-truncate">Daily Sales</p>
+              </div>
+            </div> <!-- end row -->
+            <div class="morris-chart mt-3" style="height: 276px;">
+              <apx-chart [chart]="lifetimeDonutChart" [series]="lifetimeDonutChart.series"
+                [colors]="lifetimeDonutChart.colors" [labels]="lifetimeDonutChart.labels"
+                [dataLabels]="lifetimeDonutChart.dataLabels" [legend]="lifetimeDonutChart.legend"></apx-chart>
+            </div>
+          </div>
+        </div>
+      </app-portlet>
+    </div> <!-- end card-body-->
+
+    <div class="col-xl-4">
+      <app-portlet title="Statistics" color="white" headerClass="title header-title border-0 mt-1"
+        (onContentRefresh)="contentRefresh()">
+        <div class="card-body pt-0 text-center">
+          <div class="row">
+            <div class="col-6">
+              <h3>1,284</h3>
+              <p class="text-muted font-13 mb-0 text-truncate">Total Sales</p>
+            </div>
+            <div class="col-6">
+              <h3>7,841</h3>
+              <p class="text-muted font-13 mb-0 text-truncate">Open Campaign</p>
+            </div>
+          </div> <!-- end row -->
+          <!-- Statistics Chart -->
+          <div style="height: 270px;" class="mt-3">
+            <canvas baseChart [datasets]="statisticsBarChart.datasets" chartType="bar"
+              [options]="statisticsBarChart.options" [labels]="statisticsBarChart.labels"></canvas>
+          </div>
+          <!-- end chart -->
+        </div>
+      </app-portlet>
+    </div>
+
+    <div class="col-xl-4">
+      <app-portlet title="Income Amounts" color="white" headerClass="title header-title border-0 mt-1"
+        (onContentRefresh)="contentRefresh()">
+        <div class="card-body pt-0 text-center">
+          <div class="row">
+            <div class="col-4">
+              <h3>2,845</h3>
+              <p class="text-muted font-13 mb-0 text-truncate">Total Sales</p>
+            </div>
+            <div class="col-4">
+              <h3>6,487</h3>
+              <p class="text-muted font-13 mb-0 text-truncate">Open Campaign</p>
+            </div>
+            <div class="col-4">
+              <h3>201</h3>
+              <p class="text-muted font-13 mb-0 text-truncate">Daily Sales</p>
+            </div>
+          </div> <!-- end row -->
+
+          <div style="height: 270px;" class="morris-chart mt-3">
+            <apx-chart [series]="incomeAmountAreaChart.series" [chart]="incomeAmountAreaChart"
+              [tooltip]="incomeAmountAreaChart.tooltip" [stroke]="incomeAmountAreaChart.stroke"
+              [dataLabels]="incomeAmountAreaChart.dataLabels" [legend]="incomeAmountAreaChart.legend"
+              [grid]="incomeAmountAreaChart.grid" [xaxis]="incomeAmountAreaChart.xaxis"
+              [colors]="incomeAmountAreaChart.colors">
+            </apx-chart>
+          </div>
+        </div>
+      </app-portlet>
+    </div>
+  </div> <!-- end card-->
+
+  <div class="row">
+    <div class="col-md-6 col-xl-3" *ngFor="let widget of widgetData">
+      <div class="widget-rounded-circle card-box" [ngClass]="{'bg-blue': widget.designation === 'Premium User'}">
+        <div class="row align-items-center">
+          <div class="col-auto">
+            <div class="avatar-lg">
+              <img src="{{ widget.image }}" class="img-fluid rounded-circle" alt="user-img">
+            </div>
+          </div>
+          <div class="col">
+            <h5 class="mb-1 mt-2 font-16" [ngClass]="{'text-white': widget.designation === 'Premium User'}">
+              {{ widget.name }}</h5>
+            <p class="mb-2 text-muted" [ngClass]="{'text-white-50': widget.designation === 'Premium User'}">
+              {{ widget.designation }}</p>
+          </div>
+        </div> <!-- end row-->
+      </div> <!-- end widget-rounded-circle-->
+    </div> <!-- end col-->
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <app-portlet title="Projects" color="white" headerClass="title header-title border-0 mt-1"
+        (onContentRefresh)="contentRefresh()">
+        <div class="card-body pt-0">
+          <div class="table-responsive">
+            <table class="table table-centered table-borderless mb-0">
+              <thead class="thead-light">
+                <tr>
+                  <th>Project Name</th>
+                  <th>Start Date</th>
+                  <th>Due Date</th>
+                  <th>Team</th>
+                  <th>Status</th>
+                  <th>Clients</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let table of projectData">
+                  <td> {{ table.name }}</td>
+                  <td> {{ table.startdate }}</td>
+                  <td> {{ table.duedate }}</td>
+                  <td>
+                    <div class="avatar-group">
+                      <a href="javascript: void(0);" class="avatar-group-item" data-toggle="tooltip"
+                        data-placement="top" title="" data-original-title="Mat Helme">
+                        <img src="{{ table.team[0]}}" class="rounded-circle avatar-xs" alt="friend">
+                      </a>
+
+                      <a href="javascript: void(0);" class="avatar-group-item" data-toggle="tooltip"
+                        data-placement="top" title="" data-original-title="Michael Zenaty">
+                        <img src="{{ table.team[1]}}" class="rounded-circle avatar-xs" alt="friend">
+                      </a>
+
+                      <a href="javascript: void(0);" class="avatar-group-item" data-toggle="tooltip"
+                        data-placement="top" title="" data-original-title="James Anderson">
+                        <img src="{{ table.team[2]}}" class="rounded-circle avatar-xs" alt="friend">
+                      </a>
+
+                      <a href="javascript: void(0);" *ngIf="table.team[3]" class="avatar-group-item"
+                        data-toggle="tooltip" data-placement="top" title="" data-original-title="Username">
+                        <img src="{{ table.team[3]}}" class="rounded-circle avatar-xs" alt="friend">
+                      </a>
+                    </div>
+                  </td>
+                  <td><span class="badge p-1" [ngClass]="{'bg-soft-warning text-warning': table.status === 'Pending',
+                              'bg-soft-success text-success': table.status === 'Completed',
+                              'bg-soft-info text-info': table.status === 'Work in Progress',
+                              'bg-soft-dark text-dark': table.status === 'Coming Soon'}">{{ table.status }}</span></td>
+                  <td>{{ table.client }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </app-portlet>
+    </div>
+  </div>
+</div> <!-- end col-->

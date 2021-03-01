@@ -1,0 +1,65 @@
+<div *ngIf="!isLoading">
+  <div class="case-details mx-2 my-3">
+    <h4 class="text-info">Details :</h4>
+    <div class="row">
+      <div class="col-12">
+        <table
+          class="table table-responsive nowrap dataTable no-footer dtr-inline"
+        >
+          <tr>
+            <th>Case Type :</th>
+            <td>{{ CaseDetails.LegalCaseTypeName }}</td>
+          </tr>
+          <tr>
+            <th>Filing Number :</th>
+            <td>{{ CaseDetails.FilingNumber }}</td>
+          </tr>
+          <tr>
+            <th>Filing Date :</th>
+            <td>{{ CaseDetails.FilingDate | date: "dd-MM-yyyy" }}</td>
+          </tr>
+          <tr>
+            <th>Registration Number :</th>
+            <td>{{ CaseDetails.RegistrationNumber }}</td>
+          </tr>
+          <tr>
+            <th>Registration Date :</th>
+            <td>{{ CaseDetails.RegistrationDate | date: "dd-MM-yyyy" }}</td>
+          </tr>
+          <tr>
+            <th>CNR Number :</th>
+            <td>{{ CaseDetails.CNRNumber }}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="acts mx-2 my-3">
+    <h4 class="text-info">Acts :</h4>
+    <div class="row">
+      <div class="col-12">
+        <table class="table table-responsive w-100 nowrap no-footer dtr-inline">
+          <thead class="thead-light">
+            <tr>
+              <th style="width: 20%">Under Act(s)</th>
+              <th style="width: 20%">Under Section(s)</th>
+            </tr>
+          </thead>
+          <tbody *ngIf="ActDetails.length > 0">
+            <tr *ngFor="let item of ActDetails">
+              <td class="font-weight-semibold">{{ item.UnderAct }}</td>
+              <td class="font-weight-semibold">{{ item.UnderSection }}</td>
+            </tr>
+          </tbody>
+          <tbody *ngIf="ActDetails.length <= 0">
+            <td class="text-center" colspan="2">No Act Found In this Case</td>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card-disabled" *ngIf="isLoading">
+  <div class="card-portlets-loader"></div>
+</div>

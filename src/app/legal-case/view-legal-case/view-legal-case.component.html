@@ -1,0 +1,30 @@
+<app-custom-partlet
+  class="m-2"
+  *ngFor="let item of datasource"
+  title="Registration: {{ item.RegistrationNumber }}"
+  anotherTitle="{{ item.RegistrationDate | date: 'MMM dd, yyyy' }}"
+  Icon=""
+  headerClass="header-title"
+  collapsed="0"
+  loading="0"
+  color="{{ item.Status == 1 ? 'light' : 'soft-success' }}"
+  instyle="true"
+  text="green"
+  id="{{ item.LegalCaseID }}"
+  (onLoad)="onShow($event)"
+  courtname="{{ item.CourtName }}"
+  CaseStatus="{{ item.Status == 1 ? 'Ongoing' : 'Dispose' }}"
+  hearingDate="{{
+    item.HearingDate ? (item.HearingDate | date: 'MMM dd, yyyy') : ''
+  }}"
+  status="{{ item.Status }}"
+>
+  <app-details-legal-case
+    *ngIf="item.isloaded"
+    [CaseID]="item.LegalCaseID"
+    [status]="item.Status"
+  ></app-details-legal-case>
+</app-custom-partlet>
+<div class="card-disabled" *ngIf="isloading">
+  <div class="card-portlets-loader"></div>
+</div>

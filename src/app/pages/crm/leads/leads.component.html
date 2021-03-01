@@ -1,0 +1,143 @@
+<div class="container-fluid">
+  <app-page-title title="Leads" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+
+  <div class="row">
+    <div class="col-xl-8 order-xl-1 order-2">
+      <div class="card mb-2">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-lg-8">
+              <form class="form-inline">
+                <div class="form-group">
+                  <label class="sr-only">Search</label>
+                  <input type="search" class="form-control" placeholder="Search..." name="search" [(ngModel)]="term">
+                </div>
+              </form>
+            </div>
+            <div class="col-lg-4">
+              <div class="text-lg-right mt-3 mt-lg-0">
+                <button type="button" class="btn btn-success mr-1"><i
+                    class="mdi mdi-settings"></i></button>
+                <a href="javascript: void(0);" class="btn btn-danger"
+                  (click)="openModal(content)"><i class="mdi mdi-plus-circle mr-1"></i> Add
+                  New</a>
+              </div>
+            </div><!-- end col-->
+          </div> <!-- end row -->
+        </div> <!-- end card-body-->
+      </div> <!-- end card-->
+      <div class="card-box mb-2" *ngFor="let lead of leadsData | filter:term">
+        <div class="row align-items-center">
+          <div class="col-sm-4">
+            <div class="media">
+              <img class="d-flex align-self-center mr-3 rounded-circle" src="{{ lead.company }}"
+                alt="Generic placeholder image" height="64">
+              <div class="media-body">
+                <h4 class="mt-0 mb-2 font-16">{{ lead.name }}</h4>
+                <p class="mb-1"><b>Location:</b> {{ lead.location }}</p>
+                <p class="mb-0"><b>Category:</b> {{ lead.category }}</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-2">
+            <div class="text-center my-3 my-sm-0">
+              <p class="mb-0 text-muted">{{ lead.date }}</p>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="text-center button-list">
+              <a href="javascript: void(0);" class="btn btn-xs btn-primary">Assign</a>
+              <a href="javascript: void(0);" class="btn btn-xs btn-primary">Call</a>
+              <a href="javascript: void(0);" class="btn btn-xs btn-primary">Email</a>
+            </div>
+          </div>
+
+          <div class="col-sm-2">
+            <div class="text-sm-right text-center mt-2 mt-sm-0">
+              <a href="javascript:void(0);" class="action-icon"> <i class="mdi mdi-square-edit-outline"></i></a>
+              <a href="javascript:void(0);" class="action-icon"> <i class="mdi mdi-delete"></i></a>
+            </div>
+          </div> <!-- end col-->
+        </div> <!-- end row -->
+      </div> <!-- end card-box-->
+      <div class="text-center my-4">
+        <a href="javascript:void(0);" class="text-danger"><i class="mdi mdi-spin mdi-loading mr-1"></i> Load more </a>
+      </div>
+    </div>
+    <div class="col-xl-4 order-xl-2 order-1">
+      <div class="card-box">
+        <h4 class="header-title mb-3">Leads Statics</h4>
+
+        <div class="text-center" dir="ltr">
+          <div class="row mt-2">
+            <div class="col-6">
+              <h3 data-plugin="counterup">1,284</h3>
+              <p class="text-muted font-13 mb-0 text-truncate">Leads Won</p>
+            </div>
+            <div class="col-6">
+              <h3 data-plugin="counterup">7,841</h3>
+              <p class="text-muted font-13 mb-0 text-truncate">Leads Lost</p>
+            </div>
+          </div>
+          <apx-chart class="chartcolor" [series]="leadsBarChart.series" [chart]="leadsBarChart"
+            [colors]="leadsBarChart.color" [dataLabels]="leadsBarChart.dataLabels" [legend]="leadsBarChart.legend"
+            [stroke]="leadsBarChart.stroke" [grid]="leadsBarChart.grid" [xaxis]="leadsBarChart.xaxis"
+            [plotOptions]="leadsBarChart.plotOptions"></apx-chart>
+          <p class="text-muted font-15 font-family-secondary mb-0">
+            <span class="mx-2"><i class="mdi mdi-checkbox-blank-circle text-blue"></i> Leads Won</span>
+            <span class="mx-2"><i class="mdi mdi-checkbox-blank-circle text-muted"></i> Leads Lost</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Leads model -->
+<ng-template #content role="document" let-modal="close">
+  <div class="modal-header bg-dark">
+    <h4 class="modal-title text-white">Add New Leads</h4>
+    <button type="button" class="close text-white" aria-label="Close" (click)="modal('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body p-3">
+    <div class="text-left">
+      <form (ngSubmit)="saveData()" [formGroup]="validationform">
+
+        <div class="form-group">
+          <label>Company Name</label>
+          <input type="text" class="form-control" placeholder="Enter company name" formControlName="name"
+            [ngClass]="{'is-invalid': submitted && form.name.errors}">
+          <div *ngIf="submitted && form.name.errors" class="invalid-feedback">
+            <span *ngIf="form.name.errors.required">This value is required.</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Location</label>
+          <input class="form-control" placeholder="Enter location" formControlName="location"
+            [ngClass]="{'is-invalid': submitted && form.location.errors}">
+          <div *ngIf="submitted && form.location.errors" class="invalid-feedback">
+            <span *ngIf="form.location.errors.required">This value is required.</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Category </label>
+          <input class="form-control" placeholder="Enter category" formControlName="category"
+            [ngClass]="{'is-invalid': submitted && form.category.errors}">
+          <div *ngIf="submitted && form.category.errors" class="invalid-feedback">
+            <span *ngIf="form.category.errors.required">This value is required.</span>
+          </div>
+        </div>
+
+        <div class="text-right">
+          <button type="submit" class="btn btn-success">Save</button>
+          <button type="button" class="btn btn-danger ml-1"
+            (click)="modal('close click')">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-template>

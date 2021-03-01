@@ -1,0 +1,194 @@
+<div class="container-fluid">
+  <app-page-title title="Dropdowns" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+
+  <div class="row">
+    <div class="col-12">
+      <div class="card-box">
+        <h4 class="header-title">Examples</h4>
+        <p class="sub-header">
+          Toggle contextual overlays for displaying lists of links and more with the Bootstrap dropdown plugin.
+        </p>
+
+        <div class="row">
+          <div class="col-xl-6">
+
+            <p class="h5">Single button dropdowns</p>
+            <p class="text-muted font-13 mb-3">
+              Any single <code class="highlighter-rouge">.btn</code> can be turned into a dropdown
+              toggle with some markup changes. Here’s how you can put them to work
+              with either <code class="highlighter-rouge">&lt;button&gt;</code>
+              elements:
+            </p>
+
+            <div class="row">
+              <div class="col-6">
+                <div class="dropdown" ngbDropdown>
+                  <a class="btn btn-light" id="dropdownMenuLink" ngbDropdownToggle>
+                    Dropdown button <i class="mdi mdi-chevron-down"></i>
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" ngbDropdownMenu>
+                    <a class="dropdown-item" href="javascript: void(0);">Action</a>
+                    <a class="dropdown-item" href="javascript: void(0);">Another action</a>
+                    <a class="dropdown-item" href="javascript: void(0);">Something else here</a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-6">
+                <div class="dropdown" ngbDropdown>
+                  <a class="btn btn-light" id="dropdownMenuLink" ngbDropdownToggle>
+                    Dropdown link <i class="mdi mdi-chevron-down"></i>
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" ngbDropdownMenu>
+                    <a class="dropdown-item" href="javascript: void(0);">Action</a>
+                    <a class="dropdown-item" href="javascript: void(0);">Another action</a>
+                    <a class="dropdown-item" href="javascript: void(0);">Something else here</a>
+                  </div>
+                </div>
+              </div> <!-- end col -->
+            </div> <!-- end row -->
+
+            <p class="mb-1 mt-5 h5">Variant</p>
+            <p class="text-muted font-13 mb-3">
+              The best part is you can do this with any button variant, too:
+            </p>
+
+            <ng-template [ngTemplateOutlet]="Dropdown" [ngTemplateOutletContext]="{color:color, index: idx}"
+              *ngFor="let color of colorData; let idx = index;"></ng-template>
+
+            <p class="mb-1 mt-5 h5">Dropright variation</p>
+            <p class="text-muted font-13 mb-3">
+              Trigger dropdown menus at the right of the elements by adding <code>.dropright</code> to the parent
+              element.
+            </p>
+            <ng-template [ngTemplateOutlet]="DropdownRight" [ngTemplateOutletContext]="{color:color, index: idx}"
+              *ngFor="let color of colorData | slice:3:5; let idx = index;"></ng-template>
+
+            <p class="mb-1 mt-5 h5">Dropup variation</p>
+            <p class="text-muted font-13 mb-3">
+              Trigger dropdown menus above elements
+              by adding <code class="highlighter-rouge">.dropup</code> to the parent
+              element.
+            </p>
+            <ng-template [ngTemplateOutlet]="Dropup" [ngTemplateOutletContext]="{color:color, index: idx}"
+              *ngFor="let color of colorData | slice:1:3; let idx = index;"></ng-template>
+          </div>
+
+          <div class="col-xl-6 mt-5 mt-xl-0">
+            <p class="mb-1 h5">Split button dropdowns</p>
+            <p class="text-muted font-13 mb-3">
+              Similarly, create split button dropdowns with virtually the same markup as single button dropdowns, but
+              with
+              the addition of <code class="highlighter-rouge">.dropdown-toggle-split</code> for proper spacing around
+              the
+              dropdown caret.
+            </p>
+            <ng-template [ngTemplateOutlet]="DropdownSplit" [ngTemplateOutletContext]="{color:color, index: idx}"
+              *ngFor="let color of colorData; let idx = index;"></ng-template>
+
+            <p class="mb-1 h5 mt-5">Sizing</p>
+            <p class="text-muted font-13 mb-3">
+              Button dropdowns work with buttons of all sizes, including default and split dropdown buttons.
+            </p>
+            <div class="btn-group" ngbDropdown>
+              <button class="btn btn-light btn-lg" ngbDropdownToggle type="button">
+                Large button <i class="mdi mdi-chevron-down"></i>
+              </button>
+              <div class="dropdown-menu" ngbDropdownMenu>
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <a class="dropdown-item" href="#">Something else here</a>
+              </div>
+            </div>
+            <div class="btn-group ml-1" ngbDropdown>
+              <button class="btn btn-light btn-sm" ngbDropdownToggle type="button">
+                Small button <i class="mdi mdi-chevron-down"></i>
+              </button>
+              <div class="dropdown-menu" ngbDropdownMenu>
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <a class="dropdown-item" href="#">Something else here</a>
+              </div>
+            </div>
+
+            <p class="mb-1 mt-5 h5">Dropleft variation</p>
+            <p class="text-muted font-13 mb-3">
+              Trigger dropdown menus at the right of the elements by adding <code>.dropleft</code> to the parent
+              element.
+            </p>
+            <ng-template [ngTemplateOutlet]="DropdownLeft" [ngTemplateOutletContext]="{color:color, index: idx}"
+              *ngFor="let color of colorData | slice:0:3; let idx = index;"></ng-template>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <ng-template #Dropdown let-color='color' let-index='index'>
+      <div ngbDropdown class="dropdown d-inline">
+        <button type="button" class="btn btn-{{color.color}} ml-1" id="btn={index}" ngbDropdownToggle>
+          {{color.color | titlecase}} <i class="mdi mdi-chevron-down"></i></button>
+        <div class="dropdown-menu" ngbDropdownMenu aria-labelledby="btn={index}">
+          <a class="dropdown-item" href="javascript: void(0);">Action</a>
+          <a class="dropdown-item" href="javascript: void(0);">Another action</a>
+          <a class="dropdown-item" href="javascript: void(0);">Something else here</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="javascript: void(0);">Separated link</a>
+        </div>
+      </div>
+    </ng-template>
+
+    <ng-template #DropdownRight let-color='color' let-index='index'>
+      <div ngbDropdown placement="right" class="dropdown d-inline">
+        <button type="button" class="btn btn-{{color.color}} ml-1" id="btn={index}" ngbDropdownToggle> Dropright <i
+            class="mdi mdi-chevron-right"></i></button>
+        <div class="dropdown-menu" ngbDropdownMenu aria-labelledby="btn={index}">
+          <a class="dropdown-item" href="javascript: void(0);">Action</a>
+          <a class="dropdown-item" href="javascript: void(0);">Another action</a>
+          <a class="dropdown-item" href="javascript: void(0);">Something else here</a>
+        </div>
+      </div>
+    </ng-template>
+
+    <ng-template #Dropup let-color='color' let-index='index'>
+      <div ngbDropdown placement="top" class="dropdown d-inline">
+        <button type="button" class="btn btn-{{color.color}} ml-1" id="btn={index}" ngbDropdownToggle> Dropup <i
+            class="mdi mdi-chevron-up"></i></button>
+        <div class="dropdown-menu" ngbDropdownMenu aria-labelledby="btn={index}">
+          <a class="dropdown-item" href="javascript: void(0);">Action</a>
+          <a class="dropdown-item" href="javascript: void(0);">Another action</a>
+          <a class="dropdown-item" href="javascript: void(0);">Something else here</a>
+        </div>
+      </div>
+    </ng-template>
+
+    <ng-template #DropdownSplit let-color='color' let-index='index'>
+      <div ngbDropdown class="dropdown d-inline">
+        <div class="btn-group">
+          <button type="button" class="btn btn-{{color.color}} ml-1"> {{color.color | titlecase}} </button>
+          <button type="button" class="btn btn-{{color.color}} dropdown-toggle dropdown-toggle-split" ngbDropdownToggle
+            id="btn={index}">
+            <i class="mdi mdi-chevron-down"></i>
+          </button>
+        </div>
+        <div class="dropdown-menu" ngbDropdownMenu aria-labelledby="btn={index}">
+          <a class="dropdown-item" href="javascript: void(0);">Action</a>
+          <a class="dropdown-item" href="javascript: void(0);">Another action</a>
+          <a class="dropdown-item" href="javascript: void(0);">Something else here</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="javascript: void(0);">Separated link</a>
+        </div>
+      </div>
+    </ng-template>
+
+    <ng-template #DropdownLeft let-color='color' let-index='index'>
+      <div ngbDropdown placement="left" class="dropdown d-inline">
+        <button type="button" class="btn btn-{{color.color}} ml-1" id="btn={index}" ngbDropdownToggle><i
+            class="mdi mdi-chevron-left"></i> Dropleft </button>
+        <div class="dropdown-menu" ngbDropdownMenu aria-labelledby="btn={index}">
+          <a class="dropdown-item" href="javascript: void(0);">Action</a>
+          <a class="dropdown-item" href="javascript: void(0);">Another action</a>
+          <a class="dropdown-item" href="javascript: void(0);">Something else here</a>
+        </div>
+      </div>
+    </ng-template>

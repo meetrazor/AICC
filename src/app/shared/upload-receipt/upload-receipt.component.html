@@ -1,0 +1,406 @@
+<div class="">
+  <form [formGroup]="photographForm" (ngSubmit)="onSubmit()">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-12 mb-3">
+            <h4 class="header-title">File Upload *</h4>
+            <p class="text-muted font-13 m-b-30"></p>
+            <!-- file upload -->
+            <file-upload
+              class="dropzone"
+              multiple="false"
+              isAnimationDisabled="true"
+              listVisible="true"
+              zoomText="zoomOut"
+              accept="image/gif,image/png,image/jpeg,application/pdf,application/msword,.doc,.docx"
+              type="file"
+              maxsize="20mb"
+              (ngModelChange)="onchange($event)"
+              [ngClass]="{
+                'is-invalid': submited && f.uploadfile.errors
+              }"
+              formControlName="uploadfile"
+            ></file-upload>
+            <div
+              *ngIf="submited && f.uploadfile.errors"
+              class="invalid-feedback"
+            >
+              <div *ngIf="f.uploadfile.errors.sizeRange">
+                File size is exceed 20 Mb Limit
+              </div>
+              <div *ngIf="f.uploadfile.errors.required">Please Add file</div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 mb-3">
+            <h4 class="header-title">File Name *</h4>
+            <input
+              class="form-control"
+              id="example-input"
+              placeholder="Enter File Name"
+              formControlName="FileName"
+              maxlength="25"
+              [ngClass]="{
+                'is-invalid': submited && f.FileName.errors
+              }"
+            />
+            <div *ngIf="submited && f.FileName.errors" class="invalid-feedback">
+              <div *ngIf="f.FileName.errors.required">
+                File Name is Required
+              </div>
+              <div *ngIf="f.FileName.errors.pattern">
+                Only alphanumeric characters allowed
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 mb-3">
+            <h4 class="header-title">File Type *</h4>
+
+            <select
+              class="custom-select"
+              formControlName="FileType"
+              [ngClass]="{
+                'is-invalid': submited && f.FileType.errors
+              }"
+            >
+              <option selected disabled>Select File Type *</option>
+              <option value="Photo">Photo</option>
+              <option value="Video">Video</option>
+              <option value="Audio">Audio</option>
+              <option value="PDF">PDF</option>
+              <option value="DOC">Document</option>
+            </select>
+            <div *ngIf="submited && f.FileType.errors" class="invalid-feedback">
+              <div *ngIf="f.FileType.errors.required">
+                File Type is Required
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 mb-3">
+            <h4 class="header-title">File Description *</h4>
+
+            <textarea
+              class="form-control"
+              id="example-textarea"
+              rows="3"
+              placeholder="Enter File Description"
+              formControlName="Description"
+              maxlength="55"
+              [ngClass]="{
+                'is-invalid': submited && f.Description.errors
+              }"
+            ></textarea>
+            <div
+              *ngIf="submited && f.Description.errors"
+              class="invalid-feedback"
+            >
+              <div *ngIf="f.Description.errors.required">
+                File Description is Required
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 mb-3">
+            <h4 class="header-title">Payment Date *</h4>
+            <input
+              class="form-control"
+              placeholder="Enter Payment Date"
+              formControlName="PaymentDate"
+              type="date"
+              (keypress)="callback()"
+              [ngClass]="{
+                'is-invalid': submited && f.PaymentDate.errors
+              }"
+            />
+            <div
+              *ngIf="submited && f.PaymentDate.errors"
+              class="invalid-feedback"
+            >
+              <div *ngIf="submited && f.PaymentDate.errors.required">
+                Payment Date is Required
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row" *ngIf="taxId && !rentId">
+          <div class="col-md-12 mb-3">
+            <h4 class="header-title">Next Due Date *</h4>
+            <input
+              class="form-control"
+              placeholder="Enter DueDate"
+              formControlName="NextDueDate"
+              type="date"
+              (keypress)="callback()"
+              [ngClass]="{
+                'is-invalid': submited && f.NextDueDate.errors
+              }"
+            />
+            <div
+              *ngIf="submited && f.NextDueDate.errors"
+              class="invalid-feedback"
+            >
+              <div *ngIf="submited && f.NextDueDate.errors.required">
+                Next Due Date is Required
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="row"
+          *ngIf="
+            !isLoading &&
+            !taxId &&
+            rentId &&
+            rentData.RemainingAdvanceAmount != 0 && rentData.RemainingAdvanceAmount
+          "
+        >
+          <div class="col-md-12 mb-3">
+            <h4 class="header-title">Amount From Advance *</h4>
+            <input
+              class="form-control"
+              placeholder="Enter Amount From Advance"
+              formControlName="AmountFromAdvance"
+              type="number"
+              [ngClass]="{
+                'is-invalid': submited && f.AmountFromAdvance.errors
+              }"
+              [max]="rentData.RemainingAdvanceAmount"
+              min="0"
+            />
+            <div
+              *ngIf="submited && f.AmountFromAdvance.errors"
+              class="invalid-feedback"
+            >
+              <div *ngIf="submited && f.AmountFromAdvance.errors.required">
+                Amount From Advance is Required
+              </div>
+            </div>
+          </div>
+          <h5>
+            Remaining Amount From Advance is
+            {{ rentData.RemainingAdvanceAmount }}
+          </h5>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-12 mb-3">
+            <h4 class="header-title">Payment Mode*</h4>
+            <ng-select
+              class="form-control mt-2"
+              formControlName="ModeOfPayment"
+              (change)="onSelect()"
+              placeholder="
+                Select Payment Mode"
+              [ngClass]="{
+                'is-invalid': submited && f.ModeOfPayment.errors
+              }"
+            >
+              <ng-option
+                *ngFor="let item of paymentMode"
+                [value]="item"
+                [id]="item"
+                >{{ item }}</ng-option
+              >
+            </ng-select>
+            <div
+              *ngIf="submited && f.ModeOfPayment.errors"
+              class="invalid-feedback"
+            >
+              <div *ngIf="f.ModeOfPayment.errors.required">
+                Payment Mode is required
+              </div>
+            </div>
+          </div>
+          <div
+            class="col-md-12 mb-3"
+            *ngIf="f.ModeOfPayment.value === 'Cheque'"
+          >
+            <h4 class="header-title">Cheque No *</h4>
+            <input
+              class="form-control"
+              id="example-input"
+              placeholder="Enter Cheque No"
+              formControlName="ChequeNo"
+              maxlength="225"
+              [ngClass]="{
+                'is-invalid': submited && f.ChequeNo.errors
+              }"
+            />
+            <div *ngIf="submited && f.ChequeNo.errors" class="invalid-feedback">
+              <div *ngIf="f.ChequeNo.errors.required">
+                Cheque No is Required
+              </div>
+            </div>
+          </div>
+          <div
+            class="col-md-12 mb-3"
+            *ngIf="f.ModeOfPayment.value === 'Wallet'"
+          >
+            <h4 class="header-title">Wallet Name *</h4>
+            <input
+              class="form-control"
+              id="example-input"
+              placeholder="Enter Wallet Name"
+              formControlName="WalletName"
+              maxlength="225"
+              [ngClass]="{
+                'is-invalid': submited && f.WalletName.errors
+              }"
+            />
+            <div
+              *ngIf="submited && f.WalletName.errors"
+              class="invalid-feedback"
+            >
+              <div *ngIf="f.WalletName.errors.required">
+                Wallet Name is Required
+              </div>
+            </div>
+          </div>
+          <div
+            class="col-md-12 mb-3"
+            *ngIf="
+              f.ModeOfPayment.value === 'Cheque' ||
+              f.ModeOfPayment.value === 'NEFT/IMPS' ||
+              f.ModeOfPayment.value === 'Wallet'
+            "
+          >
+            <h4 class="header-title">Bank Name *</h4>
+            <input
+              class="form-control"
+              id="example-input"
+              placeholder="Enter Bank Name"
+              formControlName="BankName"
+              maxlength="225"
+              [ngClass]="{
+                'is-invalid': submited && f.BankName.errors
+              }"
+            />
+            <div *ngIf="submited && f.BankName.errors" class="invalid-feedback">
+              <div *ngIf="f.BankName.errors.required">
+                Bank Name is Required
+              </div>
+            </div>
+          </div>
+          <div
+            class="col-md-12 mb-3"
+            *ngIf="f.ModeOfPayment.value === 'Cheque'"
+          >
+            <h4 class="header-title">Branch Name *</h4>
+            <input
+              class="form-control"
+              id="example-input"
+              placeholder="Enter Branch Name"
+              formControlName="BankBranchName"
+              maxlength="225"
+              [ngClass]="{
+                'is-invalid': submited && f.BankBranchName.errors
+              }"
+            />
+            <div
+              *ngIf="submited && f.BankBranchName.errors"
+              class="invalid-feedback"
+            >
+              <div *ngIf="f.BankBranchName.errors.required">
+                Branch Name is Required
+              </div>
+            </div>
+          </div>
+          <div
+            class="col-md-12 mb-3"
+            *ngIf="f.ModeOfPayment.value === 'Cheque'"
+          >
+            <h4 class="header-title">Cheque Name *</h4>
+            <input
+              class="form-control"
+              id="example-input"
+              placeholder="Enter Cheque Name"
+              formControlName="ChequeName"
+              maxlength="225"
+              [ngClass]="{
+                'is-invalid': submited && f.ChequeName.errors
+              }"
+            />
+            <div
+              *ngIf="submited && f.ChequeName.errors"
+              class="invalid-feedback"
+            >
+              <div *ngIf="f.ChequeName.errors.required">
+                Cheque Name is Required
+              </div>
+            </div>
+          </div>
+          <div
+            class="col-md-12 mb-3"
+            *ngIf="
+              f.ModeOfPayment.value === 'NEFT/IMPS' ||
+              f.ModeOfPayment.value === 'Wallet'
+            "
+          >
+            <h4 class="header-title">TransactionID *</h4>
+            <input
+              class="form-control"
+              id="example-input"
+              placeholder="Enter TransactionID"
+              formControlName="TransactionID"
+              maxlength="225"
+              [ngClass]="{
+                'is-invalid': submited && f.TransactionID.errors
+              }"
+            />
+            <div
+              *ngIf="submited && f.TransactionID.errors"
+              class="invalid-feedback"
+            >
+              <div *ngIf="f.TransactionID.errors.required">
+                Transaction ID is Required
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12 mb-3">
+            <h4 class="header-title">Amount *</h4>
+            <input
+              type="number"
+              class="form-control"
+              id="example-input"
+              placeholder="Enter Amount"
+              formControlName="AmountPay"
+              maxlength="225"
+              [ngClass]="{
+                'is-invalid': submited && f.AmountPay.errors
+              }"
+            />
+            <div
+              *ngIf="submited && f.AmountPay.errors"
+              class="invalid-feedback"
+            >
+              <div *ngIf="f.AmountPay.errors.required">Amount is Required</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4"></div>
+      <div class="col-md-4 mb-3">
+        <button
+          class="btn btn-primary waves-effect waves-light btn-block"
+          type="submit"
+        >
+          Save
+        </button>
+      </div>
+    </div>
+  </form>
+  <div class="card-disabled" *ngIf="isLoading">
+    <div class="card-portlets-loader"></div>
+  </div>
+</div>

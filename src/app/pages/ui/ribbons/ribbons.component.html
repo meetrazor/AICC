@@ -1,0 +1,33 @@
+<div class="container-fluid">
+    <app-page-title title="Ribbons" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+
+    <div class="row">
+        <div class="col-lg-4" *ngFor="let ribbon of ribbonsData">
+            <div class="card-box ribbon-box">
+                <div class="ribbon ribbon-{{ribbon.color}} float-{{ribbon.textalign}}" [ngClass]="
+                {
+                    'shape': ribbon.shape === true
+                }"><i class="{{ribbon.icon}} mr-1"></i> {{ribbon.color | titlecase}}</div>
+                <h5 class="text-{{ribbon.color}} float-{{ribbon.titlealign}} mt-0">{{ ribbon.title }}</h5>
+                <div class="ribbon-content">
+                    <p class="mb-0">Quisque nec turpis at urna dictum luctus. Suspendisse convallis dignissim eros at
+                        volutpat. In egestas
+                        mattis dui. Aliquam mattis dictum aliquet. Nulla sapien mauris, eleifend et sem ac, commodo
+                        dapibus odio.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-4" *ngFor="let ribbon of ribbonsData">
+            <div class="card-box ribbon-box">
+                <div class="ribbon-two ribbon-two-{{ribbon.color}}"><span>{{ribbon.color | titlecase}}</span></div>
+                <p class="mb-0">Quisque nec turpis at urna dictum luctus. Suspendisse convallis dignissim eros at
+                    volutpat. In egestas mattis dui. Aliquam mattis dictum aliquet. Nulla sapien mauris, eleifend et sem
+                    ac, commodo dapibus odio. Vivamus pretium nec odio cursus elementum. Suspendisse molestie
+                    ullamcorper ornare.</p>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,61 @@
+<div class="card" *ngIf="isVisible" id="custom-partlet">
+  <!-- card header -->
+
+  <div class="card-header bg-{{ color }} text-{{ text }} {{ headerClass }}">
+    <a href="javascript: void(0);" (click)="onHeaderClick(id)">{{ title }}</a>
+    <a
+      class="ml-3 another text-{{ text }}"
+      (click)="onHeaderClick(id)"
+      *ngIf="anotherTitle != ''"
+      href="javascript: void(0);"
+      style="font-size: 12px"
+    >
+      On {{ anotherTitle }} <i *ngIf="Icon != ''" [class]="Icon"></i>
+    </a>
+
+    <div class="card-widgets">
+      <!-- <a href="javascript: void(0);" (click)="refreshContent()"
+          ><i class="mdi mdi-refresh"></i
+        ></a> -->
+      <a
+        href="javascript: void(0);"
+        [attr.aria-expanded]="!isCollapsed"
+        aria-expanded="false"
+        aria-controls="cardCollpase5"
+        class="mdi mdi-minus"
+        (click)="onHeaderClick(id)"
+        [ngClass]="{
+          'mdi-minus': isCollapsed == false,
+          'mdi-plus': isCollapsed == true
+        }"
+      >
+      </a>
+      <!-- <a href="javascript: void(0);" (click)="remove()"
+          ><i class="mdi mdi-close"></i
+        ></a> -->
+    </div>
+  </div>
+  <!-- info container -->
+  <div class="info p-3">
+    <h5>{{ courtname }}</h5>
+    <p><span class="text-muted">Status</span> : {{ CaseStatus }}</p>
+    <p *ngIf="status == 1 && hearingDate">
+      <span class="text-muted">Next Hearing</span> :
+      <span class="text-danger">{{ hearingDate }}</span>
+    </p>
+    <p *ngIf="status == 2 && hearingDate">
+      <span class="text-muted">Case Disposed On </span> :
+      <span class="text-success">{{ hearingDate }}</span>
+    </p>
+  </div>
+  <hr />
+  <!-- End card header -->
+
+  <div id="cardCollpase5" [ngbCollapse]="isCollapsed">
+    <ng-content></ng-content>
+  </div>
+
+  <div class="card-disabled" *ngIf="isLoading">
+    <div class="card-portlets-loader"></div>
+  </div>
+</div>

@@ -1,0 +1,487 @@
+<app-page-title
+  title="Application & Documents"
+  [breadcrumbItems]="breadCrumbItems"
+></app-page-title>
+<section id="loan-application-document">
+  <div class="loan-document-body m-3">
+    <div class="row">
+      <div class="col-md-3 mt-1 mb-1">
+        <form class="navbar-form" role="search">
+          <div class="input-group">
+            <input
+              type="text"
+              class="form-control date"
+              placeholder="All Time"
+              (click)="hidden = !hidden"
+              name="daterange"
+              autocomplete="off"
+              [(ngModel)]="selected"
+            />
+
+            <ngb-datepicker
+              #dp
+              (select)="onDateSelection($event)"
+              [displayMonths]="2"
+              [dayTemplate]=""
+              outsideDays="hidden"
+              [hidden]="hidden"
+            >
+            </ngb-datepicker>
+            <div class="input-group-btn">
+              <button class="btn btn-primary" type="submit">
+                <i class="far fa-calendar-alt"></i>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="col-md-3 mt-1 mb-1">
+        <div class="input-group">
+          <ng-select
+            [items]="allLoanTypes"
+            class="form-control"
+            [placeholder]="'All Loan Types'"
+            style="margin: 0; padding: 0"
+          ></ng-select>
+          <div class="input-group-btn">
+            <button class="btn btn-primary" type="submit">
+              <i class="mdi mdi-filter-variant"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 mt-1 mb-1">
+        <form role="search">
+          <div class="input-group">
+            <ng-select
+              [items]="allStatus"
+              class="form-control"
+              [placeholder]="'All Status'"
+              style="margin: 0; padding: 0"
+            ></ng-select>
+            <div class="input-group-btn">
+              <button class="btn btn-primary" type="submit">
+                <i class="mdi mdi-filter-variant"></i>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="col-md-3 mt-1 mb-1">
+        <div class="input-group">
+          <ng-select
+            [items]="allApplicationNos"
+            class="form-control"
+            [placeholder]="'All Application Nos'"
+            style="margin: 0; padding: 0"
+          ></ng-select>
+          <div class="input-group-btn">
+            <button class="btn btn-success" type="submit">
+              <i class="fas fa-search"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="table mt-3">
+      <div class="card-box">
+        <div class="d-inline-block">
+          <h3 class="header-title" style="font-size: x-large">
+            Loan Applications & Documents Received Status
+          </h3>
+        </div>
+        <div
+          ngbDropdown
+          class="dropdown d-inline float-right mr-3"
+          *ngIf="currentUser.UserType === 'Bank Manager'"
+        >
+          <button
+            type="button"
+            class="btn btn-info ml-1"
+            id="btn={index}"
+            ngbDropdownToggle
+          >
+            Add Application
+            <i class="mdi mdi-chevron-down"></i>
+          </button>
+          <div class="dropdown-menu" ngbDropdownMenu>
+            <a class="dropdown-item" routerLink="/loan/addapplication"
+              >Single Application</a
+            >
+            <a class="dropdown-item" routerLink="/loan/bulkupload"
+              >Bulk Applications</a
+            >
+          </div>
+        </div>
+        <!-- <button
+          class="btn btn-info float-right mr-3"
+          (click)="redirect()"
+          *ngIf="currentUser.UserType === 'Bank Manager'"
+        >
+          Add Application
+        </button>
+        <button
+          class="btn btn-info float-right mr-3"
+          *ngIf="currentUser.UserType === 'Bank Manager'"
+          routerLink="/loan/bulkupload"
+        >
+          Bulk Upload Application
+        </button> -->
+        <div class="mt-3" *ngIf="currentUser.UserType === 'Bank Manager'">
+          <table
+            datatable
+            [dtOptions]="dtOptions"
+            width="100%"
+            class="table table-borderless hover"
+          ></table>
+        </div>
+        <div class="mt-3" *ngIf="currentUser.UserType === 'Proplegit'">
+          <table
+            datatable
+            width="100%"
+            [dtOptions]="dtOptionsforPVR"
+            class="table table-borderless hover"
+          ></table>
+        </div>
+
+        <!-- <div class="table-responsive" style="height: 450px; overflow: scroll">
+          <table
+            class="table table-borderless table-hover mb-0 mt-3"
+            (click)="redirect()"
+          >
+            <thead class="thead-light">
+              <tr>
+                <th>Primary Applicant</th>
+                <th>Type of Loan</th>
+                <th>Status</th>
+                <th>Amount (₹)</th>
+                <th>Jantri (₹)</th>
+                <th>Documents</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of tabledata">
+                <td>{{ item.name }}</td>
+                <td>{{ item.loan_type }}</td>
+                <td>
+                  <span
+                    class="badge badge-success p-1"
+                    *ngIf="item.status == 'Completed'"
+                    >{{ item.status }}</span
+                  >
+                  <span
+                    class="badge badge-secondary p-1"
+                    *ngIf="item.status == 'Pending Lawyer Assignment'"
+                    >{{ item.status }}</span
+                  >
+                  <span
+                    class="badge badge-pink p-1"
+                    *ngIf="item.status == 'Pending Title Search'"
+                    >{{ item.status }}</span
+                  >
+                  <span
+                    class="badge badge-warning p-1"
+                    *ngIf="
+                      item.status == 'Pending Valuation' ||
+                      item.status == 'Pending Review'
+                    "
+                    >{{ item.status }}</span
+                  >
+                  <span
+                    class="badge badge-success p-1"
+                    *ngIf="item.status == 'Received'"
+                    >{{ item.status }}</span
+                  >
+                </td>
+                <td>{{ item.amount }}</td>
+                <td>{{ item.jantri }}</td>
+                <td *ngIf="item.document == 1"><a href="">VIEW</a></td>
+                <td *ngIf="item.document == 2">
+                  <a href="">UPLOAD</a> | <a href="">REQUEST</a>
+                </td>
+                <td *ngIf="item.document == 3">
+                  <a href="">VIEW</a> | <a href="">UPLOAD</a> |
+                  <a href="">REQUEST</a>
+                </td>
+                <td *ngIf="item.document == 4">
+                  <a href="">VIEW</a> |
+                  <a href="">
+                    <img src="assets/svg-icons2/i-_i-Corp.svg" />
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div> -->
+        <!-- end table-responsive-->
+      </div>
+      <div class="row">
+        <div class="col-md-4 mt-3">
+          <div class="card-box">
+            <h4 class="mt-0 font-16">Received</h4>
+            <h2 class="text-primary text-center"><a href="">42</a></h2>
+            <div class="mt-3">
+              <h6 class="text-uppercase">
+                Total Application Received<span class="float-right">500</span>
+              </h6>
+              <ngb-progressbar
+                [type]="'success'"
+                [value]="8"
+                height="5px"
+                class="m-0"
+              >
+              </ngb-progressbar>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="col-md-4 mt-3">
+          <div class="card-box">
+            <h4 class="mt-0 font-16">Pending Title Search</h4>
+            <h2 class="text-primary text-center"><a href="">22</a></h2>
+            <div class="mt-3">
+              <h6 class="text-uppercase">
+                Total Application Pending<span class="float-right">50</span>
+              </h6>
+              <ngb-progressbar
+                [type]="'blue'"
+                [value]="50"
+                height="5px"
+                class="m-0"
+              >
+              </ngb-progressbar>
+            </div>
+          </div>
+        </div> -->
+        <!-- <div class="col-md-4 mt-3">
+          <div class="card-box">
+            <h4 class="mt-0 font-16">Protection Notices</h4>
+            <h2 class="text-primary text-center"><a href="">3</a></h2>
+            <div class="mt-3">
+              <h6 class="text-uppercase">
+                Total Protection Notices<span class="float-right">10</span>
+              </h6>
+              <ngb-progressbar
+                [type]="'warning'"
+                [value]="33"
+                height="5px"
+                class="m-0"
+              >
+              </ngb-progressbar>
+            </div>
+          </div>
+        </div> -->
+        <div class="col-md-4 mt-3">
+          <div class="card-box">
+            <h4 class="mt-0 font-16">Pending Review</h4>
+            <h2 class="text-primary text-center"><a href="">20</a></h2>
+            <div class="mt-3">
+              <h6 class="text-uppercase">
+                Total Application Pending Review<span class="float-right"
+                  >150</span
+                >
+              </h6>
+              <ngb-progressbar
+                [type]="'warning'"
+                [value]="13"
+                height="5px"
+                class="m-0"
+              >
+              </ngb-progressbar>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mt-3">
+          <div class="card-box">
+            <h4 class="mt-0 font-16">EC Request (12 years and Above)</h4>
+            <!-- <h4 class="mt-0 font-16">Pending Lawyer Assignment</h4> -->
+            <h2 class="text-primary text-center"><a href="">12</a></h2>
+            <div class="mt-3">
+              <h6 class="text-uppercase">
+                Total EC Request Assignment<span class="float-right">20</span>
+              </h6>
+              <!-- <h6 class="text-uppercase">
+                Total Pending Lawyer Assignment<span class="float-right"
+                  >20</span
+                >
+              </h6> -->
+              <ngb-progressbar
+                [type]="'info'"
+                [value]="50"
+                height="5px"
+                class="m-0"
+              >
+              </ngb-progressbar>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="col-md-4 mt-3">
+          <div class="card-box">
+            <h4 class="mt-0 font-16">Pending Valuation</h4>
+            <h2 class="text-primary text-center"><a href="">5</a></h2>
+            <div class="mt-3">
+              <h6 class="text-uppercase">
+                Total Pending Valuation<span class="float-right">24</span>
+              </h6>
+              <ngb-progressbar
+                [type]="'danger'"
+                [value]="13"
+                height="5px"
+                class="m-0"
+              >
+              </ngb-progressbar>
+            </div>
+          </div>
+        </div> -->
+      </div>
+    </div>
+  </div>
+</section>
+
+<ng-template #uploadPVR let-modal="close">
+  <div class="modal-header">
+    <h4 class="modal-title">PVR Upload</h4>
+    <button
+      type="button"
+      class="close"
+      (click)="modal('Cross click')"
+      aria-hidden="true"
+    >
+      <i class="mdi mdi-close"></i>
+    </button>
+  </div>
+  <div class="modal-body p-4">
+    <div class="container-fuild">
+      <form [formGroup]="PVRForm" (ngSubmit)="onSubmit()">
+        <div class="">
+          <div class="mb-2">
+            <h4 class="header-title">Upload PVR Document *</h4>
+            <p class="text-muted font-13 m-b-30"></p>
+            <!-- file upload -->
+            <file-upload
+              class="dropzone"
+              multiple="false"
+              isAnimationDisabled="true"
+              listVisible="true"
+              zoomText="zoomOut"
+              (ngModelChange)="onchange($event)"
+              accept="image/gif,image/png,image/jpeg,application/pdf"
+              type="file"
+              maxsize="20mb"
+              [ngClass]="{
+                'is-invalid': submitted && f.uploadfile.errors
+              }"
+              formControlName="uploadfile"
+            ></file-upload>
+            <div
+              *ngIf="submitted && f.uploadfile.errors"
+              class="invalid-feedback"
+            >
+              <div *ngIf="submitted && f.uploadfile.errors.sizeRange">
+                File size is exceed 20 Mb Limit
+              </div>
+              <div *ngIf="submitted && f.uploadfile.errors.required">
+                Current Demand Notice is Required
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="">
+          <div class="mb-3">
+            <h4 class="header-title">File Name *</h4>
+            <input
+              class="form-control"
+              placeholder="Enter File Name"
+              formControlName="FileName"
+              maxlength="25"
+              [ngClass]="{
+                'is-invalid': submitted && f.FileName.errors
+              }"
+            />
+            <div
+              *ngIf="submitted && f.FileName.errors"
+              class="invalid-feedback"
+            >
+              <div *ngIf="submitted && f.FileName.errors.required">
+                File Name is Required
+              </div>
+              <div *ngIf="submitted && f.FileName.errors.pattern">
+                Only alphanumeric characters allowed
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="">
+          <div class="mb-3">
+            <h4 class="header-title">File Type *</h4>
+
+            <select
+              class="custom-select"
+              formControlName="FileType"
+              [ngClass]="{
+                'is-invalid': submitted && f.FileType.errors
+              }"
+            >
+              <option selected disabled>Select File Type *</option>
+              <option value="Photo">Photo</option>
+              <option value="Video">Video</option>
+              <option value="Audio">Audio</option>
+              <option value="PDF">PDF</option>
+              <option value="DOC">Document</option>
+            </select>
+            <div
+              *ngIf="submitted && f.FileType.errors"
+              class="invalid-feedback"
+            >
+              <div *ngIf="submitted && f.FileType.errors.required">
+                File Type is Required
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="">
+          <div class="mb-3">
+            <h4 class="header-title">File Description</h4>
+
+            <textarea
+              class="form-control"
+              rows="3"
+              placeholder="Enter File Description"
+              formControlName="Description"
+              maxlength="55"
+              [ngClass]="{
+                'is-invalid': submitted && f.Description.errors
+              }"
+            ></textarea>
+            <div
+              *ngIf="submitted && f.Description.errors"
+              class="invalid-feedback"
+            >
+              <div *ngIf="submitted && f.Description.errors.required">
+                File Description is Required
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+      <div class="card-disabled" *ngIf="isLoading">
+        <div class="card-portlets-loader"></div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-primary waves-effect waves-light"
+      (click)="onSubmit()"
+    >
+      Upload
+    </button>
+    <button
+      type="button"
+      class="btn btn-secondary waves-effect"
+      (click)="modal('Cross click')"
+    >
+      Close
+    </button>
+  </div>
+</ng-template>

@@ -1,0 +1,201 @@
+<div class="">
+  <div *ngIf="data.Ownership">
+    <div *ngFor="let item of data.Ownership">
+      <ng-container *ngIf="item.OwnerName">
+        <div class="border-bottom">
+          <h5 class="text-info">Ownership</h5>
+        </div>
+        <b>OwnerName: </b>{{ item.OwnerName }}
+        <br />
+        <b>Since: </b>{{ item.SinceFrom | date }}
+      </ng-container>
+    </div>
+
+    <br />
+    <div *ngIf="data.PostalAddress">
+      <ng-container>
+        <div class="border-bottom">
+          <h5 class="text-info">Location</h5>
+        </div>
+        <b class="text-muted">{{ data.PropertyName }}</b> <br />
+        <b>{{ data.PostalAddress }}</b>
+      </ng-container>
+    </div>
+
+    <br />
+
+    <div *ngIf="data.InCharge">
+      <div *ngFor="let item of data.InCharge">
+        <ng-container *ngIf="item.InChargeName">
+          <div class="border-bottom">
+            <h5 class="text-info">In Charge</h5>
+          </div>
+
+          <div>
+            <b>InChargeName: </b> {{ item.InChargeName }}
+            <br />
+            <b>MobileNo: </b>{{ item.MobileNo }}<br />
+            <b>Since: </b>{{ item.InChargeFromDate | date }}
+            <br />
+            <b>Email: </b>{{ item.Email }}
+            <br />
+          </div>
+        </ng-container>
+      </div>
+    </div>
+
+    <br />
+
+    <div *ngIf="data.Description">
+      <ng-container>
+        <div class="border-bottom">
+          <h5 class="text-info">Description</h5>
+        </div>
+        <b>{{ data.Description }}</b>
+      </ng-container>
+    </div>
+
+    <br />
+
+    <div *ngIf="propertyType">
+      <ng-container>
+        <div class="border-bottom">
+          <h5 class="text-info">Other Details</h5>
+        </div>
+        <b>{{ propertyType.PropertyType }}</b>
+        <div style="width: 50%">
+          <table>
+            <tr *ngIf="data.BuildingName">
+              <th>Building Name:</th>
+              <td>:</td>
+              <td>{{ data.BuildingName }}</td>
+            </tr>
+            <tr *ngIf="data.BuildingNo">
+              <th>Building No:</th>
+              <td>:</td>
+              <td>{{ data.BuildingNo }}</td>
+            </tr>
+            <tr *ngIf="data.RevenewOfficeType">
+              <th>RevenewOffice Type</th>
+              <td>:</td>
+              <td>{{ data.RevenewOfficeType }}</td>
+            </tr>
+            <tr *ngIf="data.LandSize">
+              <th>LandSize:</th>
+              <td>:</td>
+              <td>{{ data.LandSize }}</td>
+            </tr>
+            <tr *ngIf="data.WaterAvailability">
+              <th>WaterAvailability:</th>
+              <td>:</td>
+              <td>{{ data.WaterAvailability }}</td>
+            </tr>
+            <tr *ngIf="data.StatusOfElectricity">
+              <th>StatusOfElectricity:</th>
+              <td>:</td>
+              <td>{{ data.StatusOfElectricity }}</td>
+            </tr>
+            <tr *ngIf="data.AgeOfProperty">
+              <th>AgeOfProperty:</th>
+              <td>:</td>
+              <td>{{ data.AgeOfProperty }}</td>
+            </tr>
+            <tr *ngIf="data.NoOfBHK">
+              <th>NoOfBHK:</th>
+              <td>:</td>
+              <td>{{ data.NoOfBHK }}</td>
+            </tr>
+            <tr *ngIf="data.FurnishType">
+              <th>FurnishType:</th>
+              <td>:</td>
+              <td>{{ data.FurnishType }}</td>
+            </tr>
+          </table>
+        </div>
+      </ng-container>
+    </div>
+    <br />
+
+    <div>
+      <ng-container>
+        <div class="border-bottom">
+          <h5 class="text-info">Govt. Record details</h5>
+        </div>
+        <div style="width: 50%">
+          <table>
+            <tr *ngIf="data.CitySurveyNo">
+              <th>CitySurvey No</th>
+              <td>:</td>
+              <td>{{ data.CitySurveyNo }}</td>
+            </tr>
+            <tr *ngIf="data.CitySurveyOffice">
+              <th>CitySurveyOffice</th>
+              <td>:</td>
+              <td>{{ data.CitySurveyOffice }}</td>
+            </tr>
+            <tr *ngIf="data.CityWardNo">
+              <th>CityWardNo</th>
+              <td>:</td>
+              <td>{{ data.CityWardNo }}</td>
+            </tr>
+            <tr *ngIf="data.CityWardName">
+              <th>CityWardName</th>
+              <td>:</td>
+              <td>{{ data.CityWardName }}</td>
+            </tr>
+            <tr *ngIf="data.SheetNumber">
+              <th>SheetNumber</th>
+              <td>:</td>
+              <td>{{ data.SheetNumber }}</td>
+            </tr>
+
+            <tr *ngIf="data.SurveyNo">
+              <th>Survey No</th>
+              <td>:</td>
+              <td>{{ data.SurveyNo }}</td>
+            </tr>
+            <tr *ngIf="data.TPNo">
+              <th>TPNo</th>
+              <td>:</td>
+              <td>{{ data.TPNo }}</td>
+            </tr>
+            <tr *ngIf="data.FPNo">
+              <th>FPNo</th>
+              <td>:</td>
+              <td>{{ data.FPNo }}</td>
+            </tr>
+
+            <tr *ngIf="data.milkatno_propId">
+              <th>Milkat No(Property Id)</th>
+              <td>:</td>
+              <td>{{ data.milkatno_propId }}</td>
+            </tr>
+            <tr *ngIf="data.VillageName">
+              <th>Village</th>
+              <td>:</td>
+              <td>{{ data.VillageName }}</td>
+            </tr>
+            <tr *ngIf="data.TalukaName">
+              <th>Taluka</th>
+              <td>:</td>
+              <td>{{ data.TalukaName }}</td>
+            </tr>
+            <tr *ngIf="data.DistrictName">
+              <th>District</th>
+              <td>:</td>
+              <td>{{ data.DistrictName }}</td>
+            </tr>
+            <tr *ngIf="data.StateName">
+              <th>State</th>
+              <td>:</td>
+              <td>{{ data.StateName }}</td>
+            </tr>
+          </table>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+  <div class="card-disabled" *ngIf="loading">
+    <div class="card-portlets-loader"></div>
+  </div>
+</div>

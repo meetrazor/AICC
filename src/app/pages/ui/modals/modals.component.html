@@ -1,0 +1,318 @@
+<div class="container-fluid">
+    <app-page-title title="Modals" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card-box">
+
+                <h4 class="header-title">Bootstrap Modals (default)</h4>
+
+                <p class="sub-header">
+                    A rendered modal with header, body, and set of actions in the footer.
+                </p>
+                <div class="button-list">
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary"
+                        (click)="openModal(content)">Standard Modal</button>
+                    <!-- Large modal -->
+                    <button type="button" class="btn btn-warning"
+                        (click)="largeModal(largeDataModal)">Large modal</button>
+                    <!-- Small modal -->
+                    <button type="button" class="btn btn-info"
+                        (click)="smallModal(smallDataModal)">Small modal</button>
+                    <!-- Center modal -->
+                    <button type="button" class="btn btn-blue"
+                        (click)="centerModal(centerDataModal)">Center modal</button>
+                    <!-- Long Content Scroll -->
+                    <button type="button" class="btn btn-pink"
+                        (click)="scrollModal(scrollDataModal)">Scrollable</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Custom Modals -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card-box">
+
+                <h4 class="header-title">Custom Modals</h4>
+
+                <p class="sub-header">
+                    Examples of custom modals.
+                </p>
+                <div class="button-list">
+                    <!-- Full width modal -->
+                    <button type="button" class="btn btn-primary"
+                        (click)="fullWidth(fullWidthData)">Full width Modal</button>
+                    <!-- Responsive modal -->
+                    <button type="button" class="btn btn-success"
+                        (click)="responsiveModal(responsiveData)">Responsive Modal</button>
+                    <!-- Accordion modal -->
+                    <button type="button" class="btn btn-secondary"
+                        (click)="accordionModal(accordionData)">Accordion in Modal</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Standard Modal -->
+<ng-template #content role="document" let-modal="close">
+    <div class="modal-header">
+        <h4 class="modal-title">Modal Heading</h4>
+        <button type="button" class="close" aria-hidden="true" (click)="modal('Cross click')">×</button>
+    </div>
+    <div class="modal-body">
+        <h5>Text in a modal</h5>
+        <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula.</p>
+        <hr>
+        <h5>Overflowing text to show scroll behavior</h5>
+        <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in,
+            egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel
+            augue laoreet rutrum faucibus dolor auctor.</p>
+        <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque
+            nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+        <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in,
+            egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel
+            augue laoreet rutrum faucibus dolor auctor.</p>
+        <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque
+            nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+        <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in,
+            egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel
+            augue laoreet rutrum faucibus dolor auctor.</p>
+        <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque
+            nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-light waves-effect" (click)="modal('Cross click')"
+            (click)="modal('Cross click')">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+    </div>
+</ng-template>
+
+<!-- Large Modal -->
+<ng-template #largeDataModal let-modal="close">
+    <div class="modal-header">
+        <h4 class="modal-title">Large modal</h4>
+        <button type="button" class="close" (click)="modal('Cross click')" aria-hidden="true">×</button>
+    </div>
+    <div class="modal-body">
+        ...
+    </div>
+</ng-template>
+
+<!-- Small Modal -->
+<ng-template #smallDataModal let-modal="close">
+    <div class="modal-header">
+        <h4 class="modal-title">Small modal</h4>
+        <button type="button" class="close" (click)="modal('Cross click')" aria-hidden="true">×</button>
+    </div>
+    <div class="modal-body">
+        ...
+    </div>
+</ng-template>
+
+<!-- Center Modal -->
+<ng-template #centerDataModal let-modal="close">
+    <div class="modal-header">
+        <h4 class="modal-title">Center modal</h4>
+        <button type="button" class="close" (click)="modal('Cross click')" aria-hidden="true">×</button>
+    </div>
+    <div class="modal-body">
+        ...
+    </div>
+</ng-template>
+
+<!-- Scrollable Modal -->
+<ng-template #scrollDataModal let-modal="close">
+    <div class="modal-header">
+        <h4 class="modal-title">Modal title</h4>
+        <button type="button" class="close" (click)="modal('Cross click')" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas
+            eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue
+            laoreet rutrum faucibus dolor auctor.</p>
+        <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl
+            consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+        <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas
+            eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue
+            laoreet rutrum faucibus dolor auctor.</p>
+        <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl
+            consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+        <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas
+            eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue
+            laoreet rutrum faucibus dolor auctor.</p>
+        <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl
+            consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+        <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas
+            eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue
+            laoreet rutrum faucibus dolor auctor.</p>
+        <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl
+            consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+        <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas
+            eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue
+            laoreet rutrum faucibus dolor auctor.</p>
+        <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl
+            consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+        <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas
+            eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue
+            laoreet rutrum faucibus dolor auctor.</p>
+        <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl
+            consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modal('Cross click')">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+    </div>
+</ng-template>
+
+<!-- fullWidth Modal -->
+<ng-template #fullWidthData let-modal="close">
+
+    <div id="full-width-modal" aria-hidden="true">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="full-width-modalLabel">Modal Heading</h4>
+                <button type="button" class="close" (click)="modal('Cross click')" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+                <h4>Text in a modal</h4>
+                <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula.</p>
+                <hr>
+                <h4>Overflowing text to show scroll behavior</h4>
+                <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque
+                    nisl
+                    consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary waves-effect"
+                    (click)="modal('Cross click')">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<!-- Responsive Modal -->
+<ng-template #responsiveData let-modal="close">
+    <div class="modal-header">
+        <h4 class="modal-title">Modal Content is Responsive</h4>
+        <button type="button" class="close" (click)="modal('Cross click')" aria-hidden="true">×</button>
+    </div>
+    <div class="modal-body p-4">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="field-1" class="control-label">Name</label>
+                    <input type="text" class="form-control" id="field-1" placeholder="John">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="field-2" class="control-label">Surname</label>
+                    <input type="text" class="form-control" id="field-2" placeholder="Doe">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="field-3" class="control-label">Address</label>
+                    <input type="text" class="form-control" id="field-3" placeholder="Address">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="field-4" class="control-label">City</label>
+                    <input type="text" class="form-control" id="field-4" placeholder="Boston">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="field-5" class="control-label">Country</label>
+                    <input type="text" class="form-control" id="field-5" placeholder="United States">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="field-6" class="control-label">Zip</label>
+                    <input type="text" class="form-control" id="field-6" placeholder="123456">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group no-margin">
+                    <label for="field-7" class="control-label">Personal Info</label>
+                    <textarea class="form-control" id="field-7" placeholder="Write something about yourself"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary waves-effect" (click)="modal('Cross click')">Close</button>
+        <button type="button" class="btn btn-info">Save changes</button>
+    </div>
+</ng-template>
+
+<!-- accordion Modal -->
+<ng-template #accordionData let-modal="close">
+    <ngb-accordion #acc="ngbAccordion" activeIds="static-1" [closeOthers]="true">
+        <ngb-panel id="static-1">
+            <ng-template ngbPanelTitle>
+                <span class="h5 m-0">Collapsible Group Item #1</span>
+            </ng-template>
+            <ng-template ngbPanelContent>
+                <ng-template [ngTemplateOutlet]="TabContent"></ng-template>
+            </ng-template>
+        </ngb-panel>
+        <ngb-panel id="static-2">
+            <ng-template ngbPanelTitle>
+                <span class="h5 m-0">Collapsible Group Item #2</span>
+            </ng-template>
+            <ng-template ngbPanelContent>
+                <ng-template [ngTemplateOutlet]="TabContent"></ng-template>
+            </ng-template>
+        </ngb-panel>
+        <ngb-panel id="static-3">
+            <ng-template ngbPanelTitle>
+                <span class="h5 m-0">Collapsible Group Item #3</span>
+            </ng-template>
+            <ng-template ngbPanelContent>
+                <ng-template [ngTemplateOutlet]="TabContent"></ng-template>
+            </ng-template>
+        </ngb-panel>
+    </ngb-accordion>
+</ng-template>
+
+
+<!-- Accordion Modal content -->
+<ng-template #TabContent>
+    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.
+        Cum
+        sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis,
+        ultricies
+        nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.</p>
+    <p class="mb-0">Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus
+        ut,
+        imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt.Cras
+        dapibus.
+        Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu,
+        consequat
+        vitae, eleifend ac, enim.</p>
+</ng-template>

@@ -1,0 +1,147 @@
+<div class="container-fluid">
+  <app-page-title title="Customers" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="row mb-2">
+            <div class="col-sm-4">
+              <a href="javascript: void(0);" class="btn btn-danger"
+                (click)="openModal(content)"><i class="mdi mdi-plus-circle mr-1"></i> Add
+                Customers</a>
+            </div>
+            <div class="col-sm-8">
+              <div class="text-sm-right">
+                <button type="button" class="btn btn-success mb-2 mr-1"><i class="mdi mdi-settings"></i></button>
+                <button type="button" class="btn btn-light mb-2 mr-1">Import</button>
+                <button type="button" class="btn btn-light mb-2">Export</button>
+              </div>
+            </div><!-- end col-->
+          </div>
+
+          <div class="table-responsive">
+            <table class="table table-centered table-striped" id="products-datatable">
+              <thead>
+                <tr>
+                  <th style="width: 20px;">
+                    <div class="custom-control custom-checkbox">
+                      <input type="checkbox" class="custom-control-input" id="customCheck">
+                      <label class="custom-control-label" for="customCheck">&nbsp;</label>
+                    </div>
+                  </th>
+                  <th>Customer</th>
+                  <th>Phone</th>
+                  <th>Email</th>
+                  <th>Location</th>
+                  <th>Create Date</th>
+                  <th>Status</th>
+                  <th style="width: 85px;">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let customer of paginatedData;let i = index">
+                  <td>
+                    <div class="custom-control custom-checkbox">
+                      <input type="checkbox" class="custom-control-input" id="customCheck{{i}}">
+                      <label class="custom-control-label" for="customCheck{{i}}">&nbsp;</label>
+                    </div>
+                  </td>
+                  <td class="table-user">
+                    <img src="{{ customer.image }}" alt="table-user" class="mr-2 rounded-circle">
+                    <a href="javascript:void(0);" class="text-body font-weight-semibold">{{ customer.name }}</a>
+                  </td>
+                  <td>
+                    {{ customer.phone }}
+                  </td>
+                  <td>
+                    {{ customer.email }}
+                  </td>
+                  <td>
+                    {{ customer.location }}
+                  </td>
+                  <td>
+                    {{ customer.date }}
+                  </td>
+                  <td>
+                    <span class="badge bg-soft-success text-success"
+                      [ngClass]="{'bg-soft-danger text-danger': customer.status === 'Blocked'}">{{ customer.status }}</span>
+                  </td>
+
+                  <td>
+                    <a href="javascript:void(0);" class="action-icon"> <i class="mdi mdi-square-edit-outline"></i></a>
+                    <a href="javascript:void(0);" class="action-icon"> <i class="mdi mdi-delete"></i></a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <ul class="pagination pagination-rounded justify-content-end my-2">
+            <ngb-pagination (pageChange)="onPageChange($event)" [pageSize]="pageSize" [(page)]="page"
+              [collectionSize]="20"></ngb-pagination>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Customer model  -->
+<ng-template #content role="document" let-modal="close">
+  <div class="modal-header bg-dark">
+    <h4 class="modal-title text-white">Add Customer</h4>
+    <button type="button" class="close text-white" aria-label="Close" (click)="modal('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body p-3">
+    <div class="text-left">
+      <form (ngSubmit)="saveData()" [formGroup]="validationform">
+
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" class="form-control" id="name" placeholder="Enter name" formControlName="name"
+            [ngClass]="{'is-invalid': submitted && form.name.errors}">
+          <div *ngIf="submitted && form.name.errors" class="invalid-feedback">
+            <span *ngIf="form.name.errors.required">This value is required.</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email address</label>
+          <input class="form-control" id="email" placeholder="Enter email" formControlName="email"
+            [ngClass]="{'is-invalid': submitted && form.email.errors}">
+          <div *ngIf="submitted && form.email.errors" class="invalid-feedback">
+            <span *ngIf="form.email.errors.required">This value is required.</span>
+            <span *ngIf="form.email.errors.pattern">Please enter valid email.</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Phone </label>
+          <input type="text" class="form-control" placeholder="Enter phone number" formControlName="phone"
+            [ngClass]="{'is-invalid': submitted && form.phone.errors}" minlength="10">
+          <div *ngIf="submitted && form.phone.errors" class="invalid-feedback">
+            <span *ngIf="form.phone.errors.required">This value is required.</span>
+            <span *ngIf="form.phone.errors.minlength">Phone number must be 10 characters.</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Location </label>
+          <input class="form-control" placeholder="Enter location" formControlName="location"
+            [ngClass]="{'is-invalid': submitted && form.location.errors}">
+          <div *ngIf="submitted && form.location.errors" class="invalid-feedback">
+            <span *ngIf="form.location.errors.required">This value is required.</span>
+          </div>
+        </div>
+
+        <div class="text-right">
+          <button type="submit" class="btn btn-success">Save</button>
+          <button type="button" class="btn btn-danger ml-1"
+            (click)="modal('close click')">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-template>

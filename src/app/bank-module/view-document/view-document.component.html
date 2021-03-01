@@ -1,0 +1,63 @@
+<div class="container-fluid" *ngIf="!isLoading">
+  <app-page-title
+    title="View Document"
+    [breadcrumbItems]="breadCrumbItems"
+  ></app-page-title>
+  <div class="row">
+    <div class="col-md-10">
+      <div class="card">
+        <h4 class="header-title p-3 pb-0 mb-0">Document</h4>
+        <div
+          class="mt-1 pb-1"
+          style="max-height: 60vh; overflow-y: scroll"
+          appSlimScroll
+        >
+          <!-- <embed
+            *ngIf="isLoading"
+            [src]="url"
+            width="100%"
+            height=""
+            appSlimScroll
+          /> -->
+          <pdf-viewer
+            [src]="url"
+            *ngIf="filetype == 'PDF'"
+            style="display: block"
+            [autoresize]="true"
+            [show-all]="true"
+            [original-size]="false"
+          ></pdf-viewer>
+
+          <img
+            class=""
+            [src]="url"
+            style="
+              max-height: 70vh;
+              max-width: 70vh;
+              display: block;
+              margin: auto;
+            "
+            *ngIf="filetype == 'photo'"
+            alt="receipt"
+          />
+        </div>
+        <div
+          class="text-center my-4"
+          *ngIf="
+            currentUser.UserType === 'Lawyer' && data.Status !== 'Reviewed'
+          "
+        >
+          <a (click)="reviewed()" class="btn btn-primary btn-sm" c
+            >Mark as Reviewed</a
+          >
+        </div>
+      </div>
+      <div class="text-center mb-2">
+        <a class="btn btn-success" href="{{ url }}">Download this Document</a>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="card-disabled" *ngIf="isLoading">
+  <div class="card-portlets-loader"></div>
+</div>

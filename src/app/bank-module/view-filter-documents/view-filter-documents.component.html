@@ -1,0 +1,22 @@
+<div class="container-fluid">
+  <app-page-title
+  *ngIf="loaded"
+  title="{{ applicationData.FirstName }} {{
+    applicationData.LastName
+  }}'s Documents"
+  [breadcrumbItems]="breadCrumbItems"
+></app-page-title>
+<div class="card p-2">
+      <div class="table-responsive">
+        <table
+          datatable
+          width="100%"
+          [dtOptions]="dtOptions"
+          class="table table-borderless hover mb-0"
+        ></table>
+      </div>
+</div>
+<div class="card-disabled" *ngIf="!loaded">
+  <div class="card-portlets-loader"></div>
+</div>
+</div>

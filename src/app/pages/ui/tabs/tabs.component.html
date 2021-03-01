@@ -1,0 +1,198 @@
+<div class="container-fluid">
+    <app-page-title title="Tabs & Accordions" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="card-box">
+                <h4 class="header-title mb-4">Default Tabs</h4>
+
+                <ngb-tabset>
+                    <ngb-tab title="Home">
+                        <ng-template ngbTabContent>
+                            <ng-template [ngTemplateOutlet]="TabContent"></ng-template>
+                        </ng-template>
+                    </ngb-tab>
+                    <ngb-tab title="profile">
+                        <ng-template ngbTabContent>
+                            <ng-template [ngTemplateOutlet]="TabContent1"></ng-template>
+                        </ng-template>
+                    </ngb-tab>
+                    <ngb-tab title="Messages">
+                        <ng-template ngbTabContent>
+                            <ng-template [ngTemplateOutlet]="TabContent"></ng-template>
+                        </ng-template>
+                    </ngb-tab>
+                </ngb-tabset>
+
+            </div>
+        </div><!-- End Default Tabs -->
+
+        <div class="col-lg-6">
+            <div class="card-box">
+                <h4 class="header-title mb-4">Tabs Justified</h4>
+
+                <ngb-tabset justify="justified" type="pills">
+                    <ngb-tab title="Home" class="nav-item">
+                        <ng-template ngbTabContent class="nav-item">
+                            <ng-template [ngTemplateOutlet]="TabContent"></ng-template>
+                        </ng-template>
+                    </ngb-tab>
+                    <ngb-tab title="profile" class="nav-item">
+                        <ng-template ngbTabContent>
+                            <ng-template [ngTemplateOutlet]="TabContent1"></ng-template>
+                        </ng-template>
+                    </ngb-tab>
+                    <ngb-tab title="Messages" class="nav-item">
+                        <ng-template ngbTabContent>
+                            <ng-template [ngTemplateOutlet]="TabContent"></ng-template>
+                        </ng-template>
+                    </ngb-tab>
+                </ngb-tabset>
+            </div>
+        </div><!-- End Justified Tabs -->
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="card-box">
+                <h4 class="header-title mb-4">Tabs Bordered</h4>
+
+                <ngb-tabset class="nav-bordered" type="tabs">
+                    <ngb-tab title="Home" class="nav-item">
+                        <ng-template ngbTabContent class="nav-item">
+                            <ng-template [ngTemplateOutlet]="TabContent"></ng-template>
+                        </ng-template>
+                    </ngb-tab>
+                    <ngb-tab title="profile" class="nav-item">
+                        <ng-template ngbTabContent>
+                            <ng-template [ngTemplateOutlet]="TabContent1"></ng-template>
+                        </ng-template>
+                    </ngb-tab>
+                    <ngb-tab title="Messages" class="nav-item">
+                        <ng-template ngbTabContent>
+                            <ng-template [ngTemplateOutlet]="TabContent"></ng-template>
+                        </ng-template>
+                    </ngb-tab>
+                </ngb-tabset>
+            </div>
+        </div><!-- End Bordered Tabs -->
+
+        <div class="col-lg-6">
+            <div class="card-box">
+                <h4 class="header-title mb-4">Tabs Bordered Justified</h4>
+
+                <ngb-tabset class="nav-bordered" type="tabs" justify="justified">
+                    <ngb-tab title="Home" class="nav-item d-none d-sm-inline-block">
+                        <ng-template ngbTabContent>
+                            <ng-template [ngTemplateOutlet]="TabContent"></ng-template>
+                        </ng-template>
+                    </ngb-tab>
+                    <ngb-tab title="profile" class="nav-item">
+                        <ng-template ngbTabContent>
+                            <ng-template [ngTemplateOutlet]="TabContent1"></ng-template>
+                        </ng-template>
+                    </ngb-tab>
+                    <ngb-tab title="Messages" class="nav-item">
+                        <ng-template ngbTabContent>
+                            <ng-template [ngTemplateOutlet]="TabContent"></ng-template>
+                        </ng-template>
+                    </ngb-tab>
+                </ngb-tabset>
+            </div>
+        </div><!-- End justified bordered tabs -->
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6 mb-3">
+            <ngb-accordion #acc="ngbAccordion" activeIds="static-1" [closeOthers]="true">
+                <ngb-panel id="static-1">
+                    <ng-template ngbPanelTitle>
+                        <i class="mdi mdi-help-circle mr-1 text-primary"></i>
+                        What is Vakal text here?
+                    </ng-template>
+                    <ng-template ngbPanelContent>
+                        <ng-template [ngTemplateOutlet]="TabContent"></ng-template>
+                    </ng-template>
+                </ngb-panel>
+                <ngb-panel id="static-2">
+                    <ng-template ngbPanelTitle>
+                        <i class="mdi mdi-help-circle mr-1 text-primary"></i>
+                        What is Vakal text here?
+                    </ng-template>
+                    <ng-template ngbPanelContent>
+                        <ng-template [ngTemplateOutlet]="TabContent"></ng-template>
+                    </ng-template>
+                </ngb-panel>
+                <ngb-panel id="static-3">
+                    <ng-template ngbPanelTitle>
+                        <i class="mdi mdi-help-circle mr-1 text-primary"></i>
+                        What is Vakal text here?
+                    </ng-template>
+                    <ng-template ngbPanelContent>
+                        <ng-template [ngTemplateOutlet]="TabContent"></ng-template>
+                    </ng-template>
+                </ngb-panel>
+                <ngb-panel id="static-4">
+                    <ng-template ngbPanelTitle>
+                        <i class="mdi mdi-help-circle mr-1 text-primary"></i>
+                        What is Vakal text here?
+                    </ng-template>
+                    <ng-template ngbPanelContent>
+                        <ng-template [ngTemplateOutlet]="TabContent"></ng-template>
+                    </ng-template>
+                </ngb-panel>
+            </ngb-accordion>
+        </div><!-- End Accordion -->
+
+        <div class="col-lg-6">
+            <p>
+                <a class="btn btn-primary mo-mb-2" data-toggle="collapse" (click)="isCollapsed = !isCollapsed"
+                    href="javascript:void(0)">
+                    Link with href
+                </a>
+                <button class="btn btn-primary mo-mb-2 ml-1" type="button" (click)="isCollapsed = !isCollapsed">
+                    Button with data-target
+                </button>
+            </p>
+            <div class="collapse show" id="collapseExample" [ngbCollapse]="isCollapsed">
+                <div class="card card-body mb-0">
+                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad
+                    squid.
+                    Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea
+                    proident.
+                </div>
+            </div>
+        </div><!-- End Collapse -->
+    </div>
+
+    <!-- Tab Content -->
+    <ng-template #TabContent>
+        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.
+            Cum
+            sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis,
+            ultricies
+            nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.</p>
+        <p class="mb-0">Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus
+            ut,
+            imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt.Cras
+            dapibus.
+            Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu,
+            consequat
+            vitae, eleifend ac, enim.</p>
+    </ng-template>
+
+    <!-- Tab Content -->
+    <ng-template #TabContent1>
+        <p>Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet
+            a,
+            venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt.Cras dapibus.
+            Vivamus
+            elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat
+            vitae,
+            eleifend ac, enim.</p>
+        <p class="mb-0">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.
+            Aenean
+            massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam
+            felis,
+            ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.</p>
+    </ng-template>

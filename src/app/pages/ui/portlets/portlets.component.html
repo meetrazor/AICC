@@ -1,0 +1,21 @@
+<div class="container-fluid">
+    <app-page-title title="Portlets" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+
+    <!-- Row -->
+    <div class="row">
+        <div class="col-lg-4" *ngFor="let color of cardColor">
+            <app-portlet title="Card title" color="{{color.color}}" text="{{color.text}}"
+                (onContentRefresh)="contentRefresh()" headerClass="header-title h5 mt-0 mb-0">
+                <div class="card-body">
+                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3
+                    wolf
+                    moon officia aute,
+                    non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf
+                    moon
+                    tempor, sunt aliqua
+                    put a bird on it squid single-origin coffee nulla assumenda shoreditch et.
+                </div>
+            </app-portlet>
+        </div>
+    </div><!--end row-->
+</div>

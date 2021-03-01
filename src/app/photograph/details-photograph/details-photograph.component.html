@@ -1,0 +1,151 @@
+<div class="row">
+  <div class="col-md-6" *ngFor="let item of photographList">
+    <div class="card" *ngIf="item.FileType == 'Photo'">
+      <img
+        class="card-img-bottom img-fluid"
+        style="max-height: 30vh; min-height: 30vh"
+        [src]="item.FileURL"
+        alt="Card image cap"
+        (click)="onClickImage(item.FileURL)"
+      />
+      <div class="card-body">
+        <h5 class="card-title">
+          {{ item.FileName }}
+        </h5>
+        <p class="card-text">{{ item.Description }}</p>
+        <p class="card-text">
+          <small class="text-muted">{{ item.CreatedAt | date }}</small>
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6" *ngFor="let item of videoList">
+    <div class="card" *ngIf="item.FileType == 'Video'">
+      <video
+        class="card-img-bottom img-fluid"
+        controls
+        controlsList="nodownload"
+        style="max-height: 30vh; min-height: 30vh"
+      >
+        <source [src]="item.FileURL" type="video/mp4" />
+        Your browser does not support HTML5 video.
+      </video>
+      <div class="card-body">
+        <h5 class="card-title">
+          {{ item.FileName }}
+        </h5>
+        <p class="card-text">{{ item.Description }}</p>
+        <p class="card-text">
+          <small class="text-muted">{{ item.CreatedAt | date }}</small>
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6" *ngFor="let item of audioList">
+    <div class="card" *ngIf="item.FileType == 'Audio'">
+      <audio
+        class="card-img-bottom img-fluid"
+        controls
+        controlsList="nodownload"
+        style="
+          max-height: 30vh;
+          min-height: 30vh;
+          padding-bottom: 20%;
+          justify-self: auto;
+        "
+      >
+        <source [src]="item.FileURL" type="audio/mpeg" />
+        Your browser does not support the audio tag.
+      </audio>
+      <!-- <video
+        class="card-img-bottom img-fluid"
+        width="400"
+        controls
+        style="border: none"
+      >
+        <source [src]="item.FileURL" type="video/mp4" />
+        Your browser does not support HTML5 video.
+      </video> -->
+      <div class="card-body">
+        <h5 class="card-title">
+          {{ item.FileName }}
+        </h5>
+        <p class="card-text">{{ item.Description }}</p>
+        <p class="card-text">
+          <small class="text-muted">{{ item.CreatedAt | date }}</small>
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6" *ngFor="let item of pdfList">
+    <div class="card" *ngIf="item.FileType == 'PDF'">
+      <a
+        href="javascript:void(0);"
+        [routerLink]="['/property/ViewPdf', item.FileURL, item.FileType]"
+        target="_blank"
+      >
+        <img
+          style="max-height: 30vh; min-height: 30vh; padding: 10% 20%"
+          class="card-img-bottom img-fluid"
+          src="assets/images/pdf.png"
+          alt="Card image cap"
+        />
+      </a>
+
+      <div class="card-body">
+        <h5 class="card-title">
+          {{ item.FileName }}
+        </h5>
+        <p class="card-text">{{ item.Description }}</p>
+        <p class="card-text">
+          <small class="text-muted">{{ item.CreatedAt | date }}</small>
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6" *ngFor="let item of docList">
+    <div class="card" *ngIf="item.FileType == 'DOC'">
+      <a href="{{ item.FileURL }}" target="_blank">
+        <img
+          style="max-height: 30vh; min-height: 30vh; padding: 10% 20%"
+          class="card-img-bottom img-fluid"
+          src="assets/images/doc.png"
+          alt="Card image cap"
+        />
+      </a>
+
+      <div class="card-body">
+        <h5 class="card-title">
+          {{ item.FileName }}
+        </h5>
+        <p class="card-text">{{ item.Description }}</p>
+        <p class="card-text">
+          <small class="text-muted">{{ item.CreatedAt | date }}</small>
+        </p>
+      </div>
+    </div>
+  </div>
+  <!-- <div class="col-md-6" *ngIf="item.FileType == 'Video'">
+      
+    </div> -->
+
+  <div class="card-disabled" *ngIf="isLoading">
+    <div class="card-portlets-loader"></div>
+  </div>
+</div>
+<!-- <div class="card" *ngIf="item.FileType == 'Video'">
+  <video class="card-img-bottom img-fluid" width="400" controls>
+    <source [src]="item.FileURL" type="video/mp4" />
+    Your browser does not support HTML5 video.
+  </video>
+
+  <div class="card-body">
+    <h5 class="card-title">
+      {{ item.FileName }}
+    </h5>
+    <p class="card-text">{{ item.Description }}</p>
+    <p class="card-text">
+      <small class="text-muted">{{ item.CreatedAt | date }}</small>
+    </p>
+  </div>
+</div> -->

@@ -1,0 +1,94 @@
+<div class="container-fluid">
+  <app-page-title title="Carousel" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+
+  <div class="row">
+    <div class="col-lg-6">
+      <div class="card-box">
+        <h4 class="header-title">Bootstrap Carousel</h4>
+        <p class="sub-header">Add captions to your slides easily with the <code>.carousel-caption</code> element within
+          any <code>.carousel-item</code>. </p>
+
+        <!-- slides Carousel  -->
+        <ngb-carousel>
+          <ng-template ngbSlide>
+            <img src="assets/images/small/img-1.jpg" alt="first slide" class="d-block img-fluid">
+            <div class="carousel-caption">
+              <h3 class="text-white">First slide label</h3>
+              <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+            </div>
+          </ng-template>
+          <ng-template ngbSlide>
+            <img src="assets/images/small/img-2.jpg" alt="second slide" class="d-block img-fluid">
+            <div class="carousel-caption">
+              <h3 class="text-white">Second slide label</h3>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            </div>
+          </ng-template>
+          <ng-template ngbSlide>
+            <img src="assets/images/small/img-3.jpg" alt="third slide" class="d-block img-fluid">
+            <div class="carousel-caption">
+              <h3 class="text-white">Third slide label</h3>
+              <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+            </div>
+          </ng-template>
+        </ngb-carousel>
+        <!-- End carousel -->
+      </div>
+    </div>
+
+    <div class="col-lg-6">
+      <div class="card-box">
+        <p class="sub-header">Add captions to your slides easily with the <code>.carousel-caption</code> element within
+          any <code>.carousel-item</code>. </p>
+        <!-- Controls carousel -->
+        <ngb-carousel [showNavigationArrows]="showNavigationArrows">
+          <ng-template ngbSlide>
+            <img src="assets/images/small/img-4.jpg" alt="first slide" class="d-block img-fluid">
+          </ng-template>
+          <ng-template ngbSlide>
+            <img src="assets/images/small/img-5.jpg" alt="second slide" class="d-block img-fluid">
+          </ng-template>
+          <ng-template ngbSlide>
+            <img src="assets/images/small/img-1.jpg" alt="third slide" class="d-block img-fluid">
+          </ng-template>
+        </ngb-carousel>
+        <!-- End controls carousel -->
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-6">
+      <div class="card-box">
+
+        <p class="sub-header">Add <code>.carousel-fade</code> to your carousel to animate slides with a fade transition
+          instead of a slide.</p>
+        <!-- Crossfade carousel -->
+        <ngb-carousel>
+          <ng-template ngbSlide>
+            <img src="assets/images/small/img-1.jpg" alt="first slide" class="d-block img-fluid">
+            <div class="carousel-caption">
+              <h3 class="text-white">First slide label</h3>
+              <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+            </div>
+          </ng-template>
+          <ng-template ngbSlide>
+            <img src="assets/images/small/img-2.jpg" alt="second slide" class="d-block img-fluid">
+            <div class="carousel-caption">
+              <h3 class="text-white">Second slide label</h3>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            </div>
+          </ng-template>
+          <ng-template ngbSlide>
+            <img src="assets/images/small/img-3.jpg" alt="third slide" class="d-block img-fluid">
+            <div class="carousel-caption">
+              <h3 class="text-white">Third slide label</h3>
+              <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+            </div>
+          </ng-template>
+        </ngb-carousel>
+        <!-- End Crossfade carousel -->
+      </div>
+    </div>
+  </div>
+</div>

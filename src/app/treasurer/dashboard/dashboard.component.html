@@ -1,0 +1,627 @@
+<div class="container-fluid">
+  <!-- start page title -->
+  <div class="row">
+    <div class="col-12">
+      <div class="page-title-box">
+        <div class="page-title-right">
+          <!-- <form class="form-inline">
+            <div class="form-group mr-2">
+              <div class="input-group">
+                <select
+                  class="form-control border input"
+                  id="selectize-maximum"
+                >
+                  <option value="All" selected>All States</option>
+                  <option value="BR">Bihar</option>
+                  <option value="GJ">Gujarat</option>
+                  <option value="MH">Maharashtra</option>
+                  <option value="PN">Punjab</option>
+                  <option value="WB">West Bengal</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="input-group input-group-sm">
+                <ng-template #t let-date let-focused="focused">
+                  <span
+                    class="custom-day"
+                    [class.focused]="focused"
+                    [class.range]="isRange(date)"
+                    [class.faded]="isHovered(date) || isInside(date)"
+                    (mouseenter)="hoveredDate = date"
+                    (mouseleave)="hoveredDate = null"
+                  >
+                    {{ date.day }}
+                  </span>
+                </ng-template>
+
+                <input
+                  type="text"
+                  class="form-control date"
+                  (click)="hidden = !hidden"
+                  name="daterange"
+                  autocomplete="off"
+                  [(ngModel)]="selected"
+                />
+                <div class="input-group-append" (click)="hidden = !hidden">
+                  <span class="input-group-text bg-blue border-blue text-white">
+                    <i _ngcontent-xpk-c6="" class="far fa-calendar-alt"></i>
+                  </span>
+                </div>
+                <ngb-datepicker
+                  style="left: -128%"
+                  #dp
+                  (select)="onDateSelection($event)"
+                  [displayMonths]="2"
+                  [dayTemplate]="t"
+                  outsideDays="hidden"
+                  [hidden]="hidden"
+                >
+                </ngb-datepicker>
+              </div>
+            </div>
+            <a href="javascript: void(0);" class="btn btn-blue btn-sm ml-2">
+              <i _ngcontent-xpk-c6="" class="mdi mdi-autorenew"></i>
+            </a>
+          </form> -->
+        </div>
+        <h4 class="page-title">AICC Dashboard</h4>
+      </div>
+    </div>
+  </div>
+  <!-- end page title -->
+  <div class="row" *ngIf="!isLoading">
+    <div class="col-12">
+      <div class="card-box">
+        <div class="row">
+          <!-- <div class="col-lg-6">
+            <form class="form-inline">
+              <div class="form-group">
+                <label for="inputPassword2" class="sr-only"
+                  >Search Property</label
+                >
+                <input
+                  type="search"
+                  class="form-control"
+                  id="inputPassword2"
+                  placeholder="Search Property..."
+                />
+              </div>
+              <div class="form-group mx-sm-3">
+                <label for="status-select" class="mr-2">Sort By</label>
+                <select class="custom-select" id="status-select">
+                  <option>Select</option>
+                  <option>State</option>
+                  <option selected="">Rent</option>
+                  <option>Trust</option>
+                  <option>In-Charge</option>
+                  <option>Ownership</option>
+                </select>
+              </div>
+            </form>
+          </div> -->
+
+          <div class="col-lg-6">
+            <div class="btn-group text-lg-right mt-3 mt-lg-0">
+              <button
+                type="button"
+                class="btn btn-outline-info waves-effect waves-light mr-1 dropdown-toggle"
+                data-toggle="dropdown"
+                aria-expanded="false"
+                (click)="isdropdownShow = !isdropdownShow"
+              >
+                + Add New <i class="mdi mdi-chevron-down"></i>
+              </button>
+              <div class="dropdown-menu" [ngClass]="{ show: isdropdownShow }">
+                <a class="dropdown-item" href="Task">Task</a>
+                <a class="dropdown-item" href="Maintenance">Maintenance</a>
+                <a class="dropdown-item" [routerLink]="['/rent/create']"
+                  >Tenant</a
+                >
+                <a class="dropdown-item" href="Renewal">Renewal</a>
+                <a
+                  class="dropdown-item"
+                  [routerLink]="['/property-legal-case/create']"
+                  >Court Case</a
+                >
+                <a class="dropdown-item" href="Invoice">Invoice</a>
+                <a class="dropdown-item" href="Receipt">Receipt</a>
+                <a
+                  class="dropdown-item"
+                  [routerLink]="['/property-document/upload']"
+                  >Document</a
+                >
+                <a class="dropdown-item" [routerLink]="['/property/create']"
+                  >Property</a
+                >
+                <a class="dropdown-item" href="Office">Office</a>
+                <a
+                  class="dropdown-item"
+                  href="#"
+                  [routerLink]="['/lawyer/create']"
+                  >Lawyer</a
+                >
+              </div>
+            </div>
+            <!-- end col-->
+          </div>
+          <!-- end row -->
+        </div>
+        <!-- end card-box -->
+      </div>
+      <!-- end col-->
+    </div>
+    <!-- Jayesh card end -->
+
+    <!-- Jayesh card end -->
+    <!-- Jayesh status start -->
+
+    <!-- Jayesh status end -->
+
+    <!-- end row-->
+
+    <!-- end row -->
+
+    <!-- end row -->
+  </div>
+  <div class="row" *ngIf="!isLoading">
+    <div class="col-md-6 col-xl-3">
+      <div class="widget-rounded-circle card-box">
+        <div class="row">
+          <div class="col-6">
+            <div
+              class="avatar-lg rounded-circle bg-soft-primary border-primary border"
+            >
+              <a routerLink="/AICC/property"
+                ><i
+                  class="mdi mdi-home-city-outline font-22 avatar-title text-primary"
+                ></i
+              ></a>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="text-right">
+              <h3 class="mt-1">
+                &nbsp;<a class="text-body" routerLink="/AICC/property"
+                  ><span data-plugin="counterup">{{
+                    data.PropertyManaged
+                  }}</span></a
+                >
+              </h3>
+              <p class="text-muted mb-1">
+                <small
+                  ><a class="text-body" routerLink="/AICC/property"
+                    >Properties Managed</a
+                  ></small
+                >
+              </p>
+            </div>
+          </div>
+        </div>
+        <!-- end row-->
+        <div class="mt-3">
+          <h6 class="text-uppercase">
+            <a class="text-body" routerLink="/AICC/property"
+              >Outdated Records<span class="float-right">{{
+                data.PropertyOutdated
+              }}</span></a
+            >
+          </h6>
+          <div class="progress progress-sm mb-0">
+            <!-- <div class="progress-bar" role="progressbar" style="width: 15%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div> -->
+            <div
+              class="progress-bar bg-warning"
+              role="progressbar"
+              style="width: 77%"
+              aria-valuenow="30"
+              aria-valuemin="0"
+              aria-valuemax="100"
+            ></div>
+            <!-- <div
+              class="progress-bar bg-success"
+              role="progressbar"
+              style="width: 33%"
+              aria-valuenow="20"
+              aria-valuemin="0"
+              aria-valuemax="100"
+            ></div>
+            <span class="sr-only"
+              >100 Properties have up to date documents
+            </span> -->
+          </div>
+          <!-- <div class="progress progress-sm m-0">
+                            <div class="progress-bar bg-blue" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" style="width: 30%">
+                                <span class="sr-only">100 Properties have up to date documents </span>
+                            </div>
+                        </div> -->
+        </div>
+      </div>
+      <!-- end widget-rounded-circle-->
+    </div>
+    <!-- end col-->
+
+    <div class="col-md-6 col-xl-3">
+      <div class="widget-rounded-circle card-box">
+        <div class="row">
+          <div class="col-6">
+            <div
+              class="avatar-lg rounded-circle bg-light border-secondary border"
+            >
+              <a class="text-body" routerLink="/AICC/property"
+                ><i
+                  class="mdi mdi-pillar font-22 avatar-title text-secondary"
+                ></i
+              ></a>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="text-right">
+              <h3 class="text-dark mt-1">
+                <a routerLink="/AICC/property" class="text-body">
+                  <span data-plugin="counterup">0</span></a
+                >
+              </h3>
+              <p class="text-muted mb-1">
+                <!-- text-truncate --><small
+                  ><a routerLink="/AICC/property" class="text-body"
+                    >Properties under litigation</a
+                  ></small
+                >
+              </p>
+            </div>
+          </div>
+        </div>
+        <!-- end row-->
+        <div class="mt-3">
+          <h6 class="text-uppercase">
+            <a class="text-body" routerLink="/AICC/property"
+              >Hearings this Week<span class="float-right">0</span></a
+            >
+          </h6>
+          <div class="progress progress-sm m-0">
+            <div
+              class="progress-bar bg-secondary"
+              role="progressbar"
+              aria-valuenow="33"
+              aria-valuemin="0"
+              aria-valuemax="100"
+              style="width: 0"
+            >
+              <span class="sr-only">3 Hearings this week</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- end widget-rounded-circle-->
+    </div>
+    <!-- end col-->
+
+    <div class="col-md-6 col-xl-3">
+      <div class="widget-rounded-circle card-box">
+        <div class="row">
+          <div class="col-5">
+            <div
+              class="avatar-lg rounded-circle bg-soft-success border-success border"
+            >
+              <a routerLink="/AICC/property"
+                ><i
+                  class="mdi mdi-home-assistant font-22 avatar-title text-success"
+                ></i
+              ></a>
+            </div>
+          </div>
+          <div class="col-7">
+            <div class="text-right">
+              <h3 class="mt-1">
+                &nbsp;<a class="text-body" routerLink="/AICC/property"
+                  ><span data-plugin="counterup">{{
+                    data.PropertyInRent
+                  }}</span></a
+                >
+              </h3>
+              <p class="text-muted mb-1">
+                <small
+                  ><a class="text-body" routerLink="/AICC/property"
+                    >Properties in Rent</a
+                  ></small
+                >
+              </p>
+            </div>
+          </div>
+        </div>
+        <!-- end row-->
+        <div class="mt-3">
+          <h6 class="text-uppercase">
+            <a class="text-body" routerLink="/AICC/property"
+              >Receivables<span class="float-right">Payables</span></a
+            >
+          </h6>
+          <h6 class="text-uppercase">
+            <a class="text-body" routerLink="/AICC/property"
+              >0 (&#8377; 0)<span class="float-right">0 (&#8377; 0)</span></a
+            >
+          </h6>
+
+          <div class="progress progress-sm mb-0">
+            <!-- <div class="progress-bar" role="progressbar" style="width: 15%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div> -->
+            <div
+              class="progress-bar bg-success"
+              role="progressbar"
+              style="width: 50%"
+              aria-valuenow="30"
+              aria-valuemin="0"
+              aria-valuemax="100"
+            ></div>
+            <div
+              class="progress-bar bg-soft-pink"
+              role="progressbar"
+              style="width: 50%"
+              aria-valuenow="20"
+              aria-valuemin="0"
+              aria-valuemax="100"
+            ></div>
+            <span class="sr-only">10 Property Rent Pending </span>
+          </div>
+          <!-- <div class="progress progress-sm m-0">
+                            <div class="progress-bar bg-success" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%">
+                                <span class="sr-only">10 Property Rent Pending</span>
+                            </div>
+                        </div> -->
+        </div>
+      </div>
+      <!-- end widget-rounded-circle-->
+    </div>
+    <!-- end col-->
+
+    <div class="col-md-6 col-xl-3">
+      <div class="widget-rounded-circle card-box">
+        <div class="row">
+          <div class="col-6">
+            <div
+              class="avatar-lg rounded-circle bg-soft-blue border-blue border"
+            >
+              <a class="text-body" routerLink="/AICC/property"
+                ><i class="font-22 avatar-title text-blue"> &#8377;</i>
+                <!-- <i class="ti-tumblr-alt font-18 avatar-title text-blue"></i> --></a
+              >
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="text-right">
+              <h3 class="text-dark mt-1">
+                <a routerLink="/AICC/property" class="text-body">
+                  <span data-plugin="counterup">{{
+                    data.PropertyTaxDue
+                  }}</span></a
+                >
+              </h3>
+              <p class="text-muted mb-1">
+                <!-- text-truncate --><small
+                  ><a routerLink="/AICC/property" class="text-body"
+                    >Properties Taxes Due</a
+                  ></small
+                >
+              </p>
+            </div>
+          </div>
+        </div>
+        <!-- end row-->
+        <div class="mt-3">
+          <h6 class="text-uppercase">
+            <a class="text-body" routerLink="/AICC/property"
+              >To Pay<span class="float-right">&#8377; 0</span></a
+            >
+          </h6>
+          <div class="progress progress-sm mb-0">
+            <!-- <div class="progress-bar" role="progressbar" style="width: 15%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div> -->
+            <div
+              class="progress-bar bg-warning"
+              role="progressbar"
+              style="width: 0"
+              aria-valuenow="30"
+              aria-valuemin="0"
+              aria-valuemax="100"
+            ></div>
+            <div
+              class="progress-bar bg-success"
+              role="progressbar"
+              style="width: 0"
+              aria-valuenow="20"
+              aria-valuemin="0"
+              aria-valuemax="100"
+            ></div>
+            <span class="sr-only"
+              >Property Related Taxes to Pay &#8377; 50K
+            </span>
+          </div>
+          <!-- <div class="progress progress-sm m-0">
+                            <div class="progress-bar bg-blue" role="progressbar" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100" style="width: 33%">
+                                <span class="sr-only">2 Title Clear Coming Soon</span>
+                            </div>
+                        </div> -->
+        </div>
+      </div>
+      <!-- end widget-rounded-circle-->
+    </div>
+    <!-- end col-->
+  </div>
+
+  <!-- end row-->
+
+  <div class="row" *ngIf="!isLoading">
+    <div class="col-md-4 col-xl-4">
+      <div class="widget-rounded-circle card-box">
+        <div class="row">
+          <div class="col-6">
+            <div
+              class="avatar-lg rounded-circle bg-light border-warning border"
+            >
+              <a class="text-body" routerLink="/AICC/property"
+                ><i class="fe-alert-triangle font-22 avatar-title text-info"></i
+              ></a>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="text-right">
+              <h3 class="text-dark mt-1">
+                <a class="text-body" routerLink="/AICC/property"
+                  ><span data-plugin="counterup">0</span></a
+                >
+              </h3>
+              <p class="text-muted mb-1">
+                <small
+                  ><a class="text-body" routerLink="/AICC/property"
+                    >PropLegit Alerts</a
+                  ></small
+                >
+              </p>
+            </div>
+          </div>
+        </div>
+        <!-- end row-->
+        <div class="mt-3">
+          <h6 class="text-uppercase">
+            <a class="text-body" routerLink="/AICC/property"
+              >Resolved<span class="float-right">0<small></small></span
+            ></a>
+          </h6>
+          <div class="progress progress-sm m-0">
+            <div
+              class="progress-bar bg-info"
+              role="progressbar"
+              aria-valuenow="30"
+              aria-valuemin="0"
+              aria-valuemax="100"
+              style="width: 0"
+            >
+              <span class="sr-only">10 Alerts Resolved out of 30</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- end widget-rounded-circle-->
+    </div>
+    <!-- end col-->
+
+    <div class="col-md-4 col-xl-4">
+      <div class="widget-rounded-circle card-box">
+        <div class="row">
+          <div class="col-6">
+            <div
+              class="avatar-lg rounded-circle bg-soft-info border-info border"
+            >
+              <a class="text-body" routerLink="/AICC/property"
+                ><i class="fe-file-text font-22 avatar-title text-info"></i
+              ></a>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="text-right">
+              <h3 class="text-dark mt-1">
+                <a class="text-body" routerLink="/AICC/property"
+                  ><span data-plugin="counterup">{{
+                    data.NewDocsReceived
+                  }}</span></a
+                >
+              </h3>
+              <p class="text-muted mb-1">
+                <small
+                  ><a class="text-body" routerLink="/AICC/property"
+                    >New Docs Received</a
+                  ></small
+                >
+              </p>
+            </div>
+          </div>
+        </div>
+        <!-- end row-->
+        <div class="mt-3">
+          <h6 class="text-uppercase">
+            <a class="text-body" routerLink="/AICC/property"
+              >Docs Requested<span class="float-right"
+                >0/<small>{{ data.NewDocsReceived }}</small></span
+              ></a
+            >
+          </h6>
+          <div class="progress progress-sm m-0">
+            <div
+              class="progress-bar bg-info"
+              role="progressbar"
+              aria-valuenow="46"
+              aria-valuemin="0"
+              aria-valuemax="100"
+              style="width: 0"
+            >
+              <span class="sr-only">46 Documents Pending Review</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- end widget-rounded-circle-->
+    </div>
+    <!-- end col-->
+
+    <div class="col-md-4 col-xl-4">
+      <div class="widget-rounded-circle card-box">
+        <div class="row">
+          <div class="col-6">
+            <div
+              class="avatar-lg rounded-circle bg-soft-warning border-warning border"
+            >
+              <a class="text-body" routerLink="/AICC/property"
+                ><i class="fe-aperture font-22 avatar-title text-warning"></i
+              ></a>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="text-right">
+              <h3 class="text-dark mt-1">
+                <a class="text-body" routerLink="/AICC/property"
+                  ><span data-plugin="counterup">0</span></a
+                >
+              </h3>
+              <p class="text-muted mb-1">
+                <a class="text-body" routerLink="/AICC/property"
+                  ><small>Tasks in Progress</small></a
+                >
+              </p>
+            </div>
+          </div>
+        </div>
+        <!-- end row-->
+        <div class="mt-3">
+          <h6 class="text-uppercase">
+            <a class="text-body" routerLink="/AICC/property"
+              >Allocation Pending<span class="float-right"
+                >0/<small>0</small></span
+              ></a
+            >
+          </h6>
+          <div class="progress progress-sm m-0">
+            <div
+              class="progress-bar bg-warning"
+              role="progressbar"
+              aria-valuenow="30"
+              aria-valuemin="0"
+              aria-valuemax="100"
+              style="width: 0"
+            >
+              <span class="sr-only">12 Documents Requested</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- end widget-rounded-circle-->
+    </div>
+    <!-- end col-->
+
+    <!-- end col-->
+
+    <!-- end col-->
+  </div>
+  <!-- container -->
+  <div class="card-disabled" *ngIf="isLoading">
+    <div class="card-portlets-loader"></div>
+  </div>
+</div>

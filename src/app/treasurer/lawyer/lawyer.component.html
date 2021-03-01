@@ -1,0 +1,66 @@
+<div class="container-fluid">
+
+  <!-- start page title -->
+  <div class="row">
+   <div class="col-12">
+     <div class="page-title-box">
+       <h4 class="page-title">AICC Lawyers</h4>
+     </div>
+   </div>
+ </div>
+ <!-- end page title -->
+ 
+ <div class="row" *ngIf="isLoaded">
+  
+   <div class="col">
+         <table class="table table-hover table-striped">
+           <thead>
+           <tr class="table-active">
+            <th>LawyerId</th>
+            <th>Lawyer Name</th>
+            <th>Firm</th>
+            <th>Website </th>
+            <th>Mobile No </th>
+            <th>IsActive </th>
+            <th>Detail</th>
+            <th>Edit</th>
+            <th>Delete</th>
+           </tr>
+          </thead>
+          <tbody>
+          
+           <tr *ngFor="let element of datasource">
+             <td>{{element.LawyerId}} </td>
+             <td class="mains"> {{element.LawyerName  | titlecase }}</td>
+             <td> {{element.Firm  | titlecase }}  </td>
+             <td> {{element.EmailId   }} </td>
+             <td> {{element.MobileNo}} </td>
+             <td>{{element.IsActive}} </td>
+          
+              <td><a href=#  [routerLink]="['/lawyer/view', element.LawyerId]">
+                <i class="mdi mdi-eye-check"></i></a>
+              </td>
+           
+        
+
+              <td>
+  
+          <a href=# [routerLink]="['/lawyer/edit', element.LawyerId]">
+                <i class="mdi mdi-account-edit"></i>
+              </a>
+              </td>
+<td>
+              <a  href="javascript:void(0);" (click)="onDeleteLawyer(element.LawyerId)">
+                <i class="mdi mdi-delete"></i></a>
+             </td>
+
+            </tr>
+
+          </tbody>
+         </table>
+
+        </div>
+ </div>
+
+</div>
+ 

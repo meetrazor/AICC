@@ -1,0 +1,95 @@
+<div class="container-fluid">
+    <app-page-title title="Sellers" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row mb-2">
+                        <div class="col-md-6">
+                            <form class="form-inline">
+                                <div class="form-group mb-2">
+                                    <label class="sr-only">Search</label>
+                                    <input type="search" class="form-control" placeholder="Search..."
+                                        [(ngModel)]="term" name="search">
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="text-md-right">
+                                <button type="button" class="btn btn-danger mb-2 mr-2"><i
+                                        class="mdi mdi-basket mr-1"></i> Add Sellers</button>
+                                <button type="button" class="btn btn-success mb-2 mr-1"><i
+                                        class="mdi mdi-settings"></i></button>
+                            </div>
+                        </div><!-- end col-->
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table table-centered table-borderless table-hover mb-0">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th style="width: 20px;">
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="customCheck">
+                                            <label class="custom-control-label" for="customCheck">&nbsp;</label>
+                                        </div>
+                                    </th>
+                                    <th>Seller</th>
+                                    <th>Store Name</th>
+                                    <th>Products</th>
+                                    <th>Wallet Balance</th>
+                                    <th>Create Date</th>
+                                    <th>Revenue</th>
+                                    <th style="width: 82px;">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let seller of sellersData | filter:term | slice:0:10;let i = index;">
+                                    <td>
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="customCheck{{i}}">
+                                            <label class="custom-control-label" for="customCheck{{i}}">&nbsp;</label>
+                                        </div>
+                                    </td>
+                                    <td class="table-user">
+                                        <img src="{{ seller.image }}" alt="table-user" class="mr-2 rounded-circle">
+                                        <a href="javascript:void(0);"
+                                            class="text-body font-weight-semibold">{{ seller.name }}</a>
+                                    </td>
+                                    <td>
+                                        {{ seller.store }}
+                                    </td>
+                                    <td>
+                                        <span class="font-weight-semibold">{{ seller.product }}</span>
+                                    </td>
+                                    <td>
+                                        {{ seller.balance }}
+                                    </td>
+                                    <td>
+                                        {{ seller.date }}
+                                    </td>
+                                    <td>
+                                        {{ seller.revenue }}
+                                    </td>
+
+                                    <td>
+                                        <a href="javascript:void(0);" class="action-icon"> <i
+                                                class="mdi mdi-square-edit-outline"></i></a>
+                                        <a href="javascript:void(0);" class="action-icon"> <i
+                                                class="mdi mdi-delete"></i></a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <ul class="pagination pagination-rounded justify-content-end my-2">
+                        <ngb-pagination [collectionSize]="totalRecords" (pageChange)="onPageChange($event)"
+                            [(page)]="page" [pageSize]="pageSize"></ngb-pagination>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

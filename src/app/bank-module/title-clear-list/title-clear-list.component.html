@@ -1,0 +1,288 @@
+<div class="container-fluid">
+  <!-- start page title -->
+  <app-page-title
+    title="Title Clear"
+    [breadcrumbItems]="breadCrumbItems"
+  ></app-page-title>
+  <div class="row">
+    <div class="col-12">
+      <!-- Portlet card -->
+      <div class="card">
+        <div class="card-body">
+          <div class="card-widgets">
+            <a href="javascript: void(0);" data-toggle="reload"
+              ><i class="mdi mdi-refresh"></i
+            ></a>
+            <a
+              data-toggle="collapse"
+              href="#cardCollpase4"
+              role="button"
+              aria-expanded="false"
+              aria-controls="cardCollpase4"
+              ><i class="mdi mdi-minus"></i
+            ></a>
+            <!-- <a href="javascript: void(0);" data-toggle="remove"><i class="mdi mdi-close"></i></a> -->
+          </div>
+          <h4 class="header-title mb-0">Title Clear in Progress</h4>
+
+          <div id="cardCollpase4" class="collapse pt-3 show">
+            <div class="table-responsive table-hover">
+              <table
+                id="basic-datatable"
+                class="table dt-responsive nowrap w-100"
+              >
+                <!-- table-borderless  -->
+                <thead class="thead-light">
+                  <tr>
+                    <th>Applicant</th>
+                    <th>Loan</th>
+                    <th>Amount</th>
+                    <th>Documents</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                    <!-- <th>More Info</th> -->
+                    <th>Date</th>
+                    <th>Bank</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="text-light">.</span>Vishwanath Goenka</td>
+                    <td>Business</td>
+                    <td>7,00,000</td>
+                    <td>
+                      <a
+                        routerLink="/loan/titleclear/1"
+                        class="btn btn-xs btn-white pl-0 pr-0"
+                        ><i
+                          class="mdi mdi-eye-outline font-18"
+                          data-toggle="tooltip"
+                          data-placement="top"
+                          title=""
+                          data-original-title="View Documents"
+                        ></i
+                      ></a>
+                      <a
+                        routerLink="/loan/titleclear/1"
+                        class="btn btn-xs btn-white pl-0 pr-0"
+                        ><i
+                          class="mdi mdi-newspaper font-18"
+                          data-toggle="tooltip"
+                          data-placement="top"
+                          title=""
+                          data-original-title="View Public Notice"
+                        ></i
+                      ></a>
+                      <!-- <a href="javascript: void(0);" class="btn btn-xs btn-white pl-1 pr-0"><i class="mdi mdi-file-upload-outline font-18" data-toggle="tooltip" data-placement="top" title="" data-original-title="Upload Documents"></i></a> --><a
+                        href="javascript: void(0);"
+                        class="btn btn-xs btn-white pl-1 pr-0"
+                        ><i
+                          class="mdi mdi-bell-outline font-18"
+                          data-toggle="tooltip"
+                          data-placement="top"
+                          title=""
+                          data-original-title="Notifications"
+                        ></i
+                      ></a>
+                    </td>
+                    <td>
+                      <span class="badge bg-soft-info text-info p-1"
+                        >Title Clear in Progress</span
+                      >
+                    </td>
+                    <td>
+                      <a
+                        routerLink="/loan/titleclear/1"
+                        class="btn btn-xs btn-light"
+                        ><i
+                          class="mdi mdi-pencil font-18"
+                          data-toggle="tooltip"
+                          data-placement="top"
+                          title=""
+                          data-original-title="Continue Work"
+                        ></i
+                      ></a>
+                    </td>
+                    <!-- <td><a href="ts-l-a-rahul.html" class="btn btn-xs btn-white"><i class="mdi mdi-chevron-right-circle-outline font-18" data-toggle="tooltip" data-placement="top" title="" data-original-title="More Info"></i></a></td> -->
+                    <td>Sept 03, 2020</td>
+                    <td>
+                      Punjab & Sind Bank<br /><small> Vasna branch</small>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- .table-responsive -->
+          </div>
+          <!-- end collapse-->
+        </div>
+        <!-- end card-body-->
+      </div>
+      <!-- end card-->
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6 col-xl-4">
+      <div class="widget-rounded-circle card-box">
+        <div class="row">
+          <div class="col-6">
+            <div
+              class="avatar-lg rounded-circle bg-soft-blue border-blue border"
+            >
+              <a class="text-body" routerLink="/loan/titleclear/1"
+                ><i
+                  class="mdi mdi-chess-king font-22 avatar-title text-blue"
+                ></i
+              ></a>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="text-right">
+              <h3 class="text-dark mt-1">
+                <a routerLink="/loan/titleclear/1" class="text-body">
+                  <span data-plugin="counterup">1</span></a
+                >
+              </h3>
+              <p class="text-muted mb-1">
+                <!-- text-truncate --><small
+                  ><a routerLink="/loan/titleclear/1" class="text-body">
+                    Title Clear in Progress</a
+                  ></small
+                >
+              </p>
+            </div>
+          </div>
+        </div>
+        <!-- end row-->
+        <div class="mt-3">
+          <h6 class="text-uppercase">
+            <a class="text-body" routerLink="/loan/titleclear/1"
+              >Pending<span class="float-right">3</span></a
+            >
+          </h6>
+          <div class="progress progress-sm m-0">
+            <div
+              class="progress-bar bg-blue"
+              role="progressbar"
+              aria-valuenow="33"
+              aria-valuemin="0"
+              aria-valuemax="100"
+              style="width: 33%"
+            >
+              <span class="sr-only">2 Title Clear Coming Soon</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- end widget-rounded-circle-->
+    </div>
+
+    <div class="col-md-6 col-xl-4">
+      <div class="widget-rounded-circle card-box">
+        <div class="row">
+          <div class="col-6">
+            <div
+              class="avatar-lg rounded-circle bg-light border-secondary border"
+            >
+              <a routerLink="/loan/titleclear/1"
+                ><i
+                  class="mdi mdi-newspaper font-22 avatar-title text-secondary"
+                ></i
+              ></a>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="text-right">
+              <h3 class="mt-1">
+                &nbsp;<a class="text-body" routerLink="/loan/titleclear/1"
+                  ><span data-plugin="counterup">2</span></a
+                >
+              </h3>
+              <p class="text-muted mb-1">
+                <small
+                  ><a class="text-body" routerLink="/loan/titleclear/1"
+                    >Public Notices in Progress</a
+                  ></small
+                >
+              </p>
+            </div>
+          </div>
+        </div>
+        <!-- end row-->
+        <div class="mt-3">
+          <h6 class="text-uppercase">
+            <a class="text-body" routerLink="/loan/titleclear/1"
+              >Issued<span class="float-right">1</span></a
+            >
+          </h6>
+          <div class="progress progress-sm m-0">
+            <div
+              class="progress-bar bg-secondary"
+              role="progressbar"
+              aria-valuenow="50"
+              aria-valuemin="0"
+              aria-valuemax="100"
+              style="width: 50%"
+            >
+              <span class="sr-only">1 Public Notice Issued</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- end widget-rounded-circle-->
+    </div>
+
+    <div class="col-md-6 col-xl-4">
+      <div class="widget-rounded-circle card-box">
+        <div class="row">
+          <div class="col-6">
+            <div
+              class="avatar-lg rounded-circle bg-soft-success border-success border"
+            >
+              <a class="text-body" routerLink="/loan/titleclear/1"
+                ><i class="fe-aperture font-22 avatar-title text-success"></i
+              ></a>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="text-right">
+              <h3 class="text-dark mt-1">
+                <a routerLink="/loan/titleclear/1" class="text-body">
+                  <span data-plugin="counterup">10</span></a
+                >
+              </h3>
+              <p class="text-muted mb-1">
+                <!-- text-truncate --><small
+                  ><a routerLink="/loan/titleclear/1" class="text-body"
+                    >Search in Progress</a
+                  ></small
+                >
+              </p>
+            </div>
+          </div>
+        </div>
+        <!-- end row-->
+        <div class="mt-3">
+          <h6 class="text-uppercase">
+            <a class="text-body" routerLink="/loan/titleclear/1"
+              >In Final Stages<span class="float-right">3</span></a
+            >
+          </h6>
+          <div class="progress progress-sm m-0">
+            <div
+              class="progress-bar bg-success"
+              role="progressbar"
+              aria-valuenow="30"
+              aria-valuemin="0"
+              aria-valuemax="100"
+              style="width: 30%"
+            >
+              <span class="sr-only">3 Assignments in Final Stage</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- end widget-rounded-circle-->
+    </div>
+  </div>
+</div>

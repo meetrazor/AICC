@@ -1,0 +1,256 @@
+<div class="container-fluid">
+  <!-- start page title -->
+  <app-page-title
+    title="Public Notice"
+    [breadcrumbItems]="breadCrumbItems"
+  ></app-page-title>
+  <div class="row">
+    <div class="col-md-6 col-xl-6">
+      <div class="card">
+        <div class="card-body">
+          <div class="card-widgets">
+            <!-- <a href="javascript: void(0);" data-toggle="reload"><i class="mdi mdi-refresh"></i></a> -->
+            <a
+              data-toggle="collapse"
+              href="#cardCollpase3"
+              role="button"
+              aria-expanded="false"
+              aria-controls="cardCollpase3"
+              ><i class="mdi mdi-minus"></i
+            ></a>
+            <!-- <a href="javascript: void(0);" data-toggle="remove"><i class="mdi mdi-close"></i></a> -->
+          </div>
+          <h4 class="header-title mb-0">જાહેર નોટિસ</h4>
+          <div id="cardCollpase3" class="collapse pt-3 show">
+            <div class="jaher-notice-main">
+              <p>
+                આથી જાહેર જનતાને જણાવવાનું કે
+                <a (click)="show = !show">
+                  <span *ngIf="!show" class="text-primary">{{
+                    data.firstname
+                  }}</span>
+                </a>
+                <input
+                  *ngIf="show"
+                  type="text"
+                  class="form-control"
+                  [(ngModel)]="data.firstname"
+                />
+                <button
+                  class="btn btn-primary"
+                  (click)="show = !show"
+                  *ngIf="show"
+                >
+                  <i class="mdi mdi-check"></i>
+                </button>
+                <button class="btn btn-danger" *ngIf="show">
+                  <i class="mdi mdi-close" (click)="show = !show"></i>
+                </button>
+                <br *ngIf="show" />
+
+                રહેવાસી:
+                <a (click)="show = !show">
+                  <span *ngIf="!show" class="text-primary">{{
+                    data.district
+                  }}</span>
+                </a>
+                <input
+                  *ngIf="show"
+                  type="text"
+                  class="form-control"
+                  [(ngModel)]="data.district"
+                />
+                <button
+                  class="btn btn-primary"
+                  (click)="show = !show"
+                  *ngIf="show"
+                >
+                  <i class="mdi mdi-check"></i>
+                </button>
+                <button class="btn btn-danger" *ngIf="show">
+                  <i class="mdi mdi-close" (click)="show = !show"></i>
+                </button>
+                <br *ngIf="show" />
+                ના સબ ડિસ્ટ્રીકટ
+                <a class="text-primary">Empty</a>
+                ના તાલુકા
+                <a class="text-primary">Empty</a>
+                ના મોજે
+                <a class="text-primary">Empty</a>
+                ની સીમના બ્લોક નં.
+                <a class="text-primary">Empty</a>
+                ખાતા નંબર
+                <a class="text-primary">Empty</a>
+                . ની
+                <a class="text-primary">Empty</a>
+                શરતની ખેતીની જમીન તેમની સંયુક્ત, સહિયારી માલિકી અને કબજા
+                ભોગવટાની બોજા રહીતની હોવાનું જણાવી અમારા અસીલએ સદરહુ જમીન અંગેના
+                ટાઇટલ્સ ક્લીયર પ્રમાણપત્રની અમારી પાસે માંગણી કરેલી છે અને અમારા
+                અસીલની સૂચના અને સંમતિ અનુસાર આ જાહેર નોટીસ પ્રસિદ્ધ કરાવેલ છે.
+                તો સદરહુ જમીન ઉપર કે તેના કોઈપણ ભાગ ઉપર કોઈનો કોઇપણ પ્રકારનો
+                વાંધો, તકરાર, લાગભાગ, હક્ક, હિત, હિસ્સો, દાવો, બોજો, લીયન કે
+                અન્ય કોઇ રીતે કોઇ હિત સંબંધથી પ્રાપ્ત થતાં હક્કો હોય તો તેઓએ આ
+                જાહેર નોટીસ પ્રસિદ્ધ થયેથી દિન-
+                <a class="text-primary">Empty</a>
+                માં તે બદલના પુરાવા સહિત લેખિત જાણ પત્ર દ્વારા નીચેના સરનામે
+                કરવી. જો તેમ કરવામાં નહીં આવે તો સદરહુ જમીન ઉપર કે તેના કોઇપણ
+                ભાગ ઉપર અન્ય કોઈનો કોઇપણ પ્રકારનો વાંધો, તકરાર, લાગભાગ, હક્ક,
+                હિત, હિસ્સો, દાવો, બોજો, લીયન કે અન્ય કોઈ રીતે કોઇ હિત સંબંધથી
+                પ્રાપ્ત થતાં હક્કો નથી અને હોય, તો તે જતા (વેવ) કરેલ છે, તેમ
+                સમજી અમો સદરહુ જમીનના ટાઇટલ્સ ક્લીયરન્સના અભિપ્રાય અંગેનું
+                સર્ટિફિકેટ આપીશું અને ત્યારબાદ કોઇની કોઇપણ પ્રકારની તકરાર ચાલશે
+                નહીં. તેની નોંધ લેશો. (તારીખ):
+                <a class="text-primary">Empty</a>
+                (વકીલ નામ અને સરનામું)
+                <a class="text-primary">Empty</a>
+              </p>
+
+              <div class="mb-3">
+                <textarea
+                  class="form-control"
+                  id=""
+                  placeholder="Add Summary"
+                  rows="5"
+                  spellcheck="false"
+                ></textarea>
+              </div>
+
+              <div class="text-center button-list mt-3">
+                <!-- <a class="btn btn-primary" href="javascriptvoid:();">Save</a> -->
+
+                <a class="btn btn-light" href="javascriptvoid:(0);">Cancel</a>
+                <button
+                (click)="onsave()"
+                  type="button"
+                  class="btn btn-success waves-effect waves-light btn-sm"
+                  id="toastr-three"
+                >
+                  Save
+                </button>
+              </div>
+            </div>
+          </div>
+          <!-- end collapse-->
+        </div>
+        <!-- end card-body-->
+      </div>
+      <!-- end card-->
+    </div>
+    <div class="col-md-6 col-xl-6">
+      <div class="card">
+        <div class="card-body">
+          <div class="card-widgets">
+            <!-- <a href="javascript: void(0);" data-toggle="reload"><i class="mdi mdi-refresh"></i></a> -->
+            <a
+              data-toggle="collapse"
+              href="#cardCollpase4"
+              role="button"
+              aria-expanded="false"
+              aria-controls="cardCollpase4"
+              ><i class="mdi mdi-minus"></i
+            ></a>
+            <!-- <a href="javascript: void(0);" data-toggle="remove"><i class="mdi mdi-close"></i></a> -->
+          </div>
+          <h4 class="header-title mb-0">Edit and Publish Public Notice</h4>
+          <div id="cardCollpase4" class="collapse pt-3 show">
+            <div class="pn-main">
+              <div class="form-group mb-3">
+                <label for="">Local Newspaper</label>
+                <select class="custom-select">
+                  <option>Choose Newspaper</option>
+                  <option value="1">Gujarat Samachar</option>
+                  <option value="2">Sandesh</option>
+                  <option value="3" selected="">Divya Bhaskar</option>
+                  <option value="4">Divya Marathi</option>
+                  <option value="5">Times of India</option>
+                </select>
+              </div>
+              <div class="form-group mb-3">
+                <label for="">Language</label>
+                <select class="custom-select">
+                  <option>Open this selectmenu</option>
+                  <option value="1">English</option>
+                  <option value="2" selected="">Gujarati</option>
+                  <option value="3">Hindi</option>
+                </select>
+              </div>
+              <div class="form-group mb-3">
+                <label for=""
+                  ><span class="text-warning">Choose a Date</span></label
+                >
+                <div class="form-group">
+                  <div class="input-group input-group-sm">
+                    <input
+                      type="hidden"
+                      class="form-control border flatpickr-input"
+                      id="dash-daterange"
+                      value=""
+                    /><input
+                      class="form-control border input"
+                      placeholder=""
+                      tabindex="0"
+                      type="date"
+                    />
+                    <div class="input-group-append">
+                      <span
+                        class="input-group-text bg-blue border-blue text-white"
+                      >
+                        <i class="mdi mdi-calendar-range"></i
+                        ><!-- <i _ngcontent-xpk-c6="" class="far fa-calendar-alt"></i> -->
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="text-center button-list mt-3">
+                <!-- <a class="btn btn-outline-primary" href="javascriptvoid:();">Edit</a> -->
+              </div>
+            </div>
+
+            <div class="text-center button-list mt-3">
+              <!-- <a class="btn btn-primary" href="javascriptvoid:();">Save</a> -->
+
+              <button
+              (click)="onsave()"
+                type="button"
+                class="btn btn-success waves-effect waves-light btn-sm"
+                id="toastr-three"
+              >
+                Save
+              </button>
+
+              <a
+                class="btn btn-light"
+                href="javascriptvoid:(0);"
+                (click)="showInfo = false"
+                >Cancel</a
+              >
+              <!-- <a class="btn btn-primary" href="javascriptvoid:();">Publish</a> -->
+<!-- 
+              <div class="" id="" style="" *ngIf="showInfo">
+                <div class="card-box">
+                  The Request to Publish this Public Notice has been
+                  successfully sent. Please check your email for further
+                  information. <br /><a routerLink="/loan/viewpublicnotice"
+                    >Click here to continue ...
+                  </a>
+                </div>
+              </div> -->
+
+              <button
+                class="btn btn-primary waves-effect waves-light btn-sm"
+                type="button"
+                (click)="onpublish()"
+              >
+                Publish
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- end collapse-->
+      </div>
+      <!-- end card-body-->
+    </div>
+    <!-- end card-->
+  </div>
+</div>

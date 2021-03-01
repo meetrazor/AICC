@@ -1,0 +1,143 @@
+<div class="container-fluid">
+  <app-page-title title="Chartist" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+
+  <div class="row">
+    <div class="col-lg-6">
+      <div class="card-box" dir="ltr">
+        <h4 class="header-title">Advanced Smil Animations</h4>
+        <p class="sub-header">
+          Example of Horizontal bar chart.
+        </p>
+        <div class="ct-chart ct-golden-section">
+          <!-- Advanced Smil Animations -->
+          <lib-ngx-chartist [data]="smilAnimationChart.data" [options]="smilAnimationChart.options"
+            [type]="smilAnimationChart.type" class="ct-chart ct-golden-section"></lib-ngx-chartist>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-6">
+      <div class="card-box" dir="ltr">
+        <h4 class="header-title">Simple line chart</h4>
+        <p class="sub-header">
+          Example of Horizontal bar chart.
+        </p>
+        <!-- Simple line chart -->
+        <lib-ngx-chartist [data]="simpleLineChart.data" [options]="simpleLineChart.options"
+          [type]="simpleLineChart.type"></lib-ngx-chartist>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-6">
+      <div class="card-box" dir="ltr">
+        <h4 class="header-title">Line Scatter Diagram</h4>
+        <p class="sub-header">
+          Example of Horizontal bar chart.
+        </p>
+        <!-- Line Scatter Diagram -->
+        <lib-ngx-chartist [data]="lineScatter.data" [options]="lineScatter.options"
+          [type]="lineScatter.type ? lineScatter.type: 'Line'" [responsiveOptions]="lineScatter.responsiveOptions"
+          [events]="lineScatter.events" [lineSmooth]="lineScatter.lineSmooth">
+        </lib-ngx-chartist>
+      </div>
+    </div>
+
+    <div class="col-lg-6">
+      <div class="card-box" dir="ltr">
+        <h4 class="header-title">Line chart with area</h4>
+        <p class="sub-header">
+          Example of Horizontal bar chart.
+        </p>
+        <!-- Line chart with area -->
+        <lib-ngx-chartist [data]="areaLineChart.data" [options]="areaLineChart.options" [type]="areaLineChart.type">
+        </lib-ngx-chartist>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-6">
+      <div class="card-box" dir="ltr">
+        <h4 class="header-title">Line Interpolation / Smoothing</h4>
+        <p class="sub-header">
+          Example of Horizontal bar chart.
+        </p>
+        <!-- Line Interpolation / Smoothing chart -->
+        <lib-ngx-chartist [data]="lineSmoothingChart.data" [options]="lineSmoothingChart.options"
+          [type]="lineSmoothingChart.type">
+        </lib-ngx-chartist>
+      </div>
+    </div>
+
+    <div class="col-lg-6">
+      <div class="card-box" dir="ltr">
+        <h4 class="header-title">Overlapping bars on mobile</h4>
+        <p class="sub-header">
+          Example of Horizontal bar chart.
+        </p>
+        <!-- Overlapping bars on mobile -->
+        <lib-ngx-chartist [data]="overlappingBarChart.data" [options]="overlappingBarChart.options"
+          [type]="overlappingBarChart.type" [responsiveOptions]="overlappingBarChart.responsiveOptions">
+        </lib-ngx-chartist>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-6">
+      <div class="card-box" dir="ltr">
+        <h4 class="header-title">Stacked bar chart</h4>
+        <p class="sub-header">
+          Example of Horizontal bar chart.
+        </p>
+        <!-- Stacked bar chart -->
+        <lib-ngx-chartist [data]="stackBarChart.data" [options]="stackBarChart.options" [type]="stackBarChart.type"
+          [events]="stackBarChart.events">
+        </lib-ngx-chartist>
+      </div>
+    </div>
+
+    <div class="col-lg-6">
+      <div class="card-box">
+        <h4 class="header-title">Horizontal bar chart</h4>
+        <p class="sub-header">
+          Example of Horizontal bar chart.
+        </p>
+        <!-- Horizontal bar chart -->
+        <lib-ngx-chartist [data]="horizontalBarChart.data" [options]="horizontalBarChart.options"
+          [type]="horizontalBarChart.type" [events]="horizontalBarChart.events">
+        </lib-ngx-chartist>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-6">
+      <div class="card-box">
+        <h4 class="header-title">Animating a Donut with Svg.animate</h4>
+        <p class="sub-header">
+          Example of pie chart.
+        </p>
+        <!-- Animating a Donut with Svg.animate -->
+        <lib-ngx-chartist [data]="donutAnimateChart.data" [options]="donutAnimateChart.options"
+          [type]="donutAnimateChart.type" [events]="donutAnimateChart.events">
+        </lib-ngx-chartist>
+      </div>
+    </div>
+
+    <div class="col-lg-6">
+      <div class="card-box">
+        <h4 class="header-title">Simple pie chart</h4>
+        <p class="sub-header">
+            Example of Label placement chart.
+        </p>
+        <!-- Simple pie chart -->
+        <lib-ngx-chartist [data]="simplePieChart.data" [options]="simplePieChart.options"
+        [type]="simplePieChart.type" [events]="simplePieChart.events">
+      </lib-ngx-chartist>
+      </div>
+    </div>
+  </div>
+</div>

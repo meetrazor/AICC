@@ -1,0 +1,266 @@
+<div class="container-fluid">
+  <!-- start page title -->
+  <app-page-title
+    title="Title Clear"
+    [breadcrumbItems]="breadCrumbItems"
+  ></app-page-title>
+  <div class="row">
+    <div class="col-md-6 col-xl-6">
+      <div class="card">
+        <ul class="nav nav-tabs">
+          <li class="nav-item">
+            <a
+              href=""
+              data-toggle="tab"
+              aria-expanded="false"
+              class="nav-link active"
+            >
+              Document<br /><small>-7/12</small>
+            </a>
+          </li>
+
+          <a
+            data-toggle="collapse"
+            role="button"
+            aria-expanded="false"
+            aria-controls="cardCollpase4"
+            ><i class="mdi mdi-minus"></i
+          ></a>
+        </ul>
+        <div class="tab-content p-2">
+          <div class="tab-pane active" id="document">
+            <!-- <h5 class="header-title mb-0">7/12 Document<small> Latest date 3/16/2020</small></h5> -->
+            <div>
+              <!-- class="col-lg-8" -->
+              <form class="form-inline">
+                <!-- <div class="form-group">
+                                            <label for="inputPassword2" class="sr-only">Search</label>
+                                            <input type="search" class="form-control" id="inputPassword2" placeholder="Search...">
+                                        </div> -->
+                <div class="form-group mx-sm-12">
+                  <label for="status-select" class="mr-2">View</label>
+                  <select class="custom-select" id="status-select">
+                    <option selected="">7/12</option>
+                    <option value="1">PVR</option>
+                    <option value="2">Form 8/A</option>
+                    <option value="3">Sale Deed</option>
+                    <option value="4">Title Search 30 Years</option>
+                  </select>
+                </div>
+              </form>
+            </div>
+
+            <div id="cardCollpase4" class="collapse pt-3 show">
+              <embed
+                src="/assets/pdf/7by12sample.pdf"
+                width="100%"
+                height="375"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-xl-6">
+      <div class="card">
+        <div class="card-body">
+          <div class="card-widgets">
+            <!-- <a href="javascript: void(0);" data-toggle="reload"><i class="mdi mdi-refresh"></i></a> -->
+            <a
+              data-toggle="collapse"
+              href="#cardCollpase3"
+              role="button"
+              aria-expanded="false"
+              aria-controls="cardCollpase3"
+              ><i class="mdi mdi-minus"></i
+            ></a>
+            <!-- <a href="javascript: void(0);" data-toggle="remove"><i class="mdi mdi-close"></i></a> -->
+          </div>
+
+          <h4 class="header-title mb-0">Title Certificate</h4>
+          <div>
+            <div class="text-center button-list mt-3">
+              <button
+                id="summernote-edit"
+                class="btn btn-light btn-sm"
+                (click)="test()"
+              >
+                <i class="mdi mdi-pencil mr-1"></i> Edit
+              </button>
+              <button
+                id="summernote-save"
+                class="btn btn-success btn-sm mt-2"
+                style="display: none"
+              >
+                <i class="mdi mdi-content-save-outline mr-1"></i> Save Changes
+              </button>
+            </div>
+          </div>
+          <div
+            class="inbox-widget"
+            data-simplebar="init"
+            style="max-height: 407px"
+          >
+            <div class="simplebar-wrapper" style="margin: 0px">
+              <div class="simplebar-height-auto-observer-wrapper">
+                <div class="simplebar-height-auto-observer"></div>
+              </div>
+              <div class="simplebar-mask">
+                <div class="simplebar-offset" style="right: 0px; bottom: 0px">
+                  <div class="simplebar-content-wrapper" >
+                    <div class="simplebar-content" style="padding: 0px">
+                      <div id="cardCollpase3" class="collapse pt-3 show">
+                        <div class="row">
+                          <div class="col-12">
+                            <div class="card m-0 p-0">
+                              <div
+                                class="card-body m-0 p-0"
+                                style="max-height: 80vh; overflow: scroll"
+                              >
+                                <app-ngx-editor
+                                  [placeholder]="'Enter text '"
+                                  [spellcheck]="true"
+                                  [height]="'250px'"
+                                  [editable]="edit"
+                                  [(ngModel)]="data"
+                                  [toolbar]="[]"
+                                >
+                                </app-ngx-editor>
+
+                                <div class="form-group row mb-3 mx-2">
+                                  <div class="input-group input-group-sm">
+                                    <label
+                                      class="col-md-12 col-form-label"
+                                      for="Date of Issue of TCC"
+                                    >
+                                      Date of Issue of TCC:</label
+                                    >
+                                    <input
+                                      type="hidden"
+                                      class="form-control border flatpickr-input"
+                                      id="dash-daterange"
+                                      value="2020-08-27"
+                                    />
+                                    <input
+                                      style="max-width: 80%"
+                                      class="form-control border form-control input"
+                                      placeholder=""
+                                      tabindex="0"
+                                      type="date"
+                                    />
+                                    <div class="input-group-append">
+                                      <span
+                                        class="input-group-text bg-blue border-blue text-white"
+                                      >
+                                        <i class="mdi mdi-calendar-range"></i>
+                                      </span>
+                                    </div>
+                                  </div>
+                                </div>
+
+                                <div class="form-group row mb-3">
+                                  <label
+                                    class="col-md-6 offset-md-6 col-form-labelfloat-right"
+                                    for="Date of Issue of TCC"
+                                  >
+                                    Name and signature of Lawyers</label
+                                  >
+                                  <div class="col-md-6 offset-md-6 float-right">
+                                    <input
+                                      type="text"
+                                      class="form-control"
+                                      id="example-input"
+                                    />
+                                  </div>
+                                </div>
+
+                                <div class="form-group row mb-3">
+                                  <label
+                                    class="col-md-12 col-form-label"
+                                    for="Annexures / Attachments"
+                                  >
+                                    Annexures / Attachments:</label
+                                  >
+                                  <div class="col-md-12">
+                                    <textarea
+                                      class="form-control"
+                                      id="example-textarea"
+                                      rows="3"
+                                    ></textarea>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <!-- end card-body-->
+                          </div>
+                          <!-- end card-->
+                        </div>
+                        <!-- end col -->
+                      </div>
+                    </div>
+                    <!-- end collapse-->
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="simplebar-placeholder"
+              style="width: auto; height: 447px"
+            ></div>
+          </div>
+          <div
+            class="simplebar-track simplebar-horizontal"
+            style="visibility: hidden"
+          >
+            <div
+              class="simplebar-scrollbar"
+              style="width: 0px; display: none"
+            ></div>
+          </div>
+          <div
+            class="simplebar-track simplebar-vertical"
+            style="visibility: visible"
+          >
+            <div
+              class="simplebar-scrollbar"
+              style="
+                height: 370px;
+                transform: translate3d(0px, 0px, 0px);
+                display: block;
+              "
+            ></div>
+          </div>
+        </div>
+
+        <div class="text-center button-list mt-3">
+          <button id="summernote-edit" class="btn btn-primary btn-sm" >
+            <i class="mdi mdi-pencil mr-1"></i> Edit
+          </button>
+          <button
+            id="summernote-save"
+            class="btn btn-success btn-sm mt-2"
+            style="display: none"
+          >
+            <i class="mdi mdi-content-save-outline mr-1"></i> Save Changes
+          </button>
+        </div>
+        <hr />
+
+        <div class="text-center button-list mt-3 mb-3">
+          <!-- <a class="btn  btn-success" href="javascript: void(0);">Save</a>
+                         <a class="btn btn-light" href="javascript: void(0);">Cancel</a> -->
+          <a class="btn btn-info" (click)="save()" >Preview</a>
+          <a class="btn btn-primary" (click)="save()">Submit</a>
+        </div>
+
+        <div class="text-center button-list mt-3">
+          <!-- <a class="btn btn-outline-primary" href="javascript: void(0);">Construction Agreement </a> -->
+
+          <!-- <a class="btn  btn-light" href="javascript: void(0);">Mark as Reviewed</a> -->
+          <!-- <button type="button" class="btn btn-light waves-effect waves-light btn-sm" id="toastr-three">Mark as Reviewed</button> -->
+        </div>
+      </div>
+      <!-- end card-body-->
+    </div>
+  </div>
+</div>

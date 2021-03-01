@@ -1,0 +1,39 @@
+<div class="container-fluid">
+  <!-- start page title -->
+  <app-page-title
+    title="Title Clear"
+    [breadcrumbItems]="breadCrumbItems"
+  ></app-page-title>
+  <div class="row">
+    <div class="col-md-12 col-xl-12">
+      <div class="card">
+          <div class="card-body">
+              <div class="card-widgets">
+                  <!-- <a href="javascript: void(0);" data-toggle="reload"><i class="mdi mdi-refresh"></i></a> -->
+                  <a data-toggle="collapse"  role="button" aria-expanded="false" aria-controls="cardCollpase3"><i class="mdi mdi-minus"></i></a>
+                  <!-- <a href="javascript: void(0);" data-toggle="remove"><i class="mdi mdi-close"></i></a> -->
+              </div>
+              <h4 class="header-title mb-0">Preview of Title Clear Document</h4>
+              <div id="cardCollpase3" class="collapse pt-3 show">
+                
+
+                      <embed src="assets/pdf/tc-f.pdf" width="100%" height="450">
+
+                  <div class="text-center button-list mt-3">
+<a class="btn btn-outline-primary" (click)="save()">Confirm</a> 
+                  
+                  <!-- <a class="btn  btn-light" href="javascript: void(0);">Mark as Reviewed</a> -->
+<!-- <button type="button" class="btn btn-light waves-effect waves-light btn-sm" id="toastr-three">Mark as Reviewed</button> -->
+                  
+
+
+
+                  </div>
+                  
+                 
+              </div> <!-- end collapse-->
+          </div> <!-- end card-body-->
+      </div> <!-- end card-->
+  </div>
+  </div>
+</div>

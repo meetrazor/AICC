@@ -1,0 +1,261 @@
+<div class="container-fluid" *ngIf="!isLoading && PVRDetailsLoaded">
+  <!-- start page title -->
+  <app-page-title
+    *ngIf="!isLoading"
+    title="{{ applicationData.FirstName }} {{ applicationData.LastName }}"
+    [breadcrumbItems]="breadCrumbItems"
+  ></app-page-title>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="card">
+            <div class="card-body">
+              <app-portlet
+                loading="0"
+                title="Search Status"
+                color="light"
+                collapsed="1"
+                headerClass="title header-title "
+              >
+                <ul class="list-unstyled timeline-sm">
+                  <li class="timeline-sm-item completed">
+                    <h5 class="hover mt-0 pb-1">
+                      <a class="text-body">Prplegit PVR</a>
+                    </h5>
+                  </li>
+                  <li
+                    class="timeline-sm-item"
+                    [ngClass]="{
+                      completed: Compaire()
+                    }"
+                  >
+                    <h5 class="hover mt-0 pb-1">
+                      <a class="text-body">Documents Review & Search</a>
+                    </h5>
+                  </li>
+                  <!-- <li class="timeline-sm-item">
+                    <h5 class="hover mt-0 pb-1">
+                      <a
+                        class="text-body"
+                        [ngClass]="{
+                          disable: !Compaire()
+                        }"
+                        routerLink="/loan/publicnotice/{{ appID }}"
+                        >Public Notice</a
+                      >
+                    </h5>
+                  </li> -->
+
+                  <!-- <li class="timeline-sm-item">
+                    <h5 class="hover mt-0 pb-1">
+                      <a
+                        class="text-body"
+                        [ngClass]="{
+                          disable: !Compaire()
+                        }"
+                        routerLink="/loan/titleclear/{{ appID }}"
+                        >Title Clear Certificate</a
+                      >
+                    </h5>
+                  </li> -->
+                </ul>
+              </app-portlet>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card">
+            <div class="card-body" *ngIf="PVRDetailsLoaded">
+              <app-portlet
+                loading="0"
+                title="PropLegit PVR Summary"
+                color="light"
+                collapsed="1"
+                headerClass="title header-title "
+              >
+                <ngb-accordion
+                  #acc="ngbAccordion"
+                  activeIds="static-1"
+                  [closeOthers]="true"
+                >
+                  <ngb-panel id="static-1" class="my-1">
+                    <ng-template ngbPanelTitle>
+                      Property Verification
+                      <!-- <i class="mdi mdi-chevron-down accordion-arrow"></i> -->
+                    </ng-template>
+                    <ng-template ngbPanelContent>
+                      {{ PVRData.PropertyRemarks }}
+                      <!-- <ng-template [ngTemplateOutlet]="TabContent"></ng-template> -->
+                    </ng-template>
+                  </ngb-panel>
+                  <ngb-panel id="static-2" class="my-1">
+                    <ng-template ngbPanelTitle
+                      >Ownership Verification</ng-template
+                    >
+                    <ng-template ngbPanelContent>
+                      {{ PVRData.OwnerRemarks }}
+                      <!-- <ng-template [ngTemplateOutlet]="TabContent"></ng-template> -->
+                    </ng-template>
+                  </ngb-panel>
+                  <ngb-panel id="static-3" class="my-1">
+                    <ng-template ngbPanelTitle
+                      >Encumbrance Verification</ng-template
+                    >
+                    <ng-template ngbPanelContent>
+                      {{ PVRData.EncumbranceRemarks }}</ng-template
+                    >
+                  </ngb-panel>
+                </ngb-accordion>
+                <div class="text-center mt-3">
+                  <button
+                    class="btn bg-light text-dark"
+                    [routerLink]="
+                      '/loan/viewdocument/' +
+                      applicationData.PropertyID +
+                      '/' +
+                      applicationData.PVRDocumentID
+                    "
+                  >
+                    See Full Report
+                  </button>
+                </div></app-portlet
+              >
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card">
+            <div class="card-body">
+              <app-portlet
+                loading="0"
+                title="Assignment contacts"
+                color="light"
+                collapsed="1"
+                headerClass="title header-title "
+              >
+                <div class="table-responsive table-hover">
+                  <table class="table table-centered mb-0">
+                    <tbody>
+                      <tr>
+                        <td>
+                          <div class="media">
+                            <img
+                              src="../assets/images/brands/sbi.png"
+                              class="mr-2 rounded-circle"
+                              height="36"
+                              alt="Brandon Smith"
+                            />
+                            <div class="media-body">
+                              <h5 class="mt-0 mb-0 font-15">
+                                <a
+                                  href="contacts-profile.html"
+                                  class="text-reset"
+                                  >{{ applicationData.BankName }}</a
+                                >
+                              </h5>
+                            </div>
+                          </div>
+                        </td>
+                        <td>
+                          <div>
+                            <a
+                              href="javascript: void(0);"
+                              class="text-reset font-13 py-1 px-1 d-inline-block"
+                              data-toggle="tooltip"
+                              data-placement="top"
+                              title=""
+                              data-original-title="Voice Call"
+                            >
+                              <i class="fe-phone-call"></i>
+                            </a>
+                            <a
+                              href="javascript: void(0);"
+                              class="text-reset font-13 py-1 px-1 d-inline-block"
+                              data-toggle="tooltip"
+                              data-placement="top"
+                              title=""
+                              data-original-title=""
+                            >
+                              <i class="fas fa-envelope"></i>
+                            </a>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="media">
+                            <img
+                              src="assets/images/users/user.png"
+                              class="mr-2 rounded-circle"
+                              height="36"
+                            />
+                            <div class="media-body">
+                              <h5 class="mt-0 mb-0 font-15">
+                                <a
+                                  href="contacts-profile.html"
+                                  class="text-reset"
+                                >
+                                  {{ applicationData.FirstName }}
+                                  {{ applicationData.LastName }}<br /><small
+                                    >{{ applicationData.Type_of_Loan }}
+                                    <br />Rs.
+                                    {{ applicationData.LoanAmount }}</small
+                                  ></a
+                                >
+                              </h5>
+                            </div>
+                          </div>
+                        </td>
+
+                        <td>
+                          <div>
+                            <a
+                              href="javascript: void(0);"
+                              class="text-reset font-13 py-1 px-1 d-inline-block"
+                              data-toggle="tooltip"
+                              data-placement="top"
+                              title=""
+                              data-original-title="Voice Call"
+                            >
+                              <i class="fe-phone-call"></i>
+                            </a>
+                            <a
+                              href="javascript: void(0);"
+                              class="text-reset font-13 py-1 px-1 d-inline-block"
+                              data-toggle="tooltip"
+                              data-placement="top"
+                              title=""
+                              data-original-title=""
+                            >
+                              <i class="fas fa-envelope"></i>
+                            </a>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table></div
+              ></app-portlet>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row card py-2" style="margin: 2px">
+    <h3 class="header-title px-2" style="font-size: x-large">Documents</h3>
+    <div class="col-md-12">
+      <div class="table-responsive">
+        <table
+          datatable
+          width="100%"
+          [dtOptions]="dtOptions"
+          class="table table-borderless hover mb-0"
+        ></table>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="card-disabled" *ngIf="isLoading || !PVRDetailsLoaded">
+  <div class="card-portlets-loader"></div>
+</div>

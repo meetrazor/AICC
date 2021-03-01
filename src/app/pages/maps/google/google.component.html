@@ -1,0 +1,54 @@
+<div class="container-fluid">
+  <app-page-title title="Google Maps" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+
+  <div class="row">
+    <div class="col-lg-6">
+      <div class="card-box">
+        <h4 class="header-title mb-3">Basic</h4>
+        <!-- Map -->
+        <agm-map [latitude]="latitude" [longitude]="longitude" style="height: 300px"></agm-map>
+
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <div class="card-box">
+        <h4 class="header-title mb-3">Markers</h4>
+
+        <agm-map [latitude]="latitude" [longitude]="longitude" style="height: 300px" (mapClick)="placeMarker($event)">
+          <agm-marker *ngFor="let marker of markers" [latitude]="marker.latitude" [longitude]="marker.longitude">
+          </agm-marker>
+        </agm-map>
+      </div>
+    </div> <!-- end col -->
+  </div> <!-- end row -->
+
+  <div class="row">
+    <div class="col-lg-6">
+      <div class="card-box">
+        <!-- Street view map -->
+        <h4 class="mb-3 header-title">Street View Panoramas</h4>
+
+        <div id="streetview-container">
+          <div id="streetview-map" #streetviewMap></div>
+          <div id="streetview-pano" #streetviewPano></div>
+        </div>
+      </div>
+    </div> <!-- end col -->
+
+    <div class="col-lg-6">
+      <div class="card-box">
+        <h4 class="mb-3 header-title">Light</h4>
+        <agm-map [latitude]="latitude" [longitude]="longitude" style="height: 300px" [styles]="lightStyle"></agm-map>
+      </div>
+    </div> <!-- end col -->
+  </div>
+
+  <div class="row">
+    <div class="col-lg-6">
+      <div class="card-box">
+        <h4 class="mb-3 header-title">Dark</h4>
+        <agm-map [latitude]="latitude" [longitude]="longitude" style="height: 300px" [styles]="darkStyle">
+        </agm-map>
+      </div>
+    </div>
+  </div>

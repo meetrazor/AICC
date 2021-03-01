@@ -1,0 +1,21 @@
+<!-- <BR />
+<img [src]="url" *ngIf="filetype == 'photo'" /> -->
+<div class="container mt-5">
+  <pdf-viewer
+    [src]="url"
+    *ngIf="filetype == 'pdf'"
+    style="display: block"
+  ></pdf-viewer>
+
+  <img
+    class=""
+    [src]="url"
+    style="max-height: 70vh; max-width: 70vh; display: block; margin: auto"
+    *ngIf="filetype == 'photo'"
+    alt="receipt"
+  />
+</div>
+
+<!-- <ngx-doc-viewer [url]="url" 
+viewer="google" style="width:100%;height:100vh;" 
+*ngIf="filetype=='doc'"></ngx-doc-viewer> -->

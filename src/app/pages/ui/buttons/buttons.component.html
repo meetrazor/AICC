@@ -1,0 +1,339 @@
+<div class="container-fluid">
+    <app-page-title title="Buttons" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card-box">
+                <div class="row">
+                    <div class="col-xl-6">
+                        <h4 class="header-title">Default Buttons</h4>
+                        <p class="sub-header">
+                            Use the button classes on an <code>&lt;a&gt;</code>, <code>&lt;button&gt;</code>, or
+                            <code>&lt;input&gt;</code> element.
+                        </p>
+
+                        <div class="button-list">
+                            <button type="button" *ngFor="let button of buttonData"
+                                class="btn btn-{{ button.color }}">{{ button.name }}</button>
+                        </div>
+                    </div>
+                    <div class="col-xl-6 mt-xl-0 mt-3">
+                        <h4 class="header-title">Rounded Button</h4>
+                        <p class="sub-header">
+                            Add <code>.btn-rounded</code> to default button to get rounded corners.
+                        </p>
+                        <div class="button-list">
+                            <button type="button" *ngFor="let button of buttonData"
+                                class="btn btn-{{button.color}} btn-rounded">{{button.name}}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card-box">
+                <div class="row">
+                    <div class="col-xl-6">
+
+                        <h4 class="header-title">Outline Buttons</h4>
+                        <p class="sub-header">
+                            Use the button classes on an <code>&lt;a&gt;</code>, <code>&lt;button&gt;</code>, or
+                            <code>&lt;input&gt;</code> element.
+                        </p>
+
+                        <div class="button-list">
+                            <button type="button" *ngFor="let button of buttonData"
+                                class="btn btn-outline-{{button.color}}">{{button.name}}</button>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-6 mt-xl-0 mt-3">
+
+                        <h4 class="header-title">Outline Rounded Button</h4>
+                        <p class="sub-header">
+                            Add <code>.btn-rounded</code> to default button to get rounded corners.
+                        </p>
+
+                        <div class="button-list">
+                            <button type="button" *ngFor="let button of buttonData"
+                                class="btn btn-outline-{{button.color}} btn-rounded">{{button.name}}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card-box">
+                <div class="row">
+                    <div class="col-xl-6">
+                        <h4 class="header-title">Buttons Labels</h4>
+                        <p class="sub-header">
+                            Put <code>&lt;span&gt;</code> with class <code>.btn-label</code> and any <code>icon</code>
+                            inside it. If you want to
+                            put icon on right side then add class <code>.btn-label-right</code> in
+                            <code>&lt;span&gt;</code>
+                        </p>
+
+                        <div class="button-list">
+                            <button type="button" class="btn btn-success">
+                                <span class="btn-label"><i class="mdi mdi-check-all"></i></span>Success
+                            </button>
+                            <button type="button" class="btn btn-danger">
+                                <span class="btn-label"><i class="mdi mdi-close-circle-outline"></i></span>Danger
+                            </button>
+                            <button type="button" class="btn btn-info">
+                                <span class="btn-label"><i class="mdi mdi-alert-circle-outline"></i></span>Info
+                            </button>
+                            <button type="button" class="btn btn-warning">
+                                <span class="btn-label"><i class="mdi mdi-alert"></i></span>Warning
+                            </button>
+                        </div>
+                        <br />
+                        <div class="button-list">
+                            <button type="button" class="btn btn-success">
+                                Success<span class="btn-label-right"><i class="mdi mdi-check-all"></i></span>
+                            </button>
+                            <button type="button" class="btn btn-danger">
+                                Danger<span class="btn-label-right"><i class="mdi mdi-close-circle-outline"></i></span>
+                            </button>
+                            <button type="button" class="btn btn-info">
+                                Info<span class="btn-label-right"><i class="mdi mdi-alert-circle-outline"></i></span>
+                            </button>
+                            <button type="button" class="btn btn-warning">
+                                Warning<span class="btn-label-right"><i class="mdi mdi-alert"></i></span>
+                            </button>
+                        </div>
+                    </div> <!-- end col -->
+
+                    <div class="col-xl-6 mt-xl-0 mt-3">
+                        <h4 class="header-title">Outline Rounded Button</h4>
+                        <p class="sub-header">
+                            Add <code>.btn-rounded</code> to default button to get rounded corners.
+                        </p>
+
+                        <div class="button-list">
+                            <button type="button" class="btn btn-success btn-rounded">
+                                <span class="btn-label"><i class="mdi mdi-check-all"></i></span>Success
+                            </button>
+                            <button type="button" class="btn btn-danger btn-rounded">
+                                <span class="btn-label"><i class="mdi mdi-close-circle-outline"></i></span>Danger
+                            </button>
+                            <button type="button" class="btn btn-info btn-rounded">
+                                <span class="btn-label"><i class="mdi mdi-alert-circle-outline"></i></span>Info
+                            </button>
+                            <button type="button" class="btn btn-warning btn-rounded">
+                                <span class="btn-label"><i class="mdi mdi-alert"></i></span>Warning
+                            </button>
+                        </div>
+                        <br />
+                        <div class="button-list">
+                            <button type="button" class="btn btn-success btn-rounded">
+                                Success<span class="btn-label-right"><i class="mdi mdi-check-all"></i></span>
+                            </button>
+                            <button type="button" class="btn btn-danger btn-rounded">
+                                Danger<span class="btn-label-right"><i class="mdi mdi-close-circle-outline"></i></span>
+                            </button>
+                            <button type="button" class="btn btn-info btn-rounded">
+                                Info<span class="btn-label-right"><i class="mdi mdi-alert-circle-outline"></i></span>
+                            </button>
+                            <button type="button" class="btn btn-warning btn-rounded">
+                                Warning<span class="btn-label-right"><i class="mdi mdi-alert"></i></span>
+                            </button>
+                        </div>
+                    </div> <!-- end col -->
+                </div> <!-- end row -->
+            </div> <!-- end card-box-->
+        </div> <!-- end col -->
+    </div>
+    <!-- end row-->
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card-box">
+                <h4 class="header-title">Button Width</h4>
+                <p class="sub-header">
+                    Create buttons with minimum width by adding add <code>.width-xs</code>, <code>.width-sm</code>,
+                    <code>.width-md</code>, <code>.width-lg</code> or <code>.width-xl</code>.
+                </p>
+                <div class="button-list">
+                    <button type="button" class="btn btn-primary width-xs">Xs</button>
+                    <button type="button" class="btn btn-success width-sm">Small</button>
+                    <button type="button" class="btn btn-info width-md">Middle</button>
+                    <button type="button" class="btn btn-warning width-lg">Large</button>
+                    <button type="button" class="btn btn-danger width-xl">Extra Large</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card-box">
+                <h4 class="header-title">Button Sizes</h4>
+                <p class="sub-header">
+                    Add <code>.btn-lg</code>, <code>.btn-sm</code>, or <code>.btn-xs</code> for additional sizes.
+                </p>
+
+                <div class="button-list">
+                    <button class="btn btn-primary btn-lg">Large button</button>
+                    <button class="btn btn-danger">Normal button</button>
+                    <button class="btn btn-success btn-sm">Small button</button>
+                    <button type="button" class="btn btn-warning btn-xs">Btn Xs</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card-box">
+                <h4 class="header-title">Button Disabled</h4>
+                <p class="sub-header">
+                    Add the <code>disabled</code> attribute to <code>&lt;button&gt;</code> buttons.
+                </p>
+
+                <div class="button-list">
+                    <button class="btn btn-info disabled m-b-5">Info</button>
+                    <button class="btn btn-success disabled m-b-5">Purple</button>
+                    <button class="btn btn-pink disabled m-b-5">Pink</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card-box">
+                <h4 class="header-title">Icon Button</h4>
+                <p class="sub-header">
+                    Icon only button.
+                </p>
+
+                <div class="button-list">
+                    <button *ngFor="let button of iconData" class="btn btn-icon btn-{{button.color}}">
+                        <i class="{{button.name}}"></i> </button>
+                </div>
+                <br />
+                <div class="button-list">
+                    <button *ngFor="let button of iconButton" class="btn btn-{{button.color}}"> <i
+                            class="{{button.icon}} mr-1"></i>{{ button.name }}</button>
+                </div>
+
+                <h4 class="header-title mt-4">Block Button</h4>
+                <p class="sub-header">
+                    Create block level buttons,with by adding add <code>.btn-block</code>.
+                </p>
+                <div class="button-list">
+                    <button type="button" class="btn btn-block btn-lg btn-primary">Block
+                        Button</button>
+                    <button type="button" class="btn btn-block btn--md btn-pink">Block
+                        Button</button>
+                    <button type="button" class="btn btn-block btn-sm btn-success">Block
+                        Button</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card-box">
+                <h4 class="header-title">Button Group</h4>
+                <p class="text-muted font-13">
+                    Wrap a series of buttons with <code>.btn</code> in <code>.btn-group</code>.
+                </p>
+
+                <div class="btn-group mb-1">
+                    <div class="btn-group btn-group-toggle">
+                        <label class="btn btn-light" ngbButtonLabel>
+                            <input type="checkbox" ngbButton [(ngModel)]="model.left"> Left
+                        </label>
+                        <label class="btn btn-light" ngbButtonLabel>
+                            <input type="checkbox" ngbButton [(ngModel)]="model.middle"> Middle
+                        </label>
+                        <label class="btn btn-light" ngbButtonLabel>
+                            <input type="checkbox" ngbButton [(ngModel)]="model.right"> Right
+                        </label>
+                    </div>
+                </div>
+                <br>
+                <div class="btn-group mb-1">
+                    <div class="btn-group btn-group-toggle">
+                        <label class="btn btn-light" ngbButtonLabel>
+                            <input type="checkbox" ngbButton [(ngModel)]="btnmodel.first"> 1</label>
+                        <label class="btn btn-light" ngbButtonLabel>
+                            <input type="checkbox" ngbButton [(ngModel)]="btnmodel.second"> 2</label>
+                        <label class="btn btn-light" ngbButtonLabel>
+                            <input type="checkbox" ngbButton [(ngModel)]="btnmodel.third"> 3</label>
+                        <label class="btn btn-light" ngbButtonLabel>
+                            <input type="checkbox" ngbButton [(ngModel)]="btnmodel.forth"> 4</label>
+                    </div>
+                </div>
+                <br>
+                <div class="btn-group mb-1">
+                    <div class="btn-group btn-group-toggle">
+                        <label class="btn btn-light" ngbButtonLabel>
+                            <input type="checkbox" ngbButton [(ngModel)]="btngroup.first">1</label>
+                        <label class="btn btn-primary" ngbButtonLabel>
+                            <input type="checkbox" ngbButton [(ngModel)]="btngroup.second">2</label>
+                        <label class="btn btn-light" ngbButtonLabel>
+                            <input type="checkbox" ngbButton [(ngModel)]="btngroup.third">3</label>
+                        <div ngbDropdown>
+                            <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown"
+                                ngbDropdownToggle aria-expanded="false"> Dropdown <i
+                                    class="mdi mdi-chevron-down"></i></button>
+                            <div class="dropdown-menu" ngbDropdownMenu>
+                                <a class="dropdown-item" href="javascript: void(0)">Dropdown link</a>
+                                <a class="dropdown-item" href="javascript: void(0)">Dropdown link</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="btn-group-vertical mb-1">
+                            <button type="button" class="btn btn-light">Top</button>
+                            <button type="button" class="btn btn-light">Middle</button>
+                            <button type="button" class="btn btn-light">Bottom</button>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="btn-group-vertical mb-1" ngbDropdown>
+                            <button type="button" class="btn btn-light">Button 1</button>
+                            <button type="button" class="btn btn-light">Button 2</button>
+                            <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown"
+                                ngbDropdownToggle aria-expanded="false"> Button 3 <i
+                                    class="mdi mdi-chevron-down"></i></button>
+                            <div class="dropdown-menu" ngbDropdownMenu>
+                                <a class="dropdown-item" href="javascript: void(0)">Dropdown link</a>
+                                <a class="dropdown-item" href="javascript: void(0)">Dropdown link</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- Dropdown -->
+<ng-template #DropdownData let-button='button' let-index='index'>
+    <div ngbDropdown class="dropdown d-inline">
+        <button type="button" class="btn btn-{{button.color}} dropdown-toggle ml-1" id="btn={index}" ngbDropdownToggle>
+            Dropdown <i class="mdi mdi-chevron-down"></i></button>
+        <div class="dropdown-menu" ngbDropdownMenu aria-labelledby="btn={index}">
+            <a class="dropdown-item" href="javascript: void(0);">Dropdown link</a>
+            <a class="dropdown-item" href="javascript: void(0);">Dropdown link</a>
+        </div>
+    </div>
+</ng-template>
+
+<!-- Dropdown Up -->
+<ng-template #DropdownUp let-button='button' let-index='index'>
+    <div ngbDropdown placement="top-left" class="dropup d-inline">
+        <button type="button" class="btn btn-{{button.color}} dropdown-toggle ml-1" id="btn={index}" ngbDropdownToggle>
+            Dropup <i class="mdi mdi-chevron-up"></i></button>
+        <div class="dropdown-menu" ngbDropdownMenu aria-labelledby="btn={index}">
+            <a class="dropdown-item" href="javascript: void(0);">Dropdown link</a>
+            <a class="dropdown-item" href="javascript: void(0);">Dropdown link</a>
+        </div>
+    </div>
+</ng-template>

@@ -1,0 +1,94 @@
+<div class="container-fluid">
+  <app-page-title title="Chartjs" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+
+  <div class="row">
+    <div class="col-lg-6">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="header-title">Line Chart</h4>
+          <div class="mt-4 chartjs-chart">
+            <!-- Line Chart -->
+            <canvas baseChart height="350" [datasets]="lineAreaChart.datasets" [labels]="lineAreaChart.labels"
+              [options]="lineAreaChart.options" chartType="line">
+            </canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="header-title">Bar Chart</h4>
+
+          <div class="mt-4 chartjs-chart">
+            <!-- Bar Chart -->
+            <canvas baseChart [datasets]="lineBarChart.datasets" chartType="bar" [options]="lineBarChart.options"
+              height="350" [labels]="lineBarChart.labels">
+            </canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-6">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="header-title">Pie Chart</h4>
+          <div class="mt-4 chartjs-chart">
+            <!-- Line Chart -->
+            <canvas baseChart [datasets]="pieChart.datasets" chartType="pie" [options]="pieChart.options" height="350">
+            </canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="header-title">Donut Chart</h4>
+
+          <div class="mt-4">
+            <!-- Bar Chart -->
+            <canvas baseChart [datasets]="donutChart.datasets" chartType="doughnut" [options]="donutChart.options"
+              height="350">
+            </canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-6">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="header-title">Financial Report</h4>
+
+          <div class="mt-4 chartjs-chart">
+            <!-- Financial report Chart -->
+
+            <canvas baseChart [datasets]="reportChart.datasets" [labels]="reportChart.labels"
+              [options]="reportChart.options" chartType="line" height="160"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="header-title">Radar Chart</h4>
+
+          <div class="mt-4 chartjs-chart mb-4">
+            <!-- Radar Chart -->
+            <canvas baseChart [datasets]="radarChart.datasets" chartType="radar" [options]="radarChart.options"
+              height="360" [labels]="radarChart.labels">
+            </canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

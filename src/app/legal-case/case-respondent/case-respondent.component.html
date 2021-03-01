@@ -1,0 +1,40 @@
+<div class="container-fluid" *ngIf="!isLoading">
+  <h5 class="text-info mb-2">Respondent(s) :</h5>
+  <div class="row">
+    <div class="col-12 mb-3" *ngFor="let item of RespondentData; index as i">
+      <div class="text-info">{{ i + 1 }}</div>
+      <div class="border-bottom mb-3"></div>
+      <h4>
+        {{ item.Name }}
+      </h4>
+      <div>
+        Email : <a href="mailto:{{ item.Email }}">{{ item.Email }}</a>
+      </div>
+      <div>
+        Mobile Number : <a href="tel:{{ item.Mobile }}">{{ item.Mobile }}</a>
+      </div>
+    </div>
+  </div>
+  <h5 class="text-info mb-2">Advocate :</h5>
+  <div class="border-bottom mb-1"></div>
+  <div class="row">
+    <div class="col-12 mb-2">
+      <h4>
+        {{ LawyerData.LawyerName }}
+      </h4>
+      <h5>{{ LawyerData.Firm }}</h5>
+      <div>
+        Email :
+        <a href="mailto:{{ LawyerData.EmailId }}">{{ LawyerData.EmailId }}</a>
+      </div>
+      <div>
+        Mobile Number :
+        <a href="tel:{{ LawyerData.MobileNo }}">{{ LawyerData.MobileNo }}</a>
+      </div>
+      <div>Since: {{ LawyerData.CreatedAt | date: "MMM dd,yyyy" }}</div>
+    </div>
+  </div>
+</div>
+<div class="card-disabled" *ngIf="isLoading">
+  <div class="card-portlets-loader"></div>
+</div>

@@ -1,0 +1,130 @@
+<div class="container-fluid">
+  <app-page-title title="Kanban Board" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+
+  <div class="row">
+    <!-- Upcoming -->
+    <div class="col-lg-4">
+      <div class="card-box">
+        <ng-template [ngTemplateOutlet]="CardAction"></ng-template> <!-- dropdown -->
+
+        <h4 class="header-title">Upcoming</h4>
+        <p class="sub-header">
+          Your awesome text goes here. Your awesome text goes here.
+        </p>
+
+        <ul class="sortable-list taskList list-unstyled ui-sortable" id="upcoming" dndDropzone dndEffectAllowed="move"
+          (dndDrop)="onDrop($event, pendingTasks, 'pending')">
+          <li class="dndPlaceholder" dndPlaceholderRef></li>
+          <ng-container *ngFor="let task of pendingTasks">
+            <li [dndDraggable]="task" dndEffectAllowed="move" (dndMoved)="onDragged(task, pendingTasks)">
+              <ng-template [ngTemplateOutlet]="TaskContent" [ngTemplateOutletContext]="{task:task}"></ng-template>
+            </li>
+          </ng-container>
+        </ul>
+        <a href="javascript: void(0);" class="btn btn-primary btn-block mt-3"><i
+            class="mdi mdi-plus-circle"></i> Add New</a>
+      </div>
+    </div> <!-- end col -->
+    <!-- End Upcoming -->
+
+    <!-- Progress  -->
+    <div class="col-lg-4">
+      <div class="card-box">
+        <ng-template [ngTemplateOutlet]="CardAction"></ng-template> <!-- dropdown -->
+
+        <h4 class="header-title">In Progress</h4>
+        <p class="sub-header">
+          Your awesome text goes here.
+        </p>
+
+        <ul class="sortable-list taskList list-unstyled ui-sortable" id="inprogress" dndDropzone dndEffectAllowed="move"
+          (dndDrop)="onDrop($event, inprogressTasks, 'inprogress')">
+          <li class="dndPlaceholder" dndPlaceholderRef></li>
+
+          <ng-container *ngFor="let task of inprogressTasks">
+            <li class="task-medium" [dndDraggable]="task" dndEffectAllowed="move"
+              (dndMoved)="onDragged(task, inprogressTasks)">
+              <ng-template [ngTemplateOutlet]="TaskContent" [ngTemplateOutletContext]="{task:task}"></ng-template>
+            </li>
+          </ng-container>
+        </ul>
+
+        <a href="javascript: void(0);" class="btn btn-primary btn-block mt-3"><i
+            class="mdi mdi-plus-circle"></i> Add New</a>
+      </div> <!-- end card-box -->
+    </div> <!-- end col -->
+    <!-- End progress -->
+
+    <!-- Completed -->
+    <div class="col-lg-4">
+      <div class="card-box">
+        <ng-template [ngTemplateOutlet]="CardAction"></ng-template> <!-- dropdown -->
+
+        <h4 class="header-title">Completed</h4>
+        <p class="sub-header">
+          Your awesome text goes here. Your awesome text goes here.
+        </p>
+
+        <ul class="sortable-list taskList list-unstyled ui-sortable" id="completed" dndDropzone dndEffectAllowed="move"
+          (dndDrop)="onDrop($event, completedTasks, 'completed')">
+          <li class="dndPlaceholder" dndPlaceholderRef></li>
+          <ng-container *ngFor="let task of completedTasks">
+            <li class="task-medium" [dndDraggable]="task" dndEffectAllowed="move"
+              (dndMoved)="onDragged(task, completedTasks)">
+              <ng-template [ngTemplateOutlet]="TaskContent" [ngTemplateOutletContext]="{task:task}"></ng-template>
+            </li>
+          </ng-container>
+        </ul>
+        <a href="javascript: void(0);" class="btn btn-primary btn-block mt-3"><i
+            class="mdi mdi-plus-circle"></i> Add New</a>
+      </div> <!-- end card-box -->
+    </div> <!-- end col -->
+    <!-- End Completed -->
+  </div>
+
+</div>
+
+<!-- Card Action Dropdown -->
+<ng-template #CardAction>
+  <div class="dropdown float-right" ngbDropdown>
+    <a href="javascript: void(0);" class="dropdown-toggle arrow-none" data-toggle="dropdown" aria-expanded="false"
+      ngbDropdownToggle>
+      <i class="mdi mdi-dots-vertical m-0 text-muted h3"></i>
+    </a>
+    <div class="dropdown-menu dropdown-menu-right" ngbDropdownMenu>
+      <a class="dropdown-item" href="javascript:void(0);">Edit</a>
+      <a class="dropdown-item" href="javascript:void(0);">Delete</a>
+      <a class="dropdown-item" href="javascript:void(0);">Add Members</a>
+      <a class="dropdown-item" href="javascript:void(0);">Add Due Date</a>
+    </div>
+  </div> <!-- end dropdown -->
+</ng-template>
+
+<!-- Task  -->
+<ng-template #TaskContent let-task='task'>
+  <span class="badge bg-soft-danger text-danger float-right" [ngClass]=" 
+  {
+    'bg-soft-success text-success': task.task === 'low',
+    'bg-soft-danger text-danger': task.task === 'high',
+    'bg-soft-warning text-warning': task.task === 'medium' 
+  }"> {{ task.task | titlecase}}</span>
+  <h5 class="mt-0"><a href="javascript: void(0);" class="text-dark">{{ task.title }}</a></h5>
+  <div class="checkbox checkbox-blue mb-2 checkbox-single float-right">
+    <input type="checkbox">
+    <label></label>
+  </div>
+  <p>{{ task.description }}</p>
+  <div class="clearfix"></div>
+  <div class="row">
+    <div class="col">
+      <p class="font-13 mt-2 mb-0"><i class="mdi mdi-calendar"></i> {{ task.date }}</p>
+    </div>
+    <div class="col-auto">
+      <a href="javascript: void(0);" class="text-muted">
+        <img src="{{ task.user[0] }}" alt="task-user" class="avatar-sm img-thumbnail rounded-circle">
+        <img src="{{ task.user[1] }}" alt="task-user" class="avatar-sm img-thumbnail rounded-circle"
+          *ngIf="task.user[1]">
+      </a>
+    </div>
+  </div>
+</ng-template>

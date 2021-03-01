@@ -1,0 +1,124 @@
+<div class="container-fluid">
+  <app-page-title title="Gallery" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+
+  <ngb-tabset type="pills" class="filter-menu" justify="center">
+    <ngb-tab title="All">
+      <ng-template ngbTabContent>
+        <div class="row">
+          <div class="col-sm-6 col-xl-3 filter-item" *ngFor="let data of galleryData; let i=index">
+            <div class="gal-box">
+              <a title="Screenshot-1">
+                <img [src]="data.thumb" class="img-fluid" alt="work-thumbnail" (click)="open(i)">
+              </a>
+              <div class="gall-info">
+                <h4 class="font-16 mt-0">{{data.title}}</h4>
+                <a href="javascript: void(0);">
+                  <img src="{{data.userimage}}" alt="user-img" class="rounded-circle" height="24" />
+                  <span class="text-muted ml-1">{{data.name}}</span>
+                </a>
+                <a href="javascript: void(0);" class="gal-like-btn"><i class="mdi mdi-heart-outline text-muted"
+                    [ngClass]="{'text-danger': data.text === 'danger',
+                                'text-muted': data.text !== 'danger'}"></i></a>
+              </div> <!-- gallery info -->
+            </div> <!-- end gal-box -->
+          </div> <!-- end col -->
+        </div>
+      </ng-template>
+    </ngb-tab>
+
+    <ngb-tab title="Web Design">
+      <ng-template ngbTabContent>
+        <div class="row">
+          <div class="col-sm-6 col-xl-3 filter-item" *ngFor="let data of webdesign; let i=index">
+            <div class="gal-box">
+              <a title="Screenshot-1">
+                <img [src]="data.thumb" class="img-fluid" alt="work-thumbnail" (click)="open(i)">
+              </a>
+              <div class="gall-info">
+                <h4 class="font-16 mt-0">{{data.title}}</h4>
+                <a href="javascript: void(0);">
+                  <img src="{{data.userimage}}" alt="user-img" class="rounded-circle" height="24" />
+                  <span class="text-muted ml-1">{{data.name}}</span>
+                </a>
+                <a href="javascript: void(0);" class="gal-like-btn"><i class="mdi mdi-heart-outline text-muted"
+                  [ngClass]="{'text-danger': data.text === 'danger',
+                  'text-muted': data.text !== 'danger'}"></i></a>
+              </div> <!-- gallery info -->
+            </div> <!-- end gal-box -->
+          </div> <!-- end col -->
+        </div>
+      </ng-template>
+    </ngb-tab>
+
+    <ngb-tab title="Graphic Design">
+      <ng-template ngbTabContent>
+        <div class="row">
+          <div class="col-sm-6 col-xl-3 filter-item" *ngFor="let data of graphicdesign; let i=index">
+            <div class="gal-box">
+              <a title="Screenshot-1">
+                <img [src]="data.thumb" class="img-fluid" alt="work-thumbnail" (click)="open(i)">
+              </a>
+              <div class="gall-info">
+                <h4 class="font-16 mt-0">{{data.title}}</h4>
+                <a href="javascript: void(0);">
+                  <img src="{{data.userimage}}" alt="user-img" class="rounded-circle" height="24" />
+                  <span class="text-muted ml-1">{{data.name}}</span>
+                </a>
+                <a href="javascript: void(0);" class="gal-like-btn"><i class="mdi mdi-heart-outline text-muted"
+                  [ngClass]="{'text-danger': data.text === 'danger',
+                  'text-muted': data.text !== 'danger'}"></i></a>
+              </div> <!-- gallery info -->
+            </div> <!-- end gal-box -->
+          </div> <!-- end col -->
+        </div>
+      </ng-template>
+    </ngb-tab>
+
+    <ngb-tab title="Illustrator">
+      <ng-template ngbTabContent>
+        <div class="row">
+          <div class="col-sm-6 col-xl-3 filter-item" *ngFor="let data of illustrator; let i=index">
+            <div class="gal-box">
+              <a title="Screenshot-1">
+                <img [src]="data.thumb" class="img-fluid" alt="work-thumbnail" (click)="open(i)">
+              </a>
+              <div class="gall-info">
+                <h4 class="font-16 mt-0">{{data.title}}</h4>
+                <a href="javascript: void(0);">
+                  <img src="{{data.userimage}}" alt="user-img" class="rounded-circle" height="24" />
+                  <span class="text-muted ml-1">{{data.name}}</span>
+                </a>
+                <a href="javascript: void(0);" class="gal-like-btn"><i class="mdi mdi-heart-outline text-muted"
+                  [ngClass]="{'text-danger': data.text === 'danger',
+                  'text-muted': data.text !== 'danger'}"></i></a>
+              </div> <!-- gallery info -->
+            </div> <!-- end gal-box -->
+          </div> <!-- end col -->
+        </div>
+      </ng-template>
+    </ngb-tab>
+
+    <ngb-tab title="Photography">
+      <ng-template ngbTabContent>
+        <div class="row">
+          <div class="col-sm-6 col-xl-3 filter-item" *ngFor="let data of photography; let i=index">
+            <div class="gal-box">
+              <a title="Screenshot-1">
+                <img [src]="data.thumb" class="img-fluid" alt="work-thumbnail" (click)="open(i)">
+              </a>
+              <div class="gall-info">
+                <h4 class="font-16 mt-0">{{data.title}}</h4>
+                <a href="javascript: void(0);">
+                  <img src="{{data.userimage}}" alt="user-img" class="rounded-circle" height="24" />
+                  <span class="text-muted ml-1">{{data.name}}</span>
+                </a>
+                <a href="javascript: void(0);" class="gal-like-btn"><i class="mdi mdi-heart-outline text-muted"
+                    [ngClass]="{'text-danger': data.text === 'danger'}"></i></a>
+              </div> <!-- gallery info -->
+            </div> <!-- end gal-box -->
+          </div> <!-- end col -->
+        </div>
+      </ng-template>
+    </ngb-tab>
+  </ngb-tabset>
+</div>

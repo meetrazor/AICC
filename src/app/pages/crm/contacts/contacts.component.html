@@ -1,0 +1,178 @@
+<div class="container-fluid">
+  <app-page-title title="Contacts" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+
+  <div class="row">
+    <div class="col-xl-8">
+      <div class="card">
+        <div class="card-body">
+          <div class="row mb-2">
+            <div class="col-sm-4">
+              <form class="form-inline">
+                <div class="form-group mb-2">
+                  <label class="sr-only">Search</label>
+                  <input class="form-control" name="search" placeholder="Search..." [(ngModel)]="term">
+                </div>
+              </form>
+            </div>
+            <div class="col-sm-8">
+              <div class="text-sm-right">
+                <button type="button" class="btn btn-success mb-2 mr-1"><i
+                    class="mdi mdi-settings"></i></button>
+                <a href="javscript: void(0);" class="btn btn-danger mb-2"
+                  (click)="openModal(content)"><i class="mdi mdi-plus-circle mr-1"></i> Add
+                  Contact</a>
+              </div>
+            </div><!-- end col-->
+          </div>
+
+          <div class="table-responsive">
+            <table class="table table-centered table-hover mb-0">
+              <thead>
+                <tr>
+                  <th>Basic Info</th>
+                  <th>Phone</th>
+                  <th>Email</th>
+                  <th>Company</th>
+                  <th>Created Date</th>
+                  <th style="width: 82px;">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let contact of paginatedContactData |filter:term">
+                  <td class="table-user">
+                    <img src="{{ contact.image }}" alt="table-user" class="mr-2 rounded-circle">
+                    <a href="javascript:void(0);" class="text-body font-weight-semibold">
+                      {{contact.name}}
+                    </a>
+                  </td>
+                  <td>
+                    {{contact.phone}}
+                  </td>
+                  <td>
+                    {{contact.email}}
+                  </td>
+                  <td>
+                    {{contact.location}}
+                  </td>
+                  <td>
+                    {{contact.date}}
+                  </td>
+                  <td>
+                    <a href="javascript:void(0);" class="action-icon"> <i class="mdi mdi-square-edit-outline"></i></a>
+                    <a href="javascript:void(0);" class="action-icon"> <i class="mdi mdi-delete"></i></a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <ul class="pagination pagination-rounded justify-content-end my-2">
+            <ngb-pagination (pageChange)="onPageChange($event)" [pageSize]="pageSize" [(page)]="page"
+              [collectionSize]="totalSize"></ngb-pagination>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-4">
+      <div class="card-box">
+        <div class="media mb-3">
+          <img class="d-flex mr-3 rounded-circle avatar-lg" src="assets/images/users/user-8.jpg"
+            alt="Generic placeholder image">
+          <div class="media-body">
+            <h4 class="mt-0 mb-1">Jade M. Walker</h4>
+            <p class="text-muted">Branch manager</p>
+            <p class="text-muted"><i class="mdi mdi-office-building"></i> Vine Corporation</p>
+
+            <a href="javascript: void(0);" class="btn- btn-xs btn-info">Send Email</a>
+            <a href="javascript: void(0);" class="btn- btn-xs btn-secondary ml-1">Call</a>
+            <a href="javascript: void(0);" class="btn- btn-xs btn-secondary ml-1">Edit</a>
+          </div>
+        </div>
+
+        <h5 class="mb-3 mt-4 text-uppercase bg-light p-2"><i class="mdi mdi-account-circle mr-1"></i> Personal
+          Information</h5>
+        <div class="">
+          <h4 class="font-13 text-muted text-uppercase">About Me :</h4>
+          <p class="mb-3">
+            Hi I'm Johnathn Deo,has been the industry's standard dummy text ever since the
+            1500s, when an unknown printer took a galley of type.
+          </p>
+
+          <h4 class="font-13 text-muted text-uppercase mb-1">Date of Birth :</h4>
+          <p class="mb-3"> March 23, 1984 (34 Years)</p>
+
+          <h4 class="font-13 text-muted text-uppercase mb-1">Company :</h4>
+          <p class="mb-3">Vine Corporation</p>
+
+          <h4 class="font-13 text-muted text-uppercase mb-1">Added :</h4>
+          <p class="mb-3"> April 22, 2016</p>
+
+          <h4 class="font-13 text-muted text-uppercase mb-1">Updated :</h4>
+          <p class="mb-0"> Dec 13, 2017</p>
+
+        </div>
+
+      </div> <!-- end card-box-->
+    </div>
+  </div>
+
+</div>
+
+<!-- Contacts model  -->
+<ng-template #content role="document" let-modal="close">
+  <div class="modal-header bg-dark">
+    <h4 class="modal-title text-white">Add Contacts</h4>
+    <button type="button" class="close text-white" aria-label="Close" (click)="modal('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body p-3">
+    <div class="text-left">
+      <form (ngSubmit)="saveData()" [formGroup]="validationform">
+
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" class="form-control" id="name" placeholder="Enter name" formControlName="name"
+            [ngClass]="{'is-invalid': submitted && form.name.errors}">
+          <div *ngIf="submitted && form.name.errors" class="invalid-feedback">
+            <span *ngIf="form.name.errors.required">This value is required.</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email address</label>
+          <input class="form-control" id="email" placeholder="Enter email" formControlName="email"
+            [ngClass]="{'is-invalid': submitted && form.email.errors}">
+          <div *ngIf="submitted && form.email.errors" class="invalid-feedback">
+            <span *ngIf="form.email.errors.required">This value is required.</span>
+            <span *ngIf="form.email.errors.pattern">Please enter valid email.</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Phone </label>
+          <input type="text" class="form-control" placeholder="Enter phone number" formControlName="phone"
+            [ngClass]="{'is-invalid': submitted && form.phone.errors}" minlength="10">
+          <div *ngIf="submitted && form.phone.errors" class="invalid-feedback">
+            <span *ngIf="form.phone.errors.required">This value is required.</span>
+            <span *ngIf="form.phone.errors.minlength">Phone number must be 10 characters.</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Location </label>
+          <input class="form-control" placeholder="Enter location" formControlName="location"
+            [ngClass]="{'is-invalid': submitted && form.location.errors}">
+          <div *ngIf="submitted && form.location.errors" class="invalid-feedback">
+            <span *ngIf="form.location.errors.required">This value is required.</span>
+          </div>
+        </div>
+
+        <div class="text-right">
+          <button type="submit" class="btn btn-success">Save</button>
+          <button type="button" class="btn btn-danger ml-1"
+            (click)="modal('close click')">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-template>

@@ -1,0 +1,100 @@
+<div class="container-fluid" *ngIf="isLoaded">
+
+  <div class="row">
+    <div class="col-12">
+      <div class="page-title-box">
+        <h4 class="page-title">AICC Lawyers</h4>
+      </div>
+    </div>
+  </div>
+  <!-- end page title -->
+ 
+<div class="row" >
+  <div class="col-12">
+    <div class="col-12" *ngIf="!loading">
+     
+     
+       
+            <table width=50%>
+              <tr>
+                <td colspan="2">
+                  <div class="border-bottom">
+                <h5 class="text-info">Lawyer</h5>
+            </div>
+              </td>
+              </tr>
+              <tr><td>Lawyer Name</td><td>{{ data.LawyerName | titlecase  }}</tr>
+              <tr><td>Since</td><td>{{ data.RecordDate | date }}</td></tr>
+              <tr><td>Firm</td><td>{{ data.Firm | titlecase  }}</td></tr>
+              <tr>
+                <td colspan="2">
+        <div class="border-bottom">
+          <h5 class="text-info">Location</h5>
+        </div>
+
+      </td>
+    </tr>
+     
+          <tr><td>Address</td><td>{{ data.Address | titlecase  }}</td></tr>
+          <tr><td>City</td><td>{{ data.City | titlecase }}</td></tr>
+          <tr><td>PinCode</td><td>{{ data.PinCode   }}</td></tr>
+      
+          <tr>
+            <td colspan="2">
+        <div class="border-bottom">
+          <h5 class="text-info">Contact</h5>
+        </div>
+      </td>
+    </tr>
+
+        <tr>  <td>MobileNo:</td><td>{{ data.MobileNo }}</td>    </tr>
+        <tr>  <td>EmailId:</td><td>{{ data.EmailId }}</td>    </tr>
+        <tr>  <td>LandlineNo:</td><td>{{ data.LandlineNo }}</td>    </tr>
+        <tr>  <td>Fax:</td><td>{{ data.Fax }}</td>    </tr>
+
+        <tr>
+          <td colspan="2">
+        <div class="border-bottom">
+          <h5 class="text-info">Status</h5>
+        </div>
+      </td>
+      </tr>
+        <tr>  <td>IsActive:</td><td>{{ data.IsActive }}</td></tr>
+        
+        <tr>
+          <td colspan="2">
+        <div class="border-bottom">
+          <h5 class="text-info">Other Details</h5>
+        </div>
+      </td>
+    </tr>
+        <tr>  <td>Village:</td><td>{{ Village | titlecase }}</td>    </tr>
+        <tr>  <td>Taluka:</td><td>{{ Taluka | titlecase }}</td>    </tr>
+        <tr>  <td>District:</td><td>{{ District | titlecase }}</td>    </tr>
+        <tr>  <td>State:</td><td> Gujarat </td>    </tr>
+       </table>
+   
+    </div>
+    <div class="card-disabled" *ngIf="!isLoaded">
+      <div class="card-portlets-loader"></div>
+    </div>
+    
+  </div>
+</div>
+<br>
+<div class="row">
+  <div class="col-sm-1 mb-1">
+    <button
+      class="btn btn-warning waves-effect waves-light btn-block"
+      outline
+      type="button"
+      (click)="GoBack()"
+    >
+     Go Back
+    </button>
+  </div>
+</div>
+
+ 
+      
+</div>

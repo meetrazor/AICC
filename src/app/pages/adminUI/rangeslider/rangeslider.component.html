@@ -1,0 +1,17 @@
+<div class="container-fluid">
+  <app-page-title title="Range Slider" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+
+  <!-- Row -->
+  <div class="row">
+    <div class="col-md-6" *ngFor="let slider of sliderData">
+      <div class="card-box">
+        <h5 class="header-title mb-3">{{slider.title}}</h5>
+        <!-- slider -->
+        <ng5-slider [(value)]="slider.default" [options]="slider.option" [(highValue)]="slider.maxValue">
+        </ng5-slider>
+        <!-- End slider -->
+      </div>
+    </div>
+  </div>
+  <!-- End Row -->
+</div>

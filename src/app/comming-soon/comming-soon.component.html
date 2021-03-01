@@ -1,0 +1,23 @@
+<app-page-title
+  title="Comming Soon"
+  [breadcrumbItems]="breadCrumbItems"
+></app-page-title>
+
+<div
+  style="
+    background-image: url(/assets/images/count-down.jpg);
+    height: 100vh;
+    background-position: center;
+    background-size: cover;
+    padding-bottom: 0;
+  "
+>
+  <div class="middle">
+    <h1>COMING SOON</h1>
+    <hr />
+    <h3>
+      {{ days }} Days {{ hours }} Hours {{ minutes }} Minutes
+      {{ seconds }} Seconds
+    </h3>
+  </div>
+</div>

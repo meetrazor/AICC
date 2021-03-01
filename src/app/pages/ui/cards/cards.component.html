@@ -1,0 +1,358 @@
+<div class="container-fluid">
+    <app-page-title title="Cards" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+
+    <div class="row">
+        <div class="col-md-6 col-xl-3" *ngFor="let carddata of cardData">
+
+            <!-- Simple card -->
+            <div class="card">
+                <img class="card-img-top img-fluid" src="{{carddata.image}}" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title" *ngIf="carddata.title">Card title</h5>
+                    <p class="card-text">{{carddata.text}}</p>
+                    <a href="javascript: void(0);" class="btn btn-primary" *ngIf="carddata.button">Button</a>
+                </div>
+                <ul class="list-group list-group-flush" *ngIf="carddata.list">
+                    <li class="list-group-item">{{carddata.list[0]}}</li>
+                    <li class="list-group-item">{{carddata.list[1]}}</li>
+                </ul>
+                <div class="card-body" *ngIf="carddata.link">
+                    <a href="javascript: void(0);" class="card-link">{{carddata.link[0]}}</a>
+                    <a href="javascript: void(0);" class="card-link">{{carddata.link[1]}}</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-xl-3">
+
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <h6 class="card-subtitle text-muted">Support card subtitle</h6>
+                </div>
+                <img class="img-fluid" src="assets/images/small/img-4.jpg" alt="Card image cap">
+                <div class="card-body">
+                    <p class="card-text">Some quick example text to build on the card title and make
+                        up the bulk of the card's content.</p>
+                    <a href="javascript: void(0);" class="card-link">Card link</a>
+                    <a href="javascript: void(0);" class="card-link">Another link</a>
+                </div>
+            </div>
+
+        </div><!-- end col -->
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6" *ngFor="let data of card | slice:0:2">
+            <div class="card card-body">
+                <h4 class="card-title">{{data.title}}</h4>
+                <p class="card-text">{{data.text}}</p>
+                <a href="javascript: void(0);" class="btn btn-primary">Go somewhere</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-4" *ngFor="let data of card">
+            <div class="card card-body text-{{data.align}}">
+                <h4 class="card-title">{{data.title}}</h4>
+                <p class="card-text">{{data.text}}</p>
+                <a href="javascript: void(0);" class="btn btn-primary">Go somewhere</a>
+            </div>
+        </div>
+    </div>
+    <!-- Row-->
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <h6 class="card-header">Featured</h6>
+                <div class="card-body">
+                    <h4 class="card-title">Special title treatment</h4>
+                    <p class="card-text">With supporting text below as a natural lead-in to
+                        additional content.</p>
+                    <a href="javascript: void(0);" class="btn btn-primary">Go somewhere</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    Quote
+                </div>
+                <div class="card-body">
+                    <blockquote class="card-bodyquote">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere
+                            erat a ante.</p>
+                        <footer class="blockquote-footer text-muted">Someone famous in <cite title="Source Title">Source
+                                Title</cite>
+                        </footer>
+                    </blockquote>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card text-xs-center">
+                <div class="card-header">
+                    Featured
+                </div>
+                <div class="card-body">
+                    <p class="card-text">With supporting text below as a natural lead-in to
+                        additional content. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                </div>
+                <div class="card-footer text-muted">
+                    2 days ago
+                </div>
+            </div> <!-- end card-box-->
+        </div> <!-- end col -->
+    </div>
+    <!--End Row-->
+
+    <!--Row-->
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <img class="card-img-top img-fluid" src="assets/images/small/img-5.jpg" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">This is a wider card with supporting text below as a
+                        natural lead-in to additional content. This content is a little bit
+                        longer.</p>
+                    <p class="card-text">
+                        <small class="text-muted">Last updated 3 mins ago</small>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">This is a wider card with supporting text below as a
+                        natural lead-in to additional content. This content is a little bit
+                        longer.</p>
+                    <p class="card-text">
+                        <small class="text-muted">Last updated 3 mins ago</small>
+                    </p>
+                </div>
+                <img class="card-img-bottom img-fluid" src="assets/images/small/img-6.jpg" alt="Card image cap">
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card text-white">
+                <img class="card-img img-fluid" src="assets/images/small/img-7.jpg" alt="Card image">
+                <div class="card-img-overlay">
+                    <h5 class="card-title text-white">Card title</h5>
+                    <p class="card-text">This is a wider card with supporting text below as a
+                        natural lead-in to additional content. This content is a little bit
+                        longer.</p>
+                    <p class="card-text">
+                        <small class="">Last updated 3 mins ago</small>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--End row-->
+    <h4 class="mt-2 mb-3">Background variants</h4>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card bg-secondary text-white">
+                <div class="card-body">
+                    <h5 class="card-title text-white">Special title treatment</h5>
+                    <p class="card-text">With supporting text below as a natural lead-in to
+                        additional content.</p>
+                    <a href="javascript: void(0);" class="btn btn-light btn-sm waves-effect">Button</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4" *ngFor="let cardcolor of cardColor">
+            <div class="card text-white bg-{{cardcolor.color}}">
+                <div class="card-body">
+                    <blockquote class="card-bodyquote">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere
+                            erat a ante.</p>
+                        <footer>Someone famous in <cite title="Source Title">Source Title</cite>
+                        </footer>
+                    </blockquote>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Groups section -->
+    <div class="row">
+        <div class="col-12">
+            <h4 class="mt-2 mb-3">Card Group</h4>
+            <div class="card-group">
+                <div class="card" *ngFor="let cardgroup of cardGroup">
+                    <img class="card-img-top img-fluid" src="{{cardgroup.image}}" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">{{cardgroup.title}}</h5>
+                        <p class="card-text">{{cardgroup.text}}</p>
+                        <p class="card-text">
+                            <small class="text-muted">{{cardgroup.status}}</small>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Groups section -->
+
+    <!-- Decks section -->
+    <div class="row">
+        <div class="col-12">
+            <h4 class="mt-4 mb-3">Decks</h4>
+            <div class="card-deck-wrapper">
+                <div class="card-deck">
+                    <div class="card mb-4" *ngFor="let cardgroup of cardGroup">
+                        <img class="card-img-top img-fluid" src="{{cardgroup.image}}" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">{{cardgroup.title}}</h5>
+                            <p class="card-text">{{cardgroup.text}}</p>
+                            <p class="card-text">
+                                <small class="text-muted">{{cardgroup.status}}</small>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!-- End Decks section-->
+
+    <!--Column section-->
+    <div class="row">
+        <div class="col-12">
+            <h4 class="mt-0 mb-3">Columns</h4>
+            <div class="card-columns">
+                <div class="card">
+                    <img class="card-img-top img-fluid" src="assets/images/small/img-7.jpg" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title that wraps to a new line</h5>
+                        <p class="card-text">This is a longer card with supporting text below as a
+                            natural lead-in to additional content. This content is a little bit
+                            longer.</p>
+                    </div>
+                </div>
+                <div class="card card-body">
+                    <blockquote class="card-bodyquote mb-0">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere
+                            erat a ante.</p>
+                        <footer class="blockquote-footer text-muted">Someone famous in <cite title="Source Title">Source
+                                Title</cite></footer>
+                    </blockquote>
+                </div>
+                <div class="card">
+                    <img class="card-img-top img-fluid" src="assets/images/small/img-1.jpg" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">This card has supporting text below as a natural
+                            lead-in to additional content.</p>
+                        <p class="card-text">
+                            <small class="text-muted">Last updated 3 mins ago</small>
+                        </p>
+                    </div>
+                </div>
+                <div class="card card-body">
+                    <blockquote class="card-bodyquote mb-0 text-center">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere
+                            erat.</p>
+                        <footer class="blockquote-footer text-muted">
+                            Someone famous in <cite title="Source Title">Source Title</cite>
+                        </footer>
+                    </blockquote>
+                </div>
+                <div class="card card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">This card has supporting text below as a natural lead-in to
+                        additional content.</p>
+                    <p class="card-text">
+                        <small class="text-muted">Last updated 3 mins ago</small>
+                    </p>
+                </div>
+                <div class="card">
+                    <img class="card-img img-fluid" src="assets/images/small/img-2.jpg" alt="Card image cap">
+                </div>
+                <div class="card card-body text-right">
+                    <blockquote class="card-bodyquote mb-0">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere
+                            erat a ante.</p>
+                        <footer class="blockquote-footer text-muted">
+                            Someone famous in <cite title="Source Title">Source Title</cite>
+                        </footer>
+                    </blockquote>
+                </div>
+                <div class="card card-body">
+                    <h5 class="card-title">Card title</h5>
+
+                    <p class="card-text">This is a wider card with supporting text below as a
+                        natural lead-in to additional content. This card has even longer content
+                        than the first to show that equal height action.</p>
+                    <p class="card-text">
+                        <small class="text-muted">Last updated 3 mins ago</small>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div><!-- End Column Section -->
+
+    <!-- Navigation -->
+    <div class="row">
+        <div class="col-12">
+            <h4 class="mt-2">Navigation</h4>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card text-center">
+                        <div class="card-header">
+                            <ul class="nav nav-tabs card-header-tabs">
+                                <li class="nav-item">
+                                    <a class="nav-link active" href="javascript: void(0)">Active</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="javascript: void(0)">Link</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link disabled" href="javascript: void(0)">Disabled</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Special title treatment</h5>
+                            <p class="card-text">With supporting text below as a natural lead-in to additional content.
+                            </p>
+                            <a href="javascript: void(0)" class="btn btn-primary">Go somewhere</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card text-center">
+                        <div class="card-header">
+                            <ul class="nav nav-pills card-header-pills">
+                                <li class="nav-item">
+                                    <a class="nav-link active" href="javascript: void(0)">Active</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="javascript: void(0)">Link</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link disabled" href="javascript: void(0)">Disabled</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Special title treatment</h5>
+                            <p class="card-text">With supporting text below as a natural lead-in to additional content.
+                            </p>
+                            <a href="javascript: void(0)" class="btn btn-primary">Go somewhere</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!-- End Navigation -->
+
+</div>

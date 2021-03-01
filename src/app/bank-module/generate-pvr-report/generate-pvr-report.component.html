@@ -1,0 +1,351 @@
+<div class="">
+  <app-page-title
+    title="Generate PVR"
+    [breadcrumbItems]="breadCrumbItems"
+  ></app-page-title>
+  <kendo-pdf-export #pdf margin="2cm" [repeatHeaders]="repeatHeaders" [scale]="1" [landscape]="false"
+  [keepTogether]="keepTogether">
+  <ng-template kendoPDFTemplate let-pageNum="pageNum" let-totalPages="totalPages">
+    <div class="pageNum">
+      Page {{ pageNum }} of {{ totalPages }}
+    </div>
+    <div class="pageDate">
+      Date: {{ currentDate | date:'dd/MM/yyyy' }}
+    </div>
+  </ng-template>
+
+
+  <div class="container">
+    <div class="form-horizontal" role="form" style="border:2px solid #000;">
+      <div class="col-lg-6">
+        <img src="../assets/PVR/logo_3.png" alt="" />
+
+        <div
+          style="float:left; width:100%; font-size:16px; font-family: 'RobotoCondensed-Regular'; color:#000; padding-bottom:5px; margin-top:10px;">
+          <b>Branch Code:</b> XXXXX
+        </div>
+        <div
+          style="float:left; width:100%; font-size:16px; font-family: 'RobotoCondensed-Regular'; color:#000; font-weight:bold;">
+          LAP APPLICATION ID: <span style="color:#005baa;">{{ PVRData.AppID }}</span></div>
+      </div>
+
+
+      <div class="col-lg-6 text-left">
+        <div
+          style="background:#ae1b1f; font-family: 'RobotoCondensed-Bold'; width:100%; float:right; color:#fff; border-bottom:3px solid #000; font-size:30px; padding:15px;">
+          Property Verification</div>
+        <div
+          style="float:left; width:100%; font-size:16px; font-family: 'RobotoCondensed-Regular'; color:#000; padding-bottom:5px; margin-top:10px;">
+          Request ID : {{ PVRData.AppID }} Date: {{ today | date:'medium'}}</div>
+        <div
+          style="float:left; width:100%; font-size:16px; font-family: 'RobotoCondensed-Regular'; color:#000; font-weight:bold;">
+          REPORTED: {{ PVRData.CreatedAt | date:'medium' }} </div>
+
+      </div>
+
+      <div class="col-lg-12 text-center"
+        style="margin-top:25px; margin-bottom:25px; font-size:24px; font-family: 'RobotoCondensed-Regular'; font-weight:bold;">
+        Certified Pre-Screen Report for LAP</div>
+
+
+      <div class="col-lg-12">
+        <div style="float:left; width:100%; border-bottom:1px solid #bcbec0;">
+
+          <div
+            style="width:400px; float:left; padding:10px; background:#e2e3e4; font-size:20px; color:#000; font-family: 'RobotoCondensed-Regular'; font-weight:bold;">
+            Property Verification Report Summary</div>
+
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div style="float:left; width:100%; padding:15px;">
+          <span
+            style="float:left; width:100%; font-size:20px; color:#939598; font-family: 'RobotoCondensed-Regular'; font-weight:bold; margin-bottom:5px;">
+            Borrower’s Name:</span>
+          <span
+            style="float:left; width:100%; font-size:20px; color:#939598; font-family: 'RobotoCondensed-Regular'; font-weight:bold; margin-bottom:5px; color:#000;">
+            {{ PVRData.FirstName + ' ' + PVRData.LastName}}</span>
+          <!-- <span
+            style="float:left; width:100%; font-size:20px; color:#939598; font-family: 'RobotoCondensed-Regular'; font-weight:bold; margin-bottom:5px;">
+            and</span> -->
+          <!-- <span
+            style="float:left; width:100%; font-size:20px; color:#939598; font-family: 'RobotoCondensed-Regular'; font-weight:bold; margin-bottom:5px; color:#000;">
+            Dineshbhai Jivrajbhai Chauhan</span> -->
+
+
+
+
+        </div>
+        <div style="float:left; width:100%;">
+
+          <div
+            style="width:400px; float:left; padding:10px; background:#e2e3e4; font-size:20px; color:#000; font-family: 'RobotoCondensed-Regular'; font-weight:bold;  border-bottom:2px solid #bcbec0; ">
+            Owner Verification Report</div>
+
+        </div>
+        <div style="float:left; width:100%; padding:15px;">
+          <span
+            style="float:left; width:100%; font-size:20px; color:#939598; font-family: 'RobotoCondensed-Regular'; font-weight:bold; margin-bottom:5px;">
+            Owner’s Name:</span>
+          <span
+            style="float:left; width:100%; font-size:20px; color:#939598; font-family: 'RobotoCondensed-Regular'; font-weight:bold; margin-bottom:5px; color:#000;">
+            <ul>
+              <li *ngFor="let owner of PVRData.PVROwnerDetails">
+                {{ owner.OwnerName }}
+              </li>
+            </ul>
+
+          </span>
+        </div>
+
+      </div>
+      <div class="col-lg-6">
+        <div style="float:left; width:400px; background:#f6f6f6; margin-top: 25px;
+      padding: 15px; border:1px solid #a0a1a4;">
+          <div
+            style="float:left; width:100%; font-size:18px; color:#000; font-family: 'RobotoCondensed-Regular'; font-weight:bold; margin-bottom:10px;">
+            Property ID : {{ PVRData.PropertyID }}</div>
+          <div
+            style="float:left; width:100%; font-size:18px; color:#000; font-family: 'RobotoCondensed-Regular'; font-weight:bold; margin-bottom:10px;">
+            Property Summary :</div>
+          <div
+            style="float:left; width:100%; font-size:18px; color:#000; font-family: 'RobotoCondensed-Regular'; margin-bottom:10px;">
+            {{ PVRData.PropertyRemarks }}
+          </div>
+          <div class="col-lg-12"
+            style="font-size:16px; color:#666; margin-bottom:15px;  font-family: 'RobotoCondensed-Regular'; padding-left:0px;">
+            Type : <span style="color:#000; font-weight:bold;">{{ PVRData.Loan_Property_Type }}</span></div>
+
+
+          <div class="col-lg-12"
+            style="font-size:16px; color:#666; margin-bottom:15px;  font-family: 'RobotoCondensed-Regular'; padding-left:0px;">
+            Address : <span style="color:#000; font-weight:bold;">{{ PVRData.PostalAddress }}</span></div>
+
+        </div>
+
+      </div>
+      <div class="col-lg-12">
+        <div style="float:left; width:100%; margin-bottom:15px;">
+
+          <div
+            style="width:400px; float:left; padding-left:15px; padding-right:15px; font-size:20px; color:#000; font-family: 'RobotoCondensed-Regular'; font-weight:bold; ">
+            <img src="../assets/PVR/bank.png" alt="" />
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-12" style="font-size:18px;  font-family: 'RobotoCondensed-Regular'; margin-bottom:10px;">
+
+        <span style="float:left; margin-right:15px; margin-left:15px; width:3%;"></span>
+        <span style="float:left; width:88%;">{{ PVRData.OwnerRemarks }}</span>
+      </div>
+
+      <div class="col-lg-12">
+        <div style="float:left; width:100%; border-bottom:1px solid #bcbec0;">
+
+          <div
+            style="width:400px; float:left; padding:10px; background:#e2e3e4; font-size:20px; color:#000; font-family: 'RobotoCondensed-Regular'; font-weight:bold; ">
+            Property Report</div>
+
+        </div>
+
+
+
+      </div>
+      <div class="col-lg-12" style="font-size:18px;  font-family: 'RobotoCondensed-Regular'; margin-bottom:10px;">
+        <div class="row" style="padding: 1px;">
+          <div class="col-lg-2"
+            style="font-size:16px; color:#666; margin-bottom:15px;  font-family: 'RobotoCondensed-Regular'; padding-left:30px; margin-top:25px; font-weight:bold;">
+            Location:
+          </div>
+
+          <div class="col-lg-2"
+            style="font-size:16px; color:#000; margin-bottom:15px;  font-family: 'RobotoCondensed-Regular'; font-weight:bold; margin-top:25px;">
+            <!--{To be fetched from the input data}-->
+          </div>
+
+          <div class="col-lg-2"
+            style="font-size:16px; color:#666; margin-bottom:15px;  font-family: 'RobotoCondensed-Regular';  margin-top:25px;">
+            Survey No. :</div>
+          <div class="col-lg-2"
+            style="font-size:16px; color:#000; margin-bottom:15px;  font-family: 'RobotoCondensed-Regular'; font-weight:bold; margin-top:25px;">
+            {{ PVRData.SurveyNo }}
+            <!--{To be fetched from the input data}-->
+          </div>
+
+          <div class="col-lg-4"
+            style="font-size:16px; color:#666; margin-bottom:15px; margin-top:25px;  font-family: 'RobotoCondensed-Regular'; ">
+            Total Land Size : <span style="color:#000;">{{ PVRData.TotalLandSize }}</span></div>
+
+          <div class="col-lg-4"
+            style="font-size:16px; color:#666; margin-bottom:15px;  font-family: 'RobotoCondensed-Regular'; padding-left:30px;">
+            Village: <span style="color:#000;">{{ PVRData.VillageName }}</span></div>
+
+          <div class="col-lg-2"
+            style="font-size:16px; color:#666; margin-bottom:15px;  font-family: 'RobotoCondensed-Regular';">
+            T.P. No :</div>
+          <div class="col-lg-2"
+            style="font-size:16px; color:#000; margin-bottom:15px;  font-family: 'RobotoCondensed-Regular'; font-weight:bold;">
+            {{ PVRData.TPNo }}
+            <!--{To be fetched from the input data}-->
+          </div>
+
+          <div class=" col-lg-4"
+            style="font-size:16px; color:#666; margin-bottom:15px;  font-family: 'RobotoCondensed-Regular';">
+            Land Use
+            :<span style="color:#000;"> {{ PVRData.Loan_Property_Type}}</span></div>
+
+          <div class="col-lg-4"
+            style="font-size:16px; color:#666; margin-bottom:15px;  font-family: 'RobotoCondensed-Regular'; padding-left:30px;">
+            Taluka : <span style="color:#000;">{{ PVRData.TalukaName }}</span></div>
+
+          <div class="col-lg-2"
+            style="font-size:16px; color:#666; margin-bottom:15px;  font-family: 'RobotoCondensed-Regular';">
+            F.P. No:
+          </div>
+          <div class="col-lg-6"
+            style="font-size:16px; color:#000; margin-bottom:15px;  font-family: 'RobotoCondensed-Regular'; font-weight:bold;">
+            {{ PVRData.FPNo }}
+            <!--{To be fetched from the input data}-->
+          </div>
+
+          <div class="col-lg-4"
+            style="font-size:16px; color:#666; margin-bottom:15px;  font-family: 'RobotoCondensed-Regular'; padding-left:30px;">
+            District: <span style="color:#000;">{{ PVRData.DistrictName }}</span></div>
+
+
+        </div>
+      </div>
+
+
+      <div class="col-lg-12">
+        <div style="float:left; width:100%; margin-bottom:15px; margin-top:25px;">
+
+          <div
+            style="width:400px; float:left; padding-left:15px; padding-right:15px; font-size:20px; color:#000; font-family: 'RobotoCondensed-Regular'; font-weight:bold;  ">
+            <img src="../assets/PVR/bank.png" alt="" />
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-12" style="font-size:18px;  font-family: 'RobotoCondensed-Regular'; margin-bottom:10px;">
+
+        <span style="float:left; margin-right:15px; margin-left:15px; width:3%;"></span>
+        <span style="float:left; width:88%;">{{ PVRData.PropertyRemarks }}</span>
+      </div>
+
+
+
+
+      <div class="col-lg-12">
+        <div style="float:left; width:100%; border-bottom:1px solid #bcbec0; margin-bottom:25px; margin-top:25px;">
+
+          <div
+            style="width:400px; float:left; padding:10px; background:#e2e3e4; font-size:20px; color:#000; font-family: 'RobotoCondensed-Regular'; font-weight:bold; ">
+            Encumbrance Report</div>
+
+        </div>
+
+
+
+      </div>
+      <div class="col-lg-12" style="font-size:18px;  font-family: 'RobotoCondensed-Regular'; margin-bottom:10px;">
+
+        <span style="float:left; margin-right:15px; margin-left:15px; width:3%;"></span>
+        <span style="float:left; width:88%;">{{ PVRData.EncumbranceRemarks }}</span>
+      </div>
+
+
+
+
+
+
+
+
+
+
+      <div class="col-lg-12">
+        <div style="float:left; width:100%; border-bottom:1px solid #bcbec0; margin-bottom:25px; margin-top:25px;">
+
+          <div
+            style="width:400px; float:left; padding:10px; background:#e2e3e4; font-size:20px; color:#000; font-family: 'RobotoCondensed-Regular'; font-weight:bold; ">
+            Remarks</div>
+
+        </div>
+
+
+
+      </div>
+      <div class="col-lg-12" style="font-size:18px;  font-family: 'RobotoCondensed-Regular'; margin-bottom:10px;">
+        <ul style="margin-left:35px;">
+          <li>The Land / Property is <b>{{ PVRData.PVRStatus }}</b>.</li>
+          <li>This Land/Property status as on record retrieval date can be rated as “<b>{{PVRData.PVRRiskMeterStatus
+              }}</b>”.</li>
+          <li *ngIf="PVRData.PVRRiskMeterStatus != 'Excellent'">The rating can be futher upgraded to “<b>Excellent</b>”
+            provided that a detailed analysis of last 30
+            years
+            registered search report is made report is made to find out whether any other critical transactions that
+            are not reflected in the Govt. Land Record were registered for the said land at the concerned
+            sub-registrar
+            office/s.</li>
+
+        </ul>
+
+
+
+      </div>
+
+      <div class="col-lg-12" style="border-top:2px solid #ccc;" *ngIf="PVRData.PVRStatus == 'Not Verified'">
+        <span
+          style="font-size:30px; color:#ae1b1f;   font-family: 'RobotoCondensed-Regular'; width:100%; float:left; margin-top:25px;  text-align:center; font-weight:bold;">{{
+          PVRData.PVRStatusLine1}}</span>
+        <span
+          style="font-size:30px; color:#000;   font-family: 'RobotoCondensed-Regular'; width:100%; float:left;  text-align:center;">{{
+          PVRData.PVRStatusLine2}}</span>
+
+      </div>
+      <div class="col-lg-12" style="border-top:2px solid #ccc;" *ngIf="PVRData.PVRStatus == 'Verified'">
+        <span
+          style="font-size:30px; color:#287a10;   font-family: 'RobotoCondensed-Regular'; width:100%; float:left; margin-top:25px;  text-align:center; font-weight:bold;">{{
+          PVRData.PVRStatusLine1}}</span>
+        <span
+          style="font-size:30px; color:#000;   font-family: 'RobotoCondensed-Regular'; width:100%; float:left;  text-align:center;">{{
+          PVRData.PVRStatusLine2}}</span>
+
+      </div>
+      <div class="col-lg-12" style="border-top:2px solid #ccc;" *ngIf="PVRData.PVRStatus == 'Provisional Verified'">
+        <span
+          style="font-size:30px; color:#ae1b1f;   font-family: 'RobotoCondensed-Regular'; width:100%; float:left; margin-top:25px;  text-align:center; font-weight:bold;">{{
+          PVRData.PVRStatusLine1}}</span>
+        <span
+          style="font-size:30px; color:#000;   font-family: 'RobotoCondensed-Regular'; width:100%; float:left;  text-align:center;">{{
+          PVRData.PVRStatusLine2}}</span>
+
+      </div>
+      <div class="col-lg-12" style="border-top:2px solid #ccc; margin-top:25px;">&nbsp;</div>
+      <div class="col-lg-4" style=" font-family: 'RobotoCondensed-Regular'; font-size:12px; margin-top:15px;"><a
+          href="www.proplegit.com" style="color:#000; text-decoration:none;">www.proplegit.com</a> | <a
+          href="mailto:info@proplegit.com" style="color:#000; text-decoration:none;">info@proplegit.com</a> |
+        8000336677
+      </div>
+      <div class="col-lg-3"
+        style=" font-family: 'RobotoCondensed-Regular'; font-size:12px; text-align:center;  margin-top:15px;">Sample
+        Document#233PL</div>
+      <div class="col-lg-5" style=" font-family: 'RobotoCondensed-Regular'; font-size:12px;  margin-top:15px;">By
+        Viewing
+        this page you agree to our T&C. Standard Disclaimers Apply.</div>
+
+      <div class="form-group"> </div>
+
+    </div>
+  </div>
+
+</kendo-pdf-export>
+  <div class="container text-center">
+    <button class="btn btn-info mt-3 text-center" (click)="PDFResult(pdf)">
+      Save To PDF
+    </button>
+  </div>
+  <div class="card-disabled" *ngIf="isLoading">
+    <div class="card-portlets-loader"></div>
+  </div>
+</div>

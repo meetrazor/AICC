@@ -1,0 +1,84 @@
+<div class="container-fluid" *ngIf="isLoaded">
+
+  <div class="row">
+    <div class="col-12">
+      <div class="page-title-box">
+        <h4 class="page-title">AICC Lawyers</h4>
+      </div>
+    </div>
+  </div>
+  <!-- end page title -->
+ 
+<div class="row" >
+  <div class="col-12">
+    <div class="col-12" *ngIf="isLoaded">
+       
+            <table width=50%>
+              <tr>
+                <td colspan="2">
+                  <div class="border-bottom">
+                <h5 class="text-info">Tenant</h5>
+            </div>
+              </td>
+              </tr>
+              <tr><td>Property ID</td><td>{{ data.PropertyID   }}</tr>
+                <tr><td>PropertyRentID</td><td>{{ data.PropertyRentID }}</tr>
+              <tr><td>TenantName</td><td>{{ data.TenantName | titlecase  }}</tr>
+                <tr><td>Address</td><td>{{ data.TenantAddress | titlecase  }}</td></tr>
+                <tr>  <td>Mobile No</td><td>{{ data.TenantMobile }}</td>    </tr>
+                <tr>  <td>EmailId</td><td>{{ data.TenantEmail }}</td>    </tr>
+      
+                <tr>
+                  <td colspan="2">
+              <div class="border-bottom">
+                <h5 class="text-info">Rent Information</h5>
+              </div>
+            </td>
+          </tr>
+        
+              <tr>  <td>MonthlyRent</td><td>{{ data.MonthlyRent }}</td>  </tr>
+              <tr>  <td>AdvanceDeposite</td><td>{{ data.AdvanceDeposite }}</td> </tr>
+              <tr>  <td>ContractMonths</td><td>{{ data.ContractMonths }}</td></tr>
+              <tr>  <td>ContractStartDate</td><td>{{ data.ContractStartDate | date:'dd/MM/yyyy' }}</td></tr>
+              <tr>  <td>ContractEndDate</td><td>{{ data.ContractEndDate |  date:'dd/MM/yyyy' }}</td></tr>
+
+          <tr>
+            <td colspan="2">
+        <div class="border-bottom">
+          <h5 class="text-info">Property Information</h5>
+        </div>
+      </td>
+    </tr>
+
+        <tr>  <td>RentType</td><td>{{ data.RentType }}</td>  </tr>
+        <tr>  <td>PropertySize</td><td>{{ data.PropertySize }}</td> </tr>
+        <tr>  <td>RentedSpace</td><td>{{ data.RentedSpace }}</td></tr>
+        <tr>  <td>RentedPart</td><td>{{ data.RentedPart }}</td></tr>
+      
+     
+       </table>
+   
+    </div>
+    <div class="card-disabled" *ngIf="!isLoaded">
+      <div class="card-portlets-loader"></div>
+    </div>
+    
+  </div>
+</div>
+<br>
+<div class="row">
+  <div class="col-sm-1 mb-1">
+    <button
+      class="btn btn-warning waves-effect waves-light btn-block"
+      outline
+      type="button"
+      (click)="GoBack()"
+    >
+     Go Back
+    </button>
+  </div>
+</div>
+
+ 
+      
+</div>
