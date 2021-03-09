@@ -16,7 +16,7 @@ export class ComingSoonComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.countDownDate = new Date('Dec 31, 2020 00:00:00').getTime();
+    this.countDownDate = new Date('May 30, 2021 00:00:00').getTime();
     this.now = new Date().getTime();
     this.timer();
   }
