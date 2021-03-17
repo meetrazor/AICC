@@ -1,27 +1,27 @@
-import { Router } from '@angular/router';
-import { Observable, Subject, throwError } from 'rxjs';
+import { Router } from "@angular/router";
+import { Observable, Subject, throwError } from "rxjs";
 import {
   HttpClient,
   HttpErrorResponse,
   HttpHeaders,
-} from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { catchError, map, tap } from 'rxjs/operators';
-import { CookieService } from '../core/services/cookie.service';
+} from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { catchError, map, tap } from "rxjs/operators";
+import { CookieService } from "../core/services/cookie.service";
 
 const httpOptions = {
   headers: new HttpHeaders({
-    'Content-Type': 'application/json',
+    "Content-Type": "application/json",
   }),
 };
 
 const httpFileUploadOptions = {
-  headers: new HttpHeaders()
+  headers: new HttpHeaders(),
 };
 // const baseurl = `http://localhost:3000/`;
 // const baseurl = `https://api.proplegit.com/`;
-// const baseurl = `http://devapi.proplegit.com/`;
-const baseurl = `https://qaapi.proplegit.com/`;
+const baseurl = `http://devapi.proplegit.com/`;
+// const baseurl = `https://qaapi.proplegit.com/`;
 const apiUrl = `${baseurl}api/`;
 const register = `${apiUrl}login/register`;
 const generateOTP = `${apiUrl}generate/otp/`;
@@ -65,7 +65,7 @@ const UserList = `${apiUrl}user/list/`;
 const loanTypePVRStatus = `${apiUrl}loan/Dashboard/loantype/PVR/status/`;
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root",
 })
 export class GeneralService {
   private userID: number;
@@ -77,8 +77,8 @@ export class GeneralService {
   constructor(
     private http: HttpClient,
     private cookieService: CookieService,
-    private router: Router,
-  ) { }
+    private router: Router
+  ) {}
 
   userRegister(userData): any {
     return this.http.post(register, userData, httpOptions);
@@ -117,13 +117,13 @@ export class GeneralService {
 
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
-      console.error('An error occurred:', error.error.message);
+      console.error("An error occurred:", error.error.message);
     } else {
       console.error(
-        `Backend returned code ${error}, ` + `body was: ${error.error}`,
+        `Backend returned code ${error}, ` + `body was: ${error.error}`
       );
     }
-    return throwError('Something bad happened; please try again later.');
+    return throwError("Something bad happened; please try again later.");
   }
 
   login(data) {
@@ -148,26 +148,26 @@ export class GeneralService {
         } else {
           this.user = user;
           this.cookieService.setCookie(
-            'currentUser',
+            "currentUser",
             JSON.stringify(user.data[0]),
-            1,
+            1
           );
           return user;
         }
-      }),
+      })
     );
   }
 
   saveCookie(data) {
-    this.cookieService.setCookie('currentUser', JSON.stringify(data), 1);
+    this.cookieService.setCookie("currentUser", JSON.stringify(data), 1);
   }
 
   logout() {
-    this.cookieService.deleteCookie('currentUser');
+    this.cookieService.deleteCookie("currentUser");
     this.user = null;
   }
   getcurrentUser() {
-    return JSON.parse(this.cookieService.getCookie('currentUser'));
+    return JSON.parse(this.cookieService.getCookie("currentUser"));
   }
 
   getStateWisePropertyCount(userId): any {
@@ -208,7 +208,7 @@ export class GeneralService {
     return this.http.post(
       `${apiUrl}property/${PropertyID}/document/add`,
       data,
-      httpFileUploadOptions,
+      httpFileUploadOptions
     );
   }
 
@@ -222,35 +222,35 @@ export class GeneralService {
           } else {
             return responce.data;
           }
-        }),
+        })
       );
   }
 
   viewproperty(propertyID) {
     return this.http.get<any>(
       `${apiUrl}property/view/${propertyID}`,
-      httpOptions,
+      httpOptions
     );
   }
   editproperty(propertyID, data) {
     return this.http.put<any>(
       `${apiUrl}property/update/${propertyID}`,
       data,
-      httpOptions,
+      httpOptions
     );
   }
   addtax(PropertyID, data): any {
     return this.http.post(
       `${apiUrl}property/${PropertyID}/tax/add`,
       data,
-      httpFileUploadOptions,
+      httpFileUploadOptions
     );
   }
   addtaxconfirm(PropertyID, data): any {
     return this.http.post(
       `${apiUrl}property/${PropertyID}/tax/add?FileExistenceCheck=1`,
       data,
-      httpFileUploadOptions,
+      httpFileUploadOptions
     );
   }
   listLawyers(): any {
@@ -269,7 +269,7 @@ export class GeneralService {
     return this.http.put<any>(
       `${apiUrl}lawyer/update/${LawyerId}`,
       data,
-      httpOptions,
+      httpOptions
     );
   }
   listTenant(id): any {
@@ -277,27 +277,27 @@ export class GeneralService {
   }
   deleteTenant(PropertyRentId): any {
     return this.http.delete<any>(
-      `${apiUrl}property/rent/delete/${PropertyRentId}`,
+      `${apiUrl}property/rent/delete/${PropertyRentId}`
     );
   }
   addTenant(data, id): any {
     return this.http.post<any>(
       `${apiUrl}property/${id}/tenant/add`,
       data,
-      httpFileUploadOptions,
+      httpFileUploadOptions
     );
   }
   viewTenant(PropertyRentId) {
     return this.http.get<any>(
       `${apiUrl}property/rent/view/${PropertyRentId}`,
-      httpOptions,
+      httpOptions
     );
   }
   updateTenant(data, PropertyRentId): any {
     return this.http.put<any>(
       `${apiUrl}property/rent/update/${PropertyRentId}`,
       data,
-      httpOptions,
+      httpOptions
     );
   }
   fetchstatelist() {
@@ -306,11 +306,11 @@ export class GeneralService {
   areabystateid(StateId, Search, DistrictId?): any {
     if (DistrictId) {
       return this.http.get(
-        `${apiUrl}area/list/state/${StateId}/district/area/${Search}?DistrictId=${DistrictId}`,
+        `${apiUrl}area/list/state/${StateId}/district/area/${Search}?DistrictId=${DistrictId}`
       );
     } else {
       return this.http.get(
-        `${apiUrl}area/list/state/${StateId}/district/area/${Search}`,
+        `${apiUrl}area/list/state/${StateId}/district/area/${Search}`
       );
     }
   }
@@ -319,20 +319,20 @@ export class GeneralService {
     return this.http.post(
       `${apiUrl}property/${propertyid}/tax/${taxid}/receipt/upload`,
       data,
-      httpFileUploadOptions,
+      httpFileUploadOptions
     );
   }
   uploadRentReceipt(rentid, data): any {
     return this.http.post(
       `${apiUrl}property/rent/Upload/receipt/${rentid}`,
       data,
-      httpFileUploadOptions,
+      httpFileUploadOptions
     );
   }
   getDocument(propertyid, id): any {
     return this.http.get(
       `${apiUrl}property/${propertyid}/Document/view/${id}`,
-      httpOptions,
+      httpOptions
     );
   }
   forgotPassword(data): any {
@@ -351,21 +351,21 @@ export class GeneralService {
     return this.http.post(
       `${generateinvoice}${id}`,
       { CreatedBy: userId },
-      httpOptions,
+      httpOptions
     );
   }
   UploadInvoice(PropertyRentID, data): any {
     return this.http.post(
       `${uploadInvoice}${PropertyRentID}`,
       data,
-      httpFileUploadOptions,
+      httpFileUploadOptions
     );
   }
   UploadInvoiceConfirm(PropertyRentID, data): any {
     return this.http.post(
       `${uploadInvoice}${PropertyRentID}?FileExistenceCheck=0`,
       data,
-      httpFileUploadOptions,
+      httpFileUploadOptions
     );
   }
   GenerateReceipt(id, data): any {
@@ -375,7 +375,7 @@ export class GeneralService {
     return this.http.post<any>(
       `${apiUrl}property/${PropertyID}/case/add`,
       data,
-      httpOptions,
+      httpOptions
     );
   }
   listLegalcase(id): any {
@@ -415,14 +415,14 @@ export class GeneralService {
     return this.http.put(
       `${assignLawyer}${AppId}/${LawyerID}`,
       null,
-      httpOptions,
+      httpOptions
     );
   }
   MarkAsReviewed(PropertyId, DocumentId) {
     return this.http.put(
       `${markasReviewed}${PropertyId}/${DocumentId}`,
       null,
-      httpOptions,
+      httpOptions
     );
   }
   ForDemo(AppID): any {
@@ -435,7 +435,7 @@ export class GeneralService {
     return this.http.put(
       fordemochangestatus + appID,
       { ApplicationStatus: status },
-      httpOptions,
+      httpOptions
     );
   }
   CancelRentContract(tenantId): any {
@@ -454,42 +454,91 @@ export class GeneralService {
     return this.http.get(propertyCaseTypes, httpOptions);
   }
   AddLegalCaseAct(CaseID, data): any {
-    return this.http.post(`${apiUrl}property/case/${CaseID}/CaseActs`, data, httpOptions);
+    return this.http.post(
+      `${apiUrl}property/case/${CaseID}/CaseActs`,
+      data,
+      httpOptions
+    );
   }
   GetLegalCaseLastHearing(CaseID): any {
-    return this.http.get(`${apiUrl}property/case/${CaseID}/last-hearing`, httpOptions);
+    return this.http.get(
+      `${apiUrl}property/case/${CaseID}/last-hearing`,
+      httpOptions
+    );
   }
   AddLegalCaseHearing(CaseID, data): any {
-    return this.http.post(`${apiUrl}property/case/${CaseID}/next-hearing`, data, httpOptions);
+    return this.http.post(
+      `${apiUrl}property/case/${CaseID}/next-hearing`,
+      data,
+      httpOptions
+    );
   }
   AddPetitionerAndLawyer(CaseID, data): any {
-    return this.http.post(`${apiUrl}property/case/${CaseID}/petitioner`, data, httpOptions);
+    return this.http.post(
+      `${apiUrl}property/case/${CaseID}/petitioner`,
+      data,
+      httpOptions
+    );
   }
   AddRespondentAndLawyer(CaseID, data): any {
-    return this.http.post(`${apiUrl}property/case/${CaseID}/respondent`, data, httpOptions);
+    return this.http.post(
+      `${apiUrl}property/case/${CaseID}/respondent`,
+      data,
+      httpOptions
+    );
   }
   GetPetitionerAndLawyer(CaseID): any {
-    return this.http.get(`${apiUrl}property/case/${CaseID}/petitionersandlawyer`, httpOptions);
+    return this.http.get(
+      `${apiUrl}property/case/${CaseID}/petitionersandlawyer`,
+      httpOptions
+    );
   }
   GetRespondentAndLawyer(CaseID): any {
-    return this.http.get(`${apiUrl}property/case/${CaseID}/respondentsandlawyer`, httpOptions);
+    return this.http.get(
+      `${apiUrl}property/case/${CaseID}/respondentsandlawyer`,
+      httpOptions
+    );
   }
-  GetAllLoanID(StateName, DistrictName, TalukaName, VillageName, BankName, LoanType, LoanPropertyType): any {
-    return this.http.post(`${getallLoanID}`, { StateName, DistrictName, TalukaName, VillageName, BankName, LoanType, LoanPropertyType }, httpOptions);
+  GetAllLoanID(
+    StateName,
+    DistrictName,
+    TalukaName,
+    VillageName,
+    BankName,
+    LoanType,
+    LoanPropertyType
+  ): any {
+    return this.http.post(
+      `${getallLoanID}`,
+      {
+        StateName,
+        DistrictName,
+        TalukaName,
+        VillageName,
+        BankName,
+        LoanType,
+        LoanPropertyType,
+      },
+      httpOptions
+    );
   }
   ChangeECResponce(CaseID): any {
-    return this.http.put(`${apiUrl}loan/application/ECRequest/${CaseID}`, null, httpOptions);
+    return this.http.put(
+      `${apiUrl}loan/application/ECRequest/${CaseID}`,
+      null,
+      httpOptions
+    );
   }
   ResendLoginOTP(UserID): any {
     return this.http.post(`${resendLoginOPT}${UserID}`, null, httpOptions);
   }
   GetExcelExportData(StateID): any {
-    return this.http.get(`${excelExport}${StateID}`, httpOptions)
+    return this.http.get(`${excelExport}${StateID}`, httpOptions);
   }
   GetUser(UserID): any {
-    return this.http.get(`${UserList}${UserID}`, httpOptions)
+    return this.http.get(`${UserList}${UserID}`, httpOptions);
   }
   GetLoanTypePVRStatus(UserID): any {
-    return this.http.get(`${loanTypePVRStatus}${UserID}`, httpOptions)
+    return this.http.get(`${loanTypePVRStatus}${UserID}`, httpOptions);
   }
 }
