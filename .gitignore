@@ -2,7 +2,7 @@
 /dist
 /tmp
 /out-tsc
-
+/.svn
 # dependencies
 /node_modules
 

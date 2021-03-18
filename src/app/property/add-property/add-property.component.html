@@ -36,7 +36,7 @@
                 <div class="pn-main">
                   <div class="form-row">
                     <div class="form-group col-md-6">
-                      <label for="">States*</label>
+                      <label for="">State *</label>
                       <ng-select
                         class="form-control"
                         formControlName="StateID"
@@ -75,13 +75,13 @@
                         class="invalid-feedback"
                       >
                         <div *ngIf="f.StateID.errors.required">
-                          State is required
+                          State is Required
                         </div>
                       </div>
                     </div>
 
                     <div class="form-group col-md-6">
-                      <label for="">Districts*</label>
+                      <label for="">District *</label>
                       <ng-select
                         class="form-control"
                         formControlName="DistrictID"
@@ -118,13 +118,13 @@
                         class="invalid-feedback"
                       >
                         <div *ngIf="f.DistrictID.errors.required">
-                          District is required
+                          District is Required
                         </div>
                       </div>
                     </div>
 
                     <div class="col-md-6">
-                      <label for="">Village/Pincode*</label>
+                      <label for="">Village Or Pincode *</label>
                       <!-- <div class="form-group"> -->
                       <ng-autocomplete
                         style="width: 100%; margin: 0; padding: 0"
@@ -159,14 +159,14 @@
                         class="invalid-feedback"
                       >
                         <div *ngIf="f.TalukaID.errors.required">
-                          Village is required
+                          Village is Required
                         </div>
                       </div>
                       <!-- </div> -->
                     </div>
 
                     <div class="form-group col-md-6">
-                      <label for="">PropertyType*</label>
+                      <label for="">Property Type *</label>
                       <select
                         class="custom-select"
                         formControlName="PropertyTypeID"
@@ -187,13 +187,13 @@
                         class="invalid-feedback"
                       >
                         <div *ngIf="f.PropertyTypeID.errors.required">
-                          PropertyType is required
+                          PropertyType is Required
                         </div>
                       </div>
                     </div>
 
                     <div class="form-group col-md-6">
-                      <label for="">Property Name*</label>
+                      <label for="">Property Name *</label>
                       <input
                         class="form-control"
                         placeholder="Enter Property Name"
@@ -208,7 +208,11 @@
                         class="invalid-feedback"
                       >
                         <div *ngIf="f.PropertyName.errors.required">
-                          Property Name is required
+                          Property Name is Required
+                        </div>
+                        <div *ngIf="f.PropertyName.errors.pattern">
+                          Property Name Must be Valid And Only Alphanumeric
+                          Allowed
                         </div>
                       </div>
                     </div>
@@ -239,7 +243,7 @@
                       class="form-group col-md-6"
                       *ngIf="!IsOpenLand && !IsCitySurvey"
                     >
-                      <label for="">Building No*</label>
+                      <label for="">Building No *</label>
                       <input
                         class="form-control"
                         placeholder="Enter Building No"
@@ -254,7 +258,11 @@
                         class="invalid-feedback"
                       >
                         <div *ngIf="f.BuildingNo.errors.required">
-                          Building No is required
+                          Building No is Required
+                        </div>
+                        <div *ngIf="f.BuildingNo.errors.pattern">
+                          Building Number Must be Valid And Only Alphanumeric
+                          Allowed
                         </div>
                       </div>
                     </div>
@@ -263,7 +271,7 @@
                       class="form-group col-md-6"
                       *ngIf="!IsOpenLand && !IsCitySurvey"
                     >
-                      <label for="">Building Name*</label>
+                      <label for="">Building Name *</label>
                       <input
                         class="form-control"
                         placeholder="Enter Building Name"
@@ -278,7 +286,11 @@
                         class="invalid-feedback"
                       >
                         <div *ngIf="f.BuildingName.errors.required">
-                          Building Name is required
+                          Building Name is Required
+                        </div>
+                        <div *ngIf="f.BuildingName.errors.pattern">
+                          Building Name Must be Valid And Only Alphanumeric
+                          Allowed
                         </div>
                       </div>
                     </div>
@@ -287,7 +299,7 @@
                       class="form-group col-md-6"
                       *ngIf="!IsOpenLand && IsCitySurvey"
                     >
-                      <label for="">Sheet No*</label>
+                      <label for="">Sheet No *</label>
                       <input
                         class="form-control"
                         placeholder="Enter Sheet No"
@@ -302,7 +314,11 @@
                         class="invalid-feedback"
                       >
                         <div *ngIf="f.SheetNumber.errors.required">
-                          Sheet Number is required
+                          Sheet Number is Required
+                        </div>
+                        <div *ngIf="f.SheetNumber.errors.pattern">
+                          Sheet Number Must be Valid And Only Alphanumeric
+                          Allowed
                         </div>
                       </div>
                     </div>
@@ -311,7 +327,7 @@
                       class="form-group col-md-6"
                       *ngIf="!IsOpenLand && IsCitySurvey"
                     >
-                      <label for="">City Survey No*</label>
+                      <label for="">City Survey No *</label>
                       <input
                         class="form-control"
                         placeholder="Enter City Survey No"
@@ -328,7 +344,7 @@
                         class="invalid-feedback"
                       >
                         <div *ngIf="f.CitySurveyNo.errors.required">
-                          City SurveyNo is required
+                          City SurveyNo is Required
                         </div>
                       </div>
                     </div>
@@ -337,7 +353,7 @@
                       class="form-group col-md-6"
                       *ngIf="!IsOpenLand && IsCitySurvey"
                     >
-                      <label for="">City Survey Office*</label>
+                      <label for="">City Survey Office *</label>
                       <input
                         class="form-control"
                         placeholder="Enter City Survey Office"
@@ -352,7 +368,11 @@
                         class="invalid-feedback"
                       >
                         <div *ngIf="f.CitySurveyOffice.errors.required">
-                          City Survey Office is required
+                          City Survey Office is Required
+                        </div>
+                        <div *ngIf="f.CitySurveyOffice.errors.pattern">
+                          City Survey Office Must be Valid And Only Alphanumeric
+                          Allowed
                         </div>
                       </div>
                     </div>
@@ -361,7 +381,7 @@
                       class="form-group col-md-6"
                       *ngIf="!IsOpenLand && IsCitySurvey"
                     >
-                      <label for="">City Ward No*</label>
+                      <label for="">City Ward No *</label>
                       <input
                         class="form-control"
                         placeholder="Enter City Ward No"
@@ -376,7 +396,11 @@
                         class="invalid-feedback"
                       >
                         <div *ngIf="f.CityWardNo.errors.required">
-                          City WardNo is required
+                          City Ward No is Required
+                        </div>
+                        <div *ngIf="f.CityWardNo.errors.pattern">
+                          City Ward No Must be Valid And Only Alphanumeric
+                          Allowed
                         </div>
                       </div>
                     </div>
@@ -385,7 +409,7 @@
                       class="form-group col-md-6"
                       *ngIf="!IsOpenLand && IsCitySurvey"
                     >
-                      <label for="">City Ward Name*</label>
+                      <label for="">City Ward Name *</label>
                       <input
                         class="form-control"
                         placeholder="Enter City Ward Name"
@@ -400,13 +424,17 @@
                         class="invalid-feedback"
                       >
                         <div *ngIf="f.CityWardName.errors.required">
-                          City WardName is required
+                          City WardName is Required
+                        </div>
+                        <div *ngIf="f.CityWardName.errors.pattern">
+                          City WardName Must be Valid And Only Alphanumeric
+                          Allowed
                         </div>
                       </div>
                     </div>
 
                     <div class="form-group col-md-6">
-                      <label for="">Revenue Office Type*</label>
+                      <label for="">Revenue Office Type *</label>
                       <select
                         class="custom-select"
                         [ngClass]="{
@@ -430,7 +458,7 @@
                         class="invalid-feedback"
                       >
                         <div *ngIf="f.RevenewOfficeType.errors.required">
-                          Revenue Office is required
+                          Revenue Office is Required
                         </div>
                       </div>
                     </div>
@@ -464,7 +492,7 @@
                         class="invalid-feedback"
                       >
                         <div *ngIf="myForm.hasError('TPFPrequired')">
-                          TPNo is required When FPNo is Added
+                          TPNo is Required When FPNo is Added
                         </div>
                         <div *ngIf="myForm.hasError('SurveyOrTPFPrequired')">
                           Either Survey Number or FP Number and TP Number
@@ -502,7 +530,7 @@
                         class="invalid-feedback"
                       >
                         <div *ngIf="myForm.hasError('TPFPrequired')">
-                          FPNo is required When TPNo Added
+                          FPNo is Required When TPNo Added
                         </div>
                         <div *ngIf="myForm.hasError('SurveyOrTPFPrequired')">
                           Either Survey Number or FP Number and TP Number
@@ -562,7 +590,7 @@
                         class="invalid-feedback"
                       >
                         <div *ngIf="f.milkatno_propId.errors.required">
-                          Milkatno_PropId is required
+                          Milkatno_PropId is Required
                         </div>
                       </div>
                     </div>
@@ -584,7 +612,21 @@
                         placeholder="Enter Landsize"
                         formControlName="LandSize"
                         maxlength="10"
+                        [ngClass]="{
+                          'is-invalid': submitted && f.LandSize.errors
+                        }"
                       />
+                      <div
+                        *ngIf="submitted && f.LandSize.errors"
+                        class="invalid-feedback"
+                      >
+                        <div *ngIf="f.LandSize.errors.required">
+                          Land Size is Required
+                        </div>
+                        <div *ngIf="f.LandSize.errors.pattern">
+                          Land Size Must be in Numbers
+                        </div>
+                      </div>
                     </div>
 
                     <div class="form-group col-md-6">
@@ -794,7 +836,7 @@
                         </div>
                         <div class="form-row" [formGroupName]="i">
                           <div class="form-group col-md-6">
-                            <label>InChargeName</label>
+                            <label>InCharge Name</label>
                             <input
                               type="text"
                               class="form-control"
@@ -893,7 +935,7 @@
                             />
                           </div>
                           <div class="form-group col-md-6">
-                            <label>InChargeFromDate</label>
+                            <label>InCharge From Date</label>
                             <input
                               type="date"
                               class="form-control"

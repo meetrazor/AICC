@@ -20,8 +20,8 @@ const httpFileUploadOptions = {
 };
 // const baseurl = `http://localhost:3000/`;
 // const baseurl = `https://api.proplegit.com/`;
-// const baseurl = `http://devapi.proplegit.com/`;
-const baseurl = `https://qaapi.proplegit.com/`;
+const baseurl = `http://devapi.proplegit.com/`;
+// const baseurl = `https://qaapi.proplegit.com/`;
 const apiUrl = `${baseurl}api/`;
 const register = `${apiUrl}login/register`;
 const generateOTP = `${apiUrl}generate/otp/`;
