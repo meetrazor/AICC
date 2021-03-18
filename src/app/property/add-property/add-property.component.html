@@ -629,7 +629,7 @@
                       </div>
                     </div>
 
-                    <div class="form-group col-md-6">
+                    <!-- <div class="form-group col-md-6">
                       <label for="">Water Availability</label>
                       <input
                         class="form-control"
@@ -637,6 +637,18 @@
                         formControlName="WaterAvailability"
                         maxlength="10"
                       />
+                    </div> -->
+
+                    <div class="form-group col-md-6">
+                      <label for="">Water Availability</label>
+                      <select
+                        class="form-control"
+                        placeholder="Water Availability"
+                        formControlName="WaterAvailability"
+                      >
+                        <option value="Yes" selected>Yes</option>
+                        <option value="No">No</option>
+                      </select>
                     </div>
 
                     <div class="form-group col-md-6">
@@ -645,7 +657,8 @@
                         class="custom-select"
                         formControlName="FurnishType"
                       >
-                        <option value="Full Furnished" id="4" selected>
+                        <option value="" selected></option>
+                        <option value="Full Furnished" id="4">
                           Full Furnished
                         </option>
                         <option value="Semi Furnished" id="9">
@@ -661,9 +674,8 @@
                         class="custom-select"
                         formControlName="StatusOfElectricity"
                       >
-                        <option value="No PowerCut" id="3" selected>
-                          No PowerCut
-                        </option>
+                        <option value="" selected></option>
+                        <option value="No PowerCut" id="3">No PowerCut</option>
                         <option value="Rare PoweCut" id="5">
                           Rare PoweCut
                         </option>
@@ -714,7 +726,8 @@
                     >
                       <label for="">No. of BHK</label>
                       <select class="custom-select" formControlName="NoOfBHK">
-                        <option value="1" id="4" selected>1</option>
+                        <option value="" id="4" selected></option>
+                        <option value="1" id="4">1</option>
                         <option value="2" id="1">2</option>
                         <option value="3" id="3">3</option>
                         <option value="4" id="4">4</option>
@@ -741,6 +754,7 @@
                           let i = index
                         "
                       >
+                        ({{ i + 1 }})
                         <div class="form-row" [formGroupName]="i">
                           <div class="form-group col-md-6">
                             <label>Owner Name</label>
@@ -755,7 +769,7 @@
                                   f.OwnerShip['controls'][i]['controls']
                                     .OwnerName.errors
                               }"
-                              pattern="[a-zA-Z][a-zA-Z-, ]+"
+                              pattern="[a-zA-Z][a-zA-Z ]+"
                             />
                             <div
                               *ngIf="
@@ -783,6 +797,7 @@
                               formControlName="SinceFrom"
                             />
                           </div>
+
                           <div class="form-group col-md-12">
                             <span
                               class="glyphicon glyphicon-remove pull-right"
@@ -794,14 +809,15 @@
                             >
                               (Remove -)
                             </span>
+                            <hr />
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
                   <div class="margin-20">
-                    <a (click)="addOwner()" style="cursor: pointer">
-                      Add owner +
+                    <a (click)="addOwner()" style="cursor: pointer"
+                      ><b> Add Owner +</b>
                     </a>
                   </div>
                   <h5
@@ -822,7 +838,8 @@
                         "
                         class="panel panel-default"
                       >
-                        <div class="panel-heading">
+                        ({{ i + 1 }})
+                        <!-- <div class="panel-heading">
                           <span
                             class="glyphicon glyphicon-remove pull-right"
                             style="cursor: pointer; color: red"
@@ -833,7 +850,7 @@
                           >
                             (Remove -)
                           </span>
-                        </div>
+                        </div> -->
                         <div class="form-row" [formGroupName]="i">
                           <div class="form-group col-md-6">
                             <label>InCharge Name</label>
@@ -848,7 +865,7 @@
                                     .InChargeName.errors
                               }"
                               maxlength="25"
-                              pattern="[a-zA-Z][a-zA-Z ]+"
+                              pattern="[a-zA-Z ]+"
                             />
                             <div
                               *ngIf="
@@ -943,12 +960,25 @@
                             />
                           </div>
                         </div>
+                        <div class="form-group col-md-12">
+                          <span
+                            class="glyphicon glyphicon-remove pull-right"
+                            style="cursor: pointer; color: red"
+                            *ngIf="
+                              myForm.controls.InCharge['controls'].length > 1
+                            "
+                            (click)="removeIncharge(i)"
+                          >
+                            (Remove -)
+                          </span>
+                          <hr />
+                        </div>
                       </div>
                     </div>
                   </div>
                   <div class="">
                     <a (click)="addIncharge()" style="cursor: pointer">
-                      Add InCharge +
+                      <b>Add InCharge +</b>
                     </a>
                   </div>
                   <hr
