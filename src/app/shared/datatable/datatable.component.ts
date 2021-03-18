@@ -1,19 +1,32 @@
-import { async } from '@angular/core/testing';
-import { GeneralService } from './../../services/general.service';
-import { Component, OnInit, AfterViewInit, Input, Output, EventEmitter, OnChanges, ViewChild, Renderer2 } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import Swal from 'sweetalert2';
-import { Subject } from 'rxjs';
-import { DataTableDirective } from 'angular-datatables';
+import { async } from "@angular/core/testing";
+import { GeneralService } from "./../../services/general.service";
+import {
+  Component,
+  OnInit,
+  AfterViewInit,
+  Input,
+  Output,
+  EventEmitter,
+  OnChanges,
+  ViewChild,
+  Renderer2,
+} from "@angular/core";
+import { ActivatedRoute, Router } from "@angular/router";
+import Swal from "sweetalert2";
+import { Subject } from "rxjs";
+import { DataTableDirective } from "angular-datatables";
 
 @Component({
-  selector: 'app-datatable',
-  templateUrl: './datatable.component.html',
-  styleUrls: ['./datatable.component.scss']
+  selector: "app-datatable",
+  templateUrl: "./datatable.component.html",
+  styleUrls: ["./datatable.component.scss"],
 })
 export class DatatableComponent implements OnInit, AfterViewInit {
-
-  constructor(private service: GeneralService, private router: Router, private renderer: Renderer2) { }
+  constructor(
+    private service: GeneralService,
+    private router: Router,
+    private renderer: Renderer2
+  ) {}
   dtOptions: DataTables.Settings = {};
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
@@ -24,34 +37,55 @@ export class DatatableComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.isLoading = true;
     this.dtOptions = {
-      ajax: { url: this.service.GetBaseUrl() + `property/list/${this.service.getcurrentUser().UserID}/${this.item.StateID}` }, responsive: true,
+      ajax: {
+        url:
+          this.service.GetBaseUrl() +
+          `property/list/${this.service.getcurrentUser().UserID}/${
+            this.item.StateID
+          }`,
+      },
+      responsive: true,
       columns: [
         {
-          title: 'Sr No.', data: 'row', render: (data, type, row, meta) => {
+          title: "Sr No.",
+          data: "row",
+          render: (data, type, row, meta) => {
             return meta.row + 1;
-          }
-        }, {
-          title: 'Property Name', data: 'PropertyName'
-        }, {
-          title: 'City Survey No / Survey No ', data: null, render: (data) => {
+          },
+        },
+        {
+          title: "Property Name",
+          data: "PropertyName",
+        },
+        {
+          title: "City Survey No / Survey No ",
+          data: null,
+          render: (data) => {
             return data.CitySurveyNo ? data.CitySurveyNo : data.SurveyNo;
-          }
-        }, {
-          title: 'Ownername(s)', data: 'PropertyOwner'
-        }, {
-          title: 'In-Charge Name(s)', data: 'PropertyIncharge'
-        }, {
-          title: 'Action', data: null, render(data) {
+          },
+        },
+        {
+          title: "Owner Name(s)",
+          data: "PropertyOwner",
+        },
+        {
+          title: "In-Charge Name(s)",
+          data: "PropertyIncharge",
+        },
+        {
+          title: "Action",
+          data: null,
+          render(data) {
             return `<div style="display:flex">
             <a title="View Property" class=" viewProperty" >
             <i class="btn font-18 mdi mdi-eye-check text-secondary" viewpropertyID="${data.PropertyID}"></i></a>
             <a title="Edit Property" class=" editProperty">
             <i class="btn font-18 mdi mdi-account-edit text-secondary" editpropertyID="${data.PropertyID}"></i></a> </div>`;
-          }
-        }
+          },
+        },
       ],
       autoWidth: false,
-      columnDefs: [{ width: '18%', targets: [0, 1, 2, 3, 4] }],
+      columnDefs: [{ width: "18%", targets: [0, 1, 2, 3, 4] }],
 
       // rowCallback(row, data: any) {
 
@@ -94,14 +128,18 @@ export class DatatableComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     this.dtTrigger.next();
     this.isloading.emit(false);
-    this.renderer.listen('document', 'click', (event) => {
-      if (event.target.hasAttribute('viewpropertyID')) {
-        this.router.navigate(['property/view/' + event.target.getAttribute('viewpropertyID')]);
+    this.renderer.listen("document", "click", (event) => {
+      if (event.target.hasAttribute("viewpropertyID")) {
+        this.router.navigate([
+          "property/view/" + event.target.getAttribute("viewpropertyID"),
+        ]);
       }
-      if (event.target.hasAttribute('editpropertyID')) {
-        this.router.navigate(['property/edit/' + event.target.getAttribute('editpropertyID')]);
+      if (event.target.hasAttribute("editpropertyID")) {
+        this.router.navigate([
+          "property/edit/" + event.target.getAttribute("editpropertyID"),
+        ]);
       }
-    })
+    });
   }
 
   rerender(): void {
@@ -114,49 +152,52 @@ export class DatatableComponent implements OnInit, AfterViewInit {
   }
   onDeleteProperty(id) {
     Swal.fire({
-      title: 'Are you sure?',
-      text: 'You won\'t be able to revert this!',
-      type: 'warning',
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      type: "warning",
       showCancelButton: true,
-      confirmButtonText: 'Yes, delete it!',
-      cancelButtonText: 'No, cancel!',
-      confirmButtonClass: 'btn btn-success mt-2',
-      cancelButtonClass: 'btn btn-danger ml-2 mt-2',
-      buttonsStyling: false
+      confirmButtonText: "Yes, delete it!",
+      cancelButtonText: "No, cancel!",
+      confirmButtonClass: "btn btn-success mt-2",
+      cancelButtonClass: "btn btn-danger ml-2 mt-2",
+      buttonsStyling: false,
     }).then((result) => {
       if (result.value) {
-        this.service.deleteProperty(id).subscribe((res) => {
-          if (res.status === 200) {
+        this.service.deleteProperty(id).subscribe(
+          (res) => {
+            if (res.status === 200) {
+              Swal.fire({
+                title: "Deleted!",
+                text: res.message,
+                type: "success",
+                timer: 2000,
+              }).then(() => {
+                location.reload();
+              });
+            } else {
+              Swal.fire({
+                title: res.error_code,
+                text: res.message,
+                type: "error",
+              });
+            }
+          },
+          (err) => {
             Swal.fire({
-              title: 'Deleted!',
-              text: res.message,
-              type: 'success',
-              timer: 2000
-            }).then(() => {
-              location.reload();
-            });
-          } else {
-            Swal.fire({
-              title: res.error_code,
-              text: res.message,
-              type: 'error'
+              title: "Oops Something Wrong while deleting",
+              text: err,
+              type: "error",
             });
           }
-        }, (err) => {
-          Swal.fire({
-            title: 'Oops Something Wrong while deleting',
-            text: err,
-            type: 'error'
-          });
-        });
+        );
       } else if (
         // Read more about handling dismissals
         result.dismiss === Swal.DismissReason.cancel
       ) {
         Swal.fire({
-          title: 'Cancelled',
-          text: 'Opration Cancelled by User!',
-          type: 'error'
+          title: "Cancelled",
+          text: "Opration Cancelled by User!",
+          type: "error",
         });
       }
     });

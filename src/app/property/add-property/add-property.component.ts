@@ -639,7 +639,7 @@ export class AddPropertyComponent implements OnInit {
     const control = this.myForm.controls.InCharge as FormArray;
     control.push(this.initIncharge());
   }
-  removeIncharge(i: number) {
+  Incharge(i: number) {
     const control = this.myForm.controls.InCharge as FormArray;
     control.removeAt(i);
   }
