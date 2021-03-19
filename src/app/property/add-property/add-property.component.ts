@@ -37,8 +37,8 @@ const handlerequired = (control: AbstractControl) => {
   styleUrls: ["./add-property.component.scss"],
 })
 export class AddPropertyComponent implements OnInit {
-  regex = '[a-zA-Z][a-z0-9A-Z ]+';
-  numericRegex = '[0-9]+';
+  regex = "[a-zA-Z][a-z0-9A-Z ]+";
+  numericRegex = "[0-9]+";
   currentUser: any;
   returnvalue;
   public myForm: FormGroup;
@@ -139,46 +139,67 @@ export class AddPropertyComponent implements OnInit {
     if (this.propertyID) {
       this.isLoading = true;
       this.isUpdate = true;
-      this.myForm = this.Fb.group({
-        OwnerShip: this.Fb.array([
-        ]),
-        PropertyTypeID: new FormControl('', Validators.required),
-        PropertyName: new FormControl('', [Validators.required, Validators.pattern(this.regex)]),
-        TalukaID: new FormControl('', Validators.required),
-        VillageID: new FormControl('', Validators.required),
-        DistrictID: new FormControl('', Validators.required),
-        StateID: new FormControl('', Validators.required),
-        CreatedBy: '',
-        UserID: '',
-        ModifiedBy: '',
-        taluka: new FormControl('', Validators.required),
-        CitySurveyNo: new FormControl('', Validators.required),
-        CitySurveyOffice: new FormControl('', [Validators.required, Validators.pattern(this.regex)]),
-        CityWardNo: new FormControl('', [Validators.required, Validators.pattern(this.regex)]),
-        CityWardName: new FormControl('', [Validators.required, Validators.pattern(this.regex)]),
-        SheetNumber: new FormControl('', [Validators.required, Validators.pattern(this.regex)]),
+      this.myForm = this.Fb.group(
+        {
+          OwnerShip: this.Fb.array([]),
+          PropertyTypeID: new FormControl("", Validators.required),
+          PropertyName: new FormControl("", [
+            Validators.required,
+            Validators.pattern(this.regex),
+          ]),
+          TalukaID: new FormControl("", Validators.required),
+          VillageID: new FormControl("", Validators.required),
+          DistrictID: new FormControl("", Validators.required),
+          StateID: new FormControl("", Validators.required),
+          CreatedBy: "",
+          UserID: "",
+          ModifiedBy: "",
+          taluka: new FormControl("", Validators.required),
+          CitySurveyNo: new FormControl("", Validators.required),
+          CitySurveyOffice: new FormControl("", [
+            Validators.required,
+            Validators.pattern(this.regex),
+          ]),
+          CityWardNo: new FormControl("", [
+            Validators.required,
+            Validators.pattern(this.regex),
+          ]),
+          CityWardName: new FormControl("", [
+            Validators.required,
+            Validators.pattern(this.regex),
+          ]),
+          SheetNumber: new FormControl("", [
+            Validators.required,
+            Validators.pattern(this.regex),
+          ]),
 
-        SurveyNo: new FormControl(''),
-        TPNo: new FormControl(''),
-        FPNo: new FormControl(''),
-        BuildingNo: new FormControl('', [Validators.required, Validators.pattern(this.regex)]),
-        BuildingName: new FormControl('', [Validators.required, Validators.pattern(this.regex)]),
+          SurveyNo: new FormControl(""),
+          TPNo: new FormControl(""),
+          FPNo: new FormControl(""),
+          BuildingNo: new FormControl("", [
+            Validators.required,
+            Validators.pattern(this.regex),
+          ]),
+          BuildingName: new FormControl("", [
+            Validators.required,
+            Validators.pattern(this.regex),
+          ]),
 
-        RecordDate: new FormControl(new Date()),
-        milkatno_propId: new FormControl(''),
-        RevenewOfficeType: new FormControl('', Validators.required),
-        PostalAddress: new FormControl(''),
-        Description: new FormControl(''),
-        LandSize: new FormControl('', [Validators.required, Validators.pattern(this.numericRegex)]),
-        WaterAvailability: new FormControl('='),
-        StatusOfElectricity: new FormControl(''),
-        AgeOfProperty: new FormControl(''),
-        NoOfBHK: new FormControl(''),
-        FurnishType: new FormControl(''),
-        types: new FormControl(''),
-        InCharge: this.Fb.array([
-        ]),
-      }, { validators: handlerequired });
+          RecordDate: new FormControl(new Date()),
+          milkatno_propId: new FormControl(''),
+          RevenewOfficeType: new FormControl('', Validators.required),
+          PostalAddress: new FormControl(''),
+          Description: new FormControl(''),
+          LandSize: new FormControl('', [Validators.required, Validators.pattern(this.numericRegex)]),
+          WaterAvailability: new FormControl('='),
+          StatusOfElectricity: new FormControl(''),
+          AgeOfProperty: new FormControl(''),
+          NoOfBHK: new FormControl(''),
+          FurnishType: new FormControl(''),
+          types: new FormControl(''),
+          InCharge: this.Fb.array([
+          ]),
+        }, { validators: handlerequired });
       this.fetchstatelist();
       this.fetchpropertytype();
       this.myForm.controls.ModifiedBy.setValue(this.currentUser.UserID);
@@ -190,47 +211,70 @@ export class AddPropertyComponent implements OnInit {
       ];
       this.fetchUpdateMode();
     } else {
-      this.myForm = this.Fb.group({
-        OwnerShip: this.Fb.array([
-          this.initOwner()
-        ]),
-        PropertyTypeID: new FormControl('', Validators.required),
-        PropertyName: new FormControl('', [Validators.required, Validators.pattern(this.regex)]),
-        TalukaID: new FormControl('', Validators.required),
-        VillageID: new FormControl('', Validators.required),
-        DistrictID: new FormControl('', Validators.required),
-        StateID: new FormControl('', Validators.required),
-        CreatedBy: '',
-        UserID: '',
-        taluka: new FormControl('', Validators.required),
-        CitySurveyNo: new FormControl('', Validators.required),
-        CitySurveyOffice: new FormControl('', [Validators.required, Validators.pattern(this.regex)]),
-        CityWardNo: new FormControl('', [Validators.required, Validators.pattern(this.regex)]),
-        CityWardName: new FormControl('', [Validators.required, Validators.pattern(this.regex)]),
-        SheetNumber: new FormControl('', [Validators.required, Validators.pattern(this.regex)]),
+      this.myForm = this.Fb.group(
+        {
+          OwnerShip: this.Fb.array([this.initOwner()]),
+          PropertyTypeID: new FormControl("", Validators.required),
+          PropertyName: new FormControl("", [
+            Validators.required,
+            Validators.pattern(this.regex),
+          ]),
+          TalukaID: new FormControl("", Validators.required),
+          VillageID: new FormControl("", Validators.required),
+          DistrictID: new FormControl("", Validators.required),
+          StateID: new FormControl("", Validators.required),
+          CreatedBy: "",
+          UserID: "",
+          taluka: new FormControl("", Validators.required),
+          CitySurveyNo: new FormControl("", Validators.required),
+          CitySurveyOffice: new FormControl("", [
+            Validators.required,
+            Validators.pattern(this.regex),
+          ]),
+          CityWardNo: new FormControl("", [
+            Validators.required,
+            Validators.pattern(this.regex),
+          ]),
+          CityWardName: new FormControl("", [
+            Validators.required,
+            Validators.pattern(this.regex),
+          ]),
+          SheetNumber: new FormControl("", [
+            Validators.required,
+            Validators.pattern(this.regex),
+          ]),
 
-        SurveyNo: new FormControl(''),
-        TPNo: new FormControl(''),
-        FPNo: new FormControl(''),
-        BuildingNo: new FormControl('', [Validators.required, Validators.pattern(this.regex)]),
-        BuildingName: new FormControl('', [Validators.required, Validators.pattern(this.regex)]),
+          SurveyNo: new FormControl(""),
+          TPNo: new FormControl(""),
+          FPNo: new FormControl(""),
+          BuildingNo: new FormControl("", [
+            Validators.required,
+            Validators.pattern(this.regex),
+          ]),
+          BuildingName: new FormControl("", [
+            Validators.required,
+            Validators.pattern(this.regex),
+          ]),
 
-        RecordDate: new FormControl(new Date()),
-        milkatno_propId: new FormControl(''),
-        RevenewOfficeType: new FormControl('', Validators.required),
-        PostalAddress: new FormControl(''),
-        Description: new FormControl(''),
-        LandSize: new FormControl('', [Validators.required, Validators.pattern(this.numericRegex)]),
-        WaterAvailability: new FormControl('Yes'),
-        StatusOfElectricity: new FormControl(''),
-        AgeOfProperty: new FormControl(''),
-        NoOfBHK: new FormControl(''),
-        FurnishType: new FormControl(''),
-        InCharge: this.Fb.array([
-          this.initIncharge()
-        ]),
-        types: new FormControl('surveyno')
-      }, { validators: handlerequired });
+          RecordDate: new FormControl(new Date()),
+          milkatno_propId: new FormControl(""),
+          RevenewOfficeType: new FormControl("", Validators.required),
+          PostalAddress: new FormControl(""),
+          Description: new FormControl(""),
+          LandSize: new FormControl("", [
+            Validators.required,
+            Validators.pattern(this.numericRegex),
+          ]),
+          WaterAvailability: new FormControl("Yes"),
+          StatusOfElectricity: new FormControl(""),
+          AgeOfProperty: new FormControl(""),
+          NoOfBHK: new FormControl(""),
+          FurnishType: new FormControl(""),
+          InCharge: this.Fb.array([this.initIncharge()]),
+          types: new FormControl("surveyno"),
+        },
+        { validators: handlerequired }
+      );
       this.fetchstatelist();
       this.fetchpropertytype();
       this.myForm.controls.CreatedBy.setValue(this.currentUser.UserID);
@@ -247,22 +291,22 @@ export class AddPropertyComponent implements OnInit {
     this.areas = [];
     if (e !== undefined) {
       this.isLoading = true;
-      this.service.districts(this.myForm.controls.StateID.value)
+      this.service
+        .districts(this.myForm.controls.StateID.value)
         .pipe(first())
-        .subscribe(
-          data => {
-            this.isLoading = false
-            if (data.error) {
-              Swal.fire({
-                title: data.error_code,
-                text: data.message,
-                type: 'error'
-              });
-              return;
-            } else {
-              this.DistrictList = data.data;
-            }
-          });
+        .subscribe((data) => {
+          this.isLoading = false;
+          if (data.error) {
+            Swal.fire({
+              title: data.error_code,
+              text: data.message,
+              type: "error",
+            });
+            return;
+          } else {
+            this.DistrictList = data.data;
+          }
+        });
     } else {
       this.DistrictList = [];
     }
@@ -577,7 +621,7 @@ export class AddPropertyComponent implements OnInit {
     const control = this.myForm.controls.InCharge as FormArray;
     control.push(this.initIncharge());
   }
-  removeIncharge(i: number) {
+  Incharge(i: number) {
     const control = this.myForm.controls.InCharge as FormArray;
     control.removeAt(i);
   }
@@ -590,24 +634,23 @@ export class AddPropertyComponent implements OnInit {
   }
   fetcharea(search) {
     this.isLoading = true;
-    this.service.area(search)
+    this.service
+      .area(search)
       .pipe(first())
-      .subscribe(
-        data => {
-          this.isLoading = false;
-          if (data.error) {
-            return;
-          } else {
-            this.areas = data.data;
-          }
-        });
+      .subscribe((data) => {
+        this.isLoading = false;
+        if (data.error) {
+          return;
+        } else {
+          this.areas = data.data;
+        }
+      });
   }
   onclear() {
     this.myForm.controls.VillageID.setValue(null);
     this.myForm.controls.TalukaID.setValue(null);
   }
   onChangeSearch(search: string) {
-
     this.myForm.controls.VillageID.setValue(null);
     this.myForm.controls.TalukaID.setValue(null);
     // this.myForm.controls.taluka.setValue('');
@@ -633,17 +676,21 @@ export class AddPropertyComponent implements OnInit {
     }
     if (search !== undefined && search.length >= 3) {
       this.isLoading = true;
-      this.service.areabystateid(this.myForm.controls.StateID.value, search, this.myForm.controls.DistrictID.value)
+      this.service
+        .areabystateid(
+          this.myForm.controls.StateID.value,
+          search,
+          this.myForm.controls.DistrictID.value
+        )
         .pipe(first())
-        .subscribe(
-          data => {
-            this.isLoading = false;
-            if (data.error) {
-              return;
-            } else {
-              this.areas = data.data;
-            }
-          });
+        .subscribe((data) => {
+          this.isLoading = false;
+          if (data.error) {
+            return;
+          } else {
+            this.areas = data.data;
+          }
+        });
     } else if (search !== undefined && search.length === 0) {
       this.areas = null;
     }
