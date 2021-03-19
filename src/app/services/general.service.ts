@@ -544,4 +544,13 @@ export class GeneralService {
   UploadPhotosAndVideos(propertyID, Data): any {
     return this.http.post(`${apiUrl}property/${propertyID}/photograph/add`, Data, httpFileUploadOptions)
   }
+  DisposeLegalCase(LegalCaseID, Data): any {
+    return this.http.post(`${apiUrl}property/legal/Case/Decision/Document/${LegalCaseID}`, Data, httpFileUploadOptions)
+  }
+  UploadLegalCaseDocument(LegalCaseID, Data): any {
+    return this.http.post(`${apiUrl}property/legal/Case/Document/${LegalCaseID}`, Data, httpFileUploadOptions)
+  }
+  GetLegalCaseDocument(LegalCaseID): any {
+    return this.http.get(`${apiUrl}property/legal/Case/View/Document/${LegalCaseID}`, httpOptions)
+  }
 }

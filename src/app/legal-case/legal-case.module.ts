@@ -1,3 +1,4 @@
+import { FileUploadModule } from '@iplab/ngx-file-upload';
 import { DataTablesModule } from 'angular-datatables';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -14,12 +15,13 @@ import { CaseDetailsComponent } from './case-details/case-details.component';
 import { CaseStatusComponent } from './case-status/case-status.component';
 import { CasePetitionerComponent } from './case-petitioner/case-petitioner.component';
 import { CaseRespondentComponent } from './case-respondent/case-respondent.component';
+import { CaseDocumentsComponent } from './case-documents/case-documents.component';
 
 @NgModule({
-  declarations: [AddLegalCaseComponent, ViewLegalCaseComponent, DetailsLegalCaseComponent, CaseDetailsComponent, CaseStatusComponent, CasePetitionerComponent, CaseRespondentComponent],
+  declarations: [AddLegalCaseComponent, ViewLegalCaseComponent, DetailsLegalCaseComponent, CaseDetailsComponent, CaseStatusComponent, CasePetitionerComponent, CaseRespondentComponent, CaseDocumentsComponent],
   imports: [
     CommonModule, FormsModule, ReactiveFormsModule, NgbDropdownModule, NgSelectModule, DataTablesModule,
-    LegalCaseRoutingModule, UIModule, SharedModule, NgbTabsetModule
+    LegalCaseRoutingModule, UIModule, SharedModule, NgbTabsetModule, FileUploadModule
   ], exports: [AddLegalCaseComponent, ViewLegalCaseComponent]
 })
 export class LegalCaseModule { }

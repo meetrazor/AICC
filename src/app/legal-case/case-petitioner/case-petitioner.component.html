@@ -1,4 +1,4 @@
-<div class="container-fluid" *ngIf="!isLoading">
+<div class="container-fluid" *ngIf="!isLoading && PetitionerData.length > 0">
   <h5 class="text-info mb-2">Petitioner(s) :</h5>
   <div class="row">
     <div class="col-12 mb-3" *ngFor="let item of PetitionerData; index as i">
@@ -33,6 +33,11 @@
       </div>
       <div>Since: {{ LawyerData.CreatedAt | date: "MMM dd,yyyy" }}</div>
     </div>
+  </div>
+</div>
+<div class="container-fluid" *ngIf="!isLoading && PetitionerData.length <= 0">
+  <div class="text-center">
+    <h4 class="text-danger">Please Add Petitioner And Lawyer</h4>
   </div>
 </div>
 <div class="card-disabled" *ngIf="isLoading">

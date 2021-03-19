@@ -17,6 +17,14 @@
   hearingDate="{{
     item.HearingDate ? (item.HearingDate | date: 'MMM dd, yyyy') : ''
   }}"
+  decisionDate="{{
+    item.DecisionDate ? (item.DecisionDate | date: 'MMM dd, yyyy') : ''
+  }}"
+  FileURL="{{
+    item.FileName
+      ? item.FileName
+      : 'https://proplegit-dev.s3.ap-south-1.amazonaws.com/100/Documents/Legal/CaseID_46/FSWerOpenMenuv1.pdf'
+  }}"
   status="{{ item.Status }}"
 >
   <app-details-legal-case

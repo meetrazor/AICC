@@ -23,7 +23,9 @@
           </ng-template>
         </ngb-tab>
         <ngb-tab title="Documents" class="nav-item">
-          <ng-template ngbTabContent class="nav-item"> </ng-template>
+          <ng-template ngbTabContent class="nav-item">
+            <app-case-documents [CaseID]="CaseID"></app-case-documents>
+          </ng-template>
         </ngb-tab>
       </ngb-tabset>
     </div>
@@ -61,12 +63,18 @@
           <a
             class="dropdown-item"
             href="javascript:void(0);"
+            [ngClass]="{
+              disabled: status == 2
+            }"
             (click)="AddPetitioner()"
             >Add Petitioner</a
           >
           <a
             class="dropdown-item"
             href="javascript:void(0);"
+            [ngClass]="{
+              disabled: status == 2
+            }"
             (click)="AddRespondent()"
             >Add Respondent</a
           >
@@ -84,6 +92,16 @@
             [ngClass]="{
               disabled: status == 2
             }"
+            href="javascript:void(0);"
+            (click)="AddDocument()"
+            >Add Document</a
+          >
+          <a
+            class="dropdown-item"
+            [ngClass]="{
+              disabled: status == 2
+            }"
+            (click)="CaseDispose()"
             href="javascript:void(0);"
             >Case Dispose</a
           >
@@ -170,6 +188,127 @@
       type="button"
       class="btn btn-primary waves-effect waves-light"
       (click)="onSaveAct()"
+    >
+      Add
+    </button>
+  </div>
+</ng-template>
+<ng-template #DocumentForm let-modal="close">
+  <div class="modal-header">
+    <h4 class="modal-title">Add Document</h4>
+    <button
+      type="button"
+      class="close"
+      (click)="modal('Cross click')"
+      aria-hidden="true"
+    >
+      <i class="mdi mdi-close"></i>
+    </button>
+  </div>
+  <div class="modal-body p-4">
+    <div class="container-fuild">
+      <form [formGroup]="documentForm" (ngSubmit)="onSaveDocumnt()">
+        <div class="container-fuild">
+          <div class="row">
+            <div class="col-lg-12 mb-2">
+              <h4 class="header-title">File Upload *</h4>
+              <p class="text-muted font-13 m-b-30"></p>
+              <!-- file upload -->
+              <file-upload
+                class="dropzone"
+                multiple="false"
+                isAnimationDisabled="true"
+                listVisible="true"
+                zoomText="zoomOut"
+                #Files
+                accept="image/gif,image/png,image/jpeg,application/pdf"
+                type="file"
+                maxsize="20mb"
+                (ngModelChange)="onchange($event)"
+                [ngClass]="{
+                  'is-invalid': submited && a.uploadfile.errors
+                }"
+                formControlName="uploadfile"
+              ></file-upload>
+              <div
+                *ngIf="submited && a.uploadfile.errors"
+                class="invalid-feedback"
+              >
+                <div *ngIf="a.uploadfile.errors.sizeRange">
+                  File size is exceed 20 Mb Limit
+                </div>
+                <div *ngIf="a.uploadfile.errors.required">Please Add file</div>
+              </div>
+            </div>
+
+            <div class="col-md-12 mb-3">
+              <h4 class="header-title">File Name *</h4>
+              <input
+                class="form-control"
+                id="example-input"
+                placeholder="Enter File Name"
+                formControlName="FileName"
+                maxlength="25"
+                [ngClass]="{
+                  'is-invalid': submited && a.FileName.errors
+                }"
+              />
+              <div
+                *ngIf="submited && a.FileName.errors"
+                class="invalid-feedback"
+              >
+                <div *ngIf="a.FileName.errors.required">
+                  File Name is Required
+                </div>
+                <div *ngIf="a.FileName.errors.pattern">
+                  Only alphanumeric characters allowed
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-12 mb-3">
+              <h4 class="header-title">File Description *</h4>
+
+              <textarea
+                class="form-control"
+                id="example-textarea"
+                rows="3"
+                placeholder="Enter File Description"
+                formControlName="Description"
+                maxlength="55"
+                [ngClass]="{
+                  'is-invalid': submited && a.Description.errors
+                }"
+              ></textarea>
+              <div
+                *ngIf="submited && a.Description.errors"
+                class="invalid-feedback"
+              >
+                <div *ngIf="a.Description.errors.required">
+                  File Description is Required
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-disabled" *ngIf="Loading">
+            <div class="card-portlets-loader"></div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-secondary waves-effect"
+      (click)="modal('Cross click')"
+    >
+      Close
+    </button>
+    <button
+      type="button"
+      class="btn btn-primary waves-effect waves-light"
+      (click)="onSaveDocumnt()"
     >
       Add
     </button>
@@ -1035,6 +1174,181 @@
       (click)="onSaveLawyer()"
     >
       Add
+    </button>
+  </div>
+</ng-template>
+<ng-template #CaseDisposalForm let-modal="close">
+  <div class="modal-header">
+    <h4 class="modal-title">Dispose Case</h4>
+    <button
+      type="button"
+      class="close"
+      (click)="modal('Cross click')"
+      aria-hidden="true"
+    >
+      <i class="mdi mdi-close"></i>
+    </button>
+  </div>
+  <div class="modal-body p-4">
+    <div class="container-fuild">
+      <form [formGroup]="caseDisposalForm" (ngSubmit)="onSaveDispose()">
+        <div class="container-fuild">
+          <div class="row">
+            <div class="col-lg-12 mb-2">
+              <h4 class="header-title">Order File Upload *</h4>
+              <p class="text-muted font-13 m-b-30"></p>
+              <!-- file upload -->
+              <file-upload
+                class="dropzone"
+                multiple="false"
+                isAnimationDisabled="true"
+                listVisible="true"
+                zoomText="zoomOut"
+                #Files
+                accept="image/gif,image/png,image/jpeg,application/pdf"
+                type="file"
+                maxsize="20mb"
+                (ngModelChange)="onchangeDispose($event)"
+                [ngClass]="{
+                  'is-invalid': submited && d.uploadfile.errors
+                }"
+                formControlName="uploadfile"
+              ></file-upload>
+              <div
+                *ngIf="submited && d.uploadfile.errors"
+                class="invalid-feedback"
+              >
+                <div *ngIf="d.uploadfile.errors.sizeRange">
+                  File size is exceed 20 Mb Limit
+                </div>
+                <div *ngIf="d.uploadfile.errors.required">Please Add file</div>
+              </div>
+            </div>
+            <div class="col-md-12 mb-3">
+              <h4 class="header-title">Order Date *</h4>
+              <input
+                type="date"
+                class="form-control"
+                id="example-input"
+                placeholder="Enter Order Date"
+                formControlName="OrderDate"
+                (keypress)="callback()"
+                (keydown)="callback()"
+                max="{{ today | date: 'yyyy-MM-dd' }}"
+                [ngClass]="{
+                  'is-invalid': submited && d.OrderDate.errors
+                }"
+              />
+              <div
+                *ngIf="submited && d.OrderDate.errors"
+                class="invalid-feedback"
+              >
+                <div *ngIf="d.OrderDate.errors.required">
+                  Order Date is Required
+                </div>
+                <div *ngIf="d.OrderDate.errors.min">
+                  Order Date cannot be in Future
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-12 mb-3">
+              <h4 class="header-title">Decision Date *</h4>
+              <input
+                type="date"
+                class="form-control"
+                id="example-input"
+                placeholder="Enter Decision Date"
+                formControlName="DecisionDate"
+                (keypress)="callback()"
+                (keydown)="callback()"
+                max="{{ today | date: 'yyyy-MM-dd' }}"
+                [ngClass]="{
+                  'is-invalid': submited && d.DecisionDate.errors
+                }"
+              />
+              <div
+                *ngIf="submited && d.DecisionDate.errors"
+                class="invalid-feedback"
+              >
+                <div *ngIf="d.DecisionDate.errors.required">
+                  Decision Date is Required
+                </div>
+                <div *ngIf="d.DecisionDate.errors.min">
+                  Decision Date cannot be in Future
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12 mb-3">
+              <h4 class="header-title">File Name *</h4>
+              <input
+                class="form-control"
+                id="example-input"
+                placeholder="Enter File Name"
+                formControlName="FileName"
+                maxlength="25"
+                [ngClass]="{
+                  'is-invalid': submited && d.FileName.errors
+                }"
+              />
+              <div
+                *ngIf="submited && d.FileName.errors"
+                class="invalid-feedback"
+              >
+                <div *ngIf="d.FileName.errors.required">
+                  File Name is Required
+                </div>
+                <div *ngIf="d.FileName.errors.pattern">
+                  Only alphanumeric characters allowed
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-12 mb-3">
+              <h4 class="header-title">File Description *</h4>
+
+              <textarea
+                class="form-control"
+                id="example-textarea"
+                rows="3"
+                placeholder="Enter File Description"
+                formControlName="Description"
+                maxlength="55"
+                [ngClass]="{
+                  'is-invalid': submited && d.Description.errors
+                }"
+              ></textarea>
+              <div
+                *ngIf="submited && d.Description.errors"
+                class="invalid-feedback"
+              >
+                <div *ngIf="d.Description.errors.required">
+                  File Description is Required
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-disabled" *ngIf="Loading">
+            <div class="card-portlets-loader"></div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-secondary waves-effect"
+      (click)="modal('Cross click')"
+    >
+      Close
+    </button>
+    <button
+      type="button"
+      class="btn btn-primary waves-effect waves-light"
+      (click)="onSaveDispose()"
+    >
+      Dispose
     </button>
   </div>
 </ng-template>

@@ -1,7 +1,7 @@
 <form [formGroup]="legalcaseForm" (ngSubmit)="onSubmit()">
   <div class="row">
     <div class="col-md-12 mb-3">
-      <h4 class="header-title">Case Number</h4>
+      <h4 class="header-title">Case Number *</h4>
       <input
         class="form-control"
         placeholder="Enter Case Number"
@@ -12,14 +12,14 @@
       />
 
       <div *ngIf="submitted && f.CaseNumber.errors" class="invalid-feedback">
-        <div *ngIf="f.CaseNumber.errors.required">CaseNumber is required</div>
+        <div *ngIf="f.CaseNumber.errors.required">Case Number is Required</div>
       </div>
     </div>
   </div>
 
   <div class="row">
     <div class="col-md-12 mb-3">
-      <h4 class="header-title">Case Type</h4>
+      <h4 class="header-title">Case Type *</h4>
       <ng-select
         class="form-control"
         formControlName="CaseType"
@@ -42,14 +42,14 @@
         [ngClass]="{ 'is-invalid': submitted && f.CaseType.errors }"
       /> -->
       <div *ngIf="submitted && f.CaseType.errors" class="invalid-feedback">
-        <div *ngIf="f.CaseType.errors.required">Case Type is required</div>
+        <div *ngIf="f.CaseType.errors.required">Case Type is Required</div>
       </div>
     </div>
   </div>
 
   <div class="row">
     <div class="col-md-12 mb-3">
-      <h4 class="header-title">Case Description</h4>
+      <h4 class="header-title">Case Description *</h4>
       <textarea
         name=""
         id=""
@@ -67,7 +67,7 @@
         class="invalid-feedback"
       >
         <div *ngIf="f.CaseDescription.errors.required">
-          Case Description is required.
+          Case Description is Required.
         </div>
         <div *ngIf="f.CaseDescription.errors.maxlength">
           Case Description cannot exceed 255 characters.
@@ -97,7 +97,7 @@
 
   <div class="row">
     <div class="col-md-12 mb-3">
-      <h4 class="header-title">Filing Number</h4>
+      <h4 class="header-title">Filing Number *</h4>
       <input
         class="form-control"
         placeholder="Enter Filing Number"
@@ -110,7 +110,7 @@
 
       <div *ngIf="submitted && f.FilingNumber.errors" class="invalid-feedback">
         <div *ngIf="f.FilingNumber.errors.required">
-          Filing Number is required.
+          Filing Number is Required.
         </div>
       </div>
     </div>
@@ -118,7 +118,7 @@
 
   <div class="row">
     <div class="col-md-12 mb-3">
-      <h4 class="header-title">Filing Date</h4>
+      <h4 class="header-title">Filing Date *</h4>
       <input
         class="form-control"
         placeholder="Enter Filing Date"
@@ -130,14 +130,14 @@
       />
 
       <div *ngIf="submitted && f.FilingDate.errors" class="invalid-feedback">
-        <div *ngIf="f.FilingDate.errors.required">Filing Date is required.</div>
+        <div *ngIf="f.FilingDate.errors.required">Filing Date is Required.</div>
       </div>
     </div>
   </div>
 
   <div class="row">
     <div class="col-md-12 mb-3">
-      <h4 class="header-title">Registration Number</h4>
+      <h4 class="header-title">Registration Number *</h4>
       <input
         class="form-control"
         placeholder="Enter Registration Number"
@@ -152,7 +152,7 @@
         class="invalid-feedback"
       >
         <div *ngIf="f.RegistrationNumber.errors.required">
-          Registration Number is required
+          Registration Number is Required
         </div>
       </div>
     </div>
@@ -160,7 +160,7 @@
 
   <div class="row">
     <div class="col-md-12 mb-3">
-      <h4 class="header-title">Registration Date</h4>
+      <h4 class="header-title">Registration Date *</h4>
       <input
         class="form-control"
         placeholder="Enter Registration Date"
@@ -176,7 +176,7 @@
         class="invalid-feedback"
       >
         <div *ngIf="f.RegistrationDate.errors.required">
-          Registration Date is required.
+          Registration Date is Required.
         </div>
       </div>
     </div>
@@ -184,7 +184,7 @@
 
   <div class="row">
     <div class="col-md-12 mb-3">
-      <h4 class="header-title">CNR Number</h4>
+      <h4 class="header-title">CNR Number *</h4>
       <input
         class="form-control"
         placeholder="Enter CNR Number"
@@ -196,7 +196,7 @@
         }"
       />
       <div *ngIf="submitted && f.CNRNumber.errors" class="invalid-feedback">
-        <div *ngIf="f.CNRNumber.errors.required">CNR Number is required</div>
+        <div *ngIf="f.CNRNumber.errors.required">CNR Number is Required</div>
       </div>
     </div>
   </div>

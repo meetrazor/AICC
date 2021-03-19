@@ -14,8 +14,12 @@ import { first } from 'rxjs/operators';
 export class DetailsLegalCaseComponent implements OnInit {
   today = new Date();
   currentUser: any;
+  fileExtension: string;
+  disposeFileExtension: string;
   PetitionerForm: FormGroup;
   RespondentForm: FormGroup;
+  documentForm: FormGroup;
+  caseDisposalForm: FormGroup;
   isFormLoading: boolean;
   @Input() CaseID: any;
   @Input() status: any;
@@ -43,7 +47,9 @@ export class DetailsLegalCaseComponent implements OnInit {
   @ViewChild('HearingForm', { static: true }) HearingFormModal;
   @ViewChild('PetitionerFormModal', { static: true }) PetitionerFormModal;
   @ViewChild('RespondentFormModal', { static: true }) RespondentFormModal;
+  @ViewChild('DocumentForm', { static: true }) DocumentFormModal;
   @ViewChild('LawyerForm', { static: true }) LawyerFormModal;
+  @ViewChild('CaseDisposalForm', { static: true }) CaseDisposalFromModal;
   constructor(private service: GeneralService, private modalService: NgbModal, private formBuilder: FormBuilder, private datepipe: DatePipe) {
     this.currentUser = this.service.getcurrentUser();
   }
@@ -55,6 +61,104 @@ export class DetailsLegalCaseComponent implements OnInit {
       this.isFormLoading = false;
     })
 
+  }
+  CaseDispose() {
+    this.initDispoalForm();
+    this.modalService.open(this.CaseDisposalFromModal)
+  }
+  initDispoalForm() {
+    this.caseDisposalForm = new FormGroup({
+      FileName: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z0-9]*$')]),
+      FileType: new FormControl('', Validators.required),
+      Description: new FormControl('', Validators.required),
+      uploadfile: new FormControl(null, Validators.required),
+      DecisionDate: new FormControl(null, Validators.required),
+      OrderDate: new FormControl(null, Validators.required),
+      CreatedBy: new FormControl(this.currentUser.UserID)
+    });
+  }
+  onSaveDispose() {
+    this.submited = true;
+    if (this.caseDisposalForm.valid) {
+      // 1 is Property ID
+      this.Loading = true;
+      this.service.DisposeLegalCase(this.CaseID, this.prepareDisposalSave())
+        .subscribe(data => {
+          this.Loading = false;
+          this.resetDisposeForm();
+          if (data.status === 200) {
+            this.submited = false;
+            Swal.fire({
+              title: 'Uploaded',
+              text: data.message,
+              type: 'success',
+            }).then(() => {
+              location.reload();
+            });
+          } else {
+            Swal.fire({
+              title: data.error_code,
+              text: data.message,
+              type: 'error'
+            });
+          }
+        });
+    }
+  }
+  AddDocument() {
+    this.initDocumentForm()
+    this.modalService.open(this.DocumentFormModal)
+  }
+  initDocumentForm() {
+    this.documentForm = new FormGroup({
+      FileName: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z0-9]*$')]),
+      FileType: new FormControl('', Validators.required),
+      Description: new FormControl('', Validators.required),
+      uploadfile: new FormControl(null, Validators.required),
+      CreatedBy: new FormControl(this.currentUser.UserID)
+    });
+  }
+  resetDocumentForm() {
+    this.a.FileName.reset()
+    this.a.FileType.reset()
+    this.a.Description.reset()
+    this.a.uploadfile.reset()
+  }
+  resetDisposeForm() {
+    this.d.FileName.reset()
+    this.d.FileType.reset()
+    this.d.Description.reset()
+    this.d.DecisionDate.reset()
+    this.d.OrderDate.reset()
+    this.d.uploadfile.reset()
+  }
+  onSaveDocumnt() {
+    this.submited = true;
+    if (this.documentForm.valid) {
+      // 1 is Property ID
+      this.Loading = true;
+      this.service.UploadLegalCaseDocument(this.CaseID, this.prepareSave())
+        .subscribe(data => {
+          this.Loading = false;
+          this.resetDocumentForm();
+          if (data.status === 200) {
+            this.submited = false;
+            Swal.fire({
+              title: 'Uploaded',
+              text: data.message,
+              type: 'success',
+            }).then(() => {
+              location.reload();
+            });
+          } else {
+            Swal.fire({
+              title: data.error_code,
+              text: data.message,
+              type: 'error'
+            });
+          }
+        });
+    }
   }
   AddAct() {
     this.initActForm();
@@ -409,9 +513,110 @@ export class DetailsLegalCaseComponent implements OnInit {
       return false;
     }
   }
+  onchange(e) {
+    if (e && e.length > 0) {
+      if (e.length > 1) {
+        this.a.uploadfile.setValue([e[0]]);
+      }
+      const file = e[0];
+      let fileName = file.name;
+      fileName = fileName.replace(/\.[^/.]+$/, '').replace(/[^a-zA-Z0-9]/g, '');
+      fileName = fileName.length > 25 ? fileName.substring(0, 25) : fileName;
+      const filetype = file.type;
+      const fileExtension = file.name.split('.').pop();
+      this.setform(fileName, filetype, fileExtension);
+    } else {
+      this.a.FileType.setValue('');
+      this.a.FileName.setValue('');
+      this.a.Description.setValue('');
+      this.fileExtension = '';
+    }
+  }
+  onchangeDispose(e) {
+    if (e && e.length > 0) {
+      if (e.length > 1) {
+        this.d.uploadfile.setValue([e[0]]);
+      }
+      const file = e[0];
+      let fileName = file.name;
+      fileName = fileName.replace(/\.[^/.]+$/, '').replace(/[^a-zA-Z0-9]/g, '');
+      fileName = fileName.length > 25 ? fileName.substring(0, 25) : fileName;
+      const filetype = file.type;
+      const fileExtension = file.name.split('.').pop();
+      this.setDisposeform(fileName, filetype, fileExtension);
+    } else {
+      this.d.FileType.setValue('');
+      this.d.FileName.setValue('');
+      this.d.Description.setValue('');
+      this.disposeFileExtension = '';
+    }
+  }
+  setform(fileName, filetype, extension) {
+    if ((filetype.toLowerCase() === 'image/jpeg' && (extension.toLowerCase() === 'jpg' || extension.toLowerCase() === 'jpeg')) ||
+      (filetype.toLowerCase() === 'image/gif' && extension.toLowerCase() === 'gif') ||
+      (filetype.toLowerCase() === 'image/png' && extension.toLowerCase() === 'png')) {
+      this.a.FileType.setValue('Photo');
+      this.a.FileName.setValue(fileName);
+      this.fileExtension = extension.toLowerCase();
+    } else if ((filetype.toLowerCase() === 'application/pdf' && extension.toLowerCase() === 'pdf')) {
+      this.a.FileType.setValue('PDF');
+      this.a.FileName.setValue(fileName);
+      this.fileExtension = extension.toLowerCase();
+    } else {
+      this.a.uploadfile.setValue([]);
+      Swal.fire({
+        title: `Error`,
+        text: `${extension} File Are Not Supported`,
+        type: 'error'
+      });
+    }
+  }
+  setDisposeform(fileName, filetype, extension) {
+    if ((filetype.toLowerCase() === 'image/jpeg' && (extension.toLowerCase() === 'jpg' || extension.toLowerCase() === 'jpeg')) ||
+      (filetype.toLowerCase() === 'image/gif' && extension.toLowerCase() === 'gif') ||
+      (filetype.toLowerCase() === 'image/png' && extension.toLowerCase() === 'png')) {
+      this.d.FileType.setValue('Photo');
+      this.d.FileName.setValue(fileName);
+      this.disposeFileExtension = extension.toLowerCase();
+    } else if ((filetype.toLowerCase() === 'application/pdf' && extension.toLowerCase() === 'pdf')) {
+      this.d.FileType.setValue('PDF');
+      this.d.FileName.setValue(fileName);
+      this.disposeFileExtension = extension.toLowerCase();
+    } else {
+      this.d.uploadfile.setValue([]);
+      Swal.fire({
+        title: `Error`,
+        text: `${extension} File Are Not Supported`,
+        type: 'error'
+      });
+    }
+  }
+  prepareSave(): any {
+    const input = new FormData();
+    input.append('FileName', this.documentForm.get('FileName').value + '.' + this.fileExtension);
+    input.append('FileType', this.documentForm.get('FileType').value);
+    input.append('Description', this.documentForm.get('Description').value);
+    input.append('CreatedBy', this.documentForm.get('CreatedBy').value);
+    input.append('uploadfile', (this.documentForm.get('uploadfile').value)[0]);
+    return input;
+  }
+  prepareDisposalSave(): any {
+    const input = new FormData();
+    input.append('FileName', this.caseDisposalForm.get('FileName').value + '.' + this.fileExtension);
+    input.append('FileType', this.caseDisposalForm.get('FileType').value);
+    input.append('Description', this.caseDisposalForm.get('Description').value);
+    input.append('CreatedBy', this.caseDisposalForm.get('CreatedBy').value);
+    input.append('DecisionDate', this.caseDisposalForm.get('DecisionDate').value);
+    input.append('OrderDate', this.caseDisposalForm.get('OrderDate').value);
+    input.append('uploadfile', (this.caseDisposalForm.get('uploadfile').value)[0]);
+    return input;
+  }
+
   get e() { return this.actForm.controls; }
   get f() { return this.hearingForm.controls; }
   get g() { return this.PetitionerForm.controls; }
   get h() { return this.RespondentForm.controls; }
   get l() { return this.lawyerForm.controls; }
+  get a() { return this.documentForm.controls; }
+  get d() { return this.caseDisposalForm.controls; }
 }

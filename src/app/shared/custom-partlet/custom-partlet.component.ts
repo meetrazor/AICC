@@ -20,6 +20,8 @@ export class CustomPartletComponent implements OnInit, OnChanges {
   @Input() hearingDate: any;
   @Input() CaseStatus: string;
   @Input() status: any;
+  @Input() decisionDate: any;
+  @Input() FileURL: any;
   // tslint:disable-next-line: no-output-on-prefix
   @Output() onContentRefresh: EventEmitter<any> = new EventEmitter();
   // tslint:disable-next-line: no-output-on-prefix
