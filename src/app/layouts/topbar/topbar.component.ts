@@ -35,10 +35,15 @@ export class TopbarComponent implements OnInit {
   ngOnInit() {
     this.isLoading = true;
     this.currentUser = JSON.parse(this.cookie.getCookie('currentUser'));
-    this.service.GetUser(this.currentUser.UserID).subscribe((Res) => {
-      this.data = Res.data[0];
-      this.isLoading = false;
-    })
+    if (!this.currentUser) {
+      this.router.navigate(['/account/login'])
+    } else {
+      this.service.GetUser(this.currentUser.UserID).subscribe((Res) => {
+        this.data = Res.data[0];
+        this.isLoading = false;
+      })
+    }
+
     // get the notifications
     this._fetchNotifications();
     this.openMobileMenu = false;

@@ -17,12 +17,13 @@ const handlerequired = (control: AbstractControl) => {
   let TP = control.get("TPNo").value;
   let FP = control.get("FPNo").value;
   let SurveyNo = control.get("SurveyNo").value;
-  if (SurveyNo === "" && TP === "" && FP === "") {
+  let CitySurveyNo = control.get("CitySurveyNo").value;
+  if (!SurveyNo && !TP && !FP && !CitySurveyNo) {
     return { SurveyOrTPFPrequired: true };
   } else {
-    if (TP !== "" && FP === "") {
+    if (TP && !FP) {
       return { TPFPrequired: true };
-    } else if (TP === "" && FP !== "") {
+    } else if (!TP && FP) {
       return { TPFPrequired: true };
     } else {
       return null;
@@ -169,7 +170,7 @@ export class AddPropertyComponent implements OnInit {
         PostalAddress: new FormControl(''),
         Description: new FormControl(''),
         LandSize: new FormControl('', [Validators.required, Validators.pattern(this.numericRegex)]),
-        WaterAvailability: new FormControl('Yes'),
+        WaterAvailability: new FormControl('='),
         StatusOfElectricity: new FormControl(''),
         AgeOfProperty: new FormControl(''),
         NoOfBHK: new FormControl(''),
@@ -309,6 +310,7 @@ export class AddPropertyComponent implements OnInit {
       this.myForm.controls.SheetNumber.disable();
       this.myForm.controls.NoOfBHK.enable();
       this.myForm.controls.FurnishType.enable();
+      this.myForm.controls.milkatno_propId.enable();
       // unset value
       this.myForm.controls.CitySurveyNo.setValue(null);
       this.myForm.controls.CitySurveyOffice.setValue(null);
@@ -316,6 +318,7 @@ export class AddPropertyComponent implements OnInit {
       this.myForm.controls.CityWardName.setValue(null);
       this.myForm.controls.SheetNumber.setValue(null);
       this.myForm.controls.NoOfBHK.setValue(null);
+      this.myForm.controls.milkatno_propId.setValue(null);
     } else if (this.myForm.controls.types.value == "citysurveyno") {
       this.myForm.controls.CitySurveyNo.enable();
       this.myForm.controls.CitySurveyOffice.enable();
@@ -455,7 +458,6 @@ export class AddPropertyComponent implements OnInit {
               title: "Property Added Successfully!",
               text: data.message,
               type: "success",
-              timer: 2000,
             }).then(() => {
               this.router.navigate(["/"]);
             });
@@ -481,7 +483,6 @@ export class AddPropertyComponent implements OnInit {
               title: "Property Updated Successfully!",
               text: data.message,
               type: "success",
-              timer: 2000,
             }).then(() => {
               this.router.navigate(["/"]);
             });
@@ -524,7 +525,6 @@ export class AddPropertyComponent implements OnInit {
           this.StateList = data.data;
         }
       });
-    this.myForm.controls.DistrictID.disable();
   }
 
   initOwner(i?) {
@@ -547,7 +547,7 @@ export class AddPropertyComponent implements OnInit {
         Designation: new FormControl(i.Designation, Validators.pattern(this.regex)),
         MobileNo: new FormControl(i.MobileNo !== '0' ? i.MobileNo : null, [Validators.maxLength(10), Validators.minLength(10)]),
         Email: new FormControl(i.Email, Validators.pattern(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/)),
-        Address: new FormControl(i.Address),
+        Address: new FormControl(i.Address, Validators.pattern(this.regex)),
         InChargeFromDate: new FormControl(
           moment(i.InChargeFromDate).format("YYYY-MM-DD")
         ),
@@ -558,7 +558,7 @@ export class AddPropertyComponent implements OnInit {
         Designation: new FormControl('', Validators.pattern(this.regex)),
         MobileNo: new FormControl('', [Validators.maxLength(10), Validators.minLength(10)]),
         Email: new FormControl('', Validators.pattern(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/)),
-        Address: new FormControl(''),
+        Address: new FormControl('', Validators.pattern(this.regex)),
         InChargeFromDate: new FormControl(''),
       });
     }
@@ -750,6 +750,7 @@ export class AddPropertyComponent implements OnInit {
           this.myForm.controls.taluka.setValue(
             `${data.data.VillageName}, ${data.data.TalukaName}, ${data.data.DistrictName}`
           );
+
           if (
             data.data.CitySurveyNo &&
             data.data.PropertyTypeID != 1 &&
@@ -757,7 +758,7 @@ export class AddPropertyComponent implements OnInit {
           ) {
             this.myForm.controls.types.setValue("citysurveyno");
           } else if (
-            data.data.SurveyNo &&
+            (data.data.SurveyNo || (data.data.FPNo && data.data.TPNo)) &&
             data.data.PropertyTypeID != 1 &&
             data.data.PropertyTypeID != 3
           ) {

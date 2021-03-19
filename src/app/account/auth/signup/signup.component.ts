@@ -62,7 +62,7 @@ export class SignupComponent implements OnInit, AfterViewInit {
         this.loading = false;
         Swal.fire({
           title: 'Success',
-          text: `A email has been send to ${this.signupForm.value.EmailAddress},
+          text: `An email has been send to ${this.signupForm.value.EmailAddress},
           and A message has been send to ${this.signupForm.value.MobileNumber} Please
           check for an email and message from company and enter OTP.`,
           type: 'success',

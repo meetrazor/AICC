@@ -566,6 +566,10 @@
                           Required
                         </div>
                       </div>
+                      <div class="text-warning" *ngIf="!submitted">
+                        NOTE : Either Survey Number or FP Number and TP Number
+                        Required
+                      </div>
                     </div>
 
                     <div
@@ -609,6 +613,7 @@
                       <label for="">Land Size(In Sq.Mtrs)</label>
                       <input
                         class="form-control"
+                        type="number"
                         placeholder="Enter Landsize"
                         formControlName="LandSize"
                         maxlength="10"
@@ -657,7 +662,7 @@
                         class="custom-select"
                         formControlName="FurnishType"
                       >
-                        <option value="" selected></option>
+                        <option value="" selected>Not Applicable</option>
                         <option value="Full Furnished" id="4">
                           Full Furnished
                         </option>
@@ -674,7 +679,7 @@
                         class="custom-select"
                         formControlName="StatusOfElectricity"
                       >
-                        <option value="" selected></option>
+                        <option value="" selected>Not Applicable</option>
                         <option value="No PowerCut" id="3">No PowerCut</option>
                         <option value="Rare PoweCut" id="5">
                           Rare PoweCut
@@ -689,6 +694,7 @@
                       <label for="example-textarea">Description</label>
                       <textarea
                         class="form-control"
+                        placeholder="Description"
                         rows="2"
                         formControlName="Description"
                         maxlength="250"
@@ -699,6 +705,7 @@
                       <label for="example-textarea">Postal Address</label>
                       <textarea
                         class="form-control"
+                        placeholder="Postal Address"
                         rows="2"
                         formControlName="PostalAddress"
                         maxlength="250"
@@ -726,7 +733,7 @@
                     >
                       <label for="">No. of BHK</label>
                       <select class="custom-select" formControlName="NoOfBHK">
-                        <option value="" id="4" selected></option>
+                        <option value="" id="4" selected>Not Applicable</option>
                         <option value="1" id="4">1</option>
                         <option value="2" id="1">2</option>
                         <option value="3" id="3">3</option>
@@ -762,6 +769,7 @@
                               type="text"
                               class="form-control"
                               formControlName="OwnerName"
+                              placeholder="Owner Name {{ i + 1 }}"
                               maxlength="500"
                               [ngClass]="{
                                 'is-invalid':
@@ -858,6 +866,7 @@
                               type="text"
                               class="form-control"
                               formControlName="InChargeName"
+                              placeholder="InCharge Name {{ i + 1 }}"
                               [ngClass]="{
                                 'is-invalid':
                                   submitted &&
@@ -890,16 +899,41 @@
                             <input
                               type="text"
                               class="form-control"
+                              placeholder="Designation"
                               formControlName="Designation"
                               maxlength="25"
+                              [ngClass]="{
+                                'is-invalid':
+                                  submitted &&
+                                  f.InCharge['controls'][i]['controls']
+                                    .Designation.errors
+                              }"
                             />
+                            <div
+                              *ngIf="
+                                submitted &&
+                                f.InCharge['controls'][i]['controls']
+                                  .Designation.errors
+                              "
+                              class="invalid-feedback"
+                            >
+                              <div
+                                *ngIf="
+                                  f.InCharge['controls'][i]['controls']
+                                    .Designation.errors.pattern
+                                "
+                              >
+                                Only Alphanumeric letters Allowed
+                              </div>
+                            </div>
                           </div>
 
                           <div class="form-group col-md-6">
-                            <label>MobileNo</label>
+                            <label>Mobile No</label>
                             <input
                               type="text"
                               class="form-control"
+                              placeholder="Mobile Number"
                               formControlName="MobileNo"
                               (keypress)="isValidMobileNo($event)"
                               (paste)="(false)"
@@ -921,10 +955,11 @@
                           </div>
 
                           <div class="form-group col-md-6">
-                            <label>Email</label>
+                            <label>Email ID</label>
                             <input
                               type="email"
                               class="form-control"
+                              placeholder="Email ID"
                               formControlName="Email"
                             />
 
@@ -947,6 +982,7 @@
                             <input
                               type="text"
                               class="form-control"
+                              placeholder="Address"
                               formControlName="Address"
                               maxlength="255"
                             />

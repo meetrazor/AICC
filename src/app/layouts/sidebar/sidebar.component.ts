@@ -16,10 +16,13 @@ export class SidebarComponent implements OnInit, AfterViewInit, OnChanges {
   currentUser: any;
   @ViewChild('sideMenu', { static: false }) sideMenu: ElementRef;
 
-  constructor(private cookie: CookieService,private service:GeneralService , private router:Router) { }
+  constructor(private cookie: CookieService, private service: GeneralService, private router: Router) { }
 
   ngOnInit() {
     this.currentUser = JSON.parse(this.cookie.getCookie('currentUser'));
+    if (!this.currentUser) {
+      this.router.navigate(['/account/login'])
+    }
   }
 
   ngAfterViewInit() {
@@ -128,23 +131,23 @@ export class SidebarComponent implements OnInit, AfterViewInit, OnChanges {
       }
     }
   }
-  switchUser(){
-    if(this.currentUser.UserType === 'Bank Manager'){
+  switchUser() {
+    if (this.currentUser.UserType === 'Bank Manager') {
       this.currentUser.UserType = 'Lawyer';
       this.cookie.deleteCookie('currentUser');
       this.service.saveCookie(this.currentUser);
-      if(this.router.url === '/loan/dashboard'){
+      if (this.router.url === '/loan/dashboard') {
         location.reload();
-      }else{
+      } else {
         this.router.navigate(['/loan/dashboard']);
       }
-    }else if(this.currentUser.UserType === 'Lawyer'){
+    } else if (this.currentUser.UserType === 'Lawyer') {
       this.currentUser.UserType = 'Bank Manager';
       this.cookie.deleteCookie('currentUser');
       this.service.saveCookie(this.currentUser);
-      if(this.router.url === '/loan/dashboard'){
+      if (this.router.url === '/loan/dashboard') {
         location.reload();
-      }else{
+      } else {
         this.router.navigate(['/loan/dashboard']);
       }
     }

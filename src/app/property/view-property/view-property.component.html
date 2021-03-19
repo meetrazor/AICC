@@ -1,13 +1,15 @@
 <div class="">
   <div *ngIf="data.Ownership">
+    <div class="border-bottom">
+      <h5 class="text-info">Ownership</h5>
+    </div>
     <div *ngFor="let item of data.Ownership">
       <ng-container *ngIf="item.OwnerName">
-        <div class="border-bottom">
-          <h5 class="text-info">Ownership</h5>
+        <div class="my-2">
+          <b>OwnerName: </b>{{ item.OwnerName }}
+          <br />
+          <b>Since: </b>{{ item.SinceFrom | date }}
         </div>
-        <b>OwnerName: </b>{{ item.OwnerName }}
-        <br />
-        <b>Since: </b>{{ item.SinceFrom | date }}
       </ng-container>
     </div>
 
@@ -20,31 +22,27 @@
         <b class="text-muted">{{ data.PropertyName }}</b> <br />
         <b>{{ data.PostalAddress }}</b>
       </ng-container>
+      <br />
     </div>
 
-    <br />
-
     <div *ngIf="data.InCharge">
+      <div class="border-bottom">
+        <h5 class="text-info">In Charge</h5>
+      </div>
       <div *ngFor="let item of data.InCharge">
         <ng-container *ngIf="item.InChargeName">
-          <div class="border-bottom">
-            <h5 class="text-info">In Charge</h5>
-          </div>
-
-          <div>
+          <div class="my-2">
             <b>InChargeName: </b> {{ item.InChargeName }}
             <br />
             <b>MobileNo: </b>{{ item.MobileNo }}<br />
             <b>Since: </b>{{ item.InChargeFromDate | date }}
             <br />
             <b>Email: </b>{{ item.Email }}
-            <br />
           </div>
         </ng-container>
       </div>
+      <br />
     </div>
-
-    <br />
 
     <div *ngIf="data.Description">
       <ng-container>
@@ -53,9 +51,8 @@
         </div>
         <b>{{ data.Description }}</b>
       </ng-container>
+      <br />
     </div>
-
-    <br />
 
     <div *ngIf="propertyType">
       <ng-container>
@@ -113,8 +110,8 @@
           </table>
         </div>
       </ng-container>
+      <br />
     </div>
-    <br />
 
     <div>
       <ng-container>

@@ -151,3 +151,6 @@ thead {
 .btn-link {
   color: black !important;
 }
+.ng-select.ng-select-opened .ng-select-container {
+  z-index: auto !important;
+}
