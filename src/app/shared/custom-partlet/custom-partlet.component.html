@@ -48,7 +48,7 @@
       <span class="text-success">{{ decisionDate }}</span>
     </p>
     <p *ngIf="status == 2 && FileURL">
-      <a class="text-success" href="{{ FileURL }}">Download Order Document</a>
+      <a class="text-success" [href]="FileURL">Download Order Document</a>
     </p>
   </div>
   <hr />
