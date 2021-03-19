@@ -21,6 +21,7 @@ export class RentComponent implements OnInit, OnChanges, AfterViewInit, AfterCon
   @Input() propertyID;
   @Input() refresh;
   tenantData: any;
+  regex = "[a-zA-Z0-9][a-z0-9A-Z ]+";
   datasource: null;
   submitted: boolean;
   invoiceForm: FormGroup;
@@ -121,7 +122,7 @@ export class RentComponent implements OnInit, OnChanges, AfterViewInit, AfterCon
           title: 'Remarks', render: (data: any, type: any, full: any) => {
             return `<div style="font-size: 12px"; font-family: Nunito,sans-serif;>
             Cell : ${full.TenantMobile} <br> Email : ${full.TenantEmail}
-            <br> Advance Deposite: ${full.AdvanceDeposite}
+            <br> Advance Deposite : ${full.AdvanceDeposite}
             <br> Since : ${this.datepipe.transform(full.ContractStartDate, 'MMM, dd yyyy')}
             <br> Remaining Deposite : ${full.RemainingAdvanceAmount}</div>`;
           },
@@ -247,19 +248,54 @@ export class RentComponent implements OnInit, OnChanges, AfterViewInit, AfterCon
     });
   }
   CancelContract(id) {
-    this.service.CancelRentContract(id).subscribe((Res) => {
-      this.rerender();
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'You won\'t be able to revert this!',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, cancel it!',
+      cancelButtonText: 'No,',
+      confirmButtonClass: 'btn btn-success mt-2',
+      cancelButtonClass: 'btn btn-danger ml-2 mt-2',
+      buttonsStyling: false
+    }).then((result) => {
+      if (result.value) {
+        this.service.CancelRentContract(id).subscribe((Res) => {
+          Swal.fire({
+            title: 'Cancelled!',
+            text: 'Your Contract is Cancelled.',
+            type: 'success'
+          }).then(() => { this.rerender() })
+        });
+
+      } else if (
+        // Read more about handling dismissals
+        result.dismiss === Swal.DismissReason.cancel
+      ) {
+        Swal.fire({
+          title: 'Cancelled',
+          text: 'Your Contract is safe :)',
+          type: 'error'
+        });
+      }
     });
   }
+
   UploadReceipt(id) {
     this.router.navigate([`rent/uploadreceipt/${this.propertyID}/${id}`]);
   }
   UploadInvoice(id) {
+    if (this.modalService.hasOpenModals()) {
+      return
+    }
     this.uploadInvoiceForm(id);
     this.RentID = id;
     this.modalService.open(this.uploadInvoiceModal);
   }
   GenerateReceipt(id, tenantID) {
+    if (this.modalService.hasOpenModals()) {
+      return
+    }
     this.isLoaded = false;
     this.service.viewTenant(tenantID).subscribe((res) => {
       this.isLoaded = true;
@@ -418,12 +454,12 @@ export class RentComponent implements OnInit, OnChanges, AfterViewInit, AfterCon
     this.receiptForm = this.formBuilder.group({
       ModeOfPayment: new FormControl(null, Validators.required),
       PaymentDate: new FormControl(null, Validators.required),
-      ChequeNo: new FormControl(null, Validators.required),
-      ChequeName: new FormControl(null, Validators.required),
-      BankName: new FormControl(null, Validators.required),
-      BankBranchName: new FormControl(null, Validators.required),
-      TransactionID: new FormControl(null, Validators.required),
-      WalletName: new FormControl(null, Validators.required),
+      ChequeNo: new FormControl(null, [Validators.required, Validators.pattern(this.regex)]),
+      ChequeName: new FormControl(null, [Validators.required, Validators.pattern(this.regex)]),
+      BankName: new FormControl(null, [Validators.required, Validators.pattern(this.regex)]),
+      BankBranchName: new FormControl(null, [Validators.required, Validators.pattern(this.regex)]),
+      TransactionID: new FormControl(null, [Validators.required, Validators.pattern(this.regex)]),
+      WalletName: new FormControl(null, [Validators.required, Validators.pattern(this.regex)]),
       CreatedBy: new FormControl(this.currentUser.UserID),
       ModifiedBy: new FormControl(null),
       AmountFromAdvance: new FormControl(0, Validators.max(this.tanentData.RemainingAdvanceAmount)),
@@ -431,8 +467,8 @@ export class RentComponent implements OnInit, OnChanges, AfterViewInit, AfterCon
   }
   onGenerate() {
     this.submited = true;
-    this.Loading = true;
     if (this.receiptForm.valid) {
+      this.Loading = true;
       this.service.GenerateReceipt(this.RentID, this.receiptForm.value).subscribe((res) => {
         this.submited = false;
         this.Loading = false;
@@ -459,7 +495,6 @@ export class RentComponent implements OnInit, OnChanges, AfterViewInit, AfterCon
         }
       });
     }
-    this.Loading = false;
   }
   resetReceiptForm() {
     this.e.ModeOfPayment.reset();
@@ -671,6 +706,9 @@ export class RentComponent implements OnInit, OnChanges, AfterViewInit, AfterCon
   }
   onchange(e) {
     if (e && e.length > 0) {
+      if (e.length > 1) {
+        this.invoiceForm.controls.uploadfile.setValue([e[0]]);
+      }
       const file = e[0];
       let fileName = file.name;
       fileName = fileName.replace(/\.[^/.]+$/, '').replace(/[^a-zA-Z0-9]/g, '');
@@ -694,12 +732,6 @@ export class RentComponent implements OnInit, OnChanges, AfterViewInit, AfterCon
       this.fileExtension = extension.toLowerCase();
     } else if ((filetype.toLowerCase() === 'application/pdf' && extension.toLowerCase() === 'pdf')) {
       this.invoiceForm.controls.FileType.setValue('PDF');
-      this.invoiceForm.controls.FileName.setValue(fileName);
-      this.fileExtension = extension.toLowerCase();
-    } else if ((filetype.toLowerCase() === 'application/msword' && extension.toLowerCase() === 'doc') ||
-      (filetype.toLowerCase() === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' &&
-        extension.toLowerCase() === 'docx')) {
-      this.invoiceForm.controls.FileType.setValue('DOC');
       this.invoiceForm.controls.FileName.setValue(fileName);
       this.fileExtension = extension.toLowerCase();
     } else {

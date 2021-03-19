@@ -78,7 +78,7 @@ export class GeneralService {
     private http: HttpClient,
     private cookieService: CookieService,
     private router: Router
-  ) {}
+  ) { }
 
   userRegister(userData): any {
     return this.http.post(register, userData, httpOptions);
@@ -540,5 +540,8 @@ export class GeneralService {
   }
   GetLoanTypePVRStatus(UserID): any {
     return this.http.get(`${loanTypePVRStatus}${UserID}`, httpOptions);
+  }
+  UploadPhotosAndVideos(propertyID, Data): any {
+    return this.http.post(`${apiUrl}property/${propertyID}/photograph/add`, Data, httpFileUploadOptions)
   }
 }

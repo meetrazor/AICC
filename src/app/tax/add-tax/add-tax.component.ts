@@ -176,6 +176,10 @@ export class AddTaxComponent implements OnInit {
 
   onchange(e) {
     if (e && e.length > 0) {
+      if (e.length > 1) {
+        this.taxForm.controls.uploadfile.setValue([e[0]]);
+        return
+      }
       const file = e[0];
       let fileName = file.name;
       fileName = fileName.replace(/\.[^/.]+$/, '').replace(/[^a-zA-Z0-9]/g, '');
@@ -199,12 +203,6 @@ export class AddTaxComponent implements OnInit {
       this.fileExtension = extension.toLowerCase();
     } else if ((filetype.toLowerCase() === 'application/pdf' && extension.toLowerCase() === 'pdf')) {
       this.taxForm.controls.FileType.setValue('PDF');
-      this.taxForm.controls.FileName.setValue(fileName);
-      this.fileExtension = extension.toLowerCase();
-    } else if ((filetype.toLowerCase() === 'application/msword' && extension.toLowerCase() === 'doc') ||
-      (filetype.toLowerCase() === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' &&
-        extension.toLowerCase() === 'docx')) {
-      this.taxForm.controls.FileType.setValue('DOC');
       this.taxForm.controls.FileName.setValue(fileName);
       this.fileExtension = extension.toLowerCase();
     } else {

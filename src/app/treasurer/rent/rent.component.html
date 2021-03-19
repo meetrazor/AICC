@@ -143,6 +143,9 @@
               <div *ngIf="e.ChequeNo.errors.required">
                 Cheque No is Required
               </div>
+              <div *ngIf="e.ChequeNo.errors.pattern">
+                Cheque No Must be Valid
+              </div>
             </div>
           </div>
           <div
@@ -166,6 +169,9 @@
             >
               <div *ngIf="e.WalletName.errors.required">
                 Wallet Name is Required
+              </div>
+              <div *ngIf="e.WalletName.errors.pattern">
+                Wallet Name Must be Valid
               </div>
             </div>
           </div>
@@ -192,6 +198,9 @@
               <div *ngIf="e.BankName.errors.required">
                 Bank Name is Required
               </div>
+              <div *ngIf="e.BankName.errors.pattern">
+                Bank Name Must be Valid
+              </div>
             </div>
           </div>
           <div
@@ -216,6 +225,9 @@
               <div *ngIf="e.BankBranchName.errors.required">
                 Branch Name is Required
               </div>
+              <div *ngIf="e.BankBranchName.errors.pattern">
+                Branch Name Must be Valid
+              </div>
             </div>
           </div>
           <div
@@ -239,6 +251,9 @@
             >
               <div *ngIf="e.ChequeName.errors.required">
                 Cheque Name is Required
+              </div>
+              <div *ngIf="e.ChequeName.errors.pattern">
+                Cheque Name Must be Valid
               </div>
             </div>
           </div>
@@ -266,6 +281,9 @@
             >
               <div *ngIf="e.TransactionID.errors.required">
                 Transaction ID is Required
+              </div>
+              <div *ngIf="e.TransactionID.errors.pattern">
+                Transaction ID Must be Valid
               </div>
             </div>
           </div>
@@ -407,7 +425,7 @@
               class="invalid-feedback"
             >
               <div *ngIf="submitted && f.InvoiceDate.errors.required">
-                Date is Required
+                Invoice Date is Required
               </div>
             </div>
           </div>
@@ -415,7 +433,7 @@
 
         <div class="">
           <div class="mb-2">
-            <h4 class="header-title">Upload Demand Notice *</h4>
+            <h4 class="header-title">Upload Invoice *</h4>
             <p class="text-muted font-13 m-b-30"></p>
             <!-- file upload -->
             <file-upload
@@ -425,7 +443,7 @@
               listVisible="true"
               zoomText="zoomOut"
               (ngModelChange)="onchange($event)"
-              accept="image/gif,image/png,image/jpeg,application/pdf,application/msword,.doc,.docx"
+              accept="image/gif,image/png,image/jpeg,application/pdf"
               type="file"
               maxsize="20mb"
               [ngClass]="{
@@ -441,7 +459,7 @@
                 File size is exceed 20 Mb Limit
               </div>
               <div *ngIf="submitted && f.uploadfile.errors.required">
-                Current Demand Notice is Required
+                Invoice is Required
               </div>
             </div>
           </div>
@@ -471,7 +489,7 @@
             </div>
           </div>
         </div>
-        <div class="">
+        <!-- <div class="">
           <div class="mb-3">
             <h4 class="header-title">File Type *</h4>
 
@@ -498,7 +516,7 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> -->
         <div class="">
           <div class="mb-3">
             <h4 class="header-title">File Description *</h4>

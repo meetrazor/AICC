@@ -49,6 +49,9 @@ export class AddPhotographComponent implements OnInit {
   get f() { return this.photographForm.controls; }
   onchange(e) {
     if (e && e.length > 0) {
+      if (e.length > 1) {
+        this.photographForm.controls.uploadfile.setValue([e[0]]);
+      }
       const file = e[0];
       let fileName = file.name;
       fileName = fileName.replace(/\.[^/.]+$/, '').replace(/[^a-zA-Z0-9]/g, '');
@@ -109,7 +112,7 @@ export class AddPhotographComponent implements OnInit {
     if (this.photographForm.valid) {
       // 1 is Property ID
       this.isLoading = true;
-      this.generalService.Addphotograph(this.propertyId, this.prepareSave())
+      this.generalService.UploadPhotosAndVideos(this.propertyId, this.prepareSave())
         .subscribe(data => {
           this.isLoading = false;
           this.photographForm.reset();

@@ -261,63 +261,52 @@
 
   <div class="">
     <div class="mb-3">
-      <h4 class="header-title">Contract Period *</h4>
+      <h4 class="header-title">Contract Start Date *</h4>
       <div class="form-group">
         <div class="input-group input-group-sm">
-          <ng-template #t let-date let-focused="focused">
-            <span
-              class="custom-day"
-              [class.focused]="focused"
-              [class.range]="isRange(date)"
-              [class.faded]="isHovered(date) || isInside(date)"
-              (mouseenter)="hoveredDate = date"
-              (mouseleave)="hoveredDate = null"
-            >
-              {{ date.day }}
-            </span>
-          </ng-template>
-
           <input
-            type="text"
-            name="contractDate"
+            class="form-control"
+            type="date"
             formControlName="ContractStartDate"
-            class="form-control date"
-            (click)="hidden = !hidden"
-            name="daterange"
-            (keydown)="callback()"
-            autocomplete="off"
             [ngClass]="{
               'is-invalid': submitted && f.ContractStartDate.errors
             }"
+            (keypress)="callback()"
+            min="2020-01-01"
           />
-          <div class="input-group-append" (click)="hidden = !hidden">
-            <span class="input-group-text bg-blue border-blue text-white">
-              <i _ngcontent-xpk-c6="" class="far fa-calendar-alt"></i>
-            </span>
-          </div>
-          <ngb-datepicker
-            style="
-              z-index: 50;
-              top: 50%;
-              left: 40%;
-              -ms-transform: translateX(-50%) translateY(-50%);
-              -webkit-transform: translate(-50%, -50%);
-              transform: translate(-50%, -50%);
-            "
-            #dp
-            (select)="onDateSelection($event)"
-            [displayMonths]="2"
-            [dayTemplate]="t"
-            outsideDays="hidden"
-            [hidden]="hidden"
-          >
-          </ngb-datepicker>
           <div
             *ngIf="submitted && f.ContractStartDate.errors"
             class="invalid-feedback"
           >
             <div *ngIf="f.ContractStartDate.errors.required">
-              Contract Period is required
+              Contract Start Date is required
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="">
+    <div class="mb-3">
+      <h4 class="header-title">Contract Duration *</h4>
+      <div class="form-group">
+        <div class="input-group input-group-sm">
+          <input
+            class="form-control"
+            placeholder="Rent Duration"
+            formControlName="ContractMonth"
+            [ngClass]="{
+              'is-invalid': submitted && f.ContractMonth.errors
+            }"
+            (keypress)="isValid($event)"
+          />
+          <div
+            *ngIf="submitted && f.ContractMonth.errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="f.ContractMonth.errors.required">
+              Contract Duration is required
             </div>
           </div>
         </div>
@@ -613,21 +602,23 @@
 
     <div class="mb-3" *ngIf="f.ApplicableTax.value == 'Yes'">
       <div class="form-group row pl-2">
-        <h4 class="col-6 col-sm-4 header-title">CGST :</h4>
+        <h4 class="col-6 col-sm-4 header-title">CGST %:</h4>
         <div class="col-6 col-sm-4">
           <input
             class="form-control"
             placeholder="CGST"
+            (keydown)="valid($event)"
             formControlName="CGST"
             maxlength="2"
           />
         </div>
       </div>
       <div class="form-group row pl-2">
-        <h4 class="col-6 col-sm-4 header-title">SGST :</h4>
+        <h4 class="col-6 col-sm-4 header-title">SGST %:</h4>
         <div class="col-6 col-sm-4">
           <input
             class="form-control"
+            (keydown)="valid($event)"
             placeholder="SGST"
             formControlName="SGST"
             maxlength="2"
@@ -635,10 +626,11 @@
         </div>
       </div>
       <div class="form-group row pl-2">
-        <h4 class="col-6 col-sm-4 header-title">IGST :</h4>
+        <h4 class="col-6 col-sm-4 header-title">IGST %:</h4>
         <div class="col-6 col-sm-4">
           <input
             class="form-control"
+            (keydown)="valid($event)"
             placeholder="IGST"
             formControlName="IGST"
             maxlength="2"
@@ -649,7 +641,7 @@
 
     <div class="">
       <div class="mb-2">
-        <h4 class="header-title">Upload Rent Agrement File *</h4>
+        <h4 class="header-title">Upload Rent Agreement File *</h4>
         <!-- file upload -->
         <file-upload
           class="dropzone"
@@ -658,7 +650,7 @@
           listVisible="true"
           zoomText="zoomOut"
           (ngModelChange)="onchange($event)"
-          accept="image/gif,image/png,image/jpeg,application/pdf,application/msword,.doc,.docx"
+          accept="image/gif,image/png,image/jpeg,application/pdf"
           type="file"
           maxsize="20mb"
           [ngClass]="{
@@ -671,7 +663,7 @@
             File size is exceed 20 Mb Limit
           </div>
           <div *ngIf="submitted && f.uploadfile.errors.required">
-            Current Demand Notice is Required
+            Rent Agreement File Is Required
           </div>
         </div>
       </div>

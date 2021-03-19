@@ -51,6 +51,14 @@ export class AddRentComponent implements OnInit {
   callback() {
     return false;
   }
+  spcallback(e) {
+    if (e.keyCode == 27 || e.keyCode == 8) {
+      this.selected = ''
+      this.f.ContractStartDate.setValue('');
+    }
+    this.hidden = true
+    return false;
+  }
   ngOnInit() {
     this.currentUser = JSON.parse(this.cookie.getCookie('currentUser'));
     this.isLoading = false;
@@ -70,11 +78,12 @@ export class AddRentComponent implements OnInit {
       TenantEmail: new FormControl(null, [Validators.required, Validators.pattern(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/)]),
       RentedSpaceInSqmtr: new FormControl('', [Validators.required, Validators.max(this.PropertyData.LandSize), Validators.min(1)]),
       RentedSpace: new FormControl('Whole', Validators.required),
-      RentDuration: new FormControl(1, [Validators.required, Validators.maxLength(255), Validators.min(1)]),
-      RentDueDay: new FormControl('', [Validators.required, Validators.maxLength(255), Validators.min(1)]),
+      RentDuration: new FormControl(1, [Validators.required, Validators.min(1)]),
+      RentDueDay: new FormControl('1', [Validators.required, Validators.maxLength(255), Validators.min(1)]),
       MonthlyORDailyRent: new FormControl('', [Validators.required, Validators.min(1)]),
       AdvanceDeposite: new FormControl(null, [Validators.required, Validators.min(1)]),
       ContractStartDate: new FormControl('', [Validators.required]),
+      ContractMonth: new FormControl('', [Validators.required]),
       BankName: new FormControl(''),
       BankAccountName: new FormControl(''),
       GSTNumber: new FormControl(''),
@@ -147,9 +156,10 @@ export class AddRentComponent implements OnInit {
     input.append('RentedSpaceInSqmtr', (this.tenantForm.get('RentedSpaceInSqmtr').value));
     input.append('AdvanceDeposite', (this.tenantForm.get('AdvanceDeposite').value));
     input.append('MonthlyORDailyRent', (this.tenantForm.get('MonthlyORDailyRent').value));
-    input.append('ContractStartDate', this.contractStartDate);
+    input.append('ContractStartDate', (this.tenantForm.get('ContractStartDate').value));
     input.append('ContractEndDate', this.contractEndtDate);
     input.append('RentDuration', (this.tenantForm.get('RentDuration').value));
+    input.append('ContractMonth', (this.tenantForm.get('ContractMonth').value));
     return input;
   }
 
@@ -193,14 +203,13 @@ export class AddRentComponent implements OnInit {
               title: 'Added',
               text: data.message,
               type: 'success',
-              timer: 2000
             }).then(() => {
               location.reload();
               // this.refreshrent.emit();
             });
           } else {
             Swal.fire({
-              title: data.error_code,
+              title: 'Error',
               text: data.error,
               type: 'error'
             }).then(() => {
@@ -218,7 +227,6 @@ export class AddRentComponent implements OnInit {
               title: 'Updated',
               text: data.message,
               type: 'success',
-              timer: 2000
             }).then(() => {
               location.reload();
             });
@@ -264,12 +272,6 @@ export class AddRentComponent implements OnInit {
       this.fileExtension = extension.toLowerCase();
     } else if ((filetype.toLowerCase() === 'application/pdf' && extension.toLowerCase() === 'pdf')) {
       this.f.FileType.setValue('PDF');
-      this.f.FileName.setValue(fileName);
-      this.fileExtension = extension.toLowerCase();
-    } else if ((filetype.toLowerCase() === 'application/msword' && extension.toLowerCase() === 'doc') ||
-      (filetype.toLowerCase() === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' &&
-        extension.toLowerCase() === 'docx')) {
-      this.f.FileType.setValue('DOC');
       this.f.FileName.setValue(fileName);
       this.fileExtension = extension.toLowerCase();
     } else {

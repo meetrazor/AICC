@@ -12,18 +12,15 @@ export class ViewPropertyComponent implements OnInit {
   @Input() data: any;
   loading: boolean;
   propertyType: any;
-  constructor(private service: GeneralService, private router: Router) {}
+  constructor(private service: GeneralService, private router: Router) { }
 
   ngOnInit() {
     this.service.propertytype().subscribe((Res) => {
-      console.log(this.data);
-      console.log(Res.data);
 
       this.loading = true;
       this.propertyType = Res.data.find(
         (item) => item.PropertyTypeID === this.data.PropertyTypeID
       );
-      console.log(this.propertyType);
 
       this.loading = false;
     });

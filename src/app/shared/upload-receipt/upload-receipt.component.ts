@@ -13,10 +13,12 @@ import { CookieService } from 'src/app/core/services/cookie.service';
 export class UploadReceiptComponent implements OnInit {
   photographForm: FormGroup;
   file: any;
+  today = new Date();
   @Input() propertyId: string;
   @Input() taxId: string;
   @Input() rentId: string;
   isLoading: boolean;
+  regex = "[a-zA-Z0-9][a-z0-9A-Z ]+";
   submited: boolean;
   fileExtension: string;
   currentUser: any;
@@ -33,17 +35,17 @@ export class UploadReceiptComponent implements OnInit {
       Description: new FormControl(null, Validators.required),
       uploadfile: new FormControl(null, Validators.required),
       PropertyID: new FormControl(this.propertyId, Validators.required),
-      NextDueDate: new FormControl(null, Validators.required),
+      NextDueDate: new FormControl(null, [Validators.required]),
       ModeOfPayment: new FormControl(null, Validators.required),
       DocumentTypeId: new FormControl(null, Validators.required),
       PaymentDate: new FormControl(null, Validators.required),
-      AmountPay: new FormControl(null, Validators.required),
-      ChequeNo: new FormControl(null, Validators.required),
-      ChequeName: new FormControl(null, Validators.required),
-      BankName: new FormControl(null, Validators.required),
-      BankBranchName: new FormControl(null, Validators.required),
-      TransactionID: new FormControl(null, Validators.required),
-      WalletName: new FormControl(null, Validators.required),
+      AmountPay: new FormControl(null, [Validators.required, Validators.min(1)]),
+      ChequeNo: new FormControl(null, [Validators.required, Validators.pattern(this.regex)]),
+      ChequeName: new FormControl(null, [Validators.required, Validators.pattern(this.regex)]),
+      BankName: new FormControl(null, [Validators.required, Validators.pattern(this.regex)]),
+      BankBranchName: new FormControl(null, [Validators.required, Validators.pattern(this.regex)]),
+      TransactionID: new FormControl(null, [Validators.required, Validators.pattern(this.regex)]),
+      WalletName: new FormControl(null, [Validators.required, Validators.pattern(this.regex)]),
       CreatedBy: new FormControl(this.currentUser.UserID),
       ModifiedBy: new FormControl(this.currentUser.UserID),
       UserID: new FormControl(this.currentUser.UserID),
@@ -84,13 +86,29 @@ export class UploadReceiptComponent implements OnInit {
     input.append('ChequeName', this.photographForm.get('ChequeName').value);
     input.append('TransactionID', this.photographForm.get('TransactionID').value);
     input.append('WalletName', this.photographForm.get('WalletName').value);
-    input.append('AmountFromAdvance', this.photographForm.get('AmountFromAdvance').value);
+    input.append('AmountFromAdvance', this.photographForm.get('AmountFromAdvance').value ? this.photographForm.get('AmountFromAdvance').value : 0);
     input.append('AmountPay', this.photographForm.get('AmountPay').value);
     input.append('PropertyID', this.propertyId);
     input.append('uploadfile', (this.photographForm.get('uploadfile').value) ? (this.photographForm.get('uploadfile').value)[0] : '');
     return input;
   }
   get f() { return this.photographForm.controls; }
+  numeric(e) {
+    if (
+      !(
+        (e.keyCode > 95 && e.keyCode < 106) ||
+        (e.keyCode > 47 && e.keyCode < 58) ||
+        e.keyCode == 8
+      )
+    ) {
+      return false;
+    }
+    if (e.target.value.length > 3) {
+      if (e.keyCode != 8) {
+        return false;
+      }
+    }
+  }
   onSubmit() {
 
     this.submited = true;
@@ -108,7 +126,6 @@ export class UploadReceiptComponent implements OnInit {
                 title: 'Uploaded',
                 text: data.message,
                 type: 'success',
-                timer: 2000
               }).then(() => {
                 this.router.navigate([`/property/view/${this.propertyId}`]);
               });
@@ -132,7 +149,6 @@ export class UploadReceiptComponent implements OnInit {
                 title: 'Uploaded',
                 text: data.message,
                 type: 'success',
-                timer: 2000
               }).then(() => {
                 this.router.navigate([`/property/view/${this.propertyId}`]);
               });
@@ -149,6 +165,10 @@ export class UploadReceiptComponent implements OnInit {
   }
   onchange(e) {
     if (e && e.length > 0) {
+      if (e.length > 1) {
+        this.photographForm.controls.uploadfile.setValue([e[0]]);
+        return
+      }
       const file = e[0];
       let fileName = file.name;
       fileName = fileName.replace(/\.[^/.]+$/, '').replace(/[^a-zA-Z0-9]/g, '');
@@ -175,12 +195,6 @@ export class UploadReceiptComponent implements OnInit {
       this.fileExtension = extension.toLowerCase();
     } else if ((filetype.toLowerCase() === 'application/pdf' && extension.toLowerCase() === 'pdf')) {
       this.photographForm.controls.FileType.setValue('PDF');
-      this.photographForm.controls.FileName.setValue(fileName);
-      this.fileExtension = extension.toLowerCase();
-    } else if ((filetype.toLowerCase() === 'application/msword' && extension.toLowerCase() === 'doc') ||
-      (filetype.toLowerCase() === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' &&
-        extension.toLowerCase() === 'docx')) {
-      this.photographForm.controls.FileType.setValue('DOC');
       this.photographForm.controls.FileName.setValue(fileName);
       this.fileExtension = extension.toLowerCase();
     } else {

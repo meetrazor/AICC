@@ -575,12 +575,12 @@ export class AddPropertyComponent implements OnInit {
     if (i && i !== undefined) {
       return this.Fb.group({
         OwnerName: new FormControl(i.OwnerName),
-        SinceFrom: new FormControl(moment(i.SinceFrom).format("YYYY-MM-DD")),
+        SinceFrom: new FormControl(i.SinceFrom ? moment(i.SinceFrom).format("YYYY-MM-DD") : null),
       });
     } else {
       return this.Fb.group({
         OwnerName: new FormControl(""),
-        SinceFrom: new FormControl(""),
+        SinceFrom: new FormControl(null),
       });
     }
   }
@@ -592,8 +592,8 @@ export class AddPropertyComponent implements OnInit {
         MobileNo: new FormControl(i.MobileNo !== '0' ? i.MobileNo : null, [Validators.maxLength(10), Validators.minLength(10)]),
         Email: new FormControl(i.Email, Validators.pattern(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/)),
         Address: new FormControl(i.Address, Validators.pattern(this.regex)),
-        InChargeFromDate: new FormControl(
-          moment(i.InChargeFromDate).format("YYYY-MM-DD")
+        InChargeFromDate: new FormControl(i.InChargeFromDate ?
+          moment(i.InChargeFromDate).format("YYYY-MM-DD") : null
         ),
       });
     } else {
@@ -603,7 +603,7 @@ export class AddPropertyComponent implements OnInit {
         MobileNo: new FormControl('', [Validators.maxLength(10), Validators.minLength(10)]),
         Email: new FormControl('', Validators.pattern(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/)),
         Address: new FormControl('', Validators.pattern(this.regex)),
-        InChargeFromDate: new FormControl(''),
+        InChargeFromDate: new FormControl(null),
       });
     }
   }
