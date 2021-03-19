@@ -1,7 +1,7 @@
 <form [formGroup]="tenantForm" (ngSubmit)="onSubmit()">
   <div class="">
     <div class="mb-3">
-      <h4 class="header-title">Rent Type*</h4>
+      <h4 class="header-title">Rent Type *</h4>
       <ng-select
         class="form-control"
         formControlName="RentType"
@@ -16,7 +16,7 @@
         }}</ng-option>
       </ng-select>
       <div *ngIf="submitted && f.RentType.errors" class="invalid-feedback">
-        <div *ngIf="f.RentType.errors.required">Rent Type is required</div>
+        <div *ngIf="f.RentType.errors.required">Rent Type is Required</div>
       </div>
     </div>
   </div>
@@ -36,9 +36,12 @@
       />
 
       <div *ngIf="submitted && f.TenantName.errors" class="invalid-feedback">
-        <div *ngIf="f.TenantName.errors.required">First Name is required</div>
+        <div *ngIf="f.TenantName.errors.required">Tenant Name is Required</div>
         <div *ngIf="f.TenantName.errors.maxlength">
-          First Name cannot exceed 25 characters.
+          Tenant Name cannot exceed 25 characters.
+        </div>
+        <div *ngIf="f.TenantName.errors.pattern">
+          Tenant Name must be Valid.
         </div>
       </div>
     </div>
@@ -58,7 +61,7 @@
         maxlength="255"
       ></textarea>
       <div *ngIf="submitted && f.TenantAddress.errors" class="invalid-feedback">
-        <div *ngIf="f.TenantAddress.errors.required">Address is required</div>
+        <div *ngIf="f.TenantAddress.errors.required">Address is Required</div>
         <div *ngIf="f.TenantAddress.errors.maxlength">
           Address cannot exceed 255 characters.
         </div>
@@ -81,7 +84,7 @@
       />
       <div *ngIf="submitted && f.TenantMobile.errors" class="invalid-feedback">
         <div *ngIf="f.TenantMobile.errors.required">
-          Mobile Number is required
+          Mobile Number is Required
         </div>
         <div *ngIf="f.TenantMobile.errors.pattern">
           Mobile Number must be valid
@@ -102,7 +105,7 @@
         }"
       />
       <div *ngIf="submitted && f.TenantEmail.errors" class="invalid-feedback">
-        <div *ngIf="f.TenantEmail.errors.required">Email is required</div>
+        <div *ngIf="f.TenantEmail.errors.required">Email is Required</div>
         <div *ngIf="f.TenantEmail.errors.pattern">
           Email must be a valid email address
         </div>
@@ -134,7 +137,7 @@
         Part</span
       >
       <div *ngIf="submitted && f.RentedSpace.errors" class="invalid-feedback">
-        <div *ngIf="f.RentedSpace.errors.required">RentedSpace is required</div>
+        <div *ngIf="f.RentedSpace.errors.required">RentedSpace is Required</div>
       </div>
     </div>
   </div>
@@ -160,7 +163,7 @@
         class="invalid-feedback"
       >
         <div *ngIf="f.RentedSpaceInSqmtr.errors.required">
-          Property Size is required
+          Property Size is Required
         </div>
         <div *ngIf="f.RentedSpaceInSqmtr.errors.maxlength">
           Property Size cannot exceed 7 Digits.
@@ -224,7 +227,7 @@
         class="invalid-feedback"
       >
         <div *ngIf="f.AdvanceDeposite.errors.required">
-          AdvanceDeposite is required
+          AdvanceDeposite is Required
         </div>
         <div *ngIf="f.AdvanceDeposite.errors.min">
           AdvanceDeposite cannot be 0
@@ -250,7 +253,7 @@
         class="invalid-feedback"
       >
         <div *ngIf="f.MonthlyORDailyRent.errors.required">
-          Monthly / DailyRent is required
+          Monthly / DailyRent is Required
         </div>
         <div *ngIf="f.MonthlyORDailyRent.errors.min">
           Monthly / Daily Rent cannot be 0
@@ -317,7 +320,7 @@
             class="invalid-feedback"
           >
             <div *ngIf="f.ContractStartDate.errors.required">
-              Contract Period is required
+              Contract Period is Required
             </div>
           </div>
         </div>
@@ -388,7 +391,7 @@
         />
 
         <div *ngIf="submitted && f.RentDueDay.errors" class="invalid-feedback">
-          <div *ngIf="f.RentDueDay.errors.required">RentDueDay is required</div>
+          <div *ngIf="f.RentDueDay.errors.required">RentDueDay is Required</div>
           <div *ngIf="f.RentDueDay.errors.maxlength">
             RentDueDay cannot exceed 50 characters.
           </div>
@@ -412,7 +415,7 @@
         />
 
         <div *ngIf="submitted && f.BankName.errors" class="invalid-feedback">
-          <div *ngIf="f.BankName.errors.required">Bank Name is required</div>
+          <div *ngIf="f.BankName.errors.required">Bank Name is Required</div>
         </div>
       </div>
     </div>
@@ -436,7 +439,7 @@
           class="invalid-feedback"
         >
           <div *ngIf="f.BankAccountName.errors.required">
-            Bank Account Name is required
+            Bank Account Name is Required
           </div>
         </div>
       </div>
@@ -457,7 +460,7 @@
         />
 
         <div *ngIf="submitted && f.GSTNumber.errors" class="invalid-feedback">
-          <div *ngIf="f.GSTNumber.errors.required">GST Number is required</div>
+          <div *ngIf="f.GSTNumber.errors.required">GST Number is Required</div>
         </div>
       </div>
     </div>
@@ -481,7 +484,7 @@
           class="invalid-feedback"
         >
           <div *ngIf="f.BankAccountNumber.errors.required">
-            Bank Account Number is required
+            Bank Account Number is Required
           </div>
         </div>
       </div>
@@ -502,7 +505,7 @@
         />
 
         <div *ngIf="submitted && f.IFSCCODE.errors" class="invalid-feedback">
-          <div *ngIf="f.IFSCCODE.errors.required">IFSC CODE is required</div>
+          <div *ngIf="f.IFSCCODE.errors.required">IFSC CODE is Required</div>
         </div>
       </div>
     </div>
@@ -522,7 +525,7 @@
         />
 
         <div *ngIf="submitted && f.MICRCODE.errors" class="invalid-feedback">
-          <div *ngIf="f.MICRCODE.errors.required">MICR CODE is required</div>
+          <div *ngIf="f.MICRCODE.errors.required">MICR CODE is Required</div>
         </div>
       </div>
     </div>
@@ -546,7 +549,7 @@
           class="invalid-feedback"
         >
           <div *ngIf="f.TransactionSMSMobileNo.errors.required">
-            Transaction Mobile No is required
+            Transaction Mobile No is Required
           </div>
         </div>
       </div>
@@ -571,7 +574,7 @@
           class="invalid-feedback"
         >
           <div *ngIf="f.Cheque_Favour_OF.errors.required">
-            Cheque Favour OF is required
+            Cheque Favour OF is Required
           </div>
         </div>
       </div>
@@ -605,7 +608,7 @@
           class="invalid-feedback"
         >
           <div *ngIf="f.ApplicableTax.errors.required">
-            Applicable Tax is required
+            Applicable Tax is Required
           </div>
         </div>
       </div>

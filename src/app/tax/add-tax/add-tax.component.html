@@ -2,7 +2,7 @@
   <form [formGroup]="taxForm" (ngSubmit)="onSubmit()">
     <div class="">
       <div class="mb-3">
-        <h4 class="header-title">Revenue office *</h4>
+        <h4 class="header-title">Revenue Office</h4>
         <input
           class="form-control"
           placeholder="Enter Revenue office"
@@ -23,7 +23,7 @@
       </div>
     </div>
     <div class="mb-3">
-      <h4 class="header-title">Tax Type*</h4>
+      <h4 class="header-title">Tax Type *</h4>
       <ng-select
         class="form-control"
         formControlName="PropertyTaxTypeID"
@@ -45,7 +45,7 @@
         class="invalid-feedback"
       >
         <div *ngIf="f.PropertyTaxTypeID.errors.required">
-          Tax Type is required
+          Tax Type is Required
         </div>
       </div>
     </div>
@@ -90,10 +90,10 @@
           class="invalid-feedback"
         >
           <div *ngIf="submitted && f.FinancialTaxYear.errors.required">
-            Amount Due is Required
+            Financial Tax Year is Required
           </div>
           <div *ngIf="submitted && f.FinancialTaxYear.errors.min">
-            Amount Due cannot be null or 0
+            Financial Tax Year cannot be null or 0
           </div>
         </div>
       </div>
@@ -101,7 +101,7 @@
 
     <div class="">
       <div class="mb-3">
-        <h4 class="header-title">DueDate *</h4>
+        <h4 class="header-title">Amount Due Date *</h4>
         <input
           class="form-control"
           placeholder="Enter DueDate"
@@ -173,7 +173,7 @@
         </div>
       </div>
     </div>
-    <div class="">
+    <!-- <div class="">
       <div class="mb-3">
         <h4 class="header-title">File Type *</h4>
 
@@ -197,7 +197,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
     <div class="">
       <div class="mb-3">
         <h4 class="header-title">File Description *</h4>
