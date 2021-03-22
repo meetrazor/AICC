@@ -29,10 +29,10 @@ const routes: Routes = [{
   path: 'rent', component: LayoutComponent, loadChildren: () => import('./rent/rent.module')
     .then(m => m.RentModule), canActivate: [AuthGuard]
 },
-// {
-//   path: 'loan', component: LayoutComponent, loadChildren: () => import('./bank-module/bank-module.module')
-//     .then(m => m.BankModuleModule), canActivate: [AuthGuard]
-// },
+{
+  path: 'trust', component: LayoutComponent, loadChildren: () => import('./trust/trust.module')
+    .then(m => m.TrustModule), canActivate: [AuthGuard]
+},
 // {
 //   path: 'property-document', component: LayoutComponent, loadChildren: () => import('./property-document/property-document.module')
 //     .then(m => m.PropertyDocumentModule), canActivate: [AuthGuard]
@@ -72,7 +72,7 @@ const routes: Routes = [{
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { scrollPositionRestoration: 'top' })],
+  imports: [RouterModule.forRoot(routes, { scrollPositionRestoration: 'top', onSameUrlNavigation: 'reload' })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

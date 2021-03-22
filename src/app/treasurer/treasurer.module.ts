@@ -17,9 +17,10 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { FileUploadModule } from '@iplab/ngx-file-upload';
 import { AlertComponent } from './alert/alert.component';
 import { AlertDataTableComponent } from './alert/alert-data-table/alert-data-table.component';
+import { TrustListComponent } from './trust-list/trust-list.component';
 
 @NgModule({
-  declarations: [DashboardComponent, PropertyComponent, LawyerComponent, RentComponent, RentDetailsComponent, AlertComponent, AlertDataTableComponent],
+  declarations: [DashboardComponent, PropertyComponent, LawyerComponent, RentComponent, RentDetailsComponent, AlertComponent, AlertDataTableComponent, TrustListComponent],
   imports: [
     CommonModule,
     TreasurerRoutingModule, ReactiveFormsModule, NgSelectModule, FileUploadModule,

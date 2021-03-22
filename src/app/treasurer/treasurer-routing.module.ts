@@ -1,3 +1,4 @@
+import { TrustListComponent } from './trust-list/trust-list.component';
 import { PropertyListResolverService } from './../services/resolver/property-list-resolver.service';
 import { PropertyComponent } from './property/property.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -15,6 +16,10 @@ const routes: Routes = [
     path: 'property',
     component: PropertyComponent,
     resolve: { obj: PropertyListResolverService }
+  },
+  {
+    path: 'trust',
+    component: TrustListComponent
   },
   // {
   //   path: 'lawyer',
