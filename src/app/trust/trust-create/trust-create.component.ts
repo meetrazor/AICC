@@ -16,7 +16,7 @@ export class TrustCreateComponent implements OnInit {
   trustForm: FormGroup;
   regex = '[a-zA-Z][a-z0-9A-Z ]+';
   numericRegex = '[0-9]+';
-  submitted: boolean = true;
+  submitted: boolean;
   constructor(private fb: FormBuilder) {}
 
   ngOnInit() {
@@ -78,6 +78,6 @@ export class TrustCreateComponent implements OnInit {
     return this.trustForm.controls;
   }
   save() {
-    console.log(this.f);
+    this.submitted = true;
   }
 }

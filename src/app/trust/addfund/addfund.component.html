@@ -1,0 +1,103 @@
+<form class="form-row" [formGroup]="fundForm" (ngSubmit)="addFund()">
+  <div>
+    <div class="card">
+      <div class="card-body">
+        <div class="form-group mb-3">
+          <label for="simpleinput"><b>Fund Amount:</b></label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder=""
+            formControlName="fundamount"
+            [ngClass]="{
+              'is-invalid': submitted && f.fundamount.errors
+            }"
+          />
+          <div
+            *ngIf="submitted && f.fundamount.errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="f.fundamount.errors.required">
+              Fund Amount is Required
+            </div>
+            <div *ngIf="f.fundamount.errors.pattern">
+              Fund Amount Must be Valid And Only Numeric Allowed
+            </div>
+          </div>
+        </div>
+        <div class="form-group mb-3">
+          <label for="simpleinput"><b>Fund Reg.Date</b></label>
+          <input
+            type="text"
+            class="form-control"
+            id="example-date"
+            type="date"
+            placeholder=""
+            formControlName="funddate"
+            [ngClass]="{
+              'is-invalid': submitted && f.funddate.errors
+            }"
+          />
+          <div *ngIf="submitted && f.funddate.errors" class="invalid-feedback">
+            <div *ngIf="f.funddate.errors.required">
+              Fund Reg.Date is Required
+            </div>
+          </div>
+          <div class="form-group mb-3">
+            <label for="simpleinput"><b>Fund Reg.Year</b></label>
+            <input
+              type="text"
+              class="year-own form-control"
+              type="year"
+              placeholder=""
+              formControlName="fundyear"
+              [ngClass]="{
+                'is-invalid': submitted && f.fundyear.errors
+              }"
+            />
+            <div
+              *ngIf="submitted && f.fundyear.errors"
+              class="invalid-feedback"
+            >
+              <div *ngIf="f.fundyear.errors.required">
+                Fund Reg.Year is Required
+              </div>
+            </div>
+          </div>
+
+          <form
+            action="https://coderthemes.com/"
+            method="post"
+            class="dropzone dz-clickable"
+            id="myAwesomeDropzone"
+            data-plugin="dropzone"
+            data-previews-container="#file-previews"
+            data-upload-preview-template="#uploadPreviewTemplate"
+          >
+            <div
+              class="dz-message needsclick"
+              style="padding: 10px; text-align: center"
+            >
+              <i class="h1 text-muted dripicons-cloud-upload"></i>
+              <h3>Drop files here or click to upload Document.</h3>
+              <span class="text-muted font-13"
+                >(Files must be JPG, PDF or MP4 and Less than
+                <strong>2 MB</strong> in size.)</span
+              >
+            </div>
+          </form>
+
+          <div class="col-auto" style="margin-top: 25px">
+            <button
+              class="btn-primary btn-md btn-block btn waves-effect waves-light"
+              type="submit"
+              id="todo-btn-submit"
+            >
+              Add
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

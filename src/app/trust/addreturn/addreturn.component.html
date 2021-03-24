@@ -1,0 +1,129 @@
+<form [formGroup]="returnForm" (ngSubmit)="onAdd()">
+  <div class="col-xl-4">
+    <div class="card">
+      <div class="card-body">
+        <div class="form-group mb-3">
+          <label for="simpleinput"><b>Lawyer</b></label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="lawyer"
+            [ngClass]="{
+              'is-invalid': submitted && f.lawyer.errors
+            }"
+          />
+          <div *ngIf="submitted && f.lawyer.errors" class="invalid-feedback">
+            <div *ngIf="f.lawyer.errors.required">Lawyer is Required</div>
+          </div>
+        </div>
+        <div class="form-group mb-3">
+          <label for="simpleinput"><b>Year</b></label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="year"
+            [ngClass]="{
+              'is-invalid': submitted && f.year.errors
+            }"
+          />
+          <div *ngIf="submitted && f.year.errors" class="invalid-feedback">
+            <div *ngIf="f.year.errors.required">Year is Required</div>
+          </div>
+        </div>
+        <div class="form-group mb-3">
+          <label for="simpleinput"><b>Amount</b></label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="amount"
+            [ngClass]="{
+              'is-invalid': submitted && f.amount.errors
+            }"
+          />
+          <div *ngIf="submitted && f.amount.errors" class="invalid-feedback">
+            <div *ngIf="f.amount.errors.required">Amount is Required</div>
+            <div *ngIf="f.amount.errors.pattern">
+              Amount Must be Valid And Only Numeric Allowed
+            </div>
+          </div>
+        </div>
+        <div class="form-group mb-3">
+          <label for="simpleinput"><b>Return file Date</b></label>
+          <input
+            type="date"
+            class="form-control"
+            formControlName="date"
+            [ngClass]="{
+              'is-invalid': submitted && f.date.errors
+            }"
+          />
+          <div *ngIf="submitted && f.date.errors" class="invalid-feedback">
+            <div *ngIf="f.date.errors.required">
+              Return file Date is Required
+            </div>
+          </div>
+        </div>
+        <div class="form-group mb-3">
+          <label for="simpleinput"><b>Return</b></label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="return"
+            [ngClass]="{
+              'is-invalid': submitted && f.return.errors
+            }"
+          />
+          <div *ngIf="submitted && f.return.errors" class="invalid-feedback">
+            <div *ngIf="f.return.errors.required">Return is Required</div>
+          </div>
+        </div>
+        <div class="form-group mb-3">
+          <label for="simpleinput"><b>Order</b></label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="order"
+            [ngClass]="{
+              'is-invalid': submitted && f.order.errors
+            }"
+          />
+          <div *ngIf="submitted && f.order.errors" class="invalid-feedback">
+            <div *ngIf="f.order.errors.required">Order is Required</div>
+          </div>
+        </div>
+
+        <form
+          action="https://coderthemes.com/"
+          method="post"
+          class="dropzone dz-clickable"
+          id="myAwesomeDropzone"
+          data-plugin="dropzone"
+          data-previews-container="#file-previews"
+          data-upload-preview-template="#uploadPreviewTemplate"
+        >
+          <div
+            class="dz-message needsclick"
+            style="padding: 10px; text-align: center"
+          >
+            <i class="h1 text-muted dripicons-cloud-upload"></i>
+            <h3>Drop files here or click to upload Document.</h3>
+            <span class="text-muted font-13"
+              >(Files must be JPG, PDF or MP4 and Less than
+              <strong>2 MB</strong> in size.)</span
+            >
+          </div>
+        </form>
+
+        <div class="col-auto" style="margin-top: 25px">
+          <button
+            class="btn-primary btn-md btn-block btn waves-effect waves-light"
+            type="submit"
+            id="todo-btn-submit"
+          >
+            Add
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
