@@ -1,0 +1,100 @@
+<form [formGroup]="meetingForm" (ngSubmit)="onSubmit()">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <div class="form-group mb-3">
+          <label for="simpleinput"><b>Title</b></label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder=""
+            formControlName="title"
+            [ngClass]="{
+              'is-invalid': submitted && f.title.errors
+            }"
+          />
+          <div *ngIf="submitted && f.title.errors" class="invalid-feedback">
+            <div *ngIf="f.title.errors.required">Title is Required</div>
+            <div *ngIf="f.title.errors.pattern">
+              Title Must be Valid And Only Alphanumeric Allowed
+            </div>
+          </div>
+        </div>
+        <div class="form-group mb-3">
+          <label for="simpleinput"><b>Meeting Time</b></label>
+          <input
+            type="datetime-local"
+            class="form-control"
+            placeholder=""
+            formControlName="time"
+            min="{{ Date | date: 'yyyy-MM-ddTHH:mm' }}"
+            [ngClass]="{
+              'is-invalid': submitted && f.time.errors
+            }"
+          />
+          <div *ngIf="submitted && f.time.errors" class="invalid-feedback">
+            <div *ngIf="f.time.errors.required">Meeting Time is Required</div>
+          </div>
+        </div>
+        <div class="form-group mb-3">
+          <label for="simpleinput"><b>Venue</b></label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder=""
+            formControlName="venue"
+            [ngClass]="{
+              'is-invalid': submitted && f.venue.errors
+            }"
+          />
+          <div *ngIf="submitted && f.venue.errors" class="invalid-feedback">
+            <div *ngIf="f.venue.errors.required">Venue is Required</div>
+            <div *ngIf="f.venue.errors.pattern">
+              Venue Must be Valid And Only Alphanumeric Allowed
+            </div>
+          </div>
+        </div>
+        <div class="form-group mb-3">
+          <label for="simpleinput"><b>Status</b></label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder=""
+            formControlName="status"
+            [ngClass]="{
+              'is-invalid': submitted && f.status.errors
+            }"
+          />
+          <div *ngIf="submitted && f.status.errors" class="invalid-feedback">
+            <div *ngIf="f.status.errors.required">Status is Required</div>
+            <div *ngIf="f.status.errors.pattern">
+              Status Must be Valid And Only Alphanumeric Allowed
+            </div>
+          </div>
+        </div>
+
+        <!-- <form
+          action="https://coderthemes.com/"
+          method="post"
+          class="dropzone dz-clickable"
+          id="myAwesomeDropzone"
+          data-plugin="dropzone"
+          data-previews-container="#file-previews"
+          data-upload-preview-template="#uploadPreviewTemplate"
+        >
+      
+        </form> -->
+
+        <div class="mt-3">
+          <button
+            class="btn-primary btn-md btn-block btn waves-effect waves-light"
+            type="submit"
+            id="todo-btn-submit"
+          >
+            Submit
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
