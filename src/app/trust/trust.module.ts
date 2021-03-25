@@ -18,13 +18,34 @@ import { AddauditComponent } from './addaudit/addaudit.component';
 import { AddExamCertificateComponent } from './add-exam-certificate/add-exam-certificate.component';
 import { AddreturnComponent } from './addreturn/addreturn.component';
 
+import { ViewItReturnComponent } from './view-it-return/view-it-return.component';
+import { ViewExamCertificateComponent } from './view-exam-certificate/view-exam-certificate.component';
+
 @NgModule({
-  declarations: [SingleTrustViewComponent, TrustCreateComponent, TrustBasicDetailsComponent, TrustPropertiesComponent,
-    AddmeetingComponent, AddfundComponent, AddauditComponent, AddExamCertificateComponent, AddreturnComponent],
-  imports: [
-    CommonModule, UIModule, NgbTabsetModule, FileUploadModule, ReactiveFormsModule,
-    TrustRoutingModule, DataTablesModule, NgbModalModule, NgSelectModule
+  declarations: [
+    SingleTrustViewComponent,
+    TrustCreateComponent,
+    TrustBasicDetailsComponent,
+    TrustPropertiesComponent,
+    AddmeetingComponent,
+    AddfundComponent,
+    AddauditComponent,
+    AddExamCertificateComponent,
+    AddreturnComponent,
+    ViewItReturnComponent,
+    ViewExamCertificateComponent,
   ],
-  providers: [DatePipe]
+  imports: [
+    CommonModule,
+    UIModule,
+    NgbTabsetModule,
+    FileUploadModule,
+    ReactiveFormsModule,
+    TrustRoutingModule,
+    DataTablesModule,
+    NgbModalModule,
+    NgSelectModule,
+  ],
+  providers: [DatePipe],
 })
-export class TrustModule { }
+export class TrustModule {}

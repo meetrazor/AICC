@@ -12,30 +12,26 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PDFExportModule } from '@progress/kendo-angular-pdf-export';
-import { DatePipe } from '@angular/common';
-
-
-
 
 @NgModule({
-  declarations: [
-    AppComponent,
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
     LayoutsModule,
     AppRoutingModule,
-    ReactiveFormsModule, DataTablesModule, PDFExportModule
+    ReactiveFormsModule,
+    DataTablesModule,
+    PDFExportModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
 
     // provider used to create fake backend
-    FakeBackendProvider
+    FakeBackendProvider,
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

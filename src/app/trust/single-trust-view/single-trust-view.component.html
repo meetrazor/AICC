@@ -57,7 +57,10 @@
       <ngb-tab title="IT Return" class="nav-item" id="it">
         <ng-template ngbTabContent class="nav-item">
           <div class="row">
-            <div class="col-md-8"></div>
+            <div class="col-md-8">
+              <!-- <app-test [trustID]="trustID"></app-test> -->
+              <app-view-it-return [trustID]="trustID"></app-view-it-return>
+            </div>
             <div class="col-md-4"><app-addreturn></app-addreturn></div>
           </div>
         </ng-template>

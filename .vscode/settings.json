@@ -1,0 +1,6 @@
+{
+    "editor.formatOnSave": true,
+    "tslint.exclude": "false",
+    "tslint.jsEnable": true,
+    "tslint.suppressWhileTypeErrorsPresent": true
+}
