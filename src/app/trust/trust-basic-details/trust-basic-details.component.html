@@ -1,0 +1,309 @@
+<div class="col-sm-12">
+  <div class="">
+    <div class="border-bottom">
+      <h5 class="text-info">Trust Name</h5>
+    </div>
+    <div class="mb-3">
+      <ng-container>
+        <div style="width: 50%">
+          <table>
+            <tr>
+              <th>Reg. No</th>
+              <td>:</td>
+              <td>1234345</td>
+            </tr>
+            <tr>
+              <th>Reg. Date</th>
+              <td>:</td>
+              <td>23/03/2021</td>
+            </tr>
+            <tr>
+              <th>Email</th>
+              <td>:</td>
+              <td>meet.trivedi@esmsys.com</td>
+            </tr>
+            <tr>
+              <th>Mobile</th>
+              <td>:</td>
+              <td>9033448008</td>
+            </tr>
+            <tr>
+              <th>Address</th>
+              <td>:</td>
+              <td>
+                201 govardhan residancy , walkeshwari nagari , indira road ,
+                jamnagar , gujarat , india
+              </td>
+            </tr>
+          </table>
+        </div>
+      </ng-container>
+    </div>
+
+    <div class="border-bottom">
+      <h5><span class="text-info">Properties</span> :10</h5>
+    </div>
+
+    <div class="border-bottom mt-3">
+      <h5 class="text-info">Process of Appointment:</h5>
+      <span style="padding-bottom: 15px; float: left; width: 100%"
+        >Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+        velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+        occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+        mollit anim id est laborum.</span
+      >
+    </div>
+
+    <div class="border-bottom mt-3">
+      <h5 class="text-info">Trustees</h5>
+    </div>
+
+    <ng-container>
+      <div style="width: 50%">
+        <table>
+          <tr>
+            <th>Name</th>
+            <td>:</td>
+            <td>Meet Trivedi</td>
+          </tr>
+
+          <tr>
+            <th>Email</th>
+            <td>:</td>
+            <td>meet.trivedi@esmsys.com</td>
+          </tr>
+          <tr>
+            <th>Mobile</th>
+            <td>:</td>
+            <td>9033448008</td>
+          </tr>
+          <tr>
+            <th>Address</th>
+            <td>:</td>
+            <td>
+              201 govardhan residancy , walkeshwari nagari , indira road ,
+              jamnagar , gujarat , india
+            </td>
+          </tr>
+        </table>
+      </div>
+    </ng-container>
+    <div class="border-bottom mt-3">
+      <h5 class="text-info">Manager/Mantri</h5>
+    </div>
+    <ng-container>
+      <div style="width: 50%">
+        <table>
+          <tr>
+            <th>Name</th>
+            <td>:</td>
+            <td>Meet Trivedi</td>
+          </tr>
+
+          <tr>
+            <th>Email</th>
+            <td>:</td>
+            <td>meet.trivedi@esmsys.com</td>
+          </tr>
+          <tr>
+            <th>Mobile</th>
+            <td>:</td>
+            <td>9033448008</td>
+          </tr>
+          <tr>
+            <th>Address</th>
+            <td>:</td>
+            <td>
+              201 govardhan residancy , walkeshwari nagari , indira road ,
+              jamnagar , gujarat , india
+            </td>
+          </tr>
+        </table>
+      </div>
+    </ng-container>
+    <div class="border-bottom mt-3">
+      <h5 class="text-info">CA/Auditors</h5>
+    </div>
+
+    <ng-container>
+      <div style="width: 50%">
+        <table>
+          <tr>
+            <th>Name</th>
+            <td>:</td>
+            <td>Meet Trivedi</td>
+          </tr>
+
+          <tr>
+            <th>Email</th>
+            <td>:</td>
+            <td>meet.trivedi@esmsys.com</td>
+          </tr>
+          <tr>
+            <th>Mobile</th>
+            <td>:</td>
+            <td>9033448008</td>
+          </tr>
+          <tr>
+            <th>Address</th>
+            <td>:</td>
+            <td>
+              201 govardhan residancy , walkeshwari nagari , indira road ,
+              jamnagar , gujarat , india
+            </td>
+          </tr>
+        </table>
+      </div>
+    </ng-container>
+  </div>
+  <div class="my-3 border-top">
+    <app-portlet
+      title="Documents"
+      headerClass="h4 header-title p-0"
+      collapsed="0"
+      loading="0"
+      color="white"
+    >
+      <div class="float-right mb-3">
+        <button
+          (click)="AddDocument()"
+          class="btn btn-outline-info waves-effect waves-light"
+        >
+          Add Document
+        </button>
+      </div>
+      <div class="table-responsive">
+        <table
+          datatable
+          [dtOptions]="dtOptions"
+          [dtTrigger]="dtTrigger"
+          class="table row-border hover table-centered mb-0"
+          style="width: 100%"
+        ></table></div
+    ></app-portlet>
+  </div>
+</div>
+<ng-template #DocumentForm let-modal="close">
+  <div class="modal-header">
+    <h4 class="modal-title">Add Document</h4>
+    <button
+      type="button"
+      class="close"
+      (click)="modal('Cross click')"
+      aria-hidden="true"
+    >
+      <i class="mdi mdi-close"></i>
+    </button>
+  </div>
+  <div class="modal-body p-4">
+    <div class="container-fuild">
+      <form [formGroup]="documentForm" (ngSubmit)="onSaveDocumnt()">
+        <div class="container-fuild">
+          <div class="row">
+            <div class="col-lg-12 mb-2">
+              <h4 class="header-title">File Upload *</h4>
+              <p class="text-muted font-13 m-b-30"></p>
+              <!-- file upload -->
+              <file-upload
+                class="dropzone"
+                multiple="false"
+                isAnimationDisabled="true"
+                listVisible="true"
+                zoomText="zoomOut"
+                #Files
+                accept="image/gif,image/png,image/jpeg,application/pdf"
+                type="file"
+                maxsize="20mb"
+                (ngModelChange)="onchange($event)"
+                [ngClass]="{
+                  'is-invalid': submited && a.uploadfile.errors
+                }"
+                formControlName="uploadfile"
+              ></file-upload>
+              <div
+                *ngIf="submited && a.uploadfile.errors"
+                class="invalid-feedback"
+              >
+                <div *ngIf="a.uploadfile.errors.sizeRange">
+                  File size is exceed 20 Mb Limit
+                </div>
+                <div *ngIf="a.uploadfile.errors.required">Please Add file</div>
+              </div>
+            </div>
+
+            <div class="col-md-12 mb-3">
+              <h4 class="header-title">File Name *</h4>
+              <input
+                class="form-control"
+                id="example-input"
+                placeholder="Enter File Name"
+                formControlName="FileName"
+                maxlength="25"
+                [ngClass]="{
+                  'is-invalid': submited && a.FileName.errors
+                }"
+              />
+              <div
+                *ngIf="submited && a.FileName.errors"
+                class="invalid-feedback"
+              >
+                <div *ngIf="a.FileName.errors.required">
+                  File Name is Required
+                </div>
+                <div *ngIf="a.FileName.errors.pattern">
+                  Only alphanumeric characters allowed
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-12 mb-3">
+              <h4 class="header-title">File Description *</h4>
+
+              <textarea
+                class="form-control"
+                id="example-textarea"
+                rows="3"
+                placeholder="Enter File Description"
+                formControlName="Description"
+                maxlength="55"
+                [ngClass]="{
+                  'is-invalid': submited && a.Description.errors
+                }"
+              ></textarea>
+              <div
+                *ngIf="submited && a.Description.errors"
+                class="invalid-feedback"
+              >
+                <div *ngIf="a.Description.errors.required">
+                  File Description is Required
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-disabled" *ngIf="Loading">
+            <div class="card-portlets-loader"></div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-secondary waves-effect"
+      (click)="modal('Cross click')"
+    >
+      Close
+    </button>
+    <button
+      type="button"
+      class="btn btn-primary waves-effect waves-light"
+      (click)="onSaveDocumnt()"
+    >
+      Add
+    </button>
+  </div>
+</ng-template>

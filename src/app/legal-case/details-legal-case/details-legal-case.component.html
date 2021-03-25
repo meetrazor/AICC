@@ -513,12 +513,9 @@
     <div class="container-fuild">
       <form [formGroup]="PetitionerForm" (ngSubmit)="onSavePetitioner()">
         <div class="row">
-          <div class="col-12" formArrayName="Petitioners">
+          <div class="col-12" formArrayName="Petitioner">
             <div
-              *ngFor="
-                let Petitioner of g.Petitioners['controls'];
-                let i = index
-              "
+              *ngFor="let Petitioner of g.Petitioner['controls']; let i = index"
             >
               <div class="form-row" [formGroupName]="i">
                 <div class="form-group col-12">
@@ -531,19 +528,19 @@
                     [ngClass]="{
                       'is-invalid':
                         submited &&
-                        g.Petitioners['controls'][i]['controls'].Name.errors
+                        g.Petitioner['controls'][i]['controls'].Name.errors
                     }"
                   />
                   <div
                     *ngIf="
                       submited &&
-                      g.Petitioners['controls'][i]['controls'].Name.errors
+                      g.Petitioner['controls'][i]['controls'].Name.errors
                     "
                     class="invalid-feedback"
                   >
                     <div
                       *ngIf="
-                        g.Petitioners['controls'][i]['controls'].Name.errors
+                        g.Petitioner['controls'][i]['controls'].Name.errors
                           .required
                       "
                     >
@@ -560,19 +557,19 @@
                     [ngClass]="{
                       'is-invalid':
                         submited &&
-                        g.Petitioners['controls'][i]['controls'].Email.errors
+                        g.Petitioner['controls'][i]['controls'].Email.errors
                     }"
                   />
                   <div
                     *ngIf="
                       submited &&
-                      g.Petitioners['controls'][i]['controls'].Email.errors
+                      g.Petitioner['controls'][i]['controls'].Email.errors
                     "
                     class="invalid-feedback"
                   >
                     <div
                       *ngIf="
-                        g.Petitioners['controls'][i]['controls'].Email.errors
+                        g.Petitioner['controls'][i]['controls'].Email.errors
                           .required
                       "
                     >
@@ -580,7 +577,7 @@
                     </div>
                     <div
                       *ngIf="
-                        g.Petitioners['controls'][i]['controls'].Email.errors
+                        g.Petitioner['controls'][i]['controls'].Email.errors
                           .pattern
                       "
                     >
@@ -598,19 +595,19 @@
                     [ngClass]="{
                       'is-invalid':
                         submited &&
-                        g.Petitioners['controls'][i]['controls'].Mobile.errors
+                        g.Petitioner['controls'][i]['controls'].Mobile.errors
                     }"
                   />
                   <div
                     *ngIf="
                       submited &&
-                      g.Petitioners['controls'][i]['controls'].Mobile.errors
+                      g.Petitioner['controls'][i]['controls'].Mobile.errors
                     "
                     class="invalid-feedback"
                   >
                     <div
                       *ngIf="
-                        g.Petitioners['controls'][i]['controls'].Mobile.errors
+                        g.Petitioner['controls'][i]['controls'].Mobile.errors
                           .required
                       "
                     >
@@ -622,13 +619,13 @@
                   <span
                     class="mdi mdi-cancel pull-right"
                     style="cursor: pointer; color: red"
-                    *ngIf="g.Petitioners['controls'].length > 1"
+                    *ngIf="g.Petitioner['controls'].length > 1"
                     (click)="removePetitionerDetails(i)"
                   >
                   </span>
                 </div>
               </div>
-              <hr *ngIf="g.Petitioners['controls'].length > 1" />
+              <hr *ngIf="g.Petitioner['controls'].length > 1" />
             </div>
             <div class="margin-20">
               <a
@@ -706,12 +703,9 @@
     <div class="container-fuild">
       <form [formGroup]="RespondentForm" (ngSubmit)="onSaveRespondent()">
         <div class="row">
-          <div class="col-12" formArrayName="Respondents">
+          <div class="col-12" formArrayName="Respondent">
             <div
-              *ngFor="
-                let Respondent of h.Respondents['controls'];
-                let i = index
-              "
+              *ngFor="let Respondent of h.Respondent['controls']; let i = index"
             >
               <div class="form-row" [formGroupName]="i">
                 <div class="form-group col-12">
@@ -724,19 +718,19 @@
                     [ngClass]="{
                       'is-invalid':
                         submited &&
-                        h.Respondents['controls'][i]['controls'].Name.errors
+                        h.Respondent['controls'][i]['controls'].Name.errors
                     }"
                   />
                   <div
                     *ngIf="
                       submited &&
-                      h.Respondents['controls'][i]['controls'].Name.errors
+                      h.Respondent['controls'][i]['controls'].Name.errors
                     "
                     class="invalid-feedback"
                   >
                     <div
                       *ngIf="
-                        h.Respondents['controls'][i]['controls'].Name.errors
+                        h.Respondent['controls'][i]['controls'].Name.errors
                           .required
                       "
                     >
@@ -753,19 +747,19 @@
                     [ngClass]="{
                       'is-invalid':
                         submited &&
-                        h.Respondents['controls'][i]['controls'].Email.errors
+                        h.Respondent['controls'][i]['controls'].Email.errors
                     }"
                   />
                   <div
                     *ngIf="
                       submited &&
-                      h.Respondents['controls'][i]['controls'].Email.errors
+                      h.Respondent['controls'][i]['controls'].Email.errors
                     "
                     class="invalid-feedback"
                   >
                     <div
                       *ngIf="
-                        h.Respondents['controls'][i]['controls'].Email.errors
+                        h.Respondent['controls'][i]['controls'].Email.errors
                           .required
                       "
                     >
@@ -773,7 +767,7 @@
                     </div>
                     <div
                       *ngIf="
-                        h.Respondents['controls'][i]['controls'].Email.errors
+                        h.Respondent['controls'][i]['controls'].Email.errors
                           .pattern
                       "
                     >
@@ -791,19 +785,19 @@
                     [ngClass]="{
                       'is-invalid':
                         submited &&
-                        h.Respondents['controls'][i]['controls'].Mobile.errors
+                        h.Respondent['controls'][i]['controls'].Mobile.errors
                     }"
                   />
                   <div
                     *ngIf="
                       submited &&
-                      h.Respondents['controls'][i]['controls'].Mobile.errors
+                      h.Respondent['controls'][i]['controls'].Mobile.errors
                     "
                     class="invalid-feedback"
                   >
                     <div
                       *ngIf="
-                        h.Respondents['controls'][i]['controls'].Mobile.errors
+                        h.Respondent['controls'][i]['controls'].Mobile.errors
                           .required
                       "
                     >
@@ -815,13 +809,13 @@
                   <span
                     class="mdi mdi-cancel pull-right"
                     style="cursor: pointer; color: red"
-                    *ngIf="h.Respondents['controls'].length > 1"
+                    *ngIf="h.Respondent['controls'].length > 1"
                     (click)="removePetitionerDetails(i)"
                   >
                   </span>
                 </div>
               </div>
-              <hr *ngIf="h.Respondents['controls'].length > 1" />
+              <hr *ngIf="h.Respondent['controls'].length > 1" />
             </div>
             <div class="margin-20">
               <a

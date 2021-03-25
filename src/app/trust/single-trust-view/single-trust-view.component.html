@@ -1,0 +1,40 @@
+<div class="container-fluid">
+  <!-- breadCrums -->
+  <app-page-title
+    title="Trust Name"
+    [breadcrumbItems]="breadCrumbItems"
+  ></app-page-title>
+
+  <div class="card-box">
+    <ngb-tabset #tabs justify="justified" type="pills">
+      <ngb-tab title="Basic Details" class="nav-item" id="details">
+        <ng-template ngbTabContent class="nav-item">
+          <app-trust-basic-details [trustID]="trustID"></app-trust-basic-details
+        ></ng-template>
+      </ngb-tab>
+      <ngb-tab title="Properties" class="nav-item" id="property">
+        <ng-template ngbTabContent class="nav-item"
+          ><app-trust-properties [trustID]="trustID"></app-trust-properties>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab title="Meeting" class="nav-item" id="meeting">
+        <ng-template ngbTabContent class="nav-item"> </ng-template>
+      </ngb-tab>
+      <ngb-tab title="Fund" class="nav-item" id="fund">
+        <ng-template ngbTabContent class="nav-item"> </ng-template>
+      </ngb-tab>
+      <ngb-tab title="Audit" class="nav-item" id="audit">
+        <ng-template ngbTabContent class="nav-item"> </ng-template>
+      </ngb-tab>
+      <ngb-tab title="Exam Certificate" class="nav-item" id="exam">
+        <ng-template ngbTabContent class="nav-item"> </ng-template>
+      </ngb-tab>
+      <ngb-tab title="Remainder" class="nav-item" id="reminder">
+        <ng-template ngbTabContent class="nav-item"> </ng-template>
+      </ngb-tab>
+      <ngb-tab title="IT Return" class="nav-item" id="it">
+        <ng-template ngbTabContent class="nav-item"> </ng-template>
+      </ngb-tab>
+    </ngb-tabset>
+  </div>
+</div>

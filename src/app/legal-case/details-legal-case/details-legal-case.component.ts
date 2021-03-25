@@ -210,14 +210,14 @@ export class DetailsLegalCaseComponent implements OnInit {
     this.PetitionerForm = this.formBuilder.group({
       LawyerID: new FormControl(null, Validators.required),
       CreatedBy: new FormControl(this.currentUser.UserID, Validators.required),
-      Petitioners: this.formBuilder.array([this.addDetails()])
+      Petitioner: this.formBuilder.array([this.addDetails()])
     })
   }
   initRespondentForm() {
     this.RespondentForm = this.formBuilder.group({
       LawyerID: new FormControl(null, Validators.required),
       CreatedBy: new FormControl(this.currentUser.UserID, Validators.required),
-      Respondents: this.formBuilder.array([this.addDetails()])
+      Respondent: this.formBuilder.array([this.addDetails()])
     })
   }
   addDetails() {
@@ -228,19 +228,19 @@ export class DetailsLegalCaseComponent implements OnInit {
     })
   }
   removePetitionerDetails(i: number) {
-    const control = this.PetitionerForm.controls.Petitioners as FormArray;
+    const control = this.PetitionerForm.controls.Petitioner as FormArray;
     control.removeAt(i);
   }
   removeRespondentDetails(i: number) {
-    const control = this.RespondentForm.controls.Respondents as FormArray;
+    const control = this.RespondentForm.controls.Respondent as FormArray;
     control.removeAt(i);
   }
   addPetitionerDetails() {
-    const control = this.PetitionerForm.controls.Petitioners as FormArray;
+    const control = this.PetitionerForm.controls.Petitioner as FormArray;
     control.push(this.addDetails());
   }
   addRespondentDetails() {
-    const control = this.RespondentForm.controls.Respondents as FormArray;
+    const control = this.RespondentForm.controls.Respondent as FormArray;
     control.push(this.addDetails());
   }
   callback() {

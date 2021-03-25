@@ -1,3 +1,38 @@
-<p>
-  trust-list works!
-</p>
+<div class="container-fluid">
+  <!-- start page title -->
+  <app-page-title
+    title="Trusts"
+    [breadcrumbItems]="breadCrumbItems"
+  ></app-page-title>
+  <!-- end page title -->
+
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="sub-header">
+            <button
+              type="button"
+              class="btn btn-info waves-effect waves-light float-right"
+              data-toggle="modal"
+              data-target="#myModal"
+              style="margin-bottom: 15px"
+              [routerLink]="['/trust/create']"
+            >
+              Add New Trust
+            </button>
+          </div>
+          <div class="table-responsive">
+            <table
+              datatable
+              [dtOptions]="dtOptions"
+              [dtTrigger]="dtTrigger"
+              class="table row-border hover table-centered mb-0"
+              style="width: 100%"
+            ></table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
