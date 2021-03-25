@@ -1,3 +1,38 @@
-<p>
-  trust-properties works!
-</p>
+<div class="my-3">
+  <app-portlet
+    title="Properties"
+    headerClass="h4 header-title p-0"
+    collapsed="1"
+    loading="0"
+    color="white"
+  >
+    <div class="btn-group float-right mb-3">
+      <button
+        type="button"
+        class="btn btn-outline-info waves-effect waves-light mr-1 dropdown-toggle"
+        data-toggle="dropdown"
+        aria-expanded="false"
+        (click)="isdropdownShow = !isdropdownShow"
+      >
+        Add Property <i class="mdi mdi-chevron-down"></i>
+      </button>
+      <div class="dropdown-menu" [ngClass]="{ show: isdropdownShow }">
+        <a class="dropdown-item" [routerLink]="['/property/create']"
+          >Add New Property</a
+        >
+
+        <a class="dropdown-item" [routerLink]="['/trust/addexiting']"
+          >Add form Existing</a
+        >
+      </div>
+    </div>
+    <div class="table-responsive">
+      <table
+        datatable
+        [dtOptions]="dtOptions"
+        [dtTrigger]="dtTrigger"
+        class="table row-border hover table-centered mb-0"
+        style="width: 100%"
+      ></table></div
+  ></app-portlet>
+</div>

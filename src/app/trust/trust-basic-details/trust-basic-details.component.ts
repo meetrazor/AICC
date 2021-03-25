@@ -26,7 +26,6 @@ export class TrustBasicDetailsComponent implements OnInit {
     { name: "Trust Document", fileType: "System Architect", desc: "Edinburgh", URL: 'https://proplegit-dev.s3.ap-south-1.amazonaws.com/100/Documents/Legal/CaseID_46/FSWerOpenMenuv1.pdf', id: 5 },
     { name: "Trust Document", fileType: "System Architect", desc: "Edinburgh", URL: 'https://proplegit-dev.s3.ap-south-1.amazonaws.com/100/Documents/Legal/CaseID_46/FSWerOpenMenuv1.pdf', id: 6 },
   ]
-  breadCrumbItems: Array<{}>;
   dtOptions: DataTables.Settings = {};
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;

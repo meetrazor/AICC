@@ -1,3 +1,4 @@
+import { TrustCreateComponent } from './trust-create/trust-create.component';
 import { SingleTrustViewComponent } from './single-trust-view/single-trust-view.component';
 
 
@@ -6,7 +7,9 @@ import { Routes, RouterModule } from '@angular/router';
 
 
 const routes: Routes = [
-  { path: 'view/:trustID', component: SingleTrustViewComponent }
+  { path: 'view/:trustID', component: SingleTrustViewComponent },
+  { path: 'create', component: TrustCreateComponent },
+  { path: 'addexiting', component: TrustCreateComponent }
 ];
 
 @NgModule({
