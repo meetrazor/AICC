@@ -20,6 +20,9 @@ import { AddreturnComponent } from './addreturn/addreturn.component';
 
 import { ViewItReturnComponent } from './view-it-return/view-it-return.component';
 import { ViewExamCertificateComponent } from './view-exam-certificate/view-exam-certificate.component';
+import { ViewAuditComponent } from './view-audit/view-audit.component';
+import { ViewFundComponent } from './view-fund/view-fund.component';
+import { ViewMeetingComponent } from './view-meeting/view-meeting.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +37,9 @@ import { ViewExamCertificateComponent } from './view-exam-certificate/view-exam-
     AddreturnComponent,
     ViewItReturnComponent,
     ViewExamCertificateComponent,
+    ViewAuditComponent,
+    ViewFundComponent,
+    ViewMeetingComponent,
   ],
   imports: [
     CommonModule,

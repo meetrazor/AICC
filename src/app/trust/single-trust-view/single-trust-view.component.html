@@ -20,7 +20,9 @@
       <ngb-tab title="Meeting" class="nav-item" id="meeting">
         <ng-template ngbTabContent class="nav-item">
           <div class="row">
-            <div class="col-md-8"></div>
+            <div class="col-md-8">
+              <app-view-meeting [trustID]="trustID" s></app-view-meeting>
+            </div>
             <div class="col-md-4"><app-addmeeting></app-addmeeting></div>
           </div>
         </ng-template>
@@ -28,7 +30,9 @@
       <ngb-tab title="Fund" class="nav-item" id="fund">
         <ng-template ngbTabContent class="nav-item">
           <div class="row">
-            <div class="col-md-8"></div>
+            <div class="col-md-8">
+              <app-view-fund [trustID]="trustID"></app-view-fund>
+            </div>
             <div class="col-md-4"><app-addfund></app-addfund></div>
           </div>
         </ng-template>
@@ -36,7 +40,9 @@
       <ngb-tab title="Audit" class="nav-item" id="audit">
         <ng-template ngbTabContent class="nav-item">
           <div class="row">
-            <div class="col-md-8"></div>
+            <div class="col-md-8">
+              <app-view-audit [trustID]="trustID"></app-view-audit>
+            </div>
             <div class="col-md-4"><app-addaudit></app-addaudit></div>
           </div>
         </ng-template>
@@ -44,7 +50,11 @@
       <ngb-tab title="Exam Certificate" class="nav-item" id="exam">
         <ng-template ngbTabContent class="nav-item">
           <div class="row">
-            <div class="col-md-8"></div>
+            <div class="col-md-8">
+              <app-view-exam-certificate
+                [trustID]="trustID"
+              ></app-view-exam-certificate>
+            </div>
             <div class="col-md-4">
               <app-add-exam-certificate></app-add-exam-certificate>
             </div>

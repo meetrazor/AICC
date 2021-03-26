@@ -6,6 +6,9 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { ViewItReturnComponent } from './view-it-return/view-it-return.component';
 import { ViewExamCertificateComponent } from './view-exam-certificate/view-exam-certificate.component';
+import { ViewAuditComponent } from './view-audit/view-audit.component';
+import { ViewFundComponent } from './view-fund/view-fund.component';
+import { ViewMeetingComponent } from './view-meeting/view-meeting.component';
 
 const routes: Routes = [
   { path: 'view/:trustID', component: SingleTrustViewComponent },
@@ -13,6 +16,9 @@ const routes: Routes = [
   { path: 'addexiting', component: TrustCreateComponent },
   { path: 'return', component: ViewItReturnComponent },
   { path: 'certificate', component: ViewExamCertificateComponent },
+  { path: 'audit', component: ViewAuditComponent },
+  { path: 'fund', component: ViewFundComponent },
+  { path: 'meeting', component: ViewMeetingComponent },
 ];
 
 @NgModule({
