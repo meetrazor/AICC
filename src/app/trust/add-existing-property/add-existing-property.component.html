@@ -1,0 +1,20 @@
+<div class="container-fluid">
+  <!-- breadCrums -->
+  <app-page-title
+    title="Add Existing Property"
+    [breadcrumbItems]="breadCrumbItems"
+  ></app-page-title>
+  <div class="row">
+    <div class="col-12 p-3 card">
+      <div class="table-responsive">
+        <table
+          datatable
+          [dtOptions]="dtOptions"
+          [dtTrigger]="dtTrigger"
+          class="table row-border hover table-centered mb-0"
+          style="width: 100%"
+        ></table>
+      </div>
+    </div>
+  </div>
+</div>

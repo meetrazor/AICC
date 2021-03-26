@@ -1,16 +1,16 @@
-import { Router } from '@angular/router';
-import { Component, Input, OnInit, ViewChild, Renderer2 } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 
 @Component({
-  selector: 'app-trust-properties',
-  templateUrl: './trust-properties.component.html',
-  styleUrls: ['./trust-properties.component.scss']
+  selector: 'app-add-existing-property',
+  templateUrl: './add-existing-property.component.html',
+  styleUrls: ['./add-existing-property.component.scss']
 })
-export class TrustPropertiesComponent implements OnInit {
-  @Input() trustID: number;
-  isdropdownShow: boolean;
+export class AddExistingPropertyComponent implements OnInit {
+  trustID: number;
+  breadCrumbItems: Array<any>;
   data = [
     { propertyName: "Property Name", location: "jamnagar , jamnagar , jamnagar", surveyno: "212p2", tp: '2121', id: 1 },
     { propertyName: "Property Name", location: "jamnagar , jamnagar , jamnagar", surveyno: "212p2", tp: '2121', id: 2 },
@@ -23,8 +23,10 @@ export class TrustPropertiesComponent implements OnInit {
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
   dtTrigger = new Subject();
-  constructor(private router: Router, private renderer: Renderer2) {
-    this.isdropdownShow = false;
+  constructor(private route: ActivatedRoute) {
+    this.trustID = this.route.snapshot.params.trustID;
+    this.breadCrumbItems = [{ label: 'Dashboard', path: '/' }, { label: 'Trusts', path: 'AICC/trust' },
+    { label: `Trust Name`, path: `/trust/view/${this.trustID}` }, { label: `Add Existing Property`, path: '/', active: true }];
   }
 
   ngOnInit() {
@@ -59,7 +61,8 @@ export class TrustPropertiesComponent implements OnInit {
         data: null,
         render(data) {
           return `<div style="display:flex">
-          <input type="checkbox" class="custom-control-input" propertyID="${data.id}"></div>`;
+            <a title="View This Property" viewpropertyID="${data.id}">
+            <i class="btn font-18 mdi mdi-eye-check text-secondary" viewpropertyID="${data.id}"></i></a></div>`;
         },
       },
       ],
@@ -80,12 +83,5 @@ export class TrustPropertiesComponent implements OnInit {
   }
   ngAfterViewInit() {
     this.dtTrigger.next();
-    this.renderer.listen("document", "click", (event) => {
-      if (event.target.hasAttribute("viewpropertyID")) {
-        this.router.navigate([
-          "property/view/" + event.target.getAttribute("viewpropertyID"),
-        ]);
-      }
-    });
   }
 }

@@ -17,10 +17,11 @@ import { AddfundComponent } from './addfund/addfund.component';
 import { AddauditComponent } from './addaudit/addaudit.component';
 import { AddExamCertificateComponent } from './add-exam-certificate/add-exam-certificate.component';
 import { AddreturnComponent } from './addreturn/addreturn.component';
+import { AddExistingPropertyComponent } from './add-existing-property/add-existing-property.component';
 
 @NgModule({
   declarations: [SingleTrustViewComponent, TrustCreateComponent, TrustBasicDetailsComponent, TrustPropertiesComponent,
-    AddmeetingComponent, AddfundComponent, AddauditComponent, AddExamCertificateComponent, AddreturnComponent],
+    AddmeetingComponent, AddfundComponent, AddauditComponent, AddExamCertificateComponent, AddreturnComponent, AddExistingPropertyComponent],
   imports: [
     CommonModule, UIModule, NgbTabsetModule, FileUploadModule, ReactiveFormsModule,
     TrustRoutingModule, DataTablesModule, NgbModalModule, NgSelectModule
