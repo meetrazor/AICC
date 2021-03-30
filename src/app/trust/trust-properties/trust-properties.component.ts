@@ -59,7 +59,8 @@ export class TrustPropertiesComponent implements OnInit {
         data: null,
         render(data) {
           return `<div style="display:flex">
-          <input type="checkbox" class="custom-control-input" propertyID="${data.id}"></div>`;
+          <a title="View This Property" viewpropertyID="${data.id}">
+          <i class="btn font-18 mdi mdi-eye-check text-secondary" viewpropertyID="${data.id}"></i></a></div>`;
         },
       },
       ],

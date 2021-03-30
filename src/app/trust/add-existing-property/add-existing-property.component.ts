@@ -60,9 +60,8 @@ export class AddExistingPropertyComponent implements OnInit {
         title: "Action",
         data: null,
         render(data) {
-          return `<div style="display:flex">
-            <a title="View This Property" viewpropertyID="${data.id}">
-            <i class="btn font-18 mdi mdi-eye-check text-secondary" viewpropertyID="${data.id}"></i></a></div>`;
+          return `<a title="Add this Property" propertyID="${data.id}" 
+          class="waves-effect waves-light"><i class="text-info p-2 mdi mdi-plus-circle"></i></a>`;
         },
       },
       ],
