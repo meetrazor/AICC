@@ -55,11 +55,11 @@
       }}</span>
     </div>
 
-    <div class="border-bottom mt-3">
+    <div class="border-bottom mt-3" *ngIf="Trustee.length > 0">
       <h5 class="text-info">Trustees</h5>
     </div>
 
-    <ng-container>
+    <ng-container *ngIf="Trustee.length > 0">
       <div style="width: 80%">
         <table *ngFor="let item of Trustee" class="mb-3">
           <tr>
@@ -88,11 +88,11 @@
         </table>
       </div>
     </ng-container>
-    <div class="border-bottom mt-3">
+    <div class="border-bottom mt-3" *ngIf="manager.length > 0">
       <h5 class="text-info">Manager/Mantri</h5>
     </div>
-    <ng-container>
-      <div style="width: 50%">
+    <ng-container *ngIf="manager.length > 0">
+      <div style="width: 80%">
         <table *ngFor="let item of manager" class="mb-3">
           <tr>
             <th>Name</th>
@@ -120,12 +120,12 @@
         </table>
       </div>
     </ng-container>
-    <div class="border-bottom mt-3">
+    <div class="border-bottom mt-3" *ngIf="ca.length > 0">
       <h5 class="text-info">CA/Auditors</h5>
     </div>
 
-    <ng-container>
-      <div style="width: 50%">
+    <ng-container *ngIf="ca.length > 0">
+      <div style="width: 80%">
         <table *ngFor="let item of ca" class="mb-3">
           <tr>
             <th>Name</th>

@@ -68,6 +68,8 @@ const addTrust = `${apiUrl}trust/add`;
 const viewTrust = `${apiUrl}trust/view/`;
 const selectExistingProperty = `${apiUrl}trust/property/add`;
 const removePropertyFromTrust = `${apiUrl}trust/property/remove/`;
+const trustAddMeeting = `${apiUrl}trust/add/meeting/`;
+const cancelMeeting = `${apiUrl}trust/meeting/`;
 
 @Injectable({
   providedIn: "root",
@@ -572,5 +574,14 @@ export class GeneralService {
   }
   RemovePropertyFromTrust(TrustID, PropertyID): any {
     return this.http.delete(`${removePropertyFromTrust}${TrustID}/${PropertyID}`, httpOptions);
+  }
+  AddMeeting(TrustID, Data): any {
+    return this.http.post(`${trustAddMeeting}${TrustID}`, Data, httpFileUploadOptions)
+  }
+  CancelMEeting(MeetingID): any {
+    return this.http.delete(`${cancelMeeting}${MeetingID}`, httpOptions)
+  }
+  CompleteMeeting(MeetingID, Data): any {
+    return this.http.put(`${cancelMeeting}${MeetingID}`, Data, httpFileUploadOptions)
   }
 }

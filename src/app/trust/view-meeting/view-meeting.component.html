@@ -7,3 +7,157 @@
     style="width: 100%"
   ></table>
 </div>
+<div class="card-disabled" *ngIf="isLoading">
+  <div class="card-portlets-loader"></div>
+</div>
+
+<ng-template #MeetingForm let-modal="close">
+  <div class="modal-header">
+    <h4 class="modal-title">Complete Meeting</h4>
+    <button
+      type="button"
+      class="close"
+      (click)="modal('Cross click')"
+      aria-hidden="true"
+    >
+      <i class="mdi mdi-close"></i>
+    </button>
+  </div>
+  <div class="modal-body p-4">
+    <div class="container-fuild">
+      <form [formGroup]="meetingForm" (ngSubmit)="onSave()">
+        <div class="container-fuild">
+          <div class="row">
+            <div class="col-lg-12 mb-2">
+              <h4 class="header-title">MOM File Upload *</h4>
+              <p class="text-muted font-13 m-b-30"></p>
+              <!-- file upload -->
+              <file-upload
+                class="dropzone"
+                multiple="false"
+                isAnimationDisabled="true"
+                listVisible="true"
+                zoomText="zoomOut"
+                #Files
+                accept="image/gif,image/png,image/jpeg,application/pdf"
+                type="file"
+                maxsize="20mb"
+                (ngModelChange)="onchangeDispose($event)"
+                [ngClass]="{
+                  'is-invalid': submited && d.uploadfile.errors
+                }"
+                formControlName="uploadfile"
+              ></file-upload>
+              <div
+                *ngIf="submited && d.uploadfile.errors"
+                class="invalid-feedback"
+              >
+                <div *ngIf="d.uploadfile.errors.sizeRange">
+                  File size is exceed 20 Mb Limit
+                </div>
+                <div *ngIf="d.uploadfile.errors.required">Please Add file</div>
+              </div>
+            </div>
+            <div class="col-md-12 mb-3">
+              <h4 class="header-title">Total Time Of Meeting(In Minutes) *</h4>
+              <input
+                type="number"
+                class="form-control"
+                id="example-input"
+                placeholder="Enter Minutes"
+                formControlName="TotalTimeOfMeetingInMinutes"
+                [ngClass]="{
+                  'is-invalid': submited && d.TotalTimeOfMeetingInMinutes.errors
+                }"
+              />
+              <div
+                *ngIf="submited && d.TotalTimeOfMeetingInMinutes.errors"
+                class="invalid-feedback"
+              >
+                <div *ngIf="d.TotalTimeOfMeetingInMinutes.errors.required">
+                  Total Time Of Meeting is Required
+                </div>
+                <div
+                  *ngIf="
+                    d.TotalTimeOfMeetingInMinutes.errors.min ||
+                    d.TotalTimeOfMeetingInMinutes.errors.max
+                  "
+                >
+                  Total Time Of Meeting Must be Valid
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-12 mb-3">
+              <h4 class="header-title">File Name *</h4>
+              <input
+                class="form-control"
+                id="example-input"
+                placeholder="Enter File Name"
+                formControlName="FileName"
+                maxlength="25"
+                [ngClass]="{
+                  'is-invalid': submited && d.FileName.errors
+                }"
+              />
+              <div
+                *ngIf="submited && d.FileName.errors"
+                class="invalid-feedback"
+              >
+                <div *ngIf="d.FileName.errors.required">
+                  File Name is Required
+                </div>
+                <div *ngIf="d.FileName.errors.pattern">
+                  Only alphanumeric characters allowed
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-12 mb-3">
+              <h4 class="header-title">File Description *</h4>
+
+              <textarea
+                class="form-control"
+                id="example-textarea"
+                rows="3"
+                placeholder="Enter File Description"
+                formControlName="Description"
+                maxlength="55"
+                [ngClass]="{
+                  'is-invalid': submited && d.Description.errors
+                }"
+              ></textarea>
+              <div
+                *ngIf="submited && d.Description.errors"
+                class="invalid-feedback"
+              >
+                <div *ngIf="d.Description.errors.required">
+                  File Description is Required
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-disabled" *ngIf="Loading">
+            <div class="card-portlets-loader"></div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-secondary waves-effect"
+      (click)="modal('Cross click')"
+    >
+      Close
+    </button>
+    <button
+      type="button"
+      class="btn btn-primary waves-effect waves-light"
+      (click)="onSave()"
+    >
+      Submit
+    </button>
+  </div>
+</ng-template>

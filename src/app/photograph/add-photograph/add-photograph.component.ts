@@ -121,8 +121,7 @@ export class AddPhotographComponent implements OnInit {
             Swal.fire({
               title: 'Uploaded',
               text: data.message,
-              type: 'success',
-              timer: 2000
+              type: 'success'
             }).then(() => {
               location.reload();
             });

@@ -21,9 +21,17 @@
         <ng-template ngbTabContent class="nav-item">
           <div class="row">
             <div class="col-md-8">
-              <app-view-meeting [trustID]="trustID" s></app-view-meeting>
+              <app-view-meeting
+                [trustID]="trustID"
+                [refresh]="meeting"
+              ></app-view-meeting>
             </div>
-            <div class="col-md-4"><app-addmeeting></app-addmeeting></div>
+            <div class="col-md-4">
+              <app-addmeeting
+                [trustID]="trustID"
+                (reFresh)="refreshmeeting()"
+              ></app-addmeeting>
+            </div>
           </div>
         </ng-template>
       </ngb-tab>

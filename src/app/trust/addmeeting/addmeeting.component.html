@@ -3,20 +3,25 @@
     <div class="">
       <div class="card-body">
         <div class="form-group mb-3">
-          <label for="simpleinput"><b>Title</b></label>
+          <label for="simpleinput"><b>Meeting Title</b></label>
           <input
             type="text"
             class="form-control"
-            placeholder=""
-            formControlName="title"
+            placeholder="Meeting Title"
+            formControlName="MeetingTitle"
             [ngClass]="{
-              'is-invalid': submitted && f.title.errors
+              'is-invalid': submitted && f.MeetingTitle.errors
             }"
           />
-          <div *ngIf="submitted && f.title.errors" class="invalid-feedback">
-            <div *ngIf="f.title.errors.required">Title is Required</div>
-            <div *ngIf="f.title.errors.pattern">
-              Title Must be Valid And Only Alphanumeric Allowed
+          <div
+            *ngIf="submitted && f.MeetingTitle.errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="f.MeetingTitle.errors.required">
+              Meeting Title is Required
+            </div>
+            <div *ngIf="f.MeetingTitle.errors.pattern">
+              Meeting Title Must be Valid And Only Alphanumeric Allowed
             </div>
           </div>
         </div>
@@ -26,14 +31,19 @@
             type="datetime-local"
             class="form-control"
             placeholder=""
-            formControlName="time"
+            formControlName="MeetingdateTime"
             min="{{ Date | date: 'yyyy-MM-ddTHH:mm' }}"
             [ngClass]="{
-              'is-invalid': submitted && f.time.errors
+              'is-invalid': submitted && f.MeetingdateTime.errors
             }"
           />
-          <div *ngIf="submitted && f.time.errors" class="invalid-feedback">
-            <div *ngIf="f.time.errors.required">Meeting Time is Required</div>
+          <div
+            *ngIf="submitted && f.MeetingdateTime.errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="f.MeetingdateTime.errors.required">
+              Meeting Time is Required
+            </div>
           </div>
         </div>
         <div class="form-group mb-3">
@@ -41,7 +51,7 @@
           <input
             type="text"
             class="form-control"
-            placeholder=""
+            placeholder="Venue"
             formControlName="venue"
             [ngClass]="{
               'is-invalid': submitted && f.venue.errors
@@ -55,24 +65,79 @@
           </div>
         </div>
         <div class="form-group mb-3">
-          <label for="simpleinput"><b>Status</b></label>
-          <input
-            type="text"
-            class="form-control"
-            placeholder=""
-            formControlName="status"
+          <h4 class="header-title">Agenda Document Upload *</h4>
+          <p class="text-muted font-13 m-b-30"></p>
+          <!-- file upload -->
+          <file-upload
+            class="dropzone"
+            multiple="false"
+            isAnimationDisabled="true"
+            listVisible="true"
+            zoomText="zoomOut"
+            #Files
+            accept="image/gif,image/png,image/jpeg,application/pdf"
+            type="file"
+            maxsize="20mb"
+            (ngModelChange)="onchange($event)"
             [ngClass]="{
-              'is-invalid': submitted && f.status.errors
+              'is-invalid': submitted && f.uploadfile.errors
+            }"
+            formControlName="uploadfile"
+          ></file-upload>
+          <div
+            *ngIf="submitted && f.uploadfile.errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="f.uploadfile.errors.sizeRange">
+              File size is exceed 20 Mb Limit
+            </div>
+            <div *ngIf="f.uploadfile.errors.required">Please Add file</div>
+          </div>
+        </div>
+
+        <div class="form-group mb-3">
+          <h4 class="header-title">File Name *</h4>
+          <input
+            class="form-control"
+            id="example-input"
+            placeholder="Enter File Name"
+            formControlName="FileName"
+            maxlength="25"
+            [ngClass]="{
+              'is-invalid': submitted && f.FileName.errors
             }"
           />
-          <div *ngIf="submitted && f.status.errors" class="invalid-feedback">
-            <div *ngIf="f.status.errors.required">Status is Required</div>
-            <div *ngIf="f.status.errors.pattern">
-              Status Must be Valid And Only Alphanumeric Allowed
+          <div *ngIf="submitted && f.FileName.errors" class="invalid-feedback">
+            <div *ngIf="f.FileName.errors.required">File Name is Required</div>
+            <div *ngIf="f.FileName.errors.pattern">
+              Only alphanumeric characters allowed
             </div>
           </div>
         </div>
 
+        <div class="form-group mb-3">
+          <h4 class="header-title">File Description *</h4>
+
+          <textarea
+            class="form-control"
+            id="example-textarea"
+            rows="3"
+            placeholder="Enter File Description"
+            formControlName="Description"
+            maxlength="55"
+            [ngClass]="{
+              'is-invalid': submitted && f.Description.errors
+            }"
+          ></textarea>
+          <div
+            *ngIf="submitted && f.Description.errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="f.Description.errors.required">
+              File Description is Required
+            </div>
+          </div>
+        </div>
         <!-- <form
           action="https://coderthemes.com/"
           method="post"
@@ -98,3 +163,6 @@
     </div>
   </div>
 </form>
+<div class="card-disabled" *ngIf="isLoading">
+  <div class="card-portlets-loader"></div>
+</div>

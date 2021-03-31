@@ -251,14 +251,14 @@ export class DetailsLegalCaseComponent implements OnInit {
     this.service.GetLegalCaseLastHearing(this.CaseID).subscribe((res) => {
       this.hearingForm = this.formBuilder.group({
         HearingDate: new FormControl(null, [Validators.required]),
-        IsDetailsChange: new FormControl(res.data ? '0' : '1', Validators.required),
+        IsDetailsChange: new FormControl(res.data.LegalCaseID ? '0' : '1', Validators.required),
         Judge: new FormControl(res.data ? res.data.Judge : null, Validators.required),
         CourtName: new FormControl(res.data ? res.data.CourtName : null, Validators.required),
         CourtNumber: new FormControl(res.data ? res.data.CourtNumber : null, Validators.required),
         CourtAddress: new FormControl(res.data ? res.data.CourtAddress : null, Validators.required),
         CreatedBy: new FormControl(this.currentUser.UserID, Validators.required),
       });
-      this.isDetailsChange(res.data ? '0' : '1');
+      this.isDetailsChange(res.data.LegalCaseID ? '0' : '1');
       this.isFormLoading = false;
     })
   }

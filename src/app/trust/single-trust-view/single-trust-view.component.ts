@@ -12,6 +12,7 @@ export class SingleTrustViewComponent implements OnInit {
   trustID: number;
   trustInfo: any;
   isLoading: boolean;
+  meeting = 0;
   constructor(private route: ActivatedRoute, private service: GeneralService) {
     this.isLoading = true;
     this.trustID = this.route.snapshot.params.trustID;
@@ -25,5 +26,7 @@ export class SingleTrustViewComponent implements OnInit {
 
   ngOnInit() {
   }
-
+  refreshmeeting() {
+    this.meeting++;
+  }
 }

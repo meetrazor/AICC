@@ -18,13 +18,16 @@ import Swal from 'sweetalert2';
 })
 export class TrustCreateComponent implements OnInit {
   trustForm: FormGroup;
+  breadCrumbItems: any;
   regex = '[a-zA-Z][a-z0-9A-Z ]+';
   numericRegex = '[0-9]+';
   submitted: boolean;
   currentUser: any;
   trusteetype: any;
   isLoading: Boolean;
-  constructor(private fb: FormBuilder, private service: GeneralService, private router: Router) { }
+  constructor(private fb: FormBuilder, private service: GeneralService, private router: Router) {
+    this.breadCrumbItems = [{ label: 'Dashboard', path: '/' }, { label: 'Add New Trust', path: '/', active: true }];
+  }
 
   ngOnInit() {
     this.isLoading = true;
