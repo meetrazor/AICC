@@ -20,13 +20,42 @@ import { AddExamCertificateComponent } from './add-exam-certificate/add-exam-cer
 import { AddreturnComponent } from './addreturn/addreturn.component';
 import { AddExistingPropertyComponent } from './add-existing-property/add-existing-property.component';
 
+import { ViewItReturnComponent } from './view-it-return/view-it-return.component';
+import { ViewExamCertificateComponent } from './view-exam-certificate/view-exam-certificate.component';
+import { ViewAuditComponent } from './view-audit/view-audit.component';
+import { ViewFundComponent } from './view-fund/view-fund.component';
+import { ViewMeetingComponent } from './view-meeting/view-meeting.component';
+
 @NgModule({
-  declarations: [SingleTrustViewComponent, TrustCreateComponent, TrustBasicDetailsComponent, TrustPropertiesComponent,
-    AddmeetingComponent, AddfundComponent, AddauditComponent, AddExamCertificateComponent, AddreturnComponent, AddExistingPropertyComponent],
-  imports: [
-    CommonModule, UIModule, NgbTabsetModule, FileUploadModule, ReactiveFormsModule, PropertyModule,
-    TrustRoutingModule, DataTablesModule, NgbModalModule, NgSelectModule
+  declarations: [
+    SingleTrustViewComponent,
+    TrustCreateComponent,
+    TrustBasicDetailsComponent,
+    TrustPropertiesComponent,
+    AddmeetingComponent,
+    AddfundComponent,
+    AddauditComponent,
+    AddExamCertificateComponent,
+    AddreturnComponent,
+    ViewItReturnComponent,
+    ViewExamCertificateComponent,
+    ViewAuditComponent,
+    ViewFundComponent,
+    ViewMeetingComponent,
+    AddExistingPropertyComponent
   ],
-  providers: [DatePipe]
+  imports: [
+    CommonModule,
+    UIModule,
+    NgbTabsetModule,
+    FileUploadModule,
+    ReactiveFormsModule,
+    TrustRoutingModule,
+    DataTablesModule,
+    NgbModalModule,
+    NgSelectModule,
+    PropertyModule
+  ],
+  providers: [DatePipe],
 })
 export class TrustModule { }
