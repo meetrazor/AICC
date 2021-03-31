@@ -1,3 +1,4 @@
+import { PropertyModule } from './../property/property.module';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { TrustCreateComponent } from './trust-create/trust-create.component';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -23,7 +24,7 @@ import { AddExistingPropertyComponent } from './add-existing-property/add-existi
   declarations: [SingleTrustViewComponent, TrustCreateComponent, TrustBasicDetailsComponent, TrustPropertiesComponent,
     AddmeetingComponent, AddfundComponent, AddauditComponent, AddExamCertificateComponent, AddreturnComponent, AddExistingPropertyComponent],
   imports: [
-    CommonModule, UIModule, NgbTabsetModule, FileUploadModule, ReactiveFormsModule,
+    CommonModule, UIModule, NgbTabsetModule, FileUploadModule, ReactiveFormsModule, PropertyModule,
     TrustRoutingModule, DataTablesModule, NgbModalModule, NgSelectModule
   ],
   providers: [DatePipe]

@@ -9,12 +9,12 @@
     <div class="container-fluid">
       <!-- start page title -->
       <app-page-title
-        *ngIf="!isUpdate"
+        *ngIf="!isUpdate && !TrustID"
         title="Add New Property"
         [breadcrumbItems]="breadCrumbItems"
       ></app-page-title>
       <app-page-title
-        *ngIf="isUpdate"
+        *ngIf="isUpdate && !TrustID"
         title="Edit Property"
         [breadcrumbItems]="breadCrumbItems"
       ></app-page-title>

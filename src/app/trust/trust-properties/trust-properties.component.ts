@@ -1,7 +1,10 @@
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { GeneralService } from 'src/app/services/general.service';
 import { Router } from '@angular/router';
 import { Component, Input, OnInit, ViewChild, Renderer2 } from '@angular/core';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-trust-properties',
@@ -11,25 +14,22 @@ import { Subject } from 'rxjs';
 export class TrustPropertiesComponent implements OnInit {
   @Input() trustID: number;
   isdropdownShow: boolean;
-  data = [
-    { propertyName: "Property Name", location: "jamnagar , jamnagar , jamnagar", surveyno: "212p2", tp: '2121', id: 1 },
-    { propertyName: "Property Name", location: "jamnagar , jamnagar , jamnagar", surveyno: "212p2", tp: '2121', id: 2 },
-    { propertyName: "Property Name", location: "jamnagar , jamnagar , jamnagar", surveyno: "212p2", tp: '2121', id: 3 },
-    { propertyName: "Property Name", location: "jamnagar , jamnagar , jamnagar", surveyno: "212p2", tp: '2121', id: 4 },
-    { propertyName: "Property Name", location: "jamnagar , jamnagar , jamnagar", surveyno: "212p2", tp: '2121', id: 5 },
-    { propertyName: "Property Name", location: "jamnagar , jamnagar , jamnagar", surveyno: "212p2", tp: '2121', id: 6 },
-  ]
+  @ViewChild('addPropertyForm', { static: true }) addPropertyForm;
+  isLoading: boolean;
   dtOptions: DataTables.Settings = {};
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
   dtTrigger = new Subject();
-  constructor(private router: Router, private renderer: Renderer2) {
+  constructor(private router: Router, private renderer: Renderer2, private service: GeneralService, private modalservice: NgbModal) {
     this.isdropdownShow = false;
   }
 
   ngOnInit() {
+    this.isLoading = false;
     this.dtOptions = {
-      data: this.data,
+      ajax: {
+        url: `${this.service.GetBaseUrl()}trust/property/view/${this.trustID}`
+      },
       responsive: true,
       columns: [{
         title: 'Sr.No.',
@@ -39,28 +39,39 @@ export class TrustPropertiesComponent implements OnInit {
       },
       {
         title: "Property Name",
-        data: "propertyName",
+        data: "PropertyName",
 
       },
       {
         title: "Location",
-        data: "location",
+        data: null,
+        render: (data) => {
+          return `${data.DistrictName}, ${data.TalukaName}, ${data.VillageName}`
+        }
       },
       {
         title: "Survey No",
-        data: "surveyno",
+        data: null,
+        render: (data) => {
+          return data.SurveyNo ? data.SurveyNo : data.CitySurveyNo
+        }
       },
       {
         title: "TP/FP No",
-        data: "tp",
+        data: null,
+        render: (data) => {
+          return data.TPNo ? `${data.TPNo}/${data.FPNo} ` : ''
+        }
       },
       {
         title: "Action",
         data: null,
         render(data) {
           return `<div style="display:flex">
-          <a title="View This Property" viewpropertyID="${data.id}">
-          <i class="btn font-18 mdi mdi-eye-check text-secondary" viewpropertyID="${data.id}"></i></a></div>`;
+          <a title="View This Property" viewpropertyID="${data.PropertyID}">
+          <i class="btn font-18 mdi mdi-eye-check text-secondary" viewpropertyID="${data.PropertyID}"></i></a>
+          <a title="Remove this Property" >
+          <i removePropertyID="${data.PropertyID}" class="text-danger btn font-18 mdi mdi-minus-circle"></i></a></div>`;
         },
       },
       ],
@@ -87,6 +98,32 @@ export class TrustPropertiesComponent implements OnInit {
           "property/view/" + event.target.getAttribute("viewpropertyID"),
         ]);
       }
+      if (event.target.hasAttribute("removePropertyID")) {
+        this.isLoading = true;
+        this.service.RemovePropertyFromTrust(this.trustID, event.target.getAttribute("removePropertyID")).subscribe((res) => {
+          this.isLoading = false;
+          if (res.error) {
+            Swal.fire({
+              title: res.error_code,
+              text: res.message,
+              type: "error",
+            });
+            return;
+          } else {
+            Swal.fire({
+              title: "Property Removed Successfully!",
+              text: res.message,
+              type: "success",
+            }).then(() => {
+              this.rerender()
+            });
+          }
+        })
+      }
     });
+  }
+  addProperty() {
+    this.isdropdownShow = !this.isdropdownShow;
+    this.modalservice.open(this.addPropertyForm, { windowClass: 'modal-full' })
   }
 }

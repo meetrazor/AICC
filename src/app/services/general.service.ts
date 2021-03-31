@@ -63,6 +63,11 @@ const resendLoginOPT = `${apiUrl}single/generate/otp/`;
 const excelExport = `${apiUrl}area/list/Distict/`;
 const UserList = `${apiUrl}user/list/`;
 const loanTypePVRStatus = `${apiUrl}loan/Dashboard/loantype/PVR/status/`;
+const trusteeType = `${apiUrl}trust/user/type`;
+const addTrust = `${apiUrl}trust/add`;
+const viewTrust = `${apiUrl}trust/view/`;
+const selectExistingProperty = `${apiUrl}trust/property/add`;
+const removePropertyFromTrust = `${apiUrl}trust/property/remove/`;
 
 @Injectable({
   providedIn: "root",
@@ -552,5 +557,20 @@ export class GeneralService {
   }
   GetLegalCaseDocument(LegalCaseID): any {
     return this.http.get(`${apiUrl}property/legal/Case/View/Document/${LegalCaseID}`, httpOptions)
+  }
+  GetTrusteeTypes(): any {
+    return this.http.get(`${trusteeType}`, httpOptions);
+  }
+  AddTrust(Data): any {
+    return this.http.post(`${addTrust}`, Data, httpOptions)
+  }
+  GetTrustinfo(TrustID): any {
+    return this.http.get(`${viewTrust}${TrustID}`, httpOptions);
+  }
+  SelectExistingProperty(TrustID, PropertyID, CreatedBy): any {
+    return this.http.post(`${selectExistingProperty}`, { TrustID, PropertyID, CreatedBy }, httpOptions);
+  }
+  RemovePropertyFromTrust(TrustID, PropertyID): any {
+    return this.http.delete(`${removePropertyFromTrust}${TrustID}/${PropertyID}`, httpOptions);
   }
 }

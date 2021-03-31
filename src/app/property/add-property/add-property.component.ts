@@ -1,5 +1,5 @@
 import { Router, ActivatedRoute } from "@angular/router";
-import { Component, OnInit } from "@angular/core";
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import {
   Validators,
   FormBuilder,
@@ -37,6 +37,8 @@ const handlerequired = (control: AbstractControl) => {
   styleUrls: ["./add-property.component.scss"],
 })
 export class AddPropertyComponent implements OnInit {
+  @Input() TrustID: number;
+  @Output() close = new EventEmitter<void>();
   regex = "[a-zA-Z][a-z0-9A-Z ]+";
   numericRegex = "[0-9]+";
   currentUser: any;
@@ -154,6 +156,7 @@ export class AddPropertyComponent implements OnInit {
           CreatedBy: "",
           UserID: "",
           ModifiedBy: "",
+          TrustID: new FormControl(this.TrustID ? this.TrustID : null),
           taluka: new FormControl("", Validators.required),
           CitySurveyNo: new FormControl("", Validators.required),
           CitySurveyOffice: new FormControl("", [
@@ -221,6 +224,7 @@ export class AddPropertyComponent implements OnInit {
           ]),
           TalukaID: new FormControl("", Validators.required),
           VillageID: new FormControl("", Validators.required),
+          TrustID: new FormControl(this.TrustID ? this.TrustID : null),
           DistrictID: new FormControl("", Validators.required),
           StateID: new FormControl("", Validators.required),
           CreatedBy: "",
@@ -503,7 +507,11 @@ export class AddPropertyComponent implements OnInit {
               text: data.message,
               type: "success",
             }).then(() => {
-              this.router.navigate(["/"]);
+              if (this.TrustID) {
+                this.close.emit()
+              } else {
+                this.router.navigate(["/"]);
+              }
             });
           }
         });
@@ -528,7 +536,11 @@ export class AddPropertyComponent implements OnInit {
               text: data.message,
               type: "success",
             }).then(() => {
-              this.router.navigate(["/"]);
+              if (this.TrustID) {
+                this.close.emit()
+              } else {
+                this.router.navigate(["/"]);
+              }
             });
           }
         });
@@ -621,7 +633,7 @@ export class AddPropertyComponent implements OnInit {
     const control = this.myForm.controls.InCharge as FormArray;
     control.push(this.initIncharge());
   }
-  Incharge(i: number) {
+  removeIncharge(i: number) {
     const control = this.myForm.controls.InCharge as FormArray;
     control.removeAt(i);
   }

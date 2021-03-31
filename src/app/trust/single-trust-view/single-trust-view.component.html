@@ -1,7 +1,7 @@
-<div class="container-fluid">
+<div class="container-fluid" *ngIf="!isLoading">
   <!-- breadCrums -->
   <app-page-title
-    title="Trust Name"
+    [title]="trustInfo.TrustName"
     [breadcrumbItems]="breadCrumbItems"
   ></app-page-title>
 
@@ -64,4 +64,7 @@
       </ngb-tab>
     </ngb-tabset>
   </div>
+</div>
+<div class="card-disabled" *ngIf="isLoading">
+  <div class="card-portlets-loader"></div>
 </div>

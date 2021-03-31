@@ -17,6 +17,9 @@ export class TrustBasicDetailsComponent implements OnInit {
   documentForm: FormGroup;
   submited: boolean;
   Loading: boolean;
+  Trustee = [];
+  manager = [];
+  ca = [];
   fileExtension: string;
   data = [
     { name: "Trust Document", fileType: "System Architect", desc: "Edinburgh", URL: 'https://proplegit-dev.s3.ap-south-1.amazonaws.com/100/Documents/Legal/CaseID_46/FSWerOpenMenuv1.pdf', id: 1 },
@@ -31,11 +34,27 @@ export class TrustBasicDetailsComponent implements OnInit {
   dtElement: DataTableDirective;
   dtTrigger = new Subject();
   currentUser: any;
+  isLoading: boolean;
+  trustInfo: any;
   constructor(private modalService: NgbModal, private formBuilder: FormBuilder, private service: GeneralService) {
     this.currentUser = this.service.getcurrentUser();
   }
 
   ngOnInit() {
+    this.isLoading = true;
+    this.service.GetTrustinfo(this.trustID).subscribe((Res) => {
+      this.trustInfo = Res.data
+      this.trustInfo.TrusteeUsers.map((x) => {
+        if (x.TrusteeUsertypeID === 1) {
+          this.manager.push(x)
+        } else if (x.TrusteeUsertypeID === 2) {
+          this.ca.push(x)
+        } else {
+          this.Trustee.push(x)
+        }
+      })
+      this.isLoading = false;
+    });
     this.dtOptions = {
       data: this.data,
       responsive: true,

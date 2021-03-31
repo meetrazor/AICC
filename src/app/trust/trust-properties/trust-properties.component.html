@@ -17,10 +17,9 @@
         Add Property <i class="mdi mdi-chevron-down"></i>
       </button>
       <div class="dropdown-menu" [ngClass]="{ show: isdropdownShow }">
-        <a class="dropdown-item" [routerLink]="['/property/create']"
+        <a style="cursor: pointer" class="dropdown-item" (click)="addProperty()"
           >Add New Property</a
         >
-
         <a class="dropdown-item" [routerLink]="['/trust/addexiting/' + trustID]"
           >Add form Existing</a
         >
@@ -35,4 +34,38 @@
         style="width: 100%"
       ></table></div
   ></app-portlet>
+</div>
+
+<ng-template #addPropertyForm let-modal="close">
+  <div class="modal-header">
+    <h4 class="modal-title">Add Property</h4>
+    <button
+      type="button"
+      class="close"
+      (click)="modal('Cross click')"
+      aria-hidden="true"
+    >
+      <i class="mdi mdi-close"></i>
+    </button>
+  </div>
+  <div class="modal-body p-4">
+    <div class="container-fuild">
+      <app-add-property
+        (close)="modal('Cross click')"
+        [TrustID]="trustID"
+      ></app-add-property>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-secondary waves-effect"
+      (click)="modal('Cross click')"
+    >
+      Close
+    </button>
+  </div>
+</ng-template>
+<div class="card-disabled" *ngIf="isLoading">
+  <div class="card-portlets-loader"></div>
 </div>

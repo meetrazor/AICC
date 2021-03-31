@@ -1,3 +1,4 @@
+import { GeneralService } from 'src/app/services/general.service';
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
@@ -9,10 +10,17 @@ import { Component, OnInit } from '@angular/core';
 export class SingleTrustViewComponent implements OnInit {
   breadCrumbItems: Array<any>;
   trustID: number;
-  constructor(private route: ActivatedRoute) {
-    this.breadCrumbItems = [{ label: 'Dashboard', path: '/' }, { label: 'Trusts', path: 'AICC/trust' },
-    { label: `Trust Name`, path: '/', active: true }];
-    this.trustID = this.route.snapshot.params.trustID
+  trustInfo: any;
+  isLoading: boolean;
+  constructor(private route: ActivatedRoute, private service: GeneralService) {
+    this.isLoading = true;
+    this.trustID = this.route.snapshot.params.trustID;
+    this.service.GetTrustinfo(this.trustID).subscribe((res) => {
+      this.trustInfo = res.data;
+      this.breadCrumbItems = [{ label: 'Dashboard', path: '/' }, { label: 'Trusts', path: 'AICC/trust' },
+      { label: `${this.trustInfo.TrustName}`, path: '/', active: true }];
+      this.isLoading = false;
+    })
   }
 
   ngOnInit() {

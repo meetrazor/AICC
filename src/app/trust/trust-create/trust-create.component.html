@@ -35,65 +35,65 @@
                   id="simpleinput"
                   class="form-control"
                   placeholder=""
-                  formControlName="trustname"
+                  formControlName="TrustName"
                   [ngClass]="{
-                    'is-invalid': submitted && f.trustname.errors
+                    'is-invalid': submitted && f.TrustName.errors
                   }"
                 />
                 <div
-                  *ngIf="submitted && f.trustname.errors"
+                  *ngIf="submitted && f.TrustName.errors"
                   class="invalid-feedback"
                 >
-                  <div *ngIf="f.trustname.errors.required">
+                  <div *ngIf="f.TrustName.errors.required">
                     Trust Name is Required
                   </div>
-                  <div *ngIf="f.trustname.errors.pattern">
+                  <div *ngIf="f.TrustName.errors.pattern">
                     Trust Name Must be Valid And Only Alphanumeric Allowed
                   </div>
                 </div>
               </div>
               <div class="form-group mb-3 col-md-6">
-                <label for="simpleinput">Reg. No.</label>
+                <label for="simpleinput">Registration No.</label>
                 <input
                   type="text"
                   id="simpleinput"
                   class="form-control"
                   placeholder=""
-                  formControlName="regno"
+                  formControlName="RegistrationORNondhniNo"
                   [ngClass]="{
-                    'is-invalid': submitted && f.regno.errors
+                    'is-invalid': submitted && f.RegistrationORNondhniNo.errors
                   }"
                 />
                 <div
-                  *ngIf="submitted && f.regno.errors"
+                  *ngIf="submitted && f.RegistrationORNondhniNo.errors"
                   class="invalid-feedback"
                 >
-                  <div *ngIf="f.regno.errors.required">
-                    Reg. No. is Required
+                  <div *ngIf="f.RegistrationORNondhniNo.errors.required">
+                    Registration No. is Required
                   </div>
-                  <div *ngIf="f.regno.errors.pattern">
-                    Reg. No. Must be Valid And Only Alphanumeric Allowed
+                  <div *ngIf="f.RegistrationORNondhniNo.errors.pattern">
+                    Registration No. Must be Valid And Only Alphanumeric Allowed
                   </div>
                 </div>
               </div>
               <div class="form-group mb-3 col-md-6">
-                <label for="example-date">Reg. Date</label>
+                <label for="example-date">Registration Date</label>
                 <input
                   class="form-control"
                   id="example-date"
                   type="date"
                   name="date"
-                  formControlName="regdate"
+                  formControlName="RegistrationDate"
                   [ngClass]="{
-                    'is-invalid': submitted && f.regdate.errors
+                    'is-invalid': submitted && f.RegistrationDate.errors
                   }"
                 />
                 <div
-                  *ngIf="submitted && f.regdate.errors"
+                  *ngIf="submitted && f.RegistrationDate.errors"
                   class="invalid-feedback"
                 >
-                  <div *ngIf="f.regdate.errors.required">
-                    Reg. Date is Required
+                  <div *ngIf="f.RegistrationDate.errors.required">
+                    Registration Date is Required
                   </div>
                 </div>
               </div>
@@ -105,17 +105,19 @@
                   id="simpleinput"
                   class="form-control"
                   placeholder=""
-                  formControlName="email"
+                  formControlName="TrustEmailId"
                   [ngClass]="{
-                    'is-invalid': submitted && f.email.errors
+                    'is-invalid': submitted && f.TrustEmailId.errors
                   }"
                 />
                 <div
-                  *ngIf="submitted && f.email.errors"
+                  *ngIf="submitted && f.TrustEmailId.errors"
                   class="invalid-feedback"
                 >
-                  <div *ngIf="f.email.errors.required">Email is Required</div>
-                  <div *ngIf="f.email.errors.pattern">
+                  <div *ngIf="f.TrustEmailId.errors.required">
+                    Email is Required
+                  </div>
+                  <div *ngIf="f.TrustEmailId.errors.pattern">
                     Email Must be Valid And Only Alphanumeric Allowed
                   </div>
                 </div>
@@ -127,22 +129,25 @@
                   id="simpleinput"
                   class="form-control"
                   placeholder=""
-                  formControlName="mobile"
+                  formControlName="TrustPhoneNo"
                   [ngClass]="{
-                    'is-invalid': submitted && f.mobile.errors
+                    'is-invalid': submitted && f.TrustPhoneNo.errors
                   }"
                 />
                 <div
-                  *ngIf="submitted && f.mobile.errors"
+                  *ngIf="submitted && f.TrustPhoneNo.errors"
                   class="invalid-feedback"
                 >
-                  <div *ngIf="f.mobile.errors.required">Mobile is Required</div>
-                  <div *ngIf="f.mobile.errors.pattern">
+                  <div *ngIf="f.TrustPhoneNo.errors.required">
+                    Mobile is Required
+                  </div>
+                  <div *ngIf="f.TrustPhoneNo.errors.pattern">
                     Mobile Must be Valid And Only Alphanumeric Allowed
                   </div>
                   <span
                     *ngIf="
-                      f.mobile.errors.maxlength || f.mobile.errors.minlength
+                      f.TrustPhoneNo.errors.maxlength ||
+                      f.TrustPhoneNo.errors.minlength
                     "
                   >
                     Mobile Must be 10 Digit
@@ -154,20 +159,44 @@
                 <textarea
                   class="form-control"
                   id="example-textarea"
-                  rows="5"
-                  formControlName="address"
+                  rows="3"
+                  formControlName="TrustAddress"
                   [ngClass]="{
-                    'is-invalid': submitted && f.address.errors
+                    'is-invalid': submitted && f.TrustAddress.errors
                   }"
                 ></textarea>
                 <div
-                  *ngIf="submitted && f.address.errors"
+                  *ngIf="submitted && f.TrustAddress.errors"
                   class="invalid-feedback"
                 >
-                  <div *ngIf="f.address.errors.required">
+                  <div *ngIf="f.TrustAddress.errors.required">
                     Address is Required
                   </div>
-                  <div *ngIf="f.address.errors.pattern">
+                  <div *ngIf="f.TrustAddress.errors.pattern">
+                    Address Must be Valid And Only Alphanumeric Allowed
+                  </div>
+                </div>
+              </div>
+              <div class="form-group mb-3 col-md-6">
+                <label for="example-textarea">Process Of Appointment *</label>
+                <textarea
+                  class="form-control"
+                  id="example-textarea"
+                  rows="3"
+                  formControlName="ProcessAppointmentTrustee"
+                  [ngClass]="{
+                    'is-invalid':
+                      submitted && f.ProcessAppointmentTrustee.errors
+                  }"
+                ></textarea>
+                <div
+                  *ngIf="submitted && f.ProcessAppointmentTrustee.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="f.ProcessAppointmentTrustee.errors.required">
+                    Process of Appointment is Required
+                  </div>
+                  <div *ngIf="f.ProcessAppointmentTrustee.errors.pattern">
                     Address Must be Valid And Only Alphanumeric Allowed
                   </div>
                 </div>
@@ -181,11 +210,11 @@
                 <hr />
               </h5>
               <div class="container-fluid">
-                <div formArrayName="trustees">
+                <div formArrayName="TrusteeUsers">
                   <div
                     class="form-group mb-3 col-12"
                     *ngFor="
-                      let owner of trustForm.controls.trustees['controls'];
+                      let owner of trustForm.controls.TrusteeUsers['controls'];
                       let i = index
                     "
                   >
@@ -199,24 +228,25 @@
                             id="simpleinput"
                             class="form-control"
                             placeholder=""
-                            formControlName="name"
+                            formControlName="Name"
                             [ngClass]="{
                               'is-invalid':
                                 submitted &&
-                                f.trustees['controls'][i]['controls'].name
+                                f.TrusteeUsers['controls'][i]['controls'].Name
                                   .errors
                             }"
                           />
                           <div
                             *ngIf="
                               submitted &&
-                              f.trustees['controls'][i]['controls'].name.errors
+                              f.TrusteeUsers['controls'][i]['controls'].Name
+                                .errors
                             "
                             class="invalid-feedback"
                           >
                             <div
                               *ngIf="
-                                f.trustees['controls'][i]['controls'].name
+                                f.TrusteeUsers['controls'][i]['controls'].Name
                                   .errors.required
                               "
                             >
@@ -224,7 +254,7 @@
                             </div>
                             <div
                               *ngIf="
-                                f.trustees['controls'][i]['controls'].name
+                                f.TrusteeUsers['controls'][i]['controls'].Name
                                   .errors.pattern
                               "
                             >
@@ -239,21 +269,25 @@
                             id="simpleinput"
                             class="form-control"
                             placeholder=""
-                            formControlName="email"
+                            formControlName="Email"
                             [ngClass]="{
                               'is-invalid':
                                 submitted &&
-                                f.trustees['controls'][i]['controls'].email
+                                f.TrusteeUsers['controls'][i]['controls'].Email
                                   .errors
                             }"
                           />
                           <div
-                            *ngIf="submitted && f.email.errors"
+                            *ngIf="
+                              submitted &&
+                              f.TrusteeUsers['controls'][i]['controls'].Email
+                                .errors
+                            "
                             class="invalid-feedback"
                           >
                             <div
                               *ngIf="
-                                f.trustees['controls'][i]['controls'].email
+                                f.TrusteeUsers['controls'][i]['controls'].Email
                                   .errors.required
                               "
                             >
@@ -261,7 +295,7 @@
                             </div>
                             <div
                               *ngIf="
-                                f.trustees['controls'][i]['controls'].email
+                                f.TrusteeUsers['controls'][i]['controls'].Email
                                   .errors.pattern
                               "
                             >
@@ -276,25 +310,25 @@
                             id="simpleinput"
                             class="form-control"
                             placeholder=""
-                            formControlName="mobile"
+                            formControlName="Mobile"
                             [ngClass]="{
                               'is-invalid':
                                 submitted &&
-                                f.trustees['controls'][i]['controls'].mobile
+                                f.TrusteeUsers['controls'][i]['controls'].Mobile
                                   .errors
                             }"
                           />
                           <div
                             *ngIf="
                               submitted &&
-                              f.trustees['controls'][i]['controls'].mobile
+                              f.TrusteeUsers['controls'][i]['controls'].Mobile
                                 .errors
                             "
                             class="invalid-feedback"
                           >
                             <div
                               *ngIf="
-                                f.trustees['controls'][i]['controls'].mobile
+                                f.TrusteeUsers['controls'][i]['controls'].Mobile
                                   .errors.required
                               "
                             >
@@ -302,7 +336,7 @@
                             </div>
                             <div
                               *ngIf="
-                                f.trustees['controls'][i]['controls'].mobile
+                                f.TrusteeUsers['controls'][i]['controls'].Mobile
                                   .errors.pattern
                               "
                             >
@@ -310,10 +344,10 @@
                             </div>
                             <span
                               *ngIf="
-                                trustForm.controls.trustees['controls'][i]
-                                  .controls.mobile.errors.maxlength ||
-                                trustForm.controls.trustees['controls'][i]
-                                  .controls.mobile.errors.minlength
+                                f.TrusteeUsers['controls'][i]['controls'].Mobile
+                                  .errors.maxlength ||
+                                f.TrusteeUsers['controls'][i]['controls'].Mobile
+                                  .errors.minlength
                               "
                             >
                               Mobile Must be 10 Digit
@@ -325,31 +359,33 @@
                           <ng-select
                             class="form-control"
                             id="example-select"
-                            formControlName="trusteeType"
+                            formControlName="TrusteeUsertypeID"
                             [ngClass]="{
                               'is-invalid':
                                 submitted &&
-                                f.trustees['controls'][i]['controls']
-                                  .trusteeType.errors
+                                f.TrusteeUsers['controls'][i]['controls']
+                                  .TrusteeUsertypeID.errors
                             }"
                           >
-                            <ng-option>Trustees</ng-option>
-                            <ng-option>Manager/Mantri</ng-option>
-                            <ng-option>CA/Auditors</ng-option>
+                            <ng-option
+                              *ngFor="let item of trusteetype"
+                              [value]="item.TrusteeUsertypeID"
+                              >{{ item.TrusteeUsertype }}</ng-option
+                            >
                           </ng-select>
 
                           <div
                             *ngIf="
                               submitted &&
-                              f.trustees['controls'][i]['controls'].trusteeType
-                                .errors
+                              f.TrusteeUsers['controls'][i]['controls']
+                                .TrusteeUsertypeID.errors
                             "
                             class="invalid-feedback"
                           >
                             <div
                               *ngIf="
-                                f.trustees['controls'][i]['controls']
-                                  .trusteeType.errors.required
+                                f.TrusteeUsers['controls'][i]['controls']
+                                  .TrusteeUsertypeID.errors.required
                               "
                             >
                               TrusteeType is Required
@@ -361,41 +397,85 @@
                           <textarea
                             class="form-control"
                             id="example-textarea"
-                            rows="5"
-                            formControlName="address"
+                            rows="3"
+                            formControlName="Address"
                             [ngClass]="{
                               'is-invalid':
                                 submitted &&
-                                f.trustees['controls'][i]['controls'].address
-                                  .errors
+                                f.TrusteeUsers['controls'][i]['controls']
+                                  .Address.errors
                             }"
                           ></textarea>
                           <div
                             *ngIf="
                               submitted &&
-                              f.trustees['controls'][i]['controls'].address
+                              f.TrusteeUsers['controls'][i]['controls'].Address
                                 .errors
                             "
                             class="invalid-feedback"
                           >
                             <div
                               *ngIf="
-                                f.trustees['controls'][i]['controls'].address
-                                  .errors.required
+                                f.TrusteeUsers['controls'][i]['controls']
+                                  .Address.errors.required
                               "
                             >
                               Address is Required
                             </div>
                             <div
                               *ngIf="
-                                f.trustees['controls'][i]['controls'].address
-                                  .errors.pattern
+                                f.TrusteeUsers['controls'][i]['controls']
+                                  .Address.errors.pattern
                               "
                             >
                               Address Must be Valid And Only Alphanumeric
                               Allowed
                             </div>
                           </div>
+                        </div>
+                        <div class="form-group mb-3 col-md-6">
+                          <label for="example-date">Start Date</label>
+                          <input
+                            class="form-control"
+                            id="example-date"
+                            type="date"
+                            name="date"
+                            formControlName="StartDate"
+                            [ngClass]="{
+                              'is-invalid':
+                                submitted &&
+                                f.TrusteeUsers['controls'][i]['controls']
+                                  .StartDate.errors
+                            }"
+                          />
+                          <div
+                            *ngIf="
+                              submitted &&
+                              f.TrusteeUsers['controls'][i]['controls']
+                                .StartDate.errors
+                            "
+                            class="invalid-feedback"
+                          >
+                            <div
+                              *ngIf="
+                                f.TrusteeUsers['controls'][i]['controls']
+                                  .StartDate.errors.required
+                              "
+                            >
+                              Start Date is Required
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form-group col-md-12">
+                          <span
+                            class="glyphicon glyphicon-remove pull-right"
+                            style="cursor: pointer; color: red"
+                            *ngIf="f.TrusteeUsers['controls'].length > 1"
+                            (click)="removeTrustees(i)"
+                          >
+                            (Remove -)
+                          </span>
+                          <hr />
                         </div>
                       </div>
                     </div>
@@ -420,6 +500,9 @@
                 >
                   Save
                 </button>
+              </div>
+              <div class="card-disabled" *ngIf="isLoading">
+                <div class="card-portlets-loader"></div>
               </div>
             </form>
           </div>

@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
 import { GeneralService } from './../../services/general.service';
 import { Component, OnInit, ViewChild, Renderer2 } from '@angular/core';
@@ -10,40 +11,47 @@ import { Subject } from 'rxjs';
   styleUrls: ['./trust-list.component.scss']
 })
 export class TrustListComponent implements OnInit {
-  data = [
-    { name: "Tiger Nixon", RegNo: "System Architect", DateofReg: "Edinburgh", id: 1 },
-    { name: "Garrett Winters", RegNo: "Accountant", DateofReg: "	Tokyo", id: 2 },
-    { name: "Ashton Cox", RegNo: "Junior Technical Author", DateofReg: "San Francisco", id: 3 },
-    { name: "Cedric Kelly", RegNo: "Senior Javascript Developer", DateofReg: "Edinburgh", id: 4 },
-    { name: "Airi Satou", RegNo: "Accountant", DateofReg: "Tokyo", id: 5 },
-    { name: "Brielle Williamson", RegNo: "Integration Specialist", DateofReg: "New York", id: 6 }]
+
   breadCrumbItems: Array<{}>;
   dtOptions: DataTables.Settings = {};
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
   dtTrigger = new Subject();
-  constructor(private service: GeneralService, private renderer: Renderer2, private router: Router) {
+  currentUser: any;
+  constructor(private service: GeneralService, private renderer: Renderer2, private router: Router, private datepipe: DatePipe) {
+    this.currentUser = this.service.getcurrentUser();
     this.breadCrumbItems = [{ label: 'Dashboard', path: '/' }, { label: 'Trust', path: '/', active: true }];
   }
 
   ngOnInit() {
     this.dtOptions = {
-      data: this.data,
+      ajax: {
+        url: `${this.service.GetBaseUrl()}trust/list/${this.currentUser.UserID}`
+      },
       responsive: true,
       columns: [
         {
           title: "Name",
-          data: "name",
+          data: "TrustName",
 
         },
         {
           title: "Reg.No.",
-          data: "RegNo",
+          data: "RegistrationORNondhniNo",
         },
         {
           title: "Date of Reg.",
-          data: "DateofReg",
-
+          data: "RegistrationDate",
+          render: (data) => {
+            return this.datepipe.transform(data, 'MMM dd, yyyy')
+          }
+        }, {
+          title: 'Phone No',
+          data: 'TrustPhoneNo'
+        },
+        {
+          title: 'Email ID',
+          data: 'TrustEmailId'
         },
         {
           title: "Action",
@@ -51,9 +59,7 @@ export class TrustListComponent implements OnInit {
           render(data) {
             return `<div style="display:flex">
             <a title="View Trust" >
-            <i class="btn font-18 mdi mdi-eye-check text-secondary" viewTrustID="${data.id}"></i></a>
-            <a title="Edit Trust">
-            <i class="btn font-18 mdi mdi-account-edit text-secondary" editTrustID="${data.id}"></i></a> </div>`;
+            <i class="btn font-18 mdi mdi-eye-check text-secondary" viewTrustID="${data.TrustID}"></i></a> </div>`;
           },
         },
       ],
@@ -78,7 +84,7 @@ export class TrustListComponent implements OnInit {
 
       if (event.target.hasAttribute("viewTrustID")) {
         this.router.navigate([
-          "trust/view/" + event.target.getAttribute("viewTrustID"),
+          "trust/view-trust/" + event.target.getAttribute("viewTrustID"),
         ]);
       }
       if (event.target.hasAttribute("editTrustID")) {

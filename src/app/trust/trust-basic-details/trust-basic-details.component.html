@@ -1,38 +1,39 @@
-<div class="col-sm-12">
+<div class="col-sm-12" *ngIf="!isLoading">
   <div class="">
     <div class="border-bottom">
-      <h5 class="text-info">Trust Name</h5>
+      <h5 class="text-info">{{ trustInfo.TrustName | titlecase }}</h5>
     </div>
     <div class="mb-3">
       <ng-container>
-        <div style="width: 50%">
+        <div style="width: 80%">
           <table>
             <tr>
               <th>Reg. No</th>
               <td>:</td>
-              <td>1234345</td>
+              <td>{{ trustInfo.RegistrationORNondhniNo }}</td>
             </tr>
             <tr>
               <th>Reg. Date</th>
               <td>:</td>
-              <td>23/03/2021</td>
+              <td>
+                {{ trustInfo.RegistrationDate | date: "MMM dd, yyyy" }}
+              </td>
             </tr>
             <tr>
               <th>Email</th>
               <td>:</td>
-              <td>meet.trivedi@esmsys.com</td>
+              <td>{{ trustInfo.TrustEmailId }}</td>
             </tr>
             <tr>
               <th>Mobile</th>
               <td>:</td>
-              <td>9033448008</td>
+              <td>{{ trustInfo.TrustPhoneNo }}</td>
             </tr>
             <tr>
               <th>Address</th>
               <td>:</td>
               <td>
-                201 govardhan residancy , walkeshwari nagari , indira road ,
-                jamnagar , gujarat , india
+                {{ trustInfo.TrustAddress }}
               </td>
             </tr>
           </table>
@@ -41,20 +42,17 @@
     </div>
 
     <div class="border-bottom">
-      <h5><span class="text-info">Properties</span> :10</h5>
+      <h5>
+        <span class="text-info">Properties</span> :
+        {{ trustInfo.PropertyCount }}
+      </h5>
     </div>
 
-    <div class="border-bottom mt-3">
+    <div class="border-bottom mt-3" *ngIf="trustInfo.ProcessAppointmentTrustee">
       <h5 class="text-info">Process of Appointment:</h5>
-      <span style="padding-bottom: 15px; float: left; width: 100%"
-        >Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-        velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-        occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-        mollit anim id est laborum.</span
-      >
+      <span style="padding-bottom: 15px; float: left; width: 100%">{{
+        trustInfo.ProcessAppointmentTrustee
+      }}</span>
     </div>
 
     <div class="border-bottom mt-3">
@@ -62,30 +60,29 @@
     </div>
 
     <ng-container>
-      <div style="width: 50%">
-        <table>
+      <div style="width: 80%">
+        <table *ngFor="let item of Trustee" class="mb-3">
           <tr>
             <th>Name</th>
             <td>:</td>
-            <td>Meet Trivedi</td>
+            <td>{{ item.Name }}</td>
           </tr>
 
           <tr>
             <th>Email</th>
             <td>:</td>
-            <td>meet.trivedi@esmsys.com</td>
+            <td>{{ item.Email }}</td>
           </tr>
           <tr>
             <th>Mobile</th>
             <td>:</td>
-            <td>9033448008</td>
+            <td>{{ item.Mobile }}</td>
           </tr>
           <tr>
             <th>Address</th>
             <td>:</td>
             <td>
-              201 govardhan residancy , walkeshwari nagari , indira road ,
-              jamnagar , gujarat , india
+              {{ item.Address }}
             </td>
           </tr>
         </table>
@@ -96,29 +93,28 @@
     </div>
     <ng-container>
       <div style="width: 50%">
-        <table>
+        <table *ngFor="let item of manager" class="mb-3">
           <tr>
             <th>Name</th>
             <td>:</td>
-            <td>Meet Trivedi</td>
+            <td>{{ item.Name }}</td>
           </tr>
 
           <tr>
             <th>Email</th>
             <td>:</td>
-            <td>meet.trivedi@esmsys.com</td>
+            <td>{{ item.Email }}</td>
           </tr>
           <tr>
             <th>Mobile</th>
             <td>:</td>
-            <td>9033448008</td>
+            <td>{{ item.Mobile }}</td>
           </tr>
           <tr>
             <th>Address</th>
             <td>:</td>
             <td>
-              201 govardhan residancy , walkeshwari nagari , indira road ,
-              jamnagar , gujarat , india
+              {{ item.Address }}
             </td>
           </tr>
         </table>
@@ -130,29 +126,28 @@
 
     <ng-container>
       <div style="width: 50%">
-        <table>
+        <table *ngFor="let item of ca" class="mb-3">
           <tr>
             <th>Name</th>
             <td>:</td>
-            <td>Meet Trivedi</td>
+            <td>{{ item.Name }}</td>
           </tr>
 
           <tr>
             <th>Email</th>
             <td>:</td>
-            <td>meet.trivedi@esmsys.com</td>
+            <td>{{ item.Email }}</td>
           </tr>
           <tr>
             <th>Mobile</th>
             <td>:</td>
-            <td>9033448008</td>
+            <td>{{ item.Mobile }}</td>
           </tr>
           <tr>
             <th>Address</th>
             <td>:</td>
             <td>
-              201 govardhan residancy , walkeshwari nagari , indira road ,
-              jamnagar , gujarat , india
+              {{ item.Address }}
             </td>
           </tr>
         </table>
@@ -185,6 +180,9 @@
         ></table></div
     ></app-portlet>
   </div>
+</div>
+<div class="card-disabled" *ngIf="isLoading">
+  <div class="card-portlets-loader"></div>
 </div>
 <ng-template #DocumentForm let-modal="close">
   <div class="modal-header">

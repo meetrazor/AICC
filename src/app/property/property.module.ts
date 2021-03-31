@@ -29,6 +29,7 @@ import { LegalCaseModule } from '../legal-case/legal-case.module';
     FormsModule,
     ReactiveFormsModule, NgSelectModule, LegalCaseModule,
     AutocompleteLibModule, UIModule, NgbTabsetModule, PhotographModule, TaxModule, TreasurerModule, RentModule
-  ]
+  ],
+  exports: [AddPropertyComponent]
 })
 export class PropertyModule { }

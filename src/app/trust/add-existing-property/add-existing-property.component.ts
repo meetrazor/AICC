@@ -1,7 +1,9 @@
+import { GeneralService } from 'src/app/services/general.service';
 import { ActivatedRoute } from '@angular/router';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Renderer2 } from '@angular/core';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-add-existing-property',
@@ -11,27 +13,29 @@ import { Subject } from 'rxjs';
 export class AddExistingPropertyComponent implements OnInit {
   trustID: number;
   breadCrumbItems: Array<any>;
-  data = [
-    { propertyName: "Property Name", location: "jamnagar , jamnagar , jamnagar", surveyno: "212p2", tp: '2121', id: 1 },
-    { propertyName: "Property Name", location: "jamnagar , jamnagar , jamnagar", surveyno: "212p2", tp: '2121', id: 2 },
-    { propertyName: "Property Name", location: "jamnagar , jamnagar , jamnagar", surveyno: "212p2", tp: '2121', id: 3 },
-    { propertyName: "Property Name", location: "jamnagar , jamnagar , jamnagar", surveyno: "212p2", tp: '2121', id: 4 },
-    { propertyName: "Property Name", location: "jamnagar , jamnagar , jamnagar", surveyno: "212p2", tp: '2121', id: 5 },
-    { propertyName: "Property Name", location: "jamnagar , jamnagar , jamnagar", surveyno: "212p2", tp: '2121', id: 6 },
-  ]
+  currentUser: any
+  IsLoading: boolean;
   dtOptions: DataTables.Settings = {};
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
   dtTrigger = new Subject();
-  constructor(private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute, private service: GeneralService, private renderer: Renderer2) {
+    this.currentUser = this.service.getcurrentUser();
     this.trustID = this.route.snapshot.params.trustID;
-    this.breadCrumbItems = [{ label: 'Dashboard', path: '/' }, { label: 'Trusts', path: 'AICC/trust' },
-    { label: `Trust Name`, path: `/trust/view/${this.trustID}` }, { label: `Add Existing Property`, path: '/', active: true }];
+    this.IsLoading = true;
+    this.service.GetTrustinfo(this.trustID).subscribe((Res) => {
+      this.IsLoading = false;
+      this.breadCrumbItems = [{ label: 'Dashboard', path: '/' }, { label: 'Trusts', path: 'AICC/trust' },
+      { label: Res.data.TrustName, path: `/trust/view-trust/${this.trustID}` }, { label: `Add Existing Property`, path: '/', active: true }];
+    })
+
   }
 
   ngOnInit() {
     this.dtOptions = {
-      data: this.data,
+      ajax: {
+        url: `${this.service.GetBaseUrl()}trust/property/select`
+      },
       responsive: true,
       columns: [{
         title: 'Sr.No.',
@@ -41,27 +45,36 @@ export class AddExistingPropertyComponent implements OnInit {
       },
       {
         title: "Property Name",
-        data: "propertyName",
+        data: "PropertyName",
 
       },
       {
         title: "Location",
-        data: "location",
+        data: null,
+        render: (data) => {
+          return `${data.DistrictName}, ${data.TalukaName}, ${data.VillageName}`
+        }
       },
       {
         title: "Survey No",
-        data: "surveyno",
+        data: null,
+        render: (data) => {
+          return data.SurveyNo ? data.SurveyNo : data.CitySurveyNo
+        }
       },
       {
         title: "TP/FP No",
-        data: "tp",
+        data: null,
+        render: (data) => {
+          return data.TPNo ? `${data.TPNo}/${data.FPNo} ` : ''
+        }
       },
       {
         title: "Action",
         data: null,
         render(data) {
-          return `<a title="Add this Property" propertyID="${data.id}" 
-          class="waves-effect waves-light"><i class="text-info p-2 mdi mdi-plus-circle"></i></a>`;
+          return `<a title="Add this Property" 
+          class="waves-effect waves-light"><i selectpropertyID="${data.PropertyID}" class="text-info p-2 mdi mdi-plus-circle"></i></a>`;
         },
       },
       ],
@@ -82,5 +95,30 @@ export class AddExistingPropertyComponent implements OnInit {
   }
   ngAfterViewInit() {
     this.dtTrigger.next();
+    this.renderer.listen("document", "click", (event) => {
+      if (event.target.hasAttribute("selectpropertyID")) {
+        this.IsLoading = true;
+        this.service.SelectExistingProperty(this.trustID, event.target.getAttribute("selectpropertyID"), this.currentUser.UserID).subscribe((res) => {
+          this.IsLoading = false;
+          if (res.error) {
+            Swal.fire({
+              title: res.error_code,
+              text: res.message,
+              type: "error",
+            });
+            return;
+          } else {
+            Swal.fire({
+              title: "Property Selected Successfully!",
+              text: res.message,
+              type: "success",
+            }).then(() => {
+              this.rerender()
+            });
+          }
+
+        })
+      }
+    });
   }
 }

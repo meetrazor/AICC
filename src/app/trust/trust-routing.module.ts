@@ -8,8 +8,8 @@ import { Routes, RouterModule } from '@angular/router';
 
 
 const routes: Routes = [
-  { path: 'view/:trustID', component: SingleTrustViewComponent },
-  { path: 'create', component: TrustCreateComponent },
+  { path: 'view-trust/:trustID', component: SingleTrustViewComponent },
+  { path: 'create-trust', component: TrustCreateComponent },
   { path: 'addexiting/:trustID', component: AddExistingPropertyComponent }
 ];
 
