@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { GeneralService } from 'src/app/services/general.service';
@@ -6,56 +6,61 @@ import { GeneralService } from 'src/app/services/general.service';
 @Component({
   selector: 'app-view-legal-case',
   templateUrl: './view-legal-case.component.html',
-  styleUrls: ['./view-legal-case.component.scss']
+  styleUrls: ['./view-legal-case.component.scss'],
 })
 export class ViewLegalCaseComponent implements OnInit {
   datasource: any[];
   @Input() PropertyID: any;
+  @Input() refresh: any;
   isLoaded = false;
   hearingData: any[] = [];
   actData: any[] = [];
   lawyerData: any[] = [];
   lawyerList = [];
   isloading: boolean;
-  constructor(private route: ActivatedRoute, private service: GeneralService) { }
+  constructor(private route: ActivatedRoute, private service: GeneralService) {}
 
   ngOnInit() {
     this.isloading = true;
     this.hearingData = [];
     this.actData = [];
     this.lawyerData = [];
-    this.service.listLegalcase(this.PropertyID)
+    this.service
+      .listLegalcase(this.PropertyID)
       .pipe(first())
-      .subscribe(
-        data => {
-          if (data.error) {
-            console.log(data.error);
-            return;
-          } else {
-            data.data.map((item) => {
-              item.isloaded = false;
-            })
-            this.datasource = data.data;
-            // for (const item of this.datasource) {
-            //   this.getHearings(item.LegalCaseID);
-            //   this.getLegalcaseActs(item.LegalCaseID);
-            //   this.getLawyers(item.LegalCaseID);
-            // }
-          }
-          this.isloading = false;
-        });
-  }
-  fetchLawyerlist() {
-    this.service.listLawyers().
-      subscribe(data => {
-        if (data.status === 200) {
-          this.lawyerList = data.data;
-        } else {
+      .subscribe((data) => {
+        if (data.error) {
           console.log(data.error);
+          return;
+        } else {
+          data.data.map((item) => {
+            item.isloaded = false;
+          });
+          this.datasource = data.data;
+          // for (const item of this.datasource) {
+          //   this.getHearings(item.LegalCaseID);
+          //   this.getLegalcaseActs(item.LegalCaseID);
+          //   this.getLawyers(item.LegalCaseID);
+          // }
         }
+        this.isloading = false;
       });
   }
-
+  fetchLawyerlist() {
+    this.service.listLawyers().subscribe((data) => {
+      if (data.status === 200) {
+        this.lawyerList = data.data;
+      } else {
+        console.log(data.error);
+      }
+    });
+  }
+  ngOnChanges(changes: SimpleChanges) {
+    if (!changes.refresh.firstChange) {
+      this.ngOnInit();
+      // console.log(this.ngOnInit);
+    }
+  }
   // openHearingDialog(LegalCaseID) {
   //   const dialogRef = this.dialog.open(HearingComponent, {
   //     height: '450px',
@@ -128,11 +133,9 @@ export class ViewLegalCaseComponent implements OnInit {
   //         }
   //       });
   // }
-  resetCounter() {
-
-  }
+  resetCounter() {}
   onShow(e) {
-    const obj = this.datasource.find(x => x.LegalCaseID == e);
+    const obj = this.datasource.find((x) => x.LegalCaseID == e);
     obj.isloaded = true;
   }
 }

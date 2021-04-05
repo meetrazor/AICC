@@ -25,8 +25,12 @@ export class AddmeetingComponent implements OnInit {
   submitted: boolean;
   regex = '[a-zA-Z][a-z0-9A-Z ]+';
   currentUser: any;
-  constructor(private fb: FormBuilder, private datepipe: DatePipe, private service: GeneralService) {
-    this.currentUser = this.service.getcurrentUser()
+  constructor(
+    private fb: FormBuilder,
+    private datepipe: DatePipe,
+    private service: GeneralService
+  ) {
+    this.currentUser = this.service.getcurrentUser();
   }
 
   ngOnInit() {
@@ -43,7 +47,10 @@ export class AddmeetingComponent implements OnInit {
         Validators.pattern(this.regex),
       ]),
       CreatedBy: new FormControl(this.currentUser.UserID, Validators.required),
-      FileName: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z0-9]*$')]),
+      FileName: new FormControl('', [
+        Validators.required,
+        Validators.pattern('^[a-zA-Z0-9]*$'),
+      ]),
       FileType: new FormControl('', Validators.required),
       Description: new FormControl('', Validators.required),
       uploadfile: new FormControl(null, Validators.required),
@@ -53,13 +60,13 @@ export class AddmeetingComponent implements OnInit {
     return this.meetingForm.controls;
   }
   resetForm() {
-    this.f.FileName.reset()
-    this.f.FileType.reset()
-    this.f.Description.reset()
-    this.f.uploadfile.reset()
-    this.f.MeetingTitle.reset()
-    this.f.MeetingdateTime.reset()
-    this.f.venue.reset()
+    this.f.FileName.reset();
+    this.f.FileType.reset();
+    this.f.Description.reset();
+    this.f.uploadfile.reset();
+    this.f.MeetingTitle.reset();
+    this.f.MeetingdateTime.reset();
+    this.f.venue.reset();
     this.f.uploadfile.setValue([]);
   }
   onSubmit() {
@@ -67,8 +74,9 @@ export class AddmeetingComponent implements OnInit {
     if (this.meetingForm.valid) {
       // 1 is Property ID
       this.isLoading = true;
-      this.service.AddMeeting(this.trustID, this.prepareSave())
-        .subscribe(data => {
+      this.service
+        .AddMeeting(this.trustID, this.prepareSave())
+        .subscribe((data) => {
           this.isLoading = false;
           this.resetForm();
           if (data.status === 200) {
@@ -76,7 +84,7 @@ export class AddmeetingComponent implements OnInit {
             Swal.fire({
               title: 'Meeting Uploaded',
               text: data.message,
-              type: 'success'
+              type: 'success',
             }).then(() => {
               this.submitted = false;
               this.reFresh.emit();
@@ -85,7 +93,7 @@ export class AddmeetingComponent implements OnInit {
             Swal.fire({
               title: data.error_code,
               text: data.message,
-              type: 'error'
+              type: 'error',
             });
           }
         });
@@ -111,13 +119,22 @@ export class AddmeetingComponent implements OnInit {
     }
   }
   setform(fileName, filetype, extension) {
-    if ((filetype.toLowerCase() === 'image/jpeg' && (extension.toLowerCase() === 'jpg' || extension.toLowerCase() === 'jpeg')) ||
-      (filetype.toLowerCase() === 'image/gif' && extension.toLowerCase() === 'gif') ||
-      (filetype.toLowerCase() === 'image/png' && extension.toLowerCase() === 'png')) {
+    if (
+      (filetype.toLowerCase() === 'image/jpeg' &&
+        (extension.toLowerCase() === 'jpg' ||
+          extension.toLowerCase() === 'jpeg')) ||
+      (filetype.toLowerCase() === 'image/gif' &&
+        extension.toLowerCase() === 'gif') ||
+      (filetype.toLowerCase() === 'image/png' &&
+        extension.toLowerCase() === 'png')
+    ) {
       this.f.FileType.setValue('Photo');
       this.f.FileName.setValue(fileName);
       this.fileExtension = extension.toLowerCase();
-    } else if ((filetype.toLowerCase() === 'application/pdf' && extension.toLowerCase() === 'pdf')) {
+    } else if (
+      filetype.toLowerCase() === 'application/pdf' &&
+      extension.toLowerCase() === 'pdf'
+    ) {
       this.f.FileType.setValue('PDF');
       this.f.FileName.setValue(fileName);
       this.fileExtension = extension.toLowerCase();
@@ -126,20 +143,29 @@ export class AddmeetingComponent implements OnInit {
       Swal.fire({
         title: `Error`,
         text: `${extension} File Are Not Supported`,
-        type: 'error'
+        type: 'error',
       });
     }
   }
   prepareSave(): any {
     const input = new FormData();
-    input.append('FileName', this.meetingForm.get('FileName').value + '.' + this.fileExtension);
+    input.append(
+      'FileName',
+      this.meetingForm.get('FileName').value + '.' + this.fileExtension
+    );
     input.append('FileType', this.meetingForm.get('FileType').value);
     input.append('Description', this.meetingForm.get('Description').value);
     input.append('venue', this.meetingForm.get('venue').value);
     input.append('CreatedBy', this.meetingForm.get('CreatedBy').value);
-    input.append('MeetingdateTime', this.datepipe.transform(this.meetingForm.get('MeetingdateTime').value, 'yyyy-MM-dd hh:mm'));
+    input.append(
+      'MeetingdateTime',
+      this.datepipe.transform(
+        this.meetingForm.get('MeetingdateTime').value,
+        'yyyy-MM-dd hh:mm'
+      )
+    );
     input.append('MeetingTitle', this.meetingForm.get('MeetingTitle').value);
-    input.append('uploadfile', (this.meetingForm.get('uploadfile').value)[0]);
+    input.append('uploadfile', this.meetingForm.get('uploadfile').value[0]);
     return input;
   }
 }

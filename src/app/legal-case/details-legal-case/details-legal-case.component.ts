@@ -1,4 +1,10 @@
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { GeneralService } from 'src/app/services/general.service';
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
@@ -9,9 +15,40 @@ import { first } from 'rxjs/operators';
 @Component({
   selector: 'app-details-legal-case',
   templateUrl: './details-legal-case.component.html',
-  styleUrls: ['./details-legal-case.component.scss']
+  styleUrls: ['./details-legal-case.component.scss'],
 })
 export class DetailsLegalCaseComponent implements OnInit {
+  case: any;
+  constructor(
+    private service: GeneralService,
+    private modalService: NgbModal,
+    private formBuilder: FormBuilder,
+    private datepipe: DatePipe
+  ) {
+    this.currentUser = this.service.getcurrentUser();
+  }
+
+  get e() {
+    return this.actForm.controls;
+  }
+  get f() {
+    return this.hearingForm.controls;
+  }
+  get g() {
+    return this.PetitionerForm.controls;
+  }
+  get h() {
+    return this.RespondentForm.controls;
+  }
+  get l() {
+    return this.lawyerForm.controls;
+  }
+  get a() {
+    return this.documentForm.controls;
+  }
+  get d() {
+    return this.caseDisposalForm.controls;
+  }
   today = new Date();
   currentUser: any;
   fileExtension: string;
@@ -50,31 +87,32 @@ export class DetailsLegalCaseComponent implements OnInit {
   @ViewChild('DocumentForm', { static: true }) DocumentFormModal;
   @ViewChild('LawyerForm', { static: true }) LawyerFormModal;
   @ViewChild('CaseDisposalForm', { static: true }) CaseDisposalFromModal;
-  constructor(private service: GeneralService, private modalService: NgbModal, private formBuilder: FormBuilder, private datepipe: DatePipe) {
-    this.currentUser = this.service.getcurrentUser();
-  }
+
+  rerender;
 
   ngOnInit() {
     this.service.listLawyers().subscribe((res) => {
       this.LawyerData = res.data;
       this.submited = false;
       this.isFormLoading = false;
-    })
-
+    });
   }
   CaseDispose() {
     this.initDispoalForm();
-    this.modalService.open(this.CaseDisposalFromModal)
+    this.modalService.open(this.CaseDisposalFromModal);
   }
   initDispoalForm() {
     this.caseDisposalForm = new FormGroup({
-      FileName: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z0-9]*$')]),
+      FileName: new FormControl('', [
+        Validators.required,
+        Validators.pattern('^[a-zA-Z0-9]*$'),
+      ]),
       FileType: new FormControl('', Validators.required),
       Description: new FormControl('', Validators.required),
       uploadfile: new FormControl(null, Validators.required),
       DecisionDate: new FormControl(null, Validators.required),
       OrderDate: new FormControl(null, Validators.required),
-      CreatedBy: new FormControl(this.currentUser.UserID)
+      CreatedBy: new FormControl(this.currentUser.UserID),
     });
   }
   onSaveDispose() {
@@ -82,8 +120,9 @@ export class DetailsLegalCaseComponent implements OnInit {
     if (this.caseDisposalForm.valid) {
       // 1 is Property ID
       this.Loading = true;
-      this.service.DisposeLegalCase(this.CaseID, this.prepareDisposalSave())
-        .subscribe(data => {
+      this.service
+        .DisposeLegalCase(this.CaseID, this.prepareDisposalSave())
+        .subscribe((data) => {
           this.Loading = false;
           this.resetDisposeForm();
           if (data.status === 200) {
@@ -99,46 +138,50 @@ export class DetailsLegalCaseComponent implements OnInit {
             Swal.fire({
               title: data.error_code,
               text: data.message,
-              type: 'error'
+              type: 'error',
             });
           }
         });
     }
   }
   AddDocument() {
-    this.initDocumentForm()
-    this.modalService.open(this.DocumentFormModal)
+    this.initDocumentForm();
+    this.modalService.open(this.DocumentFormModal);
   }
   initDocumentForm() {
     this.documentForm = new FormGroup({
-      FileName: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z0-9]*$')]),
+      FileName: new FormControl('', [
+        Validators.required,
+        Validators.pattern('^[a-zA-Z0-9]*$'),
+      ]),
       FileType: new FormControl('', Validators.required),
       Description: new FormControl('', Validators.required),
       uploadfile: new FormControl(null, Validators.required),
-      CreatedBy: new FormControl(this.currentUser.UserID)
+      CreatedBy: new FormControl(this.currentUser.UserID),
     });
   }
   resetDocumentForm() {
-    this.a.FileName.reset()
-    this.a.FileType.reset()
-    this.a.Description.reset()
-    this.a.uploadfile.reset()
+    this.a.FileName.reset();
+    this.a.FileType.reset();
+    this.a.Description.reset();
+    this.a.uploadfile.reset();
   }
   resetDisposeForm() {
-    this.d.FileName.reset()
-    this.d.FileType.reset()
-    this.d.Description.reset()
-    this.d.DecisionDate.reset()
-    this.d.OrderDate.reset()
-    this.d.uploadfile.reset()
+    this.d.FileName.reset();
+    this.d.FileType.reset();
+    this.d.Description.reset();
+    this.d.DecisionDate.reset();
+    this.d.OrderDate.reset();
+    this.d.uploadfile.reset();
   }
   onSaveDocumnt() {
     this.submited = true;
     if (this.documentForm.valid) {
       // 1 is Property ID
       this.Loading = true;
-      this.service.UploadLegalCaseDocument(this.CaseID, this.prepareSave())
-        .subscribe(data => {
+      this.service
+        .UploadLegalCaseDocument(this.CaseID, this.prepareSave())
+        .subscribe((data) => {
           this.Loading = false;
           this.resetDocumentForm();
           if (data.status === 200) {
@@ -154,44 +197,72 @@ export class DetailsLegalCaseComponent implements OnInit {
             Swal.fire({
               title: data.error_code,
               text: data.message,
-              type: 'error'
+              type: 'error',
             });
           }
         });
     }
   }
   AddAct() {
+    this.submited = false;
     this.initActForm();
-    this.modalService.open(this.ActFormModal)
+    this.modalService.open(this.ActFormModal);
   }
   AddHearing() {
+    this.submited = false;
     this.initHearingForm();
-    this.modalService.open(this.HearingFormModal)
+    this.modalService.open(this.HearingFormModal);
   }
   AddPetitioner() {
+    this.submited = false;
     this.initPetitionerForm();
-    this.modalService.open(this.PetitionerFormModal)
+    this.modalService.open(this.PetitionerFormModal);
   }
   AddRespondent() {
+    this.submited = false;
     this.initRespondentForm();
-    this.modalService.open(this.RespondentFormModal)
+    this.modalService.open(this.RespondentFormModal);
   }
   AddLawyer() {
-    this.fetchstate()
+    this.submited = false;
+    this.fetchstate();
     this.initLawyerForm();
-    this.modalService.open(this.LawyerFormModal)
+    this.modalService.open(this.LawyerFormModal);
   }
   initLawyerForm() {
     this.lawyerForm = this.formBuilder.group({
-      LawyerName: new FormControl('', [Validators.required, Validators.maxLength(25)]),
-      Firm: new FormControl('', [Validators.required, Validators.maxLength(50)]),
-      MobileNo: new FormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]),
-      LandlineNo: new FormControl(null, [Validators.minLength(10), Validators.maxLength(10)]),
-      Address: new FormControl('', [Validators.required, Validators.maxLength(255)]),
+      LawyerName: new FormControl('', [
+        Validators.required,
+        Validators.maxLength(25),
+      ]),
+      Firm: new FormControl('', [
+        Validators.required,
+        Validators.maxLength(50),
+      ]),
+      MobileNo: new FormControl('', [
+        Validators.required,
+        Validators.minLength(10),
+        Validators.maxLength(10),
+      ]),
+      LandlineNo: new FormControl(null, [
+        Validators.minLength(10),
+        Validators.maxLength(10),
+      ]),
+      Address: new FormControl('', [
+        Validators.required,
+        Validators.maxLength(255),
+      ]),
       IsActive: new FormControl('1', Validators.required),
-      PinCode: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(6)]),
+      PinCode: new FormControl('', [
+        Validators.required,
+        Validators.minLength(6),
+        Validators.maxLength(6),
+      ]),
       Fax: new FormControl(null),
-      EmailId: new FormControl(null, [Validators.required, Validators.pattern(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/)]),
+      EmailId: new FormControl(null, [
+        Validators.required,
+        Validators.pattern(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/),
+      ]),
       Website: new FormControl(null, [Validators.pattern(this.urlRegex)]),
       TalukaId: new FormControl(null, Validators.required),
       VillageId: new FormControl(null, Validators.required),
@@ -204,28 +275,35 @@ export class DetailsLegalCaseComponent implements OnInit {
     this.actForm = this.formBuilder.group({
       UnderAct: new FormControl(null, Validators.required),
       UnderSection: new FormControl(null, Validators.required),
-    })
+    });
   }
   initPetitionerForm() {
     this.PetitionerForm = this.formBuilder.group({
       LawyerID: new FormControl(null, Validators.required),
       CreatedBy: new FormControl(this.currentUser.UserID, Validators.required),
-      Petitioner: this.formBuilder.array([this.addDetails()])
-    })
+      Petitioner: this.formBuilder.array([this.addDetails()]),
+    });
   }
   initRespondentForm() {
     this.RespondentForm = this.formBuilder.group({
       LawyerID: new FormControl(null, Validators.required),
       CreatedBy: new FormControl(this.currentUser.UserID, Validators.required),
-      Respondent: this.formBuilder.array([this.addDetails()])
-    })
+      Respondent: this.formBuilder.array([this.addDetails()]),
+    });
   }
   addDetails() {
     return this.formBuilder.group({
       Name: new FormControl(null, Validators.required),
-      Email: new FormControl(null, [Validators.required, Validators.pattern(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/)]),
-      Mobile: new FormControl(null, [Validators.required, Validators.maxLength(10), Validators.minLength(10)]),
-    })
+      Email: new FormControl(null, [
+        Validators.required,
+        Validators.pattern(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/),
+      ]),
+      Mobile: new FormControl(null, [
+        Validators.required,
+        Validators.maxLength(10),
+        Validators.minLength(10),
+      ]),
+    });
   }
   removePetitionerDetails(i: number) {
     const control = this.PetitionerForm.controls.Petitioner as FormArray;
@@ -251,16 +329,34 @@ export class DetailsLegalCaseComponent implements OnInit {
     this.service.GetLegalCaseLastHearing(this.CaseID).subscribe((res) => {
       this.hearingForm = this.formBuilder.group({
         HearingDate: new FormControl(null, [Validators.required]),
-        IsDetailsChange: new FormControl(res.data.LegalCaseID ? '0' : '1', Validators.required),
-        Judge: new FormControl(res.data ? res.data.Judge : null, Validators.required),
-        CourtName: new FormControl(res.data ? res.data.CourtName : null, Validators.required),
-        CourtNumber: new FormControl(res.data ? res.data.CourtNumber : null, Validators.required),
-        CourtAddress: new FormControl(res.data ? res.data.CourtAddress : null, Validators.required),
-        CreatedBy: new FormControl(this.currentUser.UserID, Validators.required),
+        IsDetailsChange: new FormControl(
+          res.data.LegalCaseID ? '0' : '1',
+          Validators.required
+        ),
+        Judge: new FormControl(
+          res.data ? res.data.Judge : null,
+          Validators.required
+        ),
+        CourtName: new FormControl(
+          res.data ? res.data.CourtName : null,
+          Validators.required
+        ),
+        CourtNumber: new FormControl(
+          res.data ? res.data.CourtNumber : null,
+          Validators.required
+        ),
+        CourtAddress: new FormControl(
+          res.data ? res.data.CourtAddress : null,
+          Validators.required
+        ),
+        CreatedBy: new FormControl(
+          this.currentUser.UserID,
+          Validators.required
+        ),
       });
       this.isDetailsChange(res.data.LegalCaseID ? '0' : '1');
       this.isFormLoading = false;
-    })
+    });
   }
   isDetailsChange(e) {
     if (e == 0) {
@@ -279,31 +375,31 @@ export class DetailsLegalCaseComponent implements OnInit {
     this.submited = true;
     this.Loading = true;
     if (this.actForm.valid) {
-      this.service.AddLegalCaseAct(this.CaseID, this.actForm.value).subscribe((res) => {
-        if (res.error) {
-          Swal.fire({
-            title: res.error_code,
-            text: res.error,
-            type: 'error'
-          }).then(() => {
+      this.service
+        .AddLegalCaseAct(this.CaseID, this.actForm.value)
+        .subscribe((res) => {
+          if (res.error) {
+            Swal.fire({
+              title: res.error_code,
+              text: res.error,
+              type: 'error',
+            }).then(() => {
+              this.submited = false;
+              this.Loading = false;
+            });
+          } else {
+            this.actForm.reset();
             this.submited = false;
             this.Loading = false;
-          });
-        } else {
-          this.actForm.reset();
-          this.submited = false;
-          this.Loading = false;
-          Swal.fire({
-            title: 'Success!',
-            text: res.message,
-            type: 'success',
-
-          }).then(() => {
-            location.reload();
-          });
-        }
-
-      });
+            Swal.fire({
+              title: 'Success!',
+              text: res.message,
+              type: 'success',
+            }).then(() => {
+              location.reload();
+            });
+          }
+        });
     } else {
       this.Loading = false;
     }
@@ -312,29 +408,30 @@ export class DetailsLegalCaseComponent implements OnInit {
     this.submited = true;
     this.Loading = true;
     if (this.hearingForm.valid) {
-      this.service.AddLegalCaseHearing(this.CaseID, this.hearingForm.value).subscribe((res) => {
-        if (res.error) {
-          Swal.fire({
-            title: res.error_code,
-            text: res.error,
-            type: 'error'
-          }).then(() => {
+      this.service
+        .AddLegalCaseHearing(this.CaseID, this.hearingForm.value)
+        .subscribe((res) => {
+          if (res.error) {
+            Swal.fire({
+              title: res.error_code,
+              text: res.error,
+              type: 'error',
+            }).then(() => {
+              this.submited = false;
+              this.Loading = false;
+            });
+          } else {
             this.submited = false;
             this.Loading = false;
-          });
-        } else {
-          this.submited = false;
-          this.Loading = false;
-          Swal.fire({
-            title: 'Success!',
-            text: res.message,
-            type: 'success',
-          }).then(() => {
-            location.reload();
-          });
-        }
-
-      });
+            Swal.fire({
+              title: 'Success!',
+              text: res.message,
+              type: 'success',
+            }).then(() => {
+              location.reload();
+            });
+          }
+        });
     } else {
       this.Loading = false;
     }
@@ -343,28 +440,30 @@ export class DetailsLegalCaseComponent implements OnInit {
     this.submited = true;
     this.Loading = true;
     if (this.PetitionerForm.valid) {
-      this.service.AddPetitionerAndLawyer(this.CaseID, this.PetitionerForm.value).subscribe((res) => {
-        if (res.error) {
-          Swal.fire({
-            title: res.error_code,
-            text: res.error,
-            type: 'error'
-          }).then(() => {
+      this.service
+        .AddPetitionerAndLawyer(this.CaseID, this.PetitionerForm.value)
+        .subscribe((res) => {
+          if (res.error) {
+            Swal.fire({
+              title: res.error_code,
+              text: res.error,
+              type: 'error',
+            }).then(() => {
+              this.submited = false;
+              this.Loading = false;
+            });
+          } else {
             this.submited = false;
             this.Loading = false;
-          });
-        } else {
-          this.submited = false;
-          this.Loading = false;
-          Swal.fire({
-            title: 'Success!',
-            text: res.message,
-            type: 'success',
-          }).then(() => {
-            location.reload();
-          });
-        }
-      });
+            Swal.fire({
+              title: 'Success!',
+              text: res.message,
+              type: 'success',
+            }).then(() => {
+              location.reload();
+            });
+          }
+        });
     } else {
       this.Loading = false;
     }
@@ -373,28 +472,30 @@ export class DetailsLegalCaseComponent implements OnInit {
     this.submited = true;
     this.Loading = true;
     if (this.RespondentForm.valid) {
-      this.service.AddRespondentAndLawyer(this.CaseID, this.RespondentForm.value).subscribe((res) => {
-        if (res.error) {
-          Swal.fire({
-            title: res.error_code,
-            text: res.error,
-            type: 'error'
-          }).then(() => {
+      this.service
+        .AddRespondentAndLawyer(this.CaseID, this.RespondentForm.value)
+        .subscribe((res) => {
+          if (res.error) {
+            Swal.fire({
+              title: res.error_code,
+              text: res.error,
+              type: 'error',
+            }).then(() => {
+              this.submited = false;
+              this.Loading = false;
+            });
+          } else {
             this.submited = false;
             this.Loading = false;
-          });
-        } else {
-          this.submited = false;
-          this.Loading = false;
-          Swal.fire({
-            title: 'Success!',
-            text: res.message,
-            type: 'success',
-          }).then(() => {
-            location.reload();
-          });
-        }
-      });
+            Swal.fire({
+              title: 'Success!',
+              text: res.message,
+              type: 'success',
+            }).then(() => {
+              location.reload();
+            });
+          }
+        });
     } else {
       this.Loading = false;
     }
@@ -403,112 +504,123 @@ export class DetailsLegalCaseComponent implements OnInit {
   onSaveLawyer() {
     this.submited = true;
     if (this.lawyerForm.valid) {
-      this.service.addLawyer(this.lawyerForm.value)
-        .subscribe(data => {
-          this.submited = false;
-          this.lawyerForm.reset();
-          if (data.status === 200) {
-            Swal.fire({
-              title: 'Added',
-              text: data.message,
-              type: 'success',
-              timer: 2000
-            }).then(() => {
-              location.reload();
-            });
-          } else {
-            Swal.fire({
-              title: data.error_code,
-              text: data.message,
-              type: 'error'
-            }).then(() => {
-              location.reload();
-            })
-          }
-        });
+      this.service.addLawyer(this.lawyerForm.value).subscribe((data) => {
+        this.submited = false;
+        this.lawyerForm.reset();
+        if (data.status === 200) {
+          Swal.fire({
+            title: 'Added',
+            text: data.message,
+            type: 'success',
+            timer: 2000,
+          }).then(() => {
+            location.reload();
+          });
+        } else {
+          Swal.fire({
+            title: data.error_code,
+            text: data.message,
+            type: 'error',
+          }).then(() => {
+            location.reload();
+          });
+        }
+      });
     }
   }
   fetchstate() {
-    this.Loading = true
-    this.service.states()
+    this.Loading = true;
+    this.Array2 = [];
+    this.Array3 = [];
+    this.Array4 = [];
+    this.service
+      .states()
       .pipe(first())
-      .subscribe(
-        data => {
-          this.Loading = false;
-          if (data.error) {
-            console.log(data.error);
-            return;
-          } else {
-            this.StateArray = data.data;
-          }
-        });
+      .subscribe((data) => {
+        this.Loading = false;
+        if (data.error) {
+          return;
+        } else {
+          this.StateArray = data.data;
+        }
+      });
   }
 
   fetchdist(e) {
+    this.Array2 = [];
+    this.Array3 = [];
+    this.Array4 = [];
+    this.lawyerForm.controls.TalukaId.setValue(null);
+    this.lawyerForm.controls.DistrictId.setValue(null);
+    this.lawyerForm.controls.VillageId.setValue(null);
     if (e === undefined) {
-      this.lawyerForm.controls.TalukaId.setValue(null);
-      this.lawyerForm.controls.DistrictId.setValue(null);
-      this.lawyerForm.controls.VillageId.setValue(null);
       return false;
     }
-    this.Loading = true
+    this.Loading = true;
     //  console.log(this.lawyerForm.controls.StateID.value);
-    this.service.districts(e)
+    this.service
+      .districts(e)
       .pipe(first())
-      .subscribe(
-        data => {
-          this.Loading = false;
-          console.log(data);
-          if (data.error) {
-            console.log(data.error);
-            return;
-          } else {
-            this.Array2 = data.data;
-          }
-        });
+      .subscribe((data) => {
+        this.Loading = false;
+        console.log(data);
+        if (data.error) {
+          console.log(data.error);
+          return;
+        } else {
+          this.Array2 = data.data;
+        }
+      });
   }
 
   fetchtaluka(e) {
+    this.Array3 = [];
+    this.Array4 = [];
+    this.lawyerForm.controls.TalukaId.setValue(null);
+    this.lawyerForm.controls.VillageId.setValue(null);
     if (e === undefined) {
-      this.lawyerForm.controls.TalukaId.setValue(null);
-      this.Array3 = []
       return false;
     }
     this.Loading = true;
-    this.service.talukas(e)
+    this.service
+      .talukas(e)
       .pipe(first())
-      .subscribe(
-        data => {
-          this.Loading = false;
-          if (data.error) {
-            console.log(data.error);
-            return;
-          } else {
-            this.Array3 = data.data;
-          }
-        });
+      .subscribe((data) => {
+        this.Loading = false;
+        if (data.error) {
+          console.log(data.error);
+          return;
+        } else {
+          this.Array3 = data.data;
+        }
+      });
   }
   fetchtvillage(e) {
+    this.Array4 = [];
+    this.lawyerForm.controls.VillageId.setValue(null);
     if (e === undefined) {
-      this.lawyerForm.controls.VillageId.setValue(null);
       return false;
     }
     this.Loading = true;
-    this.service.villages(e)
+    this.service
+      .villages(e)
       .pipe(first())
-      .subscribe(
-        data => {
-          this.Loading = false;
-          if (data.error) {
-            console.log(data.error);
-            return;
-          } else {
-            this.Array4 = data.data;
-          }
-        });
+      .subscribe((data) => {
+        this.Loading = false;
+        if (data.error) {
+          console.log(data.error);
+          return;
+        } else {
+          this.Array4 = data.data;
+        }
+      });
   }
   isValid(event) {
-    if ((event.keyCode >= 48 && event.keyCode <= 57) && event.target.value.length < 10) {
+    if (
+      event.keyCode >= 48 &&
+      event.keyCode <= 57 &&
+      event.target.value.length < 10
+    ) {
     } else {
       return false;
     }
@@ -552,13 +664,22 @@ export class DetailsLegalCaseComponent implements OnInit {
     }
   }
   setform(fileName, filetype, extension) {
-    if ((filetype.toLowerCase() === 'image/jpeg' && (extension.toLowerCase() === 'jpg' || extension.toLowerCase() === 'jpeg')) ||
-      (filetype.toLowerCase() === 'image/gif' && extension.toLowerCase() === 'gif') ||
-      (filetype.toLowerCase() === 'image/png' && extension.toLowerCase() === 'png')) {
+    if (
+      (filetype.toLowerCase() === 'image/jpeg' &&
+        (extension.toLowerCase() === 'jpg' ||
+          extension.toLowerCase() === 'jpeg')) ||
+      (filetype.toLowerCase() === 'image/gif' &&
+        extension.toLowerCase() === 'gif') ||
+      (filetype.toLowerCase() === 'image/png' &&
+        extension.toLowerCase() === 'png')
+    ) {
       this.a.FileType.setValue('Photo');
       this.a.FileName.setValue(fileName);
       this.fileExtension = extension.toLowerCase();
-    } else if ((filetype.toLowerCase() === 'application/pdf' && extension.toLowerCase() === 'pdf')) {
+    } else if (
+      filetype.toLowerCase() === 'application/pdf' &&
+      extension.toLowerCase() === 'pdf'
+    ) {
       this.a.FileType.setValue('PDF');
       this.a.FileName.setValue(fileName);
       this.fileExtension = extension.toLowerCase();
@@ -567,18 +688,27 @@ export class DetailsLegalCaseComponent implements OnInit {
       Swal.fire({
         title: `Error`,
         text: `${extension} File Are Not Supported`,
-        type: 'error'
+        type: 'error',
       });
     }
   }
   setDisposeform(fileName, filetype, extension) {
-    if ((filetype.toLowerCase() === 'image/jpeg' && (extension.toLowerCase() === 'jpg' || extension.toLowerCase() === 'jpeg')) ||
-      (filetype.toLowerCase() === 'image/gif' && extension.toLowerCase() === 'gif') ||
-      (filetype.toLowerCase() === 'image/png' && extension.toLowerCase() === 'png')) {
+    if (
+      (filetype.toLowerCase() === 'image/jpeg' &&
+        (extension.toLowerCase() === 'jpg' ||
+          extension.toLowerCase() === 'jpeg')) ||
+      (filetype.toLowerCase() === 'image/gif' &&
+        extension.toLowerCase() === 'gif') ||
+      (filetype.toLowerCase() === 'image/png' &&
+        extension.toLowerCase() === 'png')
+    ) {
       this.d.FileType.setValue('Photo');
       this.d.FileName.setValue(fileName);
       this.disposeFileExtension = extension.toLowerCase();
-    } else if ((filetype.toLowerCase() === 'application/pdf' && extension.toLowerCase() === 'pdf')) {
+    } else if (
+      filetype.toLowerCase() === 'application/pdf' &&
+      extension.toLowerCase() === 'pdf'
+    ) {
       this.d.FileType.setValue('PDF');
       this.d.FileName.setValue(fileName);
       this.disposeFileExtension = extension.toLowerCase();
@@ -587,36 +717,43 @@ export class DetailsLegalCaseComponent implements OnInit {
       Swal.fire({
         title: `Error`,
         text: `${extension} File Are Not Supported`,
-        type: 'error'
+        type: 'error',
       });
     }
   }
   prepareSave(): any {
     const input = new FormData();
-    input.append('FileName', this.documentForm.get('FileName').value + '.' + this.fileExtension);
+    input.append(
+      'FileName',
+      this.documentForm.get('FileName').value + '.' + this.fileExtension
+    );
     input.append('FileType', this.documentForm.get('FileType').value);
     input.append('Description', this.documentForm.get('Description').value);
     input.append('CreatedBy', this.documentForm.get('CreatedBy').value);
-    input.append('uploadfile', (this.documentForm.get('uploadfile').value)[0]);
+    input.append('uploadfile', this.documentForm.get('uploadfile').value[0]);
     return input;
   }
   prepareDisposalSave(): any {
     const input = new FormData();
-    input.append('FileName', this.caseDisposalForm.get('FileName').value + '.' + this.fileExtension);
+    input.append(
+      'FileName',
+      this.caseDisposalForm.get('FileName').value + '.' + this.fileExtension
+    );
     input.append('FileType', this.caseDisposalForm.get('FileType').value);
     input.append('Description', this.caseDisposalForm.get('Description').value);
     input.append('CreatedBy', this.caseDisposalForm.get('CreatedBy').value);
-    input.append('DecisionDate', this.caseDisposalForm.get('DecisionDate').value);
+    input.append(
+      'DecisionDate',
+      this.caseDisposalForm.get('DecisionDate').value
+    );
     input.append('OrderDate', this.caseDisposalForm.get('OrderDate').value);
-    input.append('uploadfile', (this.caseDisposalForm.get('uploadfile').value)[0]);
+    input.append(
+      'uploadfile',
+      this.caseDisposalForm.get('uploadfile').value[0]
+    );
     return input;
   }
-
-  get e() { return this.actForm.controls; }
-  get f() { return this.hearingForm.controls; }
-  get g() { return this.PetitionerForm.controls; }
-  get h() { return this.RespondentForm.controls; }
-  get l() { return this.lawyerForm.controls; }
-  get a() { return this.documentForm.controls; }
-  get d() { return this.caseDisposalForm.controls; }
+  // refreshcase() {
+  //   this.case++;
+  // }
 }

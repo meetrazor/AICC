@@ -7,12 +7,17 @@
         placeholder="Enter Case Number"
         formControlName="CaseNumber"
         type="text"
-        (keypress)="isValid($event)"
         [ngClass]="{ 'is-invalid': submitted && f.CaseNumber.errors }"
       />
 
       <div *ngIf="submitted && f.CaseNumber.errors" class="invalid-feedback">
         <div *ngIf="f.CaseNumber.errors.required">Case Number is Required</div>
+        <div *ngIf="f.CaseNumber.errors.pattern">
+          Case Number Must be Valid And Only Alphanumeric Allowed
+        </div>
+        <div *ngIf="f.CaseNumber.errors.maxlength">
+          Case Number Must be 20 Digit Only
+        </div>
       </div>
     </div>
   </div>
@@ -190,13 +195,18 @@
         placeholder="Enter CNR Number"
         formControlName="CNRNumber"
         type="text"
-        (keypress)="isValid($event)"
         [ngClass]="{
           'is-invalid': submitted && f.CNRNumber.errors
         }"
       />
       <div *ngIf="submitted && f.CNRNumber.errors" class="invalid-feedback">
         <div *ngIf="f.CNRNumber.errors.required">CNR Number is Required</div>
+        <div *ngIf="f.CNRNumber.errors.pattern">
+          CNR Number Must be Valid And Only Alphanumeric Allowed
+        </div>
+        <div *ngIf="f.CNRNumber.errors.maxlength">
+          CNR Number Must be 20 Digit Only
+        </div>
       </div>
     </div>
   </div>

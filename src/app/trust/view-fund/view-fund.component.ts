@@ -1,8 +1,16 @@
 import { DatePipe } from '@angular/common';
-import { Component, Input, OnInit, Renderer2, ViewChild } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  Renderer2,
+  SimpleChanges,
+  ViewChild,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
+import { GeneralService } from 'src/app/services/general.service';
 
 @Component({
   selector: 'app-view-fund',
@@ -11,57 +19,10 @@ import { Subject } from 'rxjs';
 })
 export class ViewFundComponent implements OnInit {
   @Input() trustID: number;
+  @Input() refresh: number;
   isdropdownShow: boolean;
-  data = [
-    {
-      amount: '1,000',
-      url:
-        'https://proplegit-dev.s3.ap-south-1.amazonaws.com/100/Documents/Legal/CaseID_46/FSWerOpenMenuv1.pdf',
-      date: '09/12/2020',
-      year: '2020',
-      id: 1,
-    },
-    {
-      amount: '1,000',
-      url:
-        'https://proplegit-dev.s3.ap-south-1.amazonaws.com/100/Documents/Legal/CaseID_46/FSWerOpenMenuv1.pdf',
-      date: '09/12/2020',
-      year: '2020',
-      id: 2,
-    },
-    {
-      amount: '1,000',
-      url:
-        'https://proplegit-dev.s3.ap-south-1.amazonaws.com/100/Documents/Legal/CaseID_46/FSWerOpenMenuv1.pdf',
-      date: '09/12/2020',
-      year: '2020',
-      id: 3,
-    },
-    {
-      amount: '1,000',
-      url:
-        'https://proplegit-dev.s3.ap-south-1.amazonaws.com/100/Documents/Legal/CaseID_46/FSWerOpenMenuv1.pdf',
-      date: '09/12/2020',
-      year: '2020',
-      id: 4,
-    },
-    {
-      amount: '1,000',
-      url:
-        'https://proplegit-dev.s3.ap-south-1.amazonaws.com/100/Documents/Legal/CaseID_46/FSWerOpenMenuv1.pdf',
-      date: '09/12/2020',
-      year: '2020',
-      id: 5,
-    },
-    {
-      amount: '1,000',
-      url:
-        'https://proplegit-dev.s3.ap-south-1.amazonaws.com/100/Documents/Legal/CaseID_46/FSWerOpenMenuv1.pdf',
-      date: '09/12/2020',
-      year: '2020',
-      id: 6,
-    },
-  ];
+  isLoading: boolean;
+
   dtOptions: DataTables.Settings = {};
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
@@ -70,16 +31,19 @@ export class ViewFundComponent implements OnInit {
   constructor(
     private router: Router,
     private renderer: Renderer2,
-    private datepipe: DatePipe
+    private datepipe: DatePipe,
+    private service: GeneralService
   ) {
     this.isdropdownShow = false;
   }
 
   ngOnInit() {
-    console.log(this.trustID);
-
+    // console.log(this.trustID);
+    this.isLoading = false;
     this.dtOptions = {
-      data: this.data,
+      ajax: {
+        url: `${this.service.GetBaseUrl()}trust/Fund/list/${this.trustID}`,
+      },
       responsive: true,
       columns: [
         {
@@ -91,26 +55,40 @@ export class ViewFundComponent implements OnInit {
         },
         {
           title: 'Fund Amount',
-          data: 'amount',
+          data: 'FundAmount',
         },
         {
           title: 'Fund Reg.Date',
           data: null,
           render: (data) => {
-            return this.datepipe.transform(data.date, 'MMM, dd yyyy');
+            return this.datepipe.transform(
+              data.FundRegisterDate,
+              'MMM, dd yyyy'
+            );
+          },
+        },
+        {
+          title: 'Fund Next Due.Date',
+          data: null,
+          render: (data) => {
+            return this.datepipe.transform(
+              data.FundNextDueDate,
+              'MMM, dd yyyy'
+            );
           },
         },
         {
           title: 'Fund Reg.Year',
-          data: 'year',
+          data: 'FinYear',
         },
+
         {
           title: 'Action',
           data: null,
           render(data) {
             return `<div style="display:flex">
-            <a title="View This Property" href="${data.url}">
-            <i class="btn font-18 mdi mdi-eye-check text-secondary"></i></a></div>`;
+            <a title="Download Fund Document" href="${data.FileUrl}">
+            <i class="btn font-18 mdi mdi-cloud-download-outline text-secondary"></i></a></div>`;
           },
         },
       ],
@@ -131,12 +109,10 @@ export class ViewFundComponent implements OnInit {
   }
   ngAfterViewInit() {
     this.dtTrigger.next();
-    this.renderer.listen('document', 'click', (event) => {
-      if (event.target.hasAttribute('viewpropertyID')) {
-        this.router.navigate([
-          'property/view/' + event.target.getAttribute('viewpropertyID'),
-        ]);
-      }
-    });
+  }
+  ngOnChanges(changes: SimpleChanges) {
+    if (!changes.refresh.firstChange) {
+      this.rerender();
+    }
   }
 }

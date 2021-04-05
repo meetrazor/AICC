@@ -15,7 +15,7 @@ export class AddauditComponent implements OnInit {
   auditForm: FormGroup;
   regex = '[a-zA-Z][a-z0-9A-Z ]+';
   numericRegex = '[0-9]+';
-  submitted: boolean = true;
+  submitted: boolean;
   constructor(private fb: FormBuilder) {}
 
   ngOnInit() {
@@ -42,5 +42,7 @@ export class AddauditComponent implements OnInit {
   get f() {
     return this.auditForm.controls;
   }
-  onAdd() {}
+  onAdd() {
+    this.submitted = true;
+  }
 }

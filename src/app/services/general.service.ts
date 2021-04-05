@@ -1,17 +1,17 @@
-import { Router } from "@angular/router";
-import { Observable, Subject, throwError } from "rxjs";
+import { Router } from '@angular/router';
+import { Observable, Subject, throwError } from 'rxjs';
 import {
   HttpClient,
   HttpErrorResponse,
   HttpHeaders,
-} from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { catchError, map, tap } from "rxjs/operators";
-import { CookieService } from "../core/services/cookie.service";
+} from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { catchError, map, tap } from 'rxjs/operators';
+import { CookieService } from '../core/services/cookie.service';
 
 const httpOptions = {
   headers: new HttpHeaders({
-    "Content-Type": "application/json",
+    'Content-Type': 'application/json',
   }),
 };
 
@@ -70,11 +70,15 @@ const selectExistingProperty = `${apiUrl}trust/property/add`;
 const removePropertyFromTrust = `${apiUrl}trust/property/remove/`;
 const trustAddMeeting = `${apiUrl}trust/add/meeting/`;
 const cancelMeeting = `${apiUrl}trust/meeting/`;
+const addFund = `${apiUrl}trust/add/Fund`;
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 export class GeneralService {
+  addFund(trustID: number, arg1: any) {
+    throw new Error('Method not implemented.');
+  }
   private userID: number;
   private user;
   private otpID;
@@ -85,7 +89,7 @@ export class GeneralService {
     private http: HttpClient,
     private cookieService: CookieService,
     private router: Router
-  ) { }
+  ) {}
 
   userRegister(userData): any {
     return this.http.post(register, userData, httpOptions);
@@ -124,13 +128,13 @@ export class GeneralService {
 
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
-      console.error("An error occurred:", error.error.message);
+      console.error('An error occurred:', error.error.message);
     } else {
       console.error(
         `Backend returned code ${error}, ` + `body was: ${error.error}`
       );
     }
-    return throwError("Something bad happened; please try again later.");
+    return throwError('Something bad happened; please try again later.');
   }
 
   login(data) {
@@ -155,7 +159,7 @@ export class GeneralService {
         } else {
           this.user = user;
           this.cookieService.setCookie(
-            "currentUser",
+            'currentUser',
             JSON.stringify(user.data[0]),
             1
           );
@@ -166,15 +170,15 @@ export class GeneralService {
   }
 
   saveCookie(data) {
-    this.cookieService.setCookie("currentUser", JSON.stringify(data), 1);
+    this.cookieService.setCookie('currentUser', JSON.stringify(data), 1);
   }
 
   logout() {
-    this.cookieService.deleteCookie("currentUser");
+    this.cookieService.deleteCookie('currentUser');
     this.user = null;
   }
   getcurrentUser() {
-    return JSON.parse(this.cookieService.getCookie("currentUser"));
+    return JSON.parse(this.cookieService.getCookie('currentUser'));
   }
 
   getStateWisePropertyCount(userId): any {
@@ -549,39 +553,72 @@ export class GeneralService {
     return this.http.get(`${loanTypePVRStatus}${UserID}`, httpOptions);
   }
   UploadPhotosAndVideos(propertyID, Data): any {
-    return this.http.post(`${apiUrl}property/${propertyID}/photograph/add`, Data, httpFileUploadOptions)
+    return this.http.post(
+      `${apiUrl}property/${propertyID}/photograph/add`,
+      Data,
+      httpFileUploadOptions
+    );
   }
   DisposeLegalCase(LegalCaseID, Data): any {
-    return this.http.post(`${apiUrl}property/legal/Case/Decision/Document/${LegalCaseID}`, Data, httpFileUploadOptions)
+    return this.http.post(
+      `${apiUrl}property/legal/Case/Decision/Document/${LegalCaseID}`,
+      Data,
+      httpFileUploadOptions
+    );
   }
   UploadLegalCaseDocument(LegalCaseID, Data): any {
-    return this.http.post(`${apiUrl}property/legal/Case/Document/${LegalCaseID}`, Data, httpFileUploadOptions)
+    return this.http.post(
+      `${apiUrl}property/legal/Case/Document/${LegalCaseID}`,
+      Data,
+      httpFileUploadOptions
+    );
   }
   GetLegalCaseDocument(LegalCaseID): any {
-    return this.http.get(`${apiUrl}property/legal/Case/View/Document/${LegalCaseID}`, httpOptions)
+    return this.http.get(
+      `${apiUrl}property/legal/Case/View/Document/${LegalCaseID}`,
+      httpOptions
+    );
   }
   GetTrusteeTypes(): any {
     return this.http.get(`${trusteeType}`, httpOptions);
   }
   AddTrust(Data): any {
-    return this.http.post(`${addTrust}`, Data, httpOptions)
+    return this.http.post(`${addTrust}`, Data, httpOptions);
   }
   GetTrustinfo(TrustID): any {
     return this.http.get(`${viewTrust}${TrustID}`, httpOptions);
   }
   SelectExistingProperty(TrustID, PropertyID, CreatedBy): any {
-    return this.http.post(`${selectExistingProperty}`, { TrustID, PropertyID, CreatedBy }, httpOptions);
+    return this.http.post(
+      `${selectExistingProperty}`,
+      { TrustID, PropertyID, CreatedBy },
+      httpOptions
+    );
   }
   RemovePropertyFromTrust(TrustID, PropertyID): any {
-    return this.http.delete(`${removePropertyFromTrust}${TrustID}/${PropertyID}`, httpOptions);
+    return this.http.delete(
+      `${removePropertyFromTrust}${TrustID}/${PropertyID}`,
+      httpOptions
+    );
   }
   AddMeeting(TrustID, Data): any {
-    return this.http.post(`${trustAddMeeting}${TrustID}`, Data, httpFileUploadOptions)
+    return this.http.post(
+      `${trustAddMeeting}${TrustID}`,
+      Data,
+      httpFileUploadOptions
+    );
   }
   CancelMEeting(MeetingID): any {
-    return this.http.delete(`${cancelMeeting}${MeetingID}`, httpOptions)
+    return this.http.delete(`${cancelMeeting}${MeetingID}`, httpOptions);
   }
   CompleteMeeting(MeetingID, Data): any {
-    return this.http.put(`${cancelMeeting}${MeetingID}`, Data, httpFileUploadOptions)
+    return this.http.put(
+      `${cancelMeeting}${MeetingID}`,
+      Data,
+      httpFileUploadOptions
+    );
+  }
+  AddFund(data): any {
+    return this.http.post(`${addFund}`, data, httpFileUploadOptions);
   }
 }

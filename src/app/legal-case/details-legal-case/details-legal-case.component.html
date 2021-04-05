@@ -42,19 +42,15 @@
         </a>
         <div class="dropdown-menu dropdown-menu-right" ngbDropdownMenu>
           <a
+            *ngIf="status != 2"
             class="dropdown-item"
-            [ngClass]="{
-              disabled: status == 2
-            }"
             href="javascript:void(0);"
             (click)="AddHearing()"
             >Add Or Change Hearing Date</a
           >
           <a
             class="dropdown-item"
-            [ngClass]="{
-              disabled: status == 2
-            }"
+            *ngIf="status != 2"
             href="javascript:void(0);"
             (click)="AddAct()"
             >Add Act</a
@@ -63,26 +59,20 @@
           <a
             class="dropdown-item"
             href="javascript:void(0);"
-            [ngClass]="{
-              disabled: status == 2
-            }"
+            *ngIf="status != 2"
             (click)="AddPetitioner()"
             >Add Petitioner</a
           >
           <a
             class="dropdown-item"
             href="javascript:void(0);"
-            [ngClass]="{
-              disabled: status == 2
-            }"
+            *ngIf="status != 2"
             (click)="AddRespondent()"
             >Add Respondent</a
           >
           <a
             class="dropdown-item"
-            [ngClass]="{
-              disabled: status == 2
-            }"
+            *ngIf="status != 2"
             href="javascript:void(0);"
             (click)="AddLawyer()"
             >Add Lawyer</a
@@ -98,9 +88,7 @@
           >
           <a
             class="dropdown-item"
-            [ngClass]="{
-              disabled: status == 2
-            }"
+            *ngIf="status != 2"
             (click)="CaseDispose()"
             href="javascript:void(0);"
             >Case Dispose</a
@@ -524,6 +512,7 @@
                     type="text"
                     class="form-control"
                     formControlName="Name"
+                    placeholder="Enter Name"
                     maxlength="255"
                     [ngClass]="{
                       'is-invalid':
@@ -554,6 +543,7 @@
                     type="text"
                     class="form-control"
                     formControlName="Email"
+                    placeholder="Enter Email"
                     [ngClass]="{
                       'is-invalid':
                         submited &&
@@ -591,6 +581,7 @@
                     type="text"
                     class="form-control"
                     formControlName="Mobile"
+                    placeholder="Enter Mobile Number"
                     maxlength="10"
                     [ngClass]="{
                       'is-invalid':
@@ -642,8 +633,7 @@
               <ng-select
                 class="form-control"
                 formControlName="LawyerID"
-                placeholder="
-              Select State"
+                placeholder="Select State"
                 [ngClass]="{
                   'is-invalid': submited && g.LawyerID.errors
                 }"
@@ -714,6 +704,7 @@
                     type="text"
                     class="form-control"
                     formControlName="Name"
+                    placeholder="Enter Name"
                     maxlength="255"
                     [ngClass]="{
                       'is-invalid':
@@ -744,6 +735,7 @@
                     type="text"
                     class="form-control"
                     formControlName="Email"
+                    placeholder="Enter Email"
                     [ngClass]="{
                       'is-invalid':
                         submited &&
@@ -781,6 +773,7 @@
                     type="text"
                     class="form-control"
                     formControlName="Mobile"
+                    placeholder="Enter Mobile Number"
                     maxlength="10"
                     [ngClass]="{
                       'is-invalid':

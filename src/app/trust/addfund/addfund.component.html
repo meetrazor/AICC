@@ -1,64 +1,163 @@
-<form class="form-row" [formGroup]="fundForm" (ngSubmit)="addFund()">
+<form class="form-row" [formGroup]="fundForm" (ngSubmit)="onSubmit()">
   <div class="col-12">
     <div class="">
       <div class="card-body">
         <div class="form-group mb-3">
-          <label for="simpleinput"><b>Fund Amount:</b></label>
+          <h4 class="header-title">Fund Amount *</h4>
           <input
             type="text"
             class="form-control"
-            placeholder=""
-            formControlName="fundamount"
+            placeholder="Enter Fund Amount"
+            formControlName="FundAmount"
             [ngClass]="{
-              'is-invalid': submitted && f.fundamount.errors
+              'is-invalid': submitted && f.FundAmount.errors
             }"
           />
           <div
-            *ngIf="submitted && f.fundamount.errors"
+            *ngIf="submitted && f.FundAmount.errors"
             class="invalid-feedback"
           >
-            <div *ngIf="f.fundamount.errors.required">
+            <div *ngIf="f.FundAmount.errors.required">
               Fund Amount is Required
             </div>
-            <div *ngIf="f.fundamount.errors.pattern">
+            <div *ngIf="f.FundAmount.errors.pattern">
               Fund Amount Must be Valid And Only Numeric Allowed
             </div>
           </div>
         </div>
         <div class="form-group mb-3">
-          <label for="simpleinput"><b>Fund Reg.Date</b></label>
+          <h4 class="header-title">Fund Reg.Date *</h4>
           <input
             type="text"
             class="form-control"
             id="example-date"
             type="date"
-            placeholder=""
-            formControlName="funddate"
+            placeholder="Enter Fund Reg.Date"
+            formControlName="FundRegisterDate"
             [ngClass]="{
-              'is-invalid': submitted && f.funddate.errors
+              'is-invalid': submitted && f.FundRegisterDate.errors
             }"
           />
-          <div *ngIf="submitted && f.funddate.errors" class="invalid-feedback">
-            <div *ngIf="f.funddate.errors.required">
+          <div
+            *ngIf="submitted && f.FundRegisterDate.errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="f.FundRegisterDate.errors.required">
               Fund Reg.Date is Required
             </div>
           </div>
         </div>
         <div class="form-group mb-3">
-          <label for="simpleinput"><b>Fund Reg.Year</b></label>
+          <h4 class="header-title">Fund Next Due.Date *</h4>
+          <input
+            type="text"
+            class="form-control"
+            id="example-date"
+            type="date"
+            placeholder="Enter Fund Next Due.Date"
+            formControlName="FundNextDueDate"
+            [ngClass]="{
+              'is-invalid': submitted && f.FundNextDueDate.errors
+            }"
+          />
+          <div
+            *ngIf="submitted && f.FundNextDueDate.errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="f.FundNextDueDate.errors.required">
+              Fund Next Due.Date is Required
+            </div>
+          </div>
+        </div>
+        <div class="form-group mb-3">
+          <h4 class="header-title">Fund Reg.Year *</h4>
           <input
             type="text"
             class="year-own form-control"
             type="year"
-            placeholder=""
-            formControlName="fundyear"
+            placeholder="Enter Fund Reg.Year"
+            formControlName="FinYear"
             [ngClass]="{
-              'is-invalid': submitted && f.fundyear.errors
+              'is-invalid': submitted && f.FinYear.errors
             }"
           />
-          <div *ngIf="submitted && f.fundyear.errors" class="invalid-feedback">
-            <div *ngIf="f.fundyear.errors.required">
+          <div *ngIf="submitted && f.FinYear.errors" class="invalid-feedback">
+            <div *ngIf="f.FinYear.errors.required">
               Fund Reg.Year is Required
+            </div>
+          </div>
+        </div>
+        <div class="form-group mb-3">
+          <h4 class="header-title">Agenda Document Upload *</h4>
+          <p class="text-muted font-13 m-b-30"></p>
+          <!-- file upload -->
+          <file-upload
+            class="dropzone"
+            multiple="false"
+            isAnimationDisabled="true"
+            listVisible="true"
+            zoomText="zoomOut"
+            #Files
+            accept="image/gif,image/png,image/jpeg,application/pdf"
+            type="file"
+            maxsize="20mb"
+            (ngModelChange)="onchange($event)"
+            [ngClass]="{
+              'is-invalid': submitted && f.uploadfile.errors
+            }"
+            formControlName="uploadfile"
+          ></file-upload>
+          <div
+            *ngIf="submitted && f.uploadfile.errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="f.uploadfile.errors.sizeRange">
+              File size is exceed 20 Mb Limit
+            </div>
+            <div *ngIf="f.uploadfile.errors.required">Please Add file</div>
+          </div>
+        </div>
+
+        <div class="form-group mb-3">
+          <h4 class="header-title">File Name *</h4>
+          <input
+            class="form-control"
+            id="example-input"
+            placeholder="Enter File Name"
+            formControlName="FileName"
+            maxlength="25"
+            [ngClass]="{
+              'is-invalid': submitted && f.FileName.errors
+            }"
+          />
+          <div *ngIf="submitted && f.FileName.errors" class="invalid-feedback">
+            <div *ngIf="f.FileName.errors.required">File Name is Required</div>
+            <div *ngIf="f.FileName.errors.pattern">
+              Only alphanumeric characters allowed
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group mb-3">
+          <h4 class="header-title">File Description *</h4>
+
+          <textarea
+            class="form-control"
+            id="example-textarea"
+            rows="3"
+            placeholder="Enter File Description"
+            formControlName="Description"
+            maxlength="55"
+            [ngClass]="{
+              'is-invalid': submitted && f.Description.errors
+            }"
+          ></textarea>
+          <div
+            *ngIf="submitted && f.Description.errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="f.Description.errors.required">
+              File Description is Required
             </div>
           </div>
         </div>
@@ -98,3 +197,6 @@
     </div>
   </div>
 </form>
+<div class="card-disabled" *ngIf="isLoading">
+  <div class="card-portlets-loader"></div>
+</div>

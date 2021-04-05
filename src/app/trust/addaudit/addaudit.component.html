@@ -3,11 +3,11 @@
     <div class="">
       <div class="card-body">
         <div class="form-group mb-3">
-          <label for="simpleinput"><b>Year</b></label>
+          <h4 class="header-title">Year *</h4>
           <input
             type="text"
             class="form-control"
-            placeholder=""
+            placeholder="Enter Year"
             formControlName="year"
             [ngClass]="{
               'is-invalid': submitted && f.year.errors
@@ -21,11 +21,11 @@
           </div>
         </div>
         <div class="form-group mb-3">
-          <label for="simpleinput"><b>Audit Date</b></label>
+          <h4 class="header-title">Audit Date *</h4>
           <input
             type="date"
             class="form-control"
-            placeholder=""
+            placeholder="Enter Audit Date"
             formControlName="date"
             [ngClass]="{
               'is-invalid': submitted && f.date.errors
@@ -39,11 +39,11 @@
           </div>
         </div>
         <div class="form-group mb-3">
-          <label for="simpleinput"><b>Name</b></label>
+          <h4 class="header-title">Name *</h4>
           <input
             type="text"
             class="form-control"
-            placeholder=""
+            placeholder="Enter Name"
             formControlName="name"
             [ngClass]="{
               'is-invalid': submitted && f.name.errors
@@ -57,11 +57,11 @@
           </div>
         </div>
         <div class="form-group mb-3">
-          <label for="simpleinput"><b>Email</b></label>
+          <h4 class="header-title">Email *</h4>
           <input
             type="text"
             class="form-control"
-            placeholder=""
+            placeholder="Enter Email"
             formControlName="email"
             [ngClass]="{
               'is-invalid': submitted && f.email.errors
@@ -69,17 +69,15 @@
           />
           <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
             <div *ngIf="f.email.errors.required">Email is Required</div>
-            <div *ngIf="f.email.errors.pattern">
-              Email Must be Valid And Only Alphanumeric Allowed
-            </div>
+            <div *ngIf="f.email.errors.pattern">Email Must be Valid</div>
           </div>
         </div>
         <div class="form-group mb-3">
-          <label for="simpleinput"><b>Mobile</b></label>
+          <h4 class="header-title">Mobile *</h4>
           <input
             type="text"
             class="form-control"
-            placeholder=""
+            placeholder="Enter Mobile"
             formControlName="mobile"
             [ngClass]="{
               'is-invalid': submitted && f.mobile.errors
@@ -88,7 +86,7 @@
           <div *ngIf="submitted && f.mobile.errors" class="invalid-feedback">
             <div *ngIf="f.mobile.errors.required">Mobile is Required</div>
             <div *ngIf="f.mobile.errors.pattern">
-              Mobile Must be Valid And Only Alphanumeric Allowed
+              Mobile Must be Valid And Only Numeric Allowed
             </div>
             <span
               *ngIf="f.mobile.errors.maxlength || f.mobile.errors.minlength"

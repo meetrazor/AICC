@@ -3,11 +3,11 @@
     <div class="">
       <div class="card-body">
         <div class="form-group mb-3">
-          <label for="simpleinput"><b>Meeting Title</b></label>
+          <h4 class="header-title">Meeting Title *</h4>
           <input
             type="text"
             class="form-control"
-            placeholder="Meeting Title"
+            placeholder="Enter Meeting Title"
             formControlName="MeetingTitle"
             [ngClass]="{
               'is-invalid': submitted && f.MeetingTitle.errors
@@ -26,11 +26,11 @@
           </div>
         </div>
         <div class="form-group mb-3">
-          <label for="simpleinput"><b>Meeting Time</b></label>
+          <h4 class="header-title">Meeting Date Time *</h4>
           <input
             type="datetime-local"
             class="form-control"
-            placeholder=""
+            placeholder="Enter Meeting Date Time"
             formControlName="MeetingdateTime"
             min="{{ Date | date: 'yyyy-MM-ddTHH:mm' }}"
             [ngClass]="{
@@ -42,17 +42,17 @@
             class="invalid-feedback"
           >
             <div *ngIf="f.MeetingdateTime.errors.required">
-              Meeting Time is Required
+              Meeting Date Time is Required
             </div>
           </div>
         </div>
         <div class="form-group mb-3">
-          <label for="simpleinput"><b>Venue</b></label>
+          <h4 class="header-title">Venue *</h4>
           <input
             type="text"
             class="form-control"
             placeholder="Venue"
-            formControlName="venue"
+            formControlName="Enter Venue"
             [ngClass]="{
               'is-invalid': submitted && f.venue.errors
             }"

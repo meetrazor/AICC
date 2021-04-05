@@ -3,23 +3,27 @@
     <table class="table table-responsive nowrap dataTable no-footer dtr-inline">
       <tr>
         <th>First Hearing Date :</th>
-        <td>{{ data.FirstHearingDate | date: "dd-MM-yyyy" }}</td>
+        <td>{{ data.FirstHearingDate | date: 'dd-MM-yyyy' }}</td>
       </tr>
       <tr *ngIf="casedata.CaseDetails.Status == 1" class="text-danger">
         <th>Next Hearing Date :</th>
-        <td>{{ data.HearingDate | date: "dd-MM-yyyy" }}</td>
+        <td>{{ data.HearingDate | date: 'dd-MM-yyyy' }}</td>
       </tr>
       <tr *ngIf="casedata.CaseDetails.Status == 2" class="text-success">
         <th>Dispose Date :</th>
-        <td>{{ casedata.CaseDetails.DecisionDate | date: "dd-MM-yyyy" }}</td>
+        <td>{{ casedata.CaseDetails.DecisionDate | date: 'dd-MM-yyyy' }}</td>
       </tr>
       <tr>
         <th>Stage of Case :</th>
-        <td>{{ casedata.CaseDetails.Status == 1 ? "OnGoing" : "Dispose" }}</td>
+        <td>{{ casedata.CaseDetails.Status == 1 ? 'OnGoing' : 'Dispose' }}</td>
       </tr>
       <tr>
-        <th>Court Number and Judge :</th>
-        <td>{{ data.CourtNumber }} , {{ data.Judge }}</td>
+        <th>Court Number :</th>
+        <td>{{ data.CourtNumber }}</td>
+      </tr>
+      <tr>
+        <th>Judge :</th>
+        <td>{{ data.Judge }}</td>
       </tr>
     </table>
   </div>

@@ -76,11 +76,14 @@
         <ng-template ngbTabContent>
           <div class="row">
             <div class="col-md-8">
-              <app-view-legal-case [PropertyID]="propertyID">
+              <app-view-legal-case [refresh]="count" [PropertyID]="propertyID">
               </app-view-legal-case>
             </div>
             <div class="col-md-4">
-              <app-add-legal-case PropertyID="{{ propertyID }}">
+              <app-add-legal-case
+                (reFresh)="refresh()"
+                PropertyID="{{ propertyID }}"
+              >
               </app-add-legal-case>
             </div>
           </div>
