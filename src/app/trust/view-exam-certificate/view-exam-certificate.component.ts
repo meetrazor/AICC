@@ -1,8 +1,16 @@
 import { DatePipe } from '@angular/common';
-import { Component, Input, OnInit, Renderer2, ViewChild } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  Renderer2,
+  SimpleChanges,
+  ViewChild,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
+import { GeneralService } from 'src/app/services/general.service';
 
 @Component({
   selector: 'app-view-exam-certificate',
@@ -11,75 +19,32 @@ import { Subject } from 'rxjs';
 })
 export class ViewExamCertificateComponent implements OnInit {
   @Input() trustID: number;
+  @Input() refresh: number;
   isdropdownShow: boolean;
-  data = [
-    {
-      certificatedate: '09/12/2020',
-      url:
-        'https://proplegit-dev.s3.ap-south-1.amazonaws.com/100/Documents/Legal/CaseID_46/FSWerOpenMenuv1.pdf',
-      year: '2021',
-      renewaldate: '10/12/2020',
-      id: 1,
-    },
-    {
-      certificatedate: '09/12/2020',
-      url:
-        'https://proplegit-dev.s3.ap-south-1.amazonaws.com/100/Documents/Legal/CaseID_46/FSWerOpenMenuv1.pdf',
-      year: '2021',
-      renewaldate: '10/12/2020',
-      id: 2,
-    },
-    {
-      certificatedate: '09/12/2020',
-      url:
-        'https://proplegit-dev.s3.ap-south-1.amazonaws.com/100/Documents/Legal/CaseID_46/FSWerOpenMenuv1.pdf',
-      year: '2021',
-      renewaldate: '10/12/2020',
-      id: 3,
-    },
-    {
-      certificatedate: '09/12/2020',
-      url:
-        'https://proplegit-dev.s3.ap-south-1.amazonaws.com/100/Documents/Legal/CaseID_46/FSWerOpenMenuv1.pdf',
-      year: '2021',
-      renewaldate: '10/12/2020',
-      id: 4,
-    },
-    {
-      certificatedate: '09/12/2020',
-      url:
-        'https://proplegit-dev.s3.ap-south-1.amazonaws.com/100/Documents/Legal/CaseID_46/FSWerOpenMenuv1.pdf',
-      year: '2021',
-      renewaldate: '10/12/2020',
-      id: 5,
-    },
-    {
-      certificatedate: '09/12/2020',
-      url:
-        'https://proplegit-dev.s3.ap-south-1.amazonaws.com/100/Documents/Legal/CaseID_46/FSWerOpenMenuv1.pdf',
-      year: '2021',
-      renewaldate: '10/12/2020',
-      id: 6,
-    },
-  ];
+  isLoading: boolean;
   dtOptions: DataTables.Settings = {};
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
   dtTrigger = new Subject();
+  data: any[];
 
   constructor(
     private router: Router,
     private renderer: Renderer2,
-    private datepipe: DatePipe
+    private datepipe: DatePipe,
+    private service: GeneralService
   ) {
     this.isdropdownShow = false;
   }
 
   ngOnInit() {
-    console.log(this.trustID);
-
     this.dtOptions = {
       data: this.data,
+      ajax: {
+        url: `${this.service.GetBaseUrl()}trust/ExemCertificate/list/${
+          this.trustID
+        }`,
+      },
       responsive: true,
       columns: [
         {
@@ -94,20 +59,23 @@ export class ViewExamCertificateComponent implements OnInit {
           data: null,
           render: (data) => {
             return this.datepipe.transform(
-              data.certificatedate,
+              data.DateofCertificate,
               'MMM, dd yyyy'
             );
           },
         },
         {
           title: 'Year',
-          data: 'year',
+          data: 'FinYear',
         },
         {
           title: 'Next Renewal Date',
           data: null,
           render: (data) => {
-            return this.datepipe.transform(data.renewaldate, 'MMM, dd yyyy');
+            return this.datepipe.transform(
+              data.NextRenewalDate,
+              'MMM, dd yyyy'
+            );
           },
         },
         {
@@ -137,12 +105,17 @@ export class ViewExamCertificateComponent implements OnInit {
   }
   ngAfterViewInit() {
     this.dtTrigger.next();
-    this.renderer.listen('document', 'click', (event) => {
-      if (event.target.hasAttribute('viewpropertyID')) {
-        this.router.navigate([
-          'property/view/' + event.target.getAttribute('viewpropertyID'),
-        ]);
-      }
-    });
+    // this.renderer.listen('document', 'click', (event) => {
+    //   if (event.target.hasAttribute('viewpropertyID')) {
+    //     this.router.navigate([
+    //       'property/view/' + event.target.getAttribute('viewpropertyID'),
+    //     ]);
+    //   }
+    // });
+  }
+  ngOnChanges(changes: SimpleChanges) {
+    if (!changes.refresh.firstChange) {
+      this.rerender();
+    }
   }
 }

@@ -72,6 +72,7 @@ const trustAddMeeting = `${apiUrl}trust/add/meeting/`;
 const cancelMeeting = `${apiUrl}trust/meeting/`;
 const addFund = `${apiUrl}trust/add/Fund`;
 const addAudit = `${apiUrl}trust/add/Audit`;
+const addExamCertificate = `${apiUrl}trust/add/ExemCertificate`;
 
 @Injectable({
   providedIn: 'root',
@@ -81,6 +82,9 @@ export class GeneralService {
     throw new Error('Method not implemented.');
   }
   addFund(trustID: number, arg1: any) {
+    throw new Error('Method not implemented.');
+  }
+  addExamCertificate(trustID: number, arg1: any) {
     throw new Error('Method not implemented.');
   }
   private userID: number;
@@ -627,5 +631,8 @@ export class GeneralService {
   }
   AddAudit(data): any {
     return this.http.post(`${addAudit}`, data, httpFileUploadOptions);
+  }
+  AddExamCertificate(data): any {
+    return this.http.post(`${addExamCertificate}`, data, httpFileUploadOptions);
   }
 }

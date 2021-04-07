@@ -77,10 +77,14 @@
             <div class="col-md-8">
               <app-view-exam-certificate
                 [trustID]="trustID"
+                [refresh]="Exam"
               ></app-view-exam-certificate>
             </div>
             <div class="col-md-4">
-              <app-add-exam-certificate></app-add-exam-certificate>
+              <app-add-exam-certificate
+                [trustID]="trustID"
+                (reFresh)="refreshExamCertificate()"
+              ></app-add-exam-certificate>
             </div>
           </div>
         </ng-template>
