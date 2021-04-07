@@ -71,11 +71,15 @@ const removePropertyFromTrust = `${apiUrl}trust/property/remove/`;
 const trustAddMeeting = `${apiUrl}trust/add/meeting/`;
 const cancelMeeting = `${apiUrl}trust/meeting/`;
 const addFund = `${apiUrl}trust/add/Fund`;
+const addAudit = `${apiUrl}trust/add/Audit`;
 
 @Injectable({
   providedIn: 'root',
 })
 export class GeneralService {
+  addAudit(arg0: any) {
+    throw new Error('Method not implemented.');
+  }
   addFund(trustID: number, arg1: any) {
     throw new Error('Method not implemented.');
   }
@@ -620,5 +624,8 @@ export class GeneralService {
   }
   AddFund(data): any {
     return this.http.post(`${addFund}`, data, httpFileUploadOptions);
+  }
+  AddAudit(data): any {
+    return this.http.post(`${addAudit}`, data, httpFileUploadOptions);
   }
 }

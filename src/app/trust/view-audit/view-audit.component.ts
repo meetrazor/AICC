@@ -1,8 +1,16 @@
 import { DatePipe } from '@angular/common';
-import { Component, Input, OnInit, Renderer2, ViewChild } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  Renderer2,
+  SimpleChanges,
+  ViewChild,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
+import { GeneralService } from 'src/app/services/general.service';
 
 @Component({
   selector: 'app-view-audit',
@@ -11,87 +19,32 @@ import { Subject } from 'rxjs';
 })
 export class ViewAuditComponent implements OnInit {
   @Input() trustID: number;
+  @Input() refresh: number;
   isdropdownShow: boolean;
-  data = [
-    {
-      year: '2021',
-      url:
-        'https://proplegit-dev.s3.ap-south-1.amazonaws.com/100/Documents/Legal/CaseID_46/FSWerOpenMenuv1.pdf',
-      auditdate: '10/12/2020',
-      name: 'Meet',
-      email: 'meet123@gmail.com',
-      mobile: '9123456789',
-      id: 1,
-    },
-    {
-      year: '2021',
-      url:
-        'https://proplegit-dev.s3.ap-south-1.amazonaws.com/100/Documents/Legal/CaseID_46/FSWerOpenMenuv1.pdf',
-      auditdate: '10/12/2020',
-      name: 'Meet',
-      email: 'meet123@gmail.com',
-      mobile: '9123456789',
-      id: 2,
-    },
-    {
-      year: '2021',
-      url:
-        'https://proplegit-dev.s3.ap-south-1.amazonaws.com/100/Documents/Legal/CaseID_46/FSWerOpenMenuv1.pdf',
-      auditdate: '10/12/2020',
-      name: 'Meet',
-      email: 'meet123@gmail.com',
-      mobile: '9123456789',
-      id: 3,
-    },
-    {
-      year: '2021',
-      url:
-        'https://proplegit-dev.s3.ap-south-1.amazonaws.com/100/Documents/Legal/CaseID_46/FSWerOpenMenuv1.pdf',
-      auditdate: '10/12/2020',
-      name: 'Meet',
-      email: 'meet123@gmail.com',
-      mobile: '9123456789',
-      id: 4,
-    },
-    {
-      year: '2021',
-      url:
-        'https://proplegit-dev.s3.ap-south-1.amazonaws.com/100/Documents/Legal/CaseID_46/FSWerOpenMenuv1.pdf',
-      auditdate: '10/12/2020',
-      name: 'Meet',
-      email: 'meet123@gmail.com',
-      mobile: '9123456789',
-      id: 5,
-    },
-    {
-      year: '2021',
-      url:
-        'https://proplegit-dev.s3.ap-south-1.amazonaws.com/100/Documents/Legal/CaseID_46/FSWerOpenMenuv1.pdf',
-      auditdate: '10/12/2020',
-      name: 'Meet',
-      email: 'meet123@gmail.com',
-      mobile: '9123456789',
-      id: 6,
-    },
-  ];
+  isLoading: boolean;
+
   dtOptions: DataTables.Settings = {};
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
   dtTrigger = new Subject();
+  data: any[];
 
   constructor(
     private router: Router,
     private renderer: Renderer2,
-    private datepipe: DatePipe
+    private datepipe: DatePipe,
+    private service: GeneralService
   ) {
     this.isdropdownShow = false;
   }
 
   ngOnInit() {
-    console.log(this.trustID);
-
+    this.isLoading = false;
     this.dtOptions = {
       data: this.data,
+      ajax: {
+        url: `${this.service.GetBaseUrl()}trust/Audit/list/${this.trustID}`,
+      },
       responsive: true,
       columns: [
         {
@@ -103,33 +56,33 @@ export class ViewAuditComponent implements OnInit {
         },
         {
           title: 'Year',
-          data: 'year',
+          data: 'FinYear',
         },
         {
           title: 'Audit Date',
           data: null,
           render: (data) => {
-            return this.datepipe.transform(data.auditdate, 'MMM, dd yyyy');
+            return this.datepipe.transform(data.AuditDate, 'MMM, dd yyyy');
           },
         },
-        {
-          title: 'Name',
-          data: 'name',
-        },
-        {
-          title: 'Email',
-          data: 'email',
-        },
-        {
-          title: 'Mobile',
-          data: 'mobile',
-        },
+        // {
+        //   title: 'Name',
+        //   data: 'name',
+        // },
+        // {
+        //   title: 'Email',
+        //   data: 'email',
+        // },
+        // {
+        //   title: 'Mobile',
+        //   data: 'mobile',
+        // },
         {
           title: 'Action',
           data: null,
           render(data) {
             return `<div style="display:flex">
-            <a title="View This Property" href="${data.url}">
+            <a title="View This Property" href="${data.FileUrl}">
             <i class="btn font-18 mdi mdi-eye-check text-secondary"></i></a></div>`;
           },
         },
@@ -151,12 +104,17 @@ export class ViewAuditComponent implements OnInit {
   }
   ngAfterViewInit() {
     this.dtTrigger.next();
-    this.renderer.listen('document', 'click', (event) => {
-      if (event.target.hasAttribute('viewpropertyID')) {
-        this.router.navigate([
-          'property/view/' + event.target.getAttribute('viewpropertyID'),
-        ]);
-      }
-    });
+    // this.renderer.listen('document', 'click', (event) => {
+    //   if (event.target.hasAttribute('viewpropertyID')) {
+    //     this.router.navigate([
+    //       'property/view/' + event.target.getAttribute('viewpropertyID'),
+    //     ]);
+    //   }
+    // });
+  }
+  ngOnChanges(changes: SimpleChanges) {
+    if (!changes.refresh.firstChange) {
+      this.rerender();
+    }
   }
 }

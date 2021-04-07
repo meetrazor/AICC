@@ -7,7 +7,14 @@ import {
 } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { GeneralService } from 'src/app/services/general.service';
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import Swal from 'sweetalert2';
 import { DatePipe } from '@angular/common';
 import { first } from 'rxjs/operators';
@@ -60,6 +67,8 @@ export class DetailsLegalCaseComponent implements OnInit {
   isFormLoading: boolean;
   @Input() CaseID: any;
   @Input() status: any;
+  @Output() refresh: EventEmitter<{}> = new EventEmitter();
+
   actForm: FormGroup;
   hearingForm: FormGroup;
   submited: boolean;
@@ -132,7 +141,8 @@ export class DetailsLegalCaseComponent implements OnInit {
               text: data.message,
               type: 'success',
             }).then(() => {
-              location.reload();
+              this.modalService.dismissAll();
+              this.refresh.emit();
             });
           } else {
             Swal.fire({
@@ -191,7 +201,8 @@ export class DetailsLegalCaseComponent implements OnInit {
               text: data.message,
               type: 'success',
             }).then(() => {
-              location.reload();
+              this.modalService.dismissAll();
+              this.refresh.emit();
             });
           } else {
             Swal.fire({
@@ -396,7 +407,8 @@ export class DetailsLegalCaseComponent implements OnInit {
               text: res.message,
               type: 'success',
             }).then(() => {
-              location.reload();
+              this.modalService.dismissAll();
+              this.refresh.emit();
             });
           }
         });
@@ -428,7 +440,8 @@ export class DetailsLegalCaseComponent implements OnInit {
               text: res.message,
               type: 'success',
             }).then(() => {
-              location.reload();
+              this.modalService.dismissAll();
+              this.refresh.emit();
             });
           }
         });
@@ -460,7 +473,8 @@ export class DetailsLegalCaseComponent implements OnInit {
               text: res.message,
               type: 'success',
             }).then(() => {
-              location.reload();
+              this.modalService.dismissAll();
+              this.refresh.emit();
             });
           }
         });
@@ -492,7 +506,8 @@ export class DetailsLegalCaseComponent implements OnInit {
               text: res.message,
               type: 'success',
             }).then(() => {
-              location.reload();
+              this.modalService.dismissAll();
+              this.refresh.emit();
             });
           }
         });
@@ -514,7 +529,8 @@ export class DetailsLegalCaseComponent implements OnInit {
             type: 'success',
             timer: 2000,
           }).then(() => {
-            location.reload();
+            this.modalService.dismissAll();
+            this.refresh.emit();
           });
         } else {
           Swal.fire({
@@ -522,7 +538,8 @@ export class DetailsLegalCaseComponent implements OnInit {
             text: data.message,
             type: 'error',
           }).then(() => {
-            location.reload();
+            this.modalService.dismissAll();
+            this.refresh.emit();
           });
         }
       });
