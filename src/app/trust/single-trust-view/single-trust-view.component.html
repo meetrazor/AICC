@@ -57,9 +57,17 @@
         <ng-template ngbTabContent class="nav-item">
           <div class="row">
             <div class="col-md-8">
-              <app-view-audit [trustID]="trustID"></app-view-audit>
+              <app-view-audit
+                [trustID]="trustID"
+                [refresh]="Audit"
+              ></app-view-audit>
             </div>
-            <div class="col-md-4"><app-addaudit></app-addaudit></div>
+            <div class="col-md-4">
+              <app-addaudit
+                [trustID]="trustID"
+                (reFresh)="refreshAudit()"
+              ></app-addaudit>
+            </div>
           </div>
         </ng-template>
       </ngb-tab>
@@ -69,10 +77,14 @@
             <div class="col-md-8">
               <app-view-exam-certificate
                 [trustID]="trustID"
+                [refresh]="Exam"
               ></app-view-exam-certificate>
             </div>
             <div class="col-md-4">
-              <app-add-exam-certificate></app-add-exam-certificate>
+              <app-add-exam-certificate
+                [trustID]="trustID"
+                (reFresh)="refreshExamCertificate()"
+              ></app-add-exam-certificate>
             </div>
           </div>
         </ng-template>

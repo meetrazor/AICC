@@ -72,12 +72,20 @@ const trustAddMeeting = `${apiUrl}trust/add/meeting/`;
 const cancelMeeting = `${apiUrl}trust/meeting/`;
 const addFund = `${apiUrl}trust/add/Fund`;
 const propertyDocumentType = `${apiUrl}property/document/type/list`;
+const addAudit = `${apiUrl}trust/add/Audit`;
+const addExamCertificate = `${apiUrl}trust/add/ExemCertificate`;
 
 @Injectable({
   providedIn: 'root',
 })
 export class GeneralService {
+  addAudit(arg0: any) {
+    throw new Error('Method not implemented.');
+  }
   addFund(trustID: number, arg1: any) {
+    throw new Error('Method not implemented.');
+  }
+  addExamCertificate(trustID: number, arg1: any) {
     throw new Error('Method not implemented.');
   }
   private userID: number;
@@ -630,5 +638,11 @@ export class GeneralService {
   }
   UploadPropertyDocumnent(propertyID, Data, confirm = ''): any {
     return this.http.post(`${apiUrl}property/${propertyID}/all/document/upload${confirm}`, Data, httpFileUploadOptions)
+  }
+  AddAudit(data): any {
+    return this.http.post(`${addAudit}`, data, httpFileUploadOptions);
+  }
+  AddExamCertificate(data): any {
+    return this.http.post(`${addExamCertificate}`, data, httpFileUploadOptions);
   }
 }

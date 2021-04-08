@@ -31,6 +31,7 @@
     *ngIf="item.isloaded"
     [CaseID]="item.LegalCaseID"
     [status]="item.Status"
+    (refresh)="ngOnInit()"
   ></app-details-legal-case>
 </app-custom-partlet>
 <div class="card-disabled" *ngIf="isloading">

@@ -11,8 +11,9 @@ import { GeneralService } from 'src/app/services/general.service';
 export class ViewLegalCaseComponent implements OnInit {
   datasource: any[];
   @Input() PropertyID: any;
-  @Input() refresh: any;
+  @Input() refresh: number = 0;
   isLoaded = false;
+  count: number;
   hearingData: any[] = [];
   actData: any[] = [];
   lawyerData: any[] = [];
@@ -137,5 +138,8 @@ export class ViewLegalCaseComponent implements OnInit {
   onShow(e) {
     const obj = this.datasource.find((x) => x.LegalCaseID == e);
     obj.isloaded = true;
+  }
+  pagerefresh() {
+    this.refresh++;
   }
 }
