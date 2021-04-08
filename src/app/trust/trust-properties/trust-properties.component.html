@@ -51,7 +51,7 @@
   <div class="modal-body p-4">
     <div class="container-fuild">
       <app-add-property
-        (close)="modal('Cross click')"
+        (close)="modal('Cross click'); rerender()"
         [TrustID]="trustID"
       ></app-add-property>
     </div>

@@ -1,5 +1,5 @@
 import { Router } from '@angular/router';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { GeneralService } from 'src/app/services/general.service';
 
@@ -15,6 +15,7 @@ export class DetailsPhotographComponent implements OnInit {
   pdfList: any = [];
   docList: any = [];
   @Input() propertyId: number;
+  @Input() reFresh: number;
   isLoading: boolean;
   constructor(private generalService: GeneralService, private sanitizer: DomSanitizer, private router: Router) {
 
@@ -42,6 +43,10 @@ export class DetailsPhotographComponent implements OnInit {
   onClickImage(e) {
     this.router.navigate(['/property/ViewPdf', e, 'photo']);
   }
-
+  ngOnChanges(changes: SimpleChanges) {
+    if (!changes.reFresh.firstChange) {
+      this.ngOnInit();
+    }
+  }
 
 }

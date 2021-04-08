@@ -24,7 +24,10 @@
         </ngb-tab>
         <ngb-tab title="Documents" class="nav-item">
           <ng-template ngbTabContent class="nav-item">
-            <app-case-documents [CaseID]="CaseID"></app-case-documents>
+            <app-case-documents
+              [saveDocument]=""
+              [CaseID]="CaseID"
+            ></app-case-documents>
           </ng-template>
         </ngb-tab>
       </ngb-tabset>

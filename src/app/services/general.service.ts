@@ -53,7 +53,7 @@ const fordemo = `${apiUrl}loan/Property/all/Document/Upload/`;
 const fordemochangestatus = `${apiUrl}loan/application/status/`;
 const Dashboard = `${apiUrl}loan/Dashboard/Count`;
 const cancelContract = `${apiUrl}property/tenant/ContractCancel/`;
-const propertyTaxAlert = `${apiUrl}propertyAlerts/tax/Property/`;
+const propertyTaxAlert = `${apiUrl}property/tax/notification/Property/`;
 const propertyRentAlert = `${apiUrl}propertyAlerts/rent/Property/`;
 const propertyCaseDetails = `${apiUrl}property/case/details/`;
 const propertyCaseTypes = `${apiUrl}property/legalcase/types/list`;
@@ -71,6 +71,7 @@ const removePropertyFromTrust = `${apiUrl}trust/property/remove/`;
 const trustAddMeeting = `${apiUrl}trust/add/meeting/`;
 const cancelMeeting = `${apiUrl}trust/meeting/`;
 const addFund = `${apiUrl}trust/add/Fund`;
+const propertyDocumentType = `${apiUrl}property/document/type/list`;
 
 @Injectable({
   providedIn: 'root',
@@ -89,7 +90,7 @@ export class GeneralService {
     private http: HttpClient,
     private cookieService: CookieService,
     private router: Router
-  ) {}
+  ) { }
 
   userRegister(userData): any {
     return this.http.post(register, userData, httpOptions);
@@ -326,16 +327,16 @@ export class GeneralService {
     }
   }
 
-  uploadTaxReceipt(propertyid, taxid, data): any {
+  uploadTaxReceipt(propertyid, taxid, data, confirm = ''): any {
     return this.http.post(
-      `${apiUrl}property/${propertyid}/tax/${taxid}/receipt/upload`,
+      `${apiUrl}property/${propertyid}/tax/${taxid}/receipt/upload${confirm}`,
       data,
       httpFileUploadOptions
     );
   }
-  uploadRentReceipt(rentid, data): any {
+  uploadRentReceipt(rentid, data, confirm = ''): any {
     return this.http.post(
-      `${apiUrl}property/rent/Upload/receipt/${rentid}`,
+      `${apiUrl}property/rent/Upload/receipt/${rentid}${confirm}`,
       data,
       httpFileUploadOptions
     );
@@ -552,9 +553,9 @@ export class GeneralService {
   GetLoanTypePVRStatus(UserID): any {
     return this.http.get(`${loanTypePVRStatus}${UserID}`, httpOptions);
   }
-  UploadPhotosAndVideos(propertyID, Data): any {
+  UploadPhotosAndVideos(propertyID, Data, confirm = ''): any {
     return this.http.post(
-      `${apiUrl}property/${propertyID}/photograph/add`,
+      `${apiUrl}property/${propertyID}/photograph/add${confirm}`,
       Data,
       httpFileUploadOptions
     );
@@ -566,9 +567,9 @@ export class GeneralService {
       httpFileUploadOptions
     );
   }
-  UploadLegalCaseDocument(LegalCaseID, Data): any {
+  UploadLegalCaseDocument(LegalCaseID, Data, confirm = ''): any {
     return this.http.post(
-      `${apiUrl}property/legal/Case/Document/${LegalCaseID}`,
+      `${apiUrl}property/legal/Case/Document/${LegalCaseID}${confirm}`,
       Data,
       httpFileUploadOptions
     );
@@ -620,5 +621,14 @@ export class GeneralService {
   }
   AddFund(data): any {
     return this.http.post(`${addFund}`, data, httpFileUploadOptions);
+  }
+  UploadTaxDemandNotice(propertyID, taxID, Data, confirm = ''): any {
+    return this.http.put(`${apiUrl}property/${propertyID}/tax/update/${taxID}${confirm}`, Data, httpFileUploadOptions)
+  }
+  GetPropertyDocumentType(): any {
+    return this.http.get(`${propertyDocumentType}`, httpOptions);
+  }
+  UploadPropertyDocumnent(propertyID, Data, confirm = ''): any {
+    return this.http.post(`${apiUrl}property/${propertyID}/all/document/upload${confirm}`, Data, httpFileUploadOptions)
   }
 }

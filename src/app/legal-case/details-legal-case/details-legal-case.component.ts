@@ -7,7 +7,7 @@ import {
 } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { GeneralService } from 'src/app/services/general.service';
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
 import Swal from 'sweetalert2';
 import { DatePipe } from '@angular/common';
 import { first } from 'rxjs/operators';
@@ -60,6 +60,7 @@ export class DetailsLegalCaseComponent implements OnInit {
   isFormLoading: boolean;
   @Input() CaseID: any;
   @Input() status: any;
+  saveDocument: number = 0;
   actForm: FormGroup;
   hearingForm: FormGroup;
   submited: boolean;
@@ -87,8 +88,6 @@ export class DetailsLegalCaseComponent implements OnInit {
   @ViewChild('DocumentForm', { static: true }) DocumentFormModal;
   @ViewChild('LawyerForm', { static: true }) LawyerFormModal;
   @ViewChild('CaseDisposalForm', { static: true }) CaseDisposalFromModal;
-
-  rerender;
 
   ngOnInit() {
     this.service.listLawyers().subscribe((res) => {
@@ -132,7 +131,7 @@ export class DetailsLegalCaseComponent implements OnInit {
               text: data.message,
               type: 'success',
             }).then(() => {
-              location.reload();
+
             });
           } else {
             Swal.fire({
@@ -191,7 +190,7 @@ export class DetailsLegalCaseComponent implements OnInit {
               text: data.message,
               type: 'success',
             }).then(() => {
-              location.reload();
+              this.saveDocument++;
             });
           } else {
             Swal.fire({

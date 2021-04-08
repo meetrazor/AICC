@@ -1,5 +1,5 @@
 import { GeneralService } from 'src/app/services/general.service';
-import { Component, Input, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, AfterViewInit, SimpleChanges } from '@angular/core';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 
@@ -10,6 +10,7 @@ import { Subject } from 'rxjs';
 })
 export class CaseDocumentsComponent implements OnInit, AfterViewInit {
   @Input() CaseID;
+  @Input() saveDocument;
   dtOptions: DataTables.Settings = {};
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
@@ -58,5 +59,21 @@ export class CaseDocumentsComponent implements OnInit, AfterViewInit {
   }
   ngAfterViewInit() {
     this.dtTrigger.next();
+  }
+  ngOnChanges(changes: SimpleChanges) {
+    console.log(changes);
+
+    if (!changes.saveDocument.firstChange) {
+      this.rerender();
+      // console.log(this.ngOnInit);
+    }
+  }
+  rerender(): void {
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      // Destroy the table first
+      dtInstance.destroy();
+      // Call the dtTrigger to rerender again
+      this.dtTrigger.next();
+    });
   }
 }

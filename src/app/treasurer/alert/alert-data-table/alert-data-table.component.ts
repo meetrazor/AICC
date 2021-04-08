@@ -34,12 +34,7 @@ export class AlertDataTableComponent implements OnInit, AfterViewInit {
         }, {
           title: 'Amount Due(₹)', data: 'AmountDue'
         }, {
-          title: 'Status', data: 'TaxStatus', render: (data) => {
-            if (data === 'Pending') {
-              return `<span class = "badge badge-danger p-1">${data}</span>`;
-            }
-            return `<span class = "badge badge-success p-1">${data}</span>`;
-          }
+          title: 'Tax Type', data: 'PropertyTaxName'
         }]
       };
     } else if (this.RentData) {

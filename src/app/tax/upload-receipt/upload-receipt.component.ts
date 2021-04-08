@@ -15,8 +15,8 @@ export class UploadReceiptComponent implements OnInit {
   ngOnInit() {
     this.propertyId = this.router.snapshot.params.propertyid;
     this.id = this.router.snapshot.params.id;
-    this.breadCrumbItems = [{ label: 'Dashboard', path: '/' }, { label: 'Properties', path: `/property/view/${this.propertyId}` },
-    { label: 'Upload Receipt', path: '', active: true }];
+    this.breadCrumbItems = [{ label: 'Dashboard', path: '/' }, { label: 'Properties', path: `/AICC/property/` },
+    { label: 'Tax', path: `/property/view/${this.propertyId}` }, { label: 'Upload Receipt', path: '', active: true }];
   }
 
 }

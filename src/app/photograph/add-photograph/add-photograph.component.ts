@@ -1,5 +1,5 @@
 import { Router } from '@angular/router';
-import { Component, Input, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { GeneralService } from 'src/app/services/general.service';
 import Swal from 'sweetalert2';
@@ -13,6 +13,7 @@ export class AddPhotographComponent implements OnInit {
   photographForm: FormGroup;
   file: any;
   @Input() propertyId: number;
+  @Output() refresh = new EventEmitter<void>();
   isLoading: boolean;
   submited: boolean;
   fileExtension: string;
@@ -110,30 +111,96 @@ export class AddPhotographComponent implements OnInit {
   onSubmit() {
     this.submited = true;
     if (this.photographForm.valid) {
-      // 1 is Property ID
       this.isLoading = true;
-      this.generalService.UploadPhotosAndVideos(this.propertyId, this.prepareSave())
-        .subscribe(data => {
-          this.isLoading = false;
-          this.photographForm.reset();
-          if (data.status === 200) {
+      this.generalService.UploadPhotosAndVideos(this.propertyId, this.prepareSave(), '?FileExistenceCheck=1')
+        .subscribe(
+          (data) => {
+            this.isLoading = false;
             this.submited = false;
-            Swal.fire({
-              title: 'Uploaded',
-              text: data.message,
-              type: 'success'
-            }).then(() => {
-              location.reload();
-            });
-          } else {
-            Swal.fire({
-              title: data.error_code,
-              text: data.message,
-              type: 'error'
-            });
-          }
-        });
+            if (data.error_code == 'ALREADY_EXISTS') {
+              Swal.fire({
+                title: data.error,
+                text: 'You want to Replace this?',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, Replace it!',
+                cancelButtonText: 'No, cancel!',
+                confirmButtonClass: 'btn btn-success mt-2',
+                cancelButtonClass: 'btn btn-danger ml-2 mt-2',
+                buttonsStyling: false
+              }).then((result) => {
+                if (result.value) {
+                  this.isLoading = true;
+                  this.generalService.UploadPhotosAndVideos(this.propertyId, this.prepareSave(), '?FileExistenceCheck=0').subscribe((response) => {
+                    this.isLoading = false;
+                    if (response.error) {
+                      Swal.fire({
+                        title: response.error_code,
+                        text: response.error,
+                        type: 'error'
+                      });
+                      return;
+                    } else {
+                      Swal.fire({
+                        title: 'Document Added Successfully!',
+                        text: response.message,
+                        type: 'success'
+                      }).then(() => {
+                        this.refresh.emit();
+                        this.photographForm.controls.uploadfile.setValue([]);
+                      });
+                    }
+                  });
+
+                } else if (
+                  // Read more about handling dismissals
+                  result.dismiss === Swal.DismissReason.cancel
+                ) {
+                  Swal.fire({
+                    title: 'Cancelled',
+                    text: 'Your file is safe :)',
+                    type: 'error'
+                  });
+                }
+              });
+              return;
+            } else {
+              Swal.fire({
+                title: 'Document Added Successfully!',
+                text: data.message,
+                type: 'success',
+              }).then(() => {
+                this.refresh.emit();
+                this.photographForm.controls.uploadfile.setValue([]);
+              });
+            }
+          });
     }
+    // if (this.photographForm.valid) {
+    //   // 1 is Property ID
+    //   this.isLoading = true;
+    //   this.generalService.UploadPhotosAndVideos(this.propertyId, this.prepareSave())
+    //     .subscribe(data => {
+    //       this.isLoading = false;
+    //       this.photographForm.reset();
+    //       if (data.status === 200) {
+    //         this.submited = false;
+    //         Swal.fire({
+    //           title: 'Uploaded',
+    //           text: data.message,
+    //           type: 'success'
+    //         }).then(() => {
+    //           location.reload();
+    //         });
+    //       } else {
+    //         Swal.fire({
+    //           title: data.error_code,
+    //           text: data.message,
+    //           type: 'error'
+    //         });
+    //       }
+    //     });
+    // }
   }
 
 }

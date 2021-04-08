@@ -1,3 +1,4 @@
+import { FileUploadModule } from '@iplab/ngx-file-upload';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { RentModule } from './../rent/rent.module';
 
@@ -19,14 +20,15 @@ import { ComingSoonComponent } from './coming-soon/coming-soon.component';
 import { ViewPdfComponent } from './view-pdf/view-pdf.component';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { LegalCaseModule } from '../legal-case/legal-case.module';
+import { DataTablesModule } from 'angular-datatables';
 
 @NgModule({
   declarations: [AddPropertyComponent, EditPropertyComponent, SinglePropertyViewComponent,
     ViewPropertyComponent, ComingSoonComponent, ViewPdfComponent],
   imports: [
     CommonModule, PdfViewerModule,
-    PropertyRoutingModule,
-    FormsModule,
+    PropertyRoutingModule, DataTablesModule,
+    FormsModule, FileUploadModule,
     ReactiveFormsModule, NgSelectModule, LegalCaseModule,
     AutocompleteLibModule, UIModule, NgbTabsetModule, PhotographModule, TaxModule, TreasurerModule, RentModule
   ],

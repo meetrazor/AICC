@@ -11,12 +11,13 @@
         title="7 Days Before Due Date"
         Icon="mdi mdi-bell-alert"
         headerClass="h5 header-title"
+        anotherTitle="{{ taxAlertData.DueDate_between_7_1.length }}"
         collapsed="0"
         loading="0"
         color="white"
       >
         <app-alert-data-table
-          [TaxData]="taxAlertData.DueDateAfter7Days"
+          [TaxData]="taxAlertData.DueDate_between_7_1"
         ></app-alert-data-table>
       </app-portlet>
 
@@ -24,48 +25,52 @@
         title="15 Days Before Due Date"
         Icon="mdi mdi-bell-alert"
         headerClass="h5 header-title"
+        anotherTitle="{{ taxAlertData.DueDate_between_15_8.length }}"
         collapsed="0"
         loading="0"
         color="white"
       >
         <app-alert-data-table
-          [TaxData]="taxAlertData.DueDateAfter15Days"
+          [TaxData]="taxAlertData.DueDate_between_15_8"
         ></app-alert-data-table>
       </app-portlet>
       <app-portlet
         title="30 Days Before Due Date"
         Icon="mdi mdi-bell-alert"
         headerClass="h5 header-title"
+        anotherTitle="{{ taxAlertData.DueDate_between_30_16.length }}"
         collapsed="0"
         loading="0"
         color="white"
       >
         <app-alert-data-table
-          [TaxData]="taxAlertData.DueDateAfter30Days"
+          [TaxData]="taxAlertData.DueDate_between_30_16"
         ></app-alert-data-table>
       </app-portlet>
       <app-portlet
         title="Past Due Date"
         Icon="mdi mdi-bell-alert"
         headerClass="h5 header-title"
+        anotherTitle="{{ taxAlertData.DueDate_Past.length }}"
         collapsed="0"
         loading="0"
         color="white"
       >
         <app-alert-data-table
-          [TaxData]="taxAlertData.DueDatePast"
+          [TaxData]="taxAlertData.DueDate_Past"
         ></app-alert-data-table>
       </app-portlet>
       <app-portlet
         title="Today's Due"
         Icon="mdi mdi-bell-alert"
         headerClass="h5 header-title"
+        anotherTitle="{{ taxAlertData.DueDate_Today.length }}"
         collapsed="0"
         loading="0"
         color="white"
       >
         <app-alert-data-table
-          [TaxData]="taxAlertData.DueDateToday"
+          [TaxData]="taxAlertData.DueDate_Today"
         ></app-alert-data-table>
       </app-portlet>
     </app-portlet>

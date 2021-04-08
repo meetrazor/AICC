@@ -39,7 +39,7 @@ const handlerequired = (control: AbstractControl) => {
 export class AddPropertyComponent implements OnInit {
   @Input() TrustID: number;
   @Output() close = new EventEmitter<void>();
-  regex = "[a-zA-Z][a-z0-9A-Z ]+";
+  regex = "[a-zA-Z0-9][a-z0-9A-Z ]+";
   numericRegex = "[0-9]+";
   currentUser: any;
   returnvalue;
@@ -365,8 +365,8 @@ export class AddPropertyComponent implements OnInit {
       this.myForm.controls.CityWardNo.setValue(null);
       this.myForm.controls.CityWardName.setValue(null);
       this.myForm.controls.SheetNumber.setValue(null);
-      this.myForm.controls.NoOfBHK.setValue(null);
-      this.myForm.controls.milkatno_propId.setValue(null);
+      // this.myForm.controls.NoOfBHK.setValue(null);
+      // this.myForm.controls.milkatno_propId.setValue(null);
     } else if (this.myForm.controls.types.value == "citysurveyno") {
       this.myForm.controls.CitySurveyNo.enable();
       this.myForm.controls.CitySurveyOffice.enable();
@@ -603,7 +603,7 @@ export class AddPropertyComponent implements OnInit {
         Designation: new FormControl(i.Designation, Validators.pattern(this.regex)),
         MobileNo: new FormControl(i.MobileNo !== '0' ? i.MobileNo : null, [Validators.maxLength(10), Validators.minLength(10)]),
         Email: new FormControl(i.Email, Validators.pattern(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/)),
-        Address: new FormControl(i.Address, Validators.pattern(this.regex)),
+        Address: new FormControl(i.Address),
         InChargeFromDate: new FormControl(i.InChargeFromDate ?
           moment(i.InChargeFromDate).format("YYYY-MM-DD") : null
         ),
@@ -614,7 +614,7 @@ export class AddPropertyComponent implements OnInit {
         Designation: new FormControl('', Validators.pattern(this.regex)),
         MobileNo: new FormControl('', [Validators.maxLength(10), Validators.minLength(10)]),
         Email: new FormControl('', Validators.pattern(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/)),
-        Address: new FormControl('', Validators.pattern(this.regex)),
+        Address: new FormControl(''),
         InChargeFromDate: new FormControl(null),
       });
     }

@@ -1,7 +1,6 @@
 import { Component, OnInit, AfterViewInit, Input, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { first } from 'rxjs/operators';
 import { CookieService } from 'src/app/core/services/cookie.service';
 import { GeneralService } from 'src/app/services/general.service';
 
@@ -135,8 +134,7 @@ export class AddTaxComponent implements OnInit {
                       Swal.fire({
                         title: 'Tax Added Successfully!',
                         text: data.message,
-                        type: 'success',
-                        timer: 2000
+                        type: 'success'
                       }).then(() => {
                         this.refresh.emit();
                         this.taxForm.controls.uploadfile.setValue([]);
@@ -162,7 +160,6 @@ export class AddTaxComponent implements OnInit {
                 title: 'Tax Added Successfully!',
                 text: data.message,
                 type: 'success',
-                timer: 2000
               }).then(() => {
                 this.refresh.emit();
                 this.taxForm.controls.uploadfile.setValue([]);

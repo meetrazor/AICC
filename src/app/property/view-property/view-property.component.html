@@ -196,3 +196,168 @@
     <div class="card-portlets-loader"></div>
   </div>
 </div>
+<div class="my-3 border-top">
+  <app-portlet
+    title="Documents"
+    headerClass="h4 header-title p-0"
+    collapsed="0"
+    loading="0"
+    color="white"
+  >
+    <div class="float-right mb-3">
+      <button
+        class="btn btn-outline-info waves-effect waves-light"
+        (click)="AddDocument()"
+      >
+        Add Document
+      </button>
+    </div>
+    <div class="table-responsive">
+      <table
+        datatable
+        [dtOptions]="dtOptions"
+        [dtTrigger]="dtTrigger"
+        style="width: 100%"
+        class="table row-border hover thead-dark"
+      ></table> </div
+  ></app-portlet>
+</div>
+<ng-template #DocumentForm let-modal="close">
+  <div class="modal-header">
+    <h4 class="modal-title">Add Document</h4>
+    <button
+      type="button"
+      class="close"
+      (click)="modal('Cross click')"
+      aria-hidden="true"
+    >
+      <i class="mdi mdi-close"></i>
+    </button>
+  </div>
+  <div class="modal-body p-4">
+    <div class="container-fuild">
+      <form [formGroup]="documentForm" (ngSubmit)="onSaveDocumnt()">
+        <div class="container-fuild">
+          <div class="row">
+            <div class="col-lg-12 mb-3">
+              <div class="header-title"> Document Tyoe * </div>
+              <ng-select
+                class="form-control"
+                formControlName="PropertyDocumentTypeID"
+                placeholder="
+              Select Document Type"
+                [ngClass]="{
+                  'is-invalid': submited && a.PropertyDocumentTypeID.errors
+                }"
+              >
+                <ng-option
+                  *ngFor="let item of Documenttyprs"
+                  [value]="item.PropertyDocumentTypeID"
+                  [id]="item.PropertyDocumentTypeID"
+                  >{{ item.PropertyDocumentType }}</ng-option
+                >
+              </ng-select>
+            </div>
+            <div class="col-lg-12 mb-2">
+              <h4 class="header-title">File Upload *</h4>
+              <!-- file upload -->
+              <file-upload
+                class="dropzone"
+                multiple="false"
+                isAnimationDisabled="true"
+                listVisible="true"
+                zoomText="zoomOut"
+                #Files
+                accept="image/gif,image/png,image/jpeg,application/pdf"
+                type="file"
+                maxsize="20mb"
+                (ngModelChange)="onchange($event)"
+                [ngClass]="{
+                  'is-invalid': submited && a.uploadfile.errors
+                }"
+                formControlName="uploadfile"
+              ></file-upload>
+              <div
+                *ngIf="submited && a.uploadfile.errors"
+                class="invalid-feedback"
+              >
+                <div *ngIf="a.uploadfile.errors.sizeRange">
+                  File size is exceed 20 Mb Limit
+                </div>
+                <div *ngIf="a.uploadfile.errors.required">Please Add file</div>
+              </div>
+            </div>
+
+            <div class="col-md-12 mb-3">
+              <h4 class="header-title">File Name *</h4>
+              <input
+                class="form-control"
+                id="example-input"
+                placeholder="Enter File Name"
+                formControlName="FileName"
+                maxlength="25"
+                [ngClass]="{
+                  'is-invalid': submited && a.FileName.errors
+                }"
+              />
+              <div
+                *ngIf="submited && a.FileName.errors"
+                class="invalid-feedback"
+              >
+                <div *ngIf="a.FileName.errors.required">
+                  File Name is Required
+                </div>
+                <div *ngIf="a.FileName.errors.pattern">
+                  Only alphanumeric characters allowed
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-12 mb-3">
+              <h4 class="header-title">File Description *</h4>
+
+              <textarea
+                class="form-control"
+                id="example-textarea"
+                rows="3"
+                placeholder="Enter File Description"
+                formControlName="Description"
+                maxlength="55"
+                [ngClass]="{
+                  'is-invalid': submited && a.Description.errors
+                }"
+              ></textarea>
+              <div
+                *ngIf="submited && a.Description.errors"
+                class="invalid-feedback"
+              >
+                <div *ngIf="a.Description.errors.required">
+                  File Description is Required
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-disabled" *ngIf="Loading">
+            <div class="card-portlets-loader"></div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-secondary waves-effect"
+      (click)="modal('Cross click')"
+    >
+      Close
+    </button>
+    <button
+      type="button"
+      class="btn btn-primary waves-effect waves-light"
+      (click)="onSaveDocumnt()"
+    >
+      Add
+    </button>
+  </div>
+</ng-template>

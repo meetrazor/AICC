@@ -41,12 +41,19 @@ export class ConfirmComponent implements OnInit, AfterViewInit {
     private service: GeneralService, private formBuilder: FormBuilder, private router: Router, private cookieservice: CookieService) { }
 
   ngOnInit() {
+
     this.userID = this.service.getUserID();
+    if (!this.userID) {
+      this.router.navigate(['/']);
+    } else {
+      this.service.generateOTP(this.userID, this.obj).subscribe((res) => {
+        console.log(res);
+        this.submitdata.Email.ID = res.data[0].ID;
+        this.submitdata.SMS.ID = res.data[1].ID;
+      });
+    }
     // this.userID = 16;
-    this.service.generateOTP(this.userID, this.obj).subscribe((res) => {
-      this.submitdata.Email.ID = res.data[0].ID;
-      this.submitdata.SMS.ID = res.data[1].ID;
-    });
+
     this.OTPform = this.formBuilder.group({
       SMSOTP: ['', Validators.compose([Validators.required, Validators.pattern('[a-zA-Z0-9]{6}')])],
       EMAILOTP: ['', Validators.compose([Validators.required, Validators.pattern('[a-zA-Z0-9]{6}')])],

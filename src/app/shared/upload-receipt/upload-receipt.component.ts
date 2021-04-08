@@ -103,7 +103,7 @@ export class UploadReceiptComponent implements OnInit {
     ) {
       return false;
     }
-    if (e.target.value.length > 3) {
+    if (e.target.value.length > 7) {
       if (e.keyCode != 8) {
         return false;
       }
@@ -116,24 +116,62 @@ export class UploadReceiptComponent implements OnInit {
       // 1 is Property ID
       if (this.taxId && !this.rentId) {
         this.isLoading = true;
-        this.generalService.uploadTaxReceipt(this.propertyId, this.taxId, this.prepareSave())
+        this.generalService.uploadTaxReceipt(this.propertyId, this.taxId, this.prepareSave(), '?FileExistenceCheck=1')
           .subscribe(data => {
             this.isLoading = false;
-            this.photographForm.reset();
-            if (data.status === 200) {
+            if (data.error_code == 'ALREADY_EXISTS') {
               this.submited = false;
               Swal.fire({
-                title: 'Uploaded',
+                title: data.error,
+                text: 'You want to Replace this?',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, Replace it!',
+                cancelButtonText: 'No, cancel!',
+                confirmButtonClass: 'btn btn-success mt-2',
+                cancelButtonClass: 'btn btn-danger ml-2 mt-2',
+                buttonsStyling: false
+              }).then((result) => {
+                if (result.value) {
+                  this.isLoading = true;
+                  this.generalService.uploadTaxReceipt(this.propertyId, this.taxId, this.prepareSave(), '?FileExistenceCheck=0').subscribe((response) => {
+                    this.isLoading = false;
+                    if (response.error) {
+                      Swal.fire({
+                        title: response.error_code,
+                        text: response.error,
+                        type: 'error'
+                      });
+                      return;
+                    } else {
+                      Swal.fire({
+                        title: 'Tax Receipt Added Successfully!',
+                        text: response.message,
+                        type: 'success'
+                      }).then(() => {
+                        this.router.navigate([`/property/view/${this.propertyId}`]);
+                      });
+                    }
+                  });
+
+                } else if (
+                  // Read more about handling dismissals
+                  result.dismiss === Swal.DismissReason.cancel
+                ) {
+                  Swal.fire({
+                    title: 'Cancelled',
+                    text: 'Your tax file is safe :)',
+                    type: 'error'
+                  });
+                }
+              });
+            } else {
+              Swal.fire({
+                title: 'Tax Receipt Added Successfully!',
                 text: data.message,
                 type: 'success',
               }).then(() => {
                 this.router.navigate([`/property/view/${this.propertyId}`]);
-              });
-            } else {
-              Swal.fire({
-                title: data.error_code,
-                text: data.message,
-                type: 'error'
               });
             }
           });
